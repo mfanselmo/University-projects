@@ -1,0 +1,5 @@
+Style/ClassVars:
+  Enabled: false
+
+Layout/AccessModifierIndentation:
+  Enabled: true
