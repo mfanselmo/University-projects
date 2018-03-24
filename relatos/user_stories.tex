@@ -1,0 +1,74 @@
+\documentclass[12pt, letterpaper, notitlepage]{article}
+\usepackage{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{dirtytalk}
+
+\geometry{
+ letterpaper,
+ left=30mm,
+ right=30mm,
+ top=30mm,
+ bottom=30mm
+ }
+
+
+\newcommand{\ramo}{Ingeniería de Software}
+\newcommand{\sigla}{ IIC2143-2}
+
+\usepackage{fancyhdr}
+\usepackage{fancyvrb}
+\usepackage{subcaption}
+
+
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.35pt}
+\renewcommand{\footrulewidth}{0.35pt}
+\lhead{\footnotesize Pontificia Universidad Católica de Chile}
+\rhead{\footnotesize \ramo \sigla}
+\cfoot{\thepage}
+
+
+\usepackage{multicol}
+
+\title{\textbf{Entrega 0}}
+\author{Martín Anselmo, Ignacio Contreras, Rodrigo Hanuch}
+%\date{\today}
+
+\begin{document}
+
+\clearpage\maketitle
+\thispagestyle{empty}
+
+\newpage
+
+\section*{Relatos de usuario}
+\newcommand{\story}[3]{Como {#1}, quiero {#2} para {#3}.}
+
+\begin{enumerate}
+	\item \story{usuario}{recibir un correo electrónico cuando me subscriba a un foro}	
+		{asi poder ser notificado sin tener que meterme a la página web}
+	\item \story{usuario}{registrarme con mi correo electrónico}{para así no tener que 		dar información personal}
+	\item \story{usuario}{entrar a la página web con mi XXXXXXXX}{para poder recordar 			fácilmente mi \say{log-in}}
+	\item \story{usuario}{que me lleguen notificaciones cuando esté en la página web}				{asi poder saber que está pasando en los foros}
+	\item \story{administrador ????????}{que existan moderadores}{asi poder delegar el 		trabajo de administrador por foro}
+	\item \story{administrador}{que un usuario pueda pasar a ser un moderador con un
+		determinado puntaje}{asi evitar que todos puedan moderar el foro}
+	\item \story{???????}{que se asigne un puntaje por crear una publicación en un 				foro}{que así se pueda postular a \say{mejores cargos}}
+	\item \story{administrador/moderador}{poder aceptar o rechazar a un postulante de 			mi cargo}{tener mejor control y un chequeo previo de a quién se le va a dar el 		cargo}
+	\item \story{administrador/moderador}{poder responder a la postulación hecha}{así 			dar feedback}
+	\item \story{administrador}{poder crear foros}{así poder evitar que el resto lo 				haga y como consecuencia exista un exceso de estos}
+	\item \story{???????????}{que cuando el comentario de un usuario sea eliminado}				{disminuya su puntaje}
+	\item \story{visita}{poder ver los foros ya existentes}{asi poder ver los temas 				que me interesan sin tener que registrarme en la página}
+	\item \story{??????????}{que el administrador tenga un puntaje}{así poder decidir 			quién puede ser administrador y quién no tras una postulación}
+	\item \story{usuario}{poder recomendar una idea de foro a un administrador}{para 				que esta idea sea evaluada y posteriormente tener feedback de este foro 					hipotético}
+\end{enumerate}
+
+
+
+\end{document}
