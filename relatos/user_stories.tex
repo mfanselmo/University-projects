@@ -52,7 +52,7 @@
 
 \begin{enumerate}
 
-	\item \story{usuario}{recibir un correo electrónico cuando abra la cuenta}	
+	\item \story{usuario}{recibir un correo electrónico cuando cree una cuenta}	
 		{así tener una confirmación del proceso}
 		\begin{enumerate}
 			\item Validación de correo electrónico (que exista)
@@ -63,6 +63,7 @@
 		dar información personal}
 		\begin{enumerate}
 			\item Página de registro
+			\item Verificar contraseña (escribir dos veces)
 		\end{enumerate}
 		
 	\item \story{usuario}{entrar a la página web con mi XXXXXXXX}{para poder recordar
@@ -73,14 +74,15 @@
 		\end{enumerate}
 		
 	\item \story{usuario}{que me lleguen notificaciones cuando esté en la página web}		
-		{asi poder saber que está pasando en los foros}
+		{así poder saber que está pasando en los foros suscritos o comentados}
 		\begin{enumerate}
 			\item Sección de notificaciones en la página
 			\item Al interactuar con una publicación mandar cambios al servidor
+			\item Servidor manda aviso al usuario
 		\end{enumerate}
 		
-	\item \story{administrador ????????}{que existan moderadores}{asi poder delegar el 
-		trabajo de administrador por foro}
+	\item \story{administrador ????????}{que existan moderadores}{así poder delegar el 
+		trabajo de administrar los foros}
 		\begin{enumerate}
 			\item Niveles de usuario con distintas capacidades para hacer cosas
 			\item Moderadores son de un foro en específico
@@ -94,8 +96,8 @@
 			\item Llega mail a admin o moderador con la solicitud
 		\end{enumerate}
 		
-	\item \story{???????}{que se asigne un puntaje por crear una publicación en un 	
-		foro}{que así se pueda postular a \say{mejores cargos}}
+	\item \story{administrador}{que se asigne un puntaje por crear una publicación en un 	
+		foro}{que así los usuarios puedan postular a \say{mejores cargos}}
 		\begin{enumerate}
 			\item Cada usuario tiene un puntaje total
 			\item Diferentes acciones (upvotes) le dan un puntaje al creador del comentario, y otros quitan (downvote)	
@@ -104,8 +106,9 @@
 	\item \story{administrador/moderador}{poder aceptar o rechazar a un postulante de 	
 		mi cargo}{tener mejor control y un chequeo previo de a quién se le va a dar el cargo}
 		\begin{enumerate}
-			\item Generación de coreo electrónico con la solicitud y con la respuesta a esta
+			\item Generación de correo electrónico con la solicitud y con la respuesta a esta
 			\item Sólo se puede postular con determinado puntaje en adelante
+			\item Revisar su participación en el foro
 		\end{enumerate}
 		
 	\item \story{administrador/moderador}{poder responder a la postulación hecha}{así 
@@ -117,7 +120,7 @@
 	\item \story{administrador}{poder crear foros}{así poder evitar que el resto lo haga y como consecuencia exista un exceso de estos}
 		\begin{enumerate}
 			\item Administradores y moderadores tienen permisos especiales
-			\item Estos permisos se chequean cuando se trata de hcaer click ????????????
+			\item Estos permisos se chequean cuando se trata de hacer click ????????????
 		\end{enumerate}
 	
 	\item \story{???????????}{que cuando el comentario de un usuario sea eliminado disminuya su puntaje}{así poder \say{castigar} comentarios inapropiados}
