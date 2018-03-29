@@ -8,12 +8,12 @@
 \usepackage{dirtytalk}
 
 \geometry{
- letterpaper,
- left=30mm,
- right=30mm,
- top=30mm,
- bottom=30mm
- }
+	letterpaper,
+	left=30mm,
+	right=30mm,
+	top=30mm,
+	bottom=30mm
+}
 
 
 \newcommand{\ramo}{Ingeniería de Software}
@@ -41,198 +41,204 @@
 %\date{\today}
 
 \begin{document}
-
-\clearpage\maketitle
-\thispagestyle{empty}
-
-\newpage
-
-\section*{Relatos de usuario}
-\newcommand{\story}[3]{Como {#1}, quiero {#2} para {#3}.}
-
-\begin{enumerate}
-
-	\item \story{usuario}{poder registrarme en la aplicacion}	
+	
+	\clearpage\maketitle
+	\thispagestyle{empty}
+	
+	\newpage
+	
+	\section*{Relatos de usuario}
+	\newcommand{\story}[3]{Como {#1}, quiero {#2} para {#3}.}
+	
+	\begin{enumerate}
+		
+		\item \story{usuario}{poder registrarme en la aplicacion}	
 		{así poder guardar mis foros preferidos y otras preferencias.}
 		
-
-	\item \story{usuario}{recibir un correo electrónico cuando cree una cuenta}	
+		
+		\item \story{usuario}{recibir un correo electrónico cuando cree una cuenta}	
 		{así tener una confirmación del proceso}
 		\begin{enumerate}
 			\item Validación de correo electrónico (que exista)
 			\item Link de confirmación en el correo		
 		\end{enumerate}
 		
-	\item \story{usuario}{registrarme con mi correo electrónico}{para así no tener que 
-		dar información personal}
+		\item \story{usuario}{registrarme con mi correo electrónico}{para así no tener que 
+			dar información personal}
 		\begin{enumerate}
 			\item Página de registro
 			\item Verificar contraseña (escribir dos veces)
 		\end{enumerate}
-
-
-	\item \story{usuario}{poder cambiar informacion de mi usuario}{así arreglarla en caso de que algo cambie.}
-    	\begin{enumerate}
+		
+		
+		\item \story{usuario}{poder cambiar informacion de mi usuario}{así arreglarla en caso de que algo cambie.}
+		\begin{enumerate}
 			\item Página o pestaña de configuración de cuenta
 			\item Correo electrónico de confirmación
 		\end{enumerate}
-   
-   
-   \item \story{usuario}{poder hacer publicaciones}{así poder mostrarle cosas a otros usuarios o invitados}
-       	\begin{enumerate}
-			\item Dentro de la página del foto debe haber un cuadro u opción \say{Crear post} o similiar
+		
+		
+		\item \story{usuario}{poder hacer publicaciones}{así poder mostrarle cosas a otros usuarios o invitados}
+		\begin{enumerate}
+			\item Dentro de la página del foro debe haber un cuadro u opción \say{Crear post} o similiar
 		\end{enumerate}
-
-   
-   \item \story{usuario}{poder comentar publicaciones en los foros}{asi dar mi opinion en algun post, o responderle a otro usuario}
-       	\begin{enumerate}
+		
+		
+		\item \story{usuario}{poder comentar publicaciones en los foros}{asi dar mi opinión en algún post, o responderle a otro usuario}
+		\begin{enumerate}
 			\item Dentro de la página del foto debe haber un cuadro u opción de \say{Agregar comentario} o similar
 		\end{enumerate}
-
-   
-   \item \story{usuario}{poder votar en comentarios y publicaciones}{asi expresar lo que pienso de manera simple en publicaciones y comentarios}
-       	\begin{enumerate}
+		
+		
+		\item \story{usuario}{poder votar en comentarios y publicaciones}{asi expresar lo que pienso de manera simple en publicaciones y comentarios}
+		\begin{enumerate}
 			\item Comentarios de posts deben tener \say{Upvote} o \say{Downvote} para expresar el voto propio si se quiere
 		\end{enumerate}
-
 		
-	\item \story{usuario}{entrar a la página web con mi correo electrónico}{para poder recordar
-		fácilmente mi \say{log-in}}
+		
+		\item \story{usuario}{entrar a la página web con mi correo electrónico}{para poder recordar
+			fácilmente mi \say{log-in}}
 		\begin{enumerate}
 			\item Página de Log-In
 			\item Comprobación de usuario y contraseña correcta
 		\end{enumerate}
 		
-	\item \story{usuario}{que me lleguen notificaciones cuando esté en la página web}		
+		\item \story{usuario}{que me lleguen notificaciones cuando esté en la página web}		
 		{así poder saber que está pasando en los foros suscritos o comentados}
 		\begin{enumerate}
 			\item Sección de notificaciones en la página
 			\item Al interactuar con una publicación mandar cambios al servidor
 			\item Servidor manda aviso al usuario
 		\end{enumerate}
-
-
-
-
-	\item \story{usuario}{poder guardar y eliminar publicaciones en mis favoritos}{asi verlas mas facilmente si quiero volver a ellas.}
-    	\begin{enumerate}
+		
+		
+		
+		
+		\item \story{usuario}{poder guardar y eliminar publicaciones en mis favoritos}{asi verlas mas facilmente si quiero volver a ellas.}
+		\begin{enumerate}
 			\item Dentro de perfil presentar una lista de favoritos (posiblemente en forma de scroll) junto con la información de la cuenta
 			\item Poder eliminar una publicación desde la lista y agregar a la lista desde los posts
 		\end{enumerate}
-
-    
-    \item \story{usuario}{poder ver un ranking de foros con mas suscriptores}{asi saber que esta de moda en el momento}
-    	\begin{enumerate}
+		
+		\item \story{usuario}{poder editar y eliminar comentarios realizados}{borrar las que no me gusten o emjorar respuestas.}
+		\begin{enumerate}
+			\item Dentro de perfil presentar una lista de favoritos (posiblemente en forma de scroll) junto con la información de la cuenta
+			\item Poder eliminar una publicación desde la lista y agregar a la lista desde los posts
+		\end{enumerate}
+		
+		
+		\item \story{usuario}{poder ver un ranking de foros con mas suscriptores}{asi saber que esta de moda en el momento}
+		\begin{enumerate}
 			\item Implementar una lista de foros y poder filtrar por cantidad de subscriptores
 			\item Foros deben tener un número de subscriptores que se actualice en la base de datos con cada subscripción o desubscripción
 		\end{enumerate}
-
-    
-    \item \story{usuario}{poder ver un ranking de usuarios con mas reputacion}{asi saber quienes tienen las mejores publicaciones y verlas.}
-    	\begin{enumerate}
+		
+		
+		\item \story{usuario}{poder ver un ranking de usuarios con mas reputacion}{asi saber quienes tienen las mejores publicaciones y verlas.}
+		\begin{enumerate}
 			\item Sección de usuarios y poder filtrarlos por reputación y ordenarlos
 		\end{enumerate}
-
-    
-    \item \story{usuario}{poder buscar foros por nombre}{encontrar de manera sencilla foros con mis gustos}
-    	\begin{enumerate}
+		
+		
+		\item \story{usuario}{poder buscar foros por nombre}{encontrar de manera sencilla foros con mis gustos}
+		\begin{enumerate}
 			\item Barra de búsqueda de foros por nombres exactos
 		\end{enumerate}
-
-    
-    \item \story{usuario}{poder buscar publicaciones en un foro}
-    {poder buscar algo especifico dentro de un foro, y no tener que pasar por muchas publicaciones antes de encontrar lo que quiero}
-    	\begin{enumerate}
+		
+		
+		\item \story{usuario}{poder buscar publicaciones en un foro}
+		{poder buscar algo especifico dentro de un foro, y no tener que pasar por muchas publicaciones antes de encontrar lo que quiero}
+		\begin{enumerate}
 			\item Barra de búsqueda general que se pueda aplicar a foro, por ejemplo \say{$<$Nombre Foro$>$ + $<$contenido publicación$>$}
 		\end{enumerate}
-
-    
-    \item \story{usuario}{poder buscar subscribirme y desubscribirme facilmente a un foro}{así poder ajustar convenientemente los temas que veo}
-    	\begin{enumerate}
+		
+		
+		\item \story{usuario}{poder buscar subscribirme y desubscribirme facilmente a un foro}{así poder ajustar convenientemente los temas que veo}
+		\begin{enumerate}
 			\item Implementar botón en la página inicial del foro boton de subscripción
 		\end{enumerate}
-
-    
-    \item \story{usuario}{poder ver los foros recientemente creados}{saber que esta surgiendo y quizas encontrar nuevos foros favoritos}
-    	\begin{enumerate}
-            \item Implementar foros recientemente creados en la página de inicio y aquellos que tengan más visitas
+		
+		
+		\item \story{usuario}{poder ver los foros recientemente creados}{saber que esta surgiendo y quizas encontrar nuevos foros favoritos}
+		\begin{enumerate}
+			\item Implementar foros recientemente creados en la página de inicio y aquellos que tengan más visitas
 		\end{enumerate}
-
-    
-
-	\item \story{administrador}{poder acceder a un dashboard con estadisticas generales de la aplicacion}{así poder hacer los cambios de estructuras pertinentes de ser necesario}
-    	\begin{enumerate}
+		
+		
+		
+		\item \story{administrador}{poder acceder a un dashboard con estadisticas generales de la aplicacion}{así poder hacer los cambios de estructuras pertinentes de ser necesario}
+		\begin{enumerate}
 			\item Recolectar información de todos los posts y publicaciones
 			\item Calcular media vistas, y tipo de vistas por post o por publicaciones
 		\end{enumerate}
 		
-	\item \story{administrador}{que existan moderadores}{así poder delegar el 
-		trabajo de administrar los foros}
+		\item \story{administrador}{que existan moderadores}{así poder delegar el 
+			trabajo de administrar los foros}
 		\begin{enumerate}
 			\item Niveles de usuario con distintas capacidades para hacer cosas
 			\item Moderadores son de un foro en específico
 		\end{enumerate}
 		
-	\item \story{administrador}{que un usuario pueda pasar a ser un moderador con un
-		determinado puntaje}{asi evitar que todos puedan moderar el foro}
+		\item \story{administrador}{que un usuario pueda pasar a ser un moderador con un
+			determinado puntaje}{asi evitar que todos puedan moderar el foro}
 		\begin{enumerate}
 			\item Solicitud de \say{upgrade} de status de usuarios
 			\item Solicitud no es aceptada inmediatamente
 			\item Llega mail a admin o moderador con la solicitud
 		\end{enumerate}
 		
-	\item \story{administrador}{que se asigne un puntaje por crear una publicación en un 	
-		foro}{que así los usuarios puedan postular a \say{mejores cargos}}
+		\item \story{administrador}{que se asigne un puntaje por crear una publicación en un 	
+			foro}{que así los usuarios puedan postular a \say{mejores cargos}}
 		\begin{enumerate}
 			\item Cada usuario tiene un puntaje total
 			\item Diferentes acciones (upvotes) le dan un puntaje al creador del comentario, y otros quitan (downvote)	
 		\end{enumerate}
 		
-	\item \story{administrador/moderador}{poder aceptar o rechazar a un postulante de 	
-		mi cargo}{tener mejor control y un chequeo previo de a quién se le va a dar el cargo}
+		\item \story{administrador/moderador}{poder aceptar o rechazar a un postulante de 	
+			mi cargo}{tener mejor control y un chequeo previo de a quién se le va a dar el cargo}
 		\begin{enumerate}
 			\item Generación de correo electrónico con la solicitud y con la respuesta a esta
 			\item Sólo se puede postular con determinado puntaje en adelante
 			\item Revisar su participación en el foro
 		\end{enumerate}
 		
-	\item \story{administrador/moderador}{poder responder a la postulación hecha}{así 
-		dar feedback}
+		\item \story{administrador/moderador}{poder responder a la postulación hecha}{así 
+			dar feedback}
 		\begin{enumerate}
 			\item Cuando se genere la solicitud le llega una notificación y un correo al administrador/moderador, ya que es de mayor relevancia
 		\end{enumerate}
 		
-	\item \story{administrador}{poder crear foros}{así poder evitar que el resto lo haga y como consecuencia exista un exceso de estos}
+		\item \story{administrador}{poder crear y eliminar foros}{así poder evitar que el resto lo haga y como consecuencia exista un exceso de estos}
 		\begin{enumerate}
 			\item Administradores y moderadores tienen permisos especiales
-			\item Estos permisos se chequean cuando se trata de hacer click
+			\item Estos permisos se chequean cuando se trata de hacer click en las opciones de foro
 		\end{enumerate}
-	
-	\item \story{administrador/Dueño}{que cuando el comentario de un usuario sea eliminado disminuya su puntaje}{así poder \say{castigar} comentarios inapropiados}
+		
+		\item \story{administrador/dueño}{que cuando el comentario de un usuario sea eliminado disminuya su puntaje}{así poder \say{castigar} comentarios inapropiados}
 		\begin{enumerate}
 			\item Luego de hacer click se manda la información al servidor para que se realicen los cambios
 		\end{enumerate}
-	
-	\item \story{visita}{poder ver los foros ya existentes}{asi poder ver los temas que me interesan sin tener que registrarme en la página}
+		
+		\item \story{visita}{poder ver los foros ya existentes}{asi poder ver los temas que me interesan sin tener que registrarme en la página}
 		\begin{enumerate}
 			\item Cualquier persona puede acceder a la página web, por lo que el Log-In no puede impedir la entrada
 			\item Sólo se puede interactuar con los demas si se está registrado
 		\end{enumerate}				
 		
-	\item \story{administrador}{que el moderador tenga un puntaje}{así poder decidir quién puede ser administrador y quién no tras una postulación}
+		\item \story{administrador}{que el moderador tenga un puntaje}{así poder decidir quién puede ser administrador y quién no tras una postulación}
 		\begin{enumerate}
 			\item En otras palabras, el moderador también es un usuario, por lo que posee puntaje y debe postular para subir de \say{cargo}
 		\end{enumerate}
-	
-	\item \story{usuario}{poder recomendar una idea de foro a un administrador}{para 	que esta idea sea evaluada y posteriormente tener feedback de este foro 					hipotético}
+		
+		\item \story{usuario}{poder recomendar una idea de foro a un administrador}{para 	que esta idea sea evaluada y posteriormente tener feedback de este foro 					hipotético}
 		\begin{enumerate}
 			\item Mail con sugerencias que le llega a los administradores y luego deben aprobar o rechazar
 			\item Se debe implementar feedback luego del resultado y notificando al usuario que hizo la sugerencia
 		\end{enumerate}			
+		
+	\end{enumerate}
 	
-\end{enumerate}
-
-
-
-
+	
+	
+	
 \end{document}
