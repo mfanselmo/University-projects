@@ -14,7 +14,7 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -\
     && apt-get update \
     && apt-get install -y yarn
 
-ENV APP_HOME /Ayudantia
+ENV APP_HOME /Proyecto \Software
 
 RUN mkdir $APP_HOME
 WORKDIR $APP_HOME
