@@ -32,6 +32,13 @@
 </div>
 
 <div class="form-group">
+    <%= f.label :admin, "Hacer Admin", class: 'col-sm-2 control-label'  %>
+    <div class="col-sm-6">
+        <%= f.check_box :admin %> <%= f.label :admin %>
+    </div>
+</div>
+
+<div class="form-group">
     <div class="col-sm-offset-2 col-sm-6">
         <%= f.submit "Registrarse", class: "btn btn-primary" %>
     </div>
