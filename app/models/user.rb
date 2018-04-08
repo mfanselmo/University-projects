@@ -5,9 +5,10 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  #attr_accessible :email
+  has_many :comments, dependent: :destroy
+  has_many :posts, dependent: :destroy
 
   def user_params
-    params.require(:user).permit(:name, :email)
+    params.require(:user).permit(:user, :email)
   end
 end

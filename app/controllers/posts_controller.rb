@@ -1,4 +1,7 @@
 class PostsController < ApplicationController
+  
+  http_basic_authenticate_with :name => "dhh", :password => "secret", :except => [:index, :show]
+
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 
   # GET /posts
@@ -19,6 +22,7 @@ class PostsController < ApplicationController
   # GET /posts/new
   def new
     @post = Post.new
+    puts(current_user.id)
     respond_to do |format|
       format.html  # new.html.erb
       format.json  { render :json => @post }

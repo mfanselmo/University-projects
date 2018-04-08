@@ -1,7 +1,5 @@
 class Post < ActiveRecord::Base
-  belongs_to :author, class_name: "User", foreign_key: "author_id"
-
-  #attr_accessible :content, :name, :title
+  #belongs_to :user
 
   validates :name,  :presence => true
   validates :title, :presence => true,
