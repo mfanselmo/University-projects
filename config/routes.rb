@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
 
-  resources :forums
+  resources :forums do
+    resources :posts
+  end
+  
   resources :posts do
     resources :comments
   end

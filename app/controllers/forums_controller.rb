@@ -5,6 +5,10 @@ class ForumsController < ApplicationController
   # GET /forums.json
   def index
     @forums = Forum.all
+    respond_to do |format|
+      format.html  # index.html.erb
+      format.json  { render :json => @forums }
+    end
   end
 
   # GET /forums/1
@@ -15,6 +19,10 @@ class ForumsController < ApplicationController
   # GET /forums/new
   def new
     @forum = Forum.new
+    respond_to do |format|
+      format.html  # new.html.erb
+      format.json  { render :json => @forum }
+    end
   end
 
   # GET /forums/1/edit
@@ -28,11 +36,14 @@ class ForumsController < ApplicationController
 
     respond_to do |format|
       if @forum.save
-        format.html { redirect_to @forum, notice: 'Forum was successfully created.' }
-        format.json { render :show, status: :created, location: @forum }
+        format.html  { redirect_to(@forum,
+                      :notice => 'Forum was successfully created.') }
+        format.json  { render :json => @forum,
+                      :status => :created, :location => @forum }
       else
-        format.html { render :new }
-        format.json { render json: @forum.errors, status: :unprocessable_entity }
+        format.html  { render :action => "new" }
+        format.json  { render :json => @forum.errors,
+                      :status => :unprocessable_entity }
       end
     end
   end
@@ -69,6 +80,6 @@ class ForumsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def forum_params
-      params.require(:forum).permit(:name)
+      params.require(:forum).permit(:name, :forum)
     end
 end

@@ -34,8 +34,10 @@ ActiveRecord::Schema.define(version: 20180410144736) do
     t.string "name"
     t.string "title"
     t.text "content"
+    t.bigint "forum_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["forum_id"], name: "index_posts_on_forum_id"
   end
 
   create_table "users", force: :cascade do |t|
