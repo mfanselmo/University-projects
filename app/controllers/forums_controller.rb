@@ -14,6 +14,12 @@ class ForumsController < ApplicationController
   # GET /forums/1
   # GET /forums/1.json
   def show
+    @forum = Forum.find(params[:id])
+   
+    respond_to do |format|
+      format.html  # show.html.erb
+      format.json  { render :json => @forum }
+    end
   end
 
   # GET /forums/new
@@ -80,6 +86,6 @@ class ForumsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def forum_params
-      params.require(:forum).permit(:name, :forum)
+      params.require(:forum).permit(:name, :forum, :post)
     end
 end
