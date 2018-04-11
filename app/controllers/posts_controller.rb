@@ -59,7 +59,7 @@ class PostsController < ApplicationController
   def destroy
     @post.destroy
     respond_to do |format|
-      format.html { redirect_to posts_url, notice: 'Se borro exitosamente el post' }
+      format.html { redirect_to forums_url, notice: 'Se borro exitosamente el post' }
       format.json { head :no_content }
     end
   end

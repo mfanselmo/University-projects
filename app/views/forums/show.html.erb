@@ -1,22 +1,26 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
+  <strong>Foro:</strong>
   <%= @forum.name %>
 </p>
 
 
-<h2>Posts</h2>
+<h2>Posts existentes</h2>
 <% @forum.posts.each do |post| %>
   <p>
     <b>Titulo:</b>
     <%= post.title %>
-    <%= link_to 'Edit', edit_post_path(post) %>
   </p>
+  <p>
+	<%= link_to 'Ver', post %> |
+    <%= link_to 'Eliminar', post,  method: :delete, data: { confirm: 'Estas seguro?' } %>
+  </p>
+  
  
 <% end %>
 
-<h2>Add a post:</h2>
+<h2>Añade un post:</h2>
 <%= form_for([@forum, @forum.posts.build]) do |f| %>
   <div class="field">
     <%= f.label :name %><br />
@@ -36,5 +40,5 @@
 <% end %>
 
 
-<%= link_to 'Edit', edit_forum_path(@forum) %> |
-<%= link_to 'Back', forums_path %>
+<%= link_to 'Editar foro', edit_forum_path(@forum) %> |
+<%= link_to 'Volver a los foros', forums_path %>
