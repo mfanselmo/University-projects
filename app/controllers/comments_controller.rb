@@ -15,6 +15,9 @@ class CommentsController < ApplicationController
 	    redirect_to post_path(@post)
 	  end
 
+	def edit
+	end
+
   private
   def comment_params
     params.require(:user).permit(:body, :commenter, :post_id)

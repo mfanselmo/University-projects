@@ -20,14 +20,13 @@ class PostsController < ApplicationController
   end
 
   # GET /posts/new
-  def new
-    @post = Post.new
-    puts(current_user.id)
-    respond_to do |format|
-      format.html  # new.html.erb
-      format.json  { render :json => @post }
-    end
-  end
+  # def new
+  #   @post = Post.new
+  #   respond_to do |format|
+  #     format.html  # new.html.erb
+  #     format.json  { render :json => @post }
+  #   end
+  # end
 
   # GET /posts/1/edit
   def edit
@@ -36,17 +35,9 @@ class PostsController < ApplicationController
   # POST /posts
   # POST /posts.json
   def create
-    @post = Post.new(post_params)
-
-    respond_to do |format|
-      if @post.save
-        format.html { redirect_to @post, notice: 'Se creo exitosamente el post!' }
-        format.json { render :show, status: :created, location: @post }
-      else
-        format.html { render :new }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
-      end
-    end
+      @forum = Forum.find(params[:forum_id])
+      @post = @forum.posts.create(params[:post].permit(:name, :title, :content))
+    redirect_to forum_path(@forum)
   end
 
   # PATCH/PUT /posts/1
@@ -68,7 +59,7 @@ class PostsController < ApplicationController
   def destroy
     @post.destroy
     respond_to do |format|
-      format.html { redirect_to posts_url, notice: 'Se borro exitosamente el post' }
+      format.html { redirect_to forums_url, notice: 'Se borro exitosamente el post' }
       format.json { head :no_content }
     end
   end
@@ -81,6 +72,6 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
   def post_params
-      params.require(:post).permit(:content, :name, :title)
+      params.require(:post).permit(:content, :name, :title, :forum_id)
   end
 end

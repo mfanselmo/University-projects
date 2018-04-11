@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Foros</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @forums.each do |forum| %>
+
+        <p>
+          <b><%= forum.name %></b>
+        </p>
+        <p>
+          <%= link_to 'Ver foro', forum %>
+          <%= link_to 'Editar foro', edit_forum_path(forum) %>
+          <%= link_to 'Eliminar foro', forum, method: :delete, data: { confirm: '¿Estás seguro?' } %>
+        </p>
+
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Nuevo Foro', new_forum_path %>
