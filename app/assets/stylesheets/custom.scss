@@ -68,8 +68,10 @@ p {
   font-weight: bold;
 }
 
-#logo:hover {
-  color: #fff;
+/* Links  */
+
+.customLink, .customLink:hover{
+  color: blue;
   text-decoration: none;
 }
 

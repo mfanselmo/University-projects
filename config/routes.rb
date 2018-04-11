@@ -17,4 +17,9 @@ Rails.application.routes.draw do
     get '/users/sign_out' => 'devise/sessions#destroy'
   end
 
+
+
+  get '/profile', to: 'index#profile'
+
+
 end
