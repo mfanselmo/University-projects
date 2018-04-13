@@ -1,0 +1,55 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Foro:</strong>
+  <%= @forum.name %>
+</p>
+
+
+<h2>Posts existentes</h2>
+<table width="100%">
+  <thead>
+    <tr>
+      <th>Autor</th>
+      <th>Título</th>
+      <th>Número de comentarios</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @forum.posts.each do |post| %>
+      <tr>
+        <td><%= post.name %></td>
+        <td><%= post.title%></td>
+        <td><%= post.comments.count %></td>
+        <td><%= link_to 'Ver', post %></td>
+        <td><%= link_to 'Eliminar', post,  method: :delete, data: { confirm: 'Estas seguro?' } %></td>      
+      </tr>
+  </tbody>
+</table>
+  
+ 
+<% end %>
+
+<h2>Añade un post:</h2>
+<%= form_for([@forum, @forum.posts.build]) do |f| %>
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :title %><br />
+    <%= f.text_area :title %>
+  </div>
+   <div class="field">
+    <%= f.label :content %><br />
+    <%= f.text_area :content %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+
+<%= link_to 'Editar foro', edit_forum_path(@forum) %> |
+<%= link_to 'Volver a los foros', forums_path %>

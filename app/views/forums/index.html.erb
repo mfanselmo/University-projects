@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Foros</h1>
+
+<table width="100%">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Número de posts</th>
+      <th colspan="5"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @forums.each do |forum| %>
+      <tr>
+        <td><%= forum.name %></td>
+        <td><%= forum.posts.count %></td>
+        <td><%= link_to 'Ver foro', forum %></td>
+        <td><%= link_to 'Editar foro', edit_forum_path(forum) %></td>
+        <td><%= link_to 'Eliminar foro', forum, method: :delete, data: { confirm: '¿Estás seguro?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Nuevo Foro', new_forum_path %>
