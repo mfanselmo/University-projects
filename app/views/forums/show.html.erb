@@ -16,7 +16,6 @@
     </tr>
   </thead>
 
-  <tbody>
     <% @forum.posts.each do |post| %>
       <tr>
         <td><%= post.name %></td>
@@ -25,11 +24,9 @@
         <td><%= link_to 'Ver', post %></td>
         <td><%= link_to 'Eliminar', post,  method: :delete, data: { confirm: 'Estas seguro?' } %></td>      
       </tr>
-  </tbody>
+      <% end %>
 </table>
-  
- 
-<% end %>
+
 
 <h2>Añade un post:</h2>
 <%= form_for([@forum, @forum.posts.build]) do |f| %>

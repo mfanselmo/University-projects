@@ -1,5 +1,5 @@
 class ForumsController < ApplicationController
-  before_action :set_forum, only: [:show, :edit, :update, :destroy]
+  before_action :set_forum, only: %i[show edit update destroy]
 
   # GET /forums
   # GET /forums.json
@@ -15,9 +15,9 @@ class ForumsController < ApplicationController
   # GET /forums/1.json
   def show
     @forum = Forum.find(params[:id])
-   
+
     respond_to do |format|
-      format.html  # show.html.erb
+      format.html # show.html.erb
       format.json  { render :json => @forum }
     end
   end
@@ -26,8 +26,8 @@ class ForumsController < ApplicationController
   def new
     @forum = Forum.new
     respond_to do |format|
-      format.html  # new.html.erb
-      format.json  { render :json => @forum }
+      format.html # new.html.erb
+      format.json { render :json => @forum }
     end
   end
 
@@ -43,13 +43,13 @@ class ForumsController < ApplicationController
     respond_to do |format|
       if @forum.save
         format.html  { redirect_to(@forum,
-                      :notice => 'Forum was successfully created.') }
+                                   :notice => 'Forum was successfully created.') }
         format.json  { render :json => @forum,
-                      :status => :created, :location => @forum }
+                       :status => :created, :location => @forum }
       else
         format.html  { render :action => "new" }
         format.json  { render :json => @forum.errors,
-                      :status => :unprocessable_entity }
+                       :status => :unprocessable_entity }
       end
     end
   end
@@ -79,13 +79,14 @@ class ForumsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_forum
-      @forum = Forum.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def forum_params
-      params.require(:forum).permit(:name, :forum, :post)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_forum
+    @forum = Forum.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def forum_params
+    params.require(:forum).permit(:name, :forum, :post)
+  end
 end
