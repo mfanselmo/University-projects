@@ -35,8 +35,8 @@ class PostsController < ApplicationController
   # POST /posts
   # POST /posts.json
   def create
-      @forum = Forum.find(params[:forum_id])
-      @post = @forum.posts.create(params[:post].permit(:name, :title, :content))
+    @forum = Forum.find(params[:forum_id])
+    @post = @forum.posts.create(params[:post].permit(:name, :title, :content))
     redirect_to forum_path(@forum)
   end
 

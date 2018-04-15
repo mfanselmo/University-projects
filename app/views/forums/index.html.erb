@@ -26,4 +26,6 @@
 
 <br>
 
+<%# if current_user.admin? %>  <!-- Quitar el # de lo anterior para que solo el admin cree un foro-->
 <%= link_to 'Nuevo Foro', new_forum_path %>
+<%# end %>  <!-- Quitar el # de lo anterior para que solo el usuario cree un post-->
