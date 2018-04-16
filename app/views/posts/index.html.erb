@@ -19,8 +19,10 @@
         <td><%= post.title %></td>
         <td><%= post.content %></td>
         <td><%= link_to 'Mostrar', post %></td>
+        <%# if current_user.username != "guest" %> <!-- Quitar el # de lo anterior para que solo el usuario edite o elimine post -->
         <td><%= link_to 'Editar', edit_post_path(post) %></td>
         <td><%= link_to 'Eliminar', post, method: :delete, data: { confirm: 'Estas seguro?' } %></td>
+        <%# end %> <!-- Quitar el # de lo anterior para que solo el usuario edite o elimine post-->
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +30,6 @@
 
 <br>
 
+<%# if current_user.username != "guest" %> <!-- Quitar el # de lo anterior para que solo el usuario cree un post-->
 <%= link_to 'Nuevo post', new_post_path %>
+<%# end %> <!-- Quitar el # de lo anterior para que solo el usuario cree un post-->

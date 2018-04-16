@@ -1,14 +1,23 @@
-<h2> En esta página se verá la aplicacion iniciada <h2>
+<% if current_user.admin? %>
+  <h2> Bienvenido adiminstrador <%= current_user.username %> <h2>
+<% else %>
+  <% if current_user.username != "guest" %>
+    <h2> Bienvenido usuario <%= current_user.username %> <h2>
+  <% else %>
+    <h2> Bienvenido visita <h2>
+  <% end %>
 
-<h3> Esta es una imagen insertada <h3>
+<% end %>
+
+<h3> Para ir a los foros: <%= link_to "Foros", forums_path %> <h3>
 <%= image_tag("mountain.jpg", :alt => "Mountain view") %>
 
 
-<h3>Abajo de esto se encuentran los foros</h3>
-<%= link_to "Foros", forums_path %>
+<!-- <h3>Abajo de esto se encuentran los foros</h3>
+<%#= link_to "Foros", forums_path %> -->
 
-<p><%= current_user.admin %></p>
+<!-- <p><%= current_user.admin %></p>
 
-<% if current_user.admin? %>
+<%# if current_user.admin? %>
 <p><%= current_user.username%> Eres admin!</p>
-<% end %>
+<%# end %> -->
