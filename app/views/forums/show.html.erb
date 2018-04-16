@@ -22,15 +22,15 @@
         <td><%= post.title%></td>
         <td><%= post.comments.count %></td>
         <td><%= link_to 'Ver', post %></td>
-        <%# if current_user.username != "guest" %>
+        <% if current_user.username != "guest" %>
           <td><%= link_to 'Eliminar', post,  method: :delete, data: { confirm: 'Estas seguro?' } %></td>
-        <%# end %>      
+        <% end %>      
       </tr>
   </tbody>
   <% end %>
 </table>
   
-<%# if current_user.username != "guest" %> <!-- Quitar el # de lo anterior para que solo el usuario cree un post-->
+<% if current_user.username != "guest" %> <!-- Quitar el # de lo anterior para que solo el usuario cree un post-->
   <h2>Añade un post:</h2>
   <%= form_for([@forum, @forum.posts.build]) do |f| %>
     <div class="field">
@@ -49,7 +49,7 @@
       <%= f.submit %>
     </div>
   <% end %>
-<%# end %>  <!-- Quitar el # de lo anterior para que solo el usuario cree un post-->
+<% end %>  <!-- Quitar el # de lo anterior para que solo el usuario cree un post-->
 
 <%= link_to 'Editar foro', edit_forum_path(@forum) %> |
 <%= link_to 'Volver a los foros', forums_path %>
