@@ -1,5 +1,5 @@
 <% if current_user.admin? %>
-  <h2> Bienvenido adiminstrador <%= current_user.username %> <h2>
+  <h2> Bienvenido adminstrador <%= current_user.username %> <h2>
 <% else %>
   <% if current_user.username != "guest" %>
     <h2> Bienvenido usuario <%= current_user.username %> <h2>
