@@ -16,7 +16,6 @@
     </tr>
   </thead>
 
-  <tbody>
     <% @forum.posts.each do |post| %>
       <tr>
         <td><%= post.name %></td>
@@ -28,7 +27,7 @@
   </tbody>
   <% end %>
 </table>
-  
+
 
 <h2>Añade un post:</h2>
 <%= form_for([@forum, @forum.posts.build]) do |f| %>
