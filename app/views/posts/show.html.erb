@@ -25,5 +25,7 @@
  
 <br />
  
-<%= link_to 'Editar Post', edit_post_path(@post) %> |
+<% if current_user.username == @post.name %> 
+  <%= link_to 'Editar Post', edit_post_path(@post) %> |
+<% end %>
 <%= link_to 'De vuelta a los foros', forums_path %> |

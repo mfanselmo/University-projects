@@ -17,8 +17,10 @@
         <td><%= forum.name %></td>
         <td><%= forum.posts.count %></td>
         <td><%= link_to 'Ver foro', forum %></td>
-        <td><%= link_to 'Editar foro', edit_forum_path(forum) %></td>
-        <td><%= link_to 'Eliminar foro', forum, method: :delete, data: { confirm: '¿Estás seguro?' } %></td>
+        <% if current_user.admin? %>
+          <td><%= link_to 'Editar foro', edit_forum_path(forum) %></td>
+          <td><%= link_to 'Eliminar foro', forum, method: :delete, data: { confirm: '¿Estás seguro?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
