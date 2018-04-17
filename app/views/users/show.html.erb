@@ -1,4 +1,29 @@
 <h1> Perfil de usuario </h1>
-<h3> Nombre <%= current_user.username %></h3>
-<h3> Likes = 112 </h3>
-<h3> Dislikes = 12 </h3>
+
+<table class=" table table-striped" data-sort-name="name" data-sort-order="desc">
+
+	  <tbody>
+	    <tr>
+	      <td>Usuario</td>
+	      <td><%= @user.username %></td>
+	    </tr>
+	    <tr>
+	      <td>Correo electrónico</td>
+	      <td><%= @user.email %></td>
+	    </tr>
+	    <tr>
+	      <td>Upvotes</td>
+	      <td>122</td>
+	    </tr>
+	    <tr>
+	      <td>Downvotes</td>
+	      <td>32</td>
+	    </tr>
+	    <tr>
+	      <td>DCCBlogger's points</td>
+	      <td>5267</td>
+	    </tr>
+	  </tbody>
+	</table>
+
+<br>

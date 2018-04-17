@@ -12,3 +12,11 @@ user.password_confirmation = '123456'
 user.admin = false
 user.username = 'guest'
 user.save!
+
+user = User.new
+user.email = 'icontreras1@uc.cl'
+user.password = 'Ignacio1'
+user.password_confirmation = 'Ignacio1'
+user.admin = true
+user.username = 'nachocontreras'
+user.save!
