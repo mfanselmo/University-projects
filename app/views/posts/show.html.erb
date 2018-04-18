@@ -17,6 +17,8 @@
 <p>
   <b>Votos:</b>
   <% @post.increment(:votes) %>  <!-- lo aumenta en 1 -->
+  <% @user.increment(:points) %>
+  <%= link_to "Like", post_path, id: @post.id, class: "button" %>
   <%= @post.votes %>
 </p>
 <h2>Comentarios</h2>

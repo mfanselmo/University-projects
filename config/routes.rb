@@ -28,5 +28,4 @@ Rails.application.routes.draw do
   get '/admin', to: 'index#admin'
   get '/users/:id', to: "users#show", :as => :user
 
-
 end

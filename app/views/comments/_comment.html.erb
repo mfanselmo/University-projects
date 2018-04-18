@@ -10,6 +10,7 @@
 <p>
   <b>Votos:</b>
   <% comment.increment(:votes) %>  <!-- lo aumenta en 1 -->
+  <%= link_to "Like", post_path, id: @post.id, class: "button" %>
   <%= comment.votes %>
 </p>
 
