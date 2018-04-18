@@ -25,11 +25,6 @@ class User < ApplicationRecord
     self[attribute] ||= 0
     self[attribute] -= by
     self.save
-  end  
-
-  def calculate_points(attribute)
-    self[attribute] = self.likes - self.dislikes
-    self.save
-  end  
+  end
 
 end

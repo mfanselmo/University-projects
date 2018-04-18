@@ -19,7 +19,7 @@ user.password = 'Ignacio1'
 user.password_confirmation = 'Ignacio1'
 user.admin = true
 user.username = 'nachocontreras'
-user.likes = 20
-user.dislikes = 15
-user.points = 0
+# user.likes = 20
+# user.dislikes = 15
+user.points = 1000
 user.save!
