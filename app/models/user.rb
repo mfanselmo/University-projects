@@ -15,5 +15,21 @@ class User < ApplicationRecord
 
   validates :username, presence: :true, uniqueness: { case_sensitive: false }
 
+  def increment(attribute, by = 1)
+    self[attribute] ||= 0
+    self[attribute] += by
+    self.save
+  end
+
+  def decrement(attribute, by = 1)
+    self[attribute] ||= 0
+    self[attribute] -= by
+    self.save
+  end  
+
+  def calculate_points(attribute)
+    self[attribute] = self.likes - self.dislikes
+    self.save
+  end  
 
 end

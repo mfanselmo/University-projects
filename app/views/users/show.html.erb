@@ -13,15 +13,18 @@
 	    </tr>
 	    <tr>
 	      <td>Upvotes</td>
-	      <td>122</td>
+	      <% @user.increment(:likes, 1) %>
+	      <td><%= @user.likes %></td>
 	    </tr>
 	    <tr>
 	      <td>Downvotes</td>
-	      <td>32</td>
+	      <% @user.decrement(:dislikes, 1) %>
+	      <td><%= @user.dislikes %></td>
 	    </tr>
 	    <tr>
 	      <td>DCCBlogger's points</td>
-	      <td>5267</td>
+	      <% @user.calculate_points(:points) %>
+	      <td><%= @user.points %></td>
 	    </tr>
 	  </tbody>
 	</table>
