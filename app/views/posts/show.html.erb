@@ -19,8 +19,29 @@
   <% @post.increment(:votes) %>  <!-- lo aumenta en 1 -->
   <%= @post.votes %>
 </p>
+
 <h2>Comentarios</h2>
-<%= render @post.comments %>
+<table class="table" width="100%">
+  <thead>
+    <tr>
+      <th scope="col">Autor</th>
+      <th scope="col">Comentario</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @posts.comment.each do |comment| %>
+      <tr>
+        <th scope="row"></th>
+        <td><%= comment.commenter %></td>
+        <td><%= comment.body%></td>
+        <td><%= link_to 'Borrar comentario', [comment.post, comment],
+               :confirm => '¿Estas seguro que deseas borrarlo?',
+               :method => :delete %></td>      
+      </tr>
+  </tbody>
+  <% end %>
+</table>
  
 <% if current_user.username != "guest" %>  <!-- Quitar el # de lo anterior para que solo el usuario cree un post-->
   <h2>Agrega un comentario:</h2>
