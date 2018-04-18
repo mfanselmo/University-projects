@@ -10,8 +10,10 @@
 <p>
   <b>Votos:</b>
   <% comment.increment(:votes) %>  <!-- lo aumenta en 1 -->
+  <% @user.increment(:points) %>
   <%= link_to "Like", post_path, id: @post.id, class: "button" %>
   <%= comment.votes %>
+  <%= link_to "Dislike", post_path, id: @post.id, class: "button" %>
 </p>
 
 <% if current_user.username == comment.commenter %> 
