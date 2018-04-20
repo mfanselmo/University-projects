@@ -37,9 +37,11 @@
             <span class="text-muted">
               Hace <%= time_ago_in_words (Time.now - comment.created_at).seconds.from_now %> 
             <span style="float: right; ">
-              <%= link_to 'Borrar comentario', [comment.post, comment],
-               :confirm => '¿Estas seguro que deseas borrarlo?',
-               :method => :delete %>
+              <% if current_user.username == comment.commenter %>
+                <%= link_to 'Borrar comentario', [comment.post, comment],
+                 :confirm => '¿Estas seguro que deseas borrarlo?',
+                 :method => :delete %>
+              <% end %>
             </span>
             </span>
           </div>

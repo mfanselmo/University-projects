@@ -6,7 +6,7 @@
 </p>
 
 
-<h2>Posts existentes</h2>
+<!-- <h2>Posts existentes</h2> -->
 
 <% @forum.posts.each do |post| %>
   <div class="container">
@@ -27,16 +27,19 @@
             <span class="text-muted">
               Hace <%= time_ago_in_words (Time.now - post.created_at).seconds.from_now %> 
             </span>
-            <span style="float: right; " class="text-muted">
-              <% if current_user.username == post.name %>
-               |<%= link_to 'Eliminar', [post.forum, post],
-                 :confirm => '¿Estas seguro que deseas borrarlo?',
-                 :method => :delete %>
-              <% end %>
-            </span>
-            <span style="float: right; " class="text-muted">
-              <%= link_to 'Ver', post %>
-            </span>
+            <em>
+              <span style="float: right; " class="text-muted">
+                <% if current_user.username == post.name %>
+                  |<%= link_to 'Editar', edit_post_path(post) %>|
+                  <%= link_to 'Eliminar', [post.forum, post],
+                   :confirm => '¿Estas seguro que deseas borrarlo?',
+                   :method => :delete %>
+                <% end %>
+              </span>
+              <span style="float: right; " class="text-muted">
+                <%= link_to 'Ver', post %>
+              </span>
+            </em>
           </div>
 
           <div class="panel-body">
@@ -44,10 +47,15 @@
           </div>
 
           <div class="panel-footer">
-            <em>Hay <%= post.comments.count %> comentario(s)</em>
+            <span style="float: left;" class="text-muted">
+              <em><%= post.comments.count %> comentario(s)</em>
+            </span>
             <span style="float: right;" class="text-muted">
               like | dislike
             </span>
+            <div style="text-align: center;" class="text-muted">
+              Se tiene <%= post.votes %> puntos
+            </div>
           </div>
 
         </div>
@@ -58,13 +66,18 @@
 
   
 <% if current_user.username != "guest" %> <!-- Quitar el # de lo anterior para que solo el usuario cree un post-->
-  <h2>Añade un post:</h2>
+  <!-- <h2>Añade un post:</h2> -->
   <%= form_for([@forum, @forum.posts.build]) do |f| %>
     <div class="field">
       <%= f.text_field :name, value: current_user.username, style: "#{'display:none';}" %><br />
       <%#= f.text_field :name %>
     </div>
     <div class="field">
+      <div align="left">
+        <strong><em>
+        Nuevo post
+        </em></strong>
+      </div>
       <%= f.label :title %><br />
       <%= f.text_area :title %>
     </div>
