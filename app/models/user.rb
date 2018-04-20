@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -5,7 +7,6 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  
   has_many :comments, dependent: :destroy
   has_many :posts, dependent: :destroy
 
@@ -18,13 +19,12 @@ class User < ApplicationRecord
   def increment(attribute, by = 1)
     self[attribute] ||= 0
     self[attribute] += by
-    self.save
+    save
   end
 
   def decrement(attribute, by = 1)
     self[attribute] ||= 0
     self[attribute] -= by
-    self.save
+    save
   end
-
 end
