@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class ForumsControllerTest < ActionDispatch::IntegrationTest
@@ -5,17 +7,17 @@ class ForumsControllerTest < ActionDispatch::IntegrationTest
     @forum = forums(:one)
   end
 
-  test "should get index" do
+  test 'should get index' do
     get forums_url
     assert_response :success
   end
 
-  test "should get new" do
+  test 'should get new' do
     get new_forum_url
     assert_response :success
   end
 
-  test "should create forum" do
+  test 'should create forum' do
     assert_difference('Forum.count') do
       post forums_url, params: { forum: { name: @forum.name } }
     end
@@ -23,22 +25,22 @@ class ForumsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to forum_url(Forum.last)
   end
 
-  test "should show forum" do
+  test 'should show forum' do
     get forum_url(@forum)
     assert_response :success
   end
 
-  test "should get edit" do
+  test 'should get edit' do
     get edit_forum_url(@forum)
     assert_response :success
   end
 
-  test "should update forum" do
+  test 'should update forum' do
     patch forum_url(@forum), params: { forum: { name: @forum.name } }
     assert_redirected_to forum_url(@forum)
   end
 
-  test "should destroy forum" do
+  test 'should destroy forum' do
     assert_difference('Forum.count', -1) do
       delete forum_url(@forum)
     end

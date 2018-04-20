@@ -12,6 +12,9 @@ Rails.application.routes.draw do
 
   # devise_for :users, controllers: { sessions: 'users/sessions' }
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
+  # resources :users, only: [:show]
+
   root "index#home"
 
   # devise_for :users do
@@ -21,9 +24,9 @@ Rails.application.routes.draw do
     get '/users/sign_out' => 'devise/sessions#destroy'
   end
 
-
-
-  get '/profile', to: 'index#profile'
+  # get '/profile', to: "users#show"
+  get '/admin', to: 'index#admin'
+  get '/users/:id', to: "users#show", :as => :user
 
 
 end
