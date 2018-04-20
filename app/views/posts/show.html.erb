@@ -1,19 +1,16 @@
 <p id="notice"><%= notice %></p>
  
-<p>
-  <b>Nombre:</b>
-  <%= @post.name %>
-</p>
- 
-<p>
-  <b>Título:</b>
+
+<h3>
   <%= @post.title %>
-</p>
+  <small class="text-muted">de: <%= @post.name %></small>
+</h3>
  
 <p>
   <b>Contenido:</b>
   <%= @post.content %>
 </p>
+
 <p>
   <b>Votos:</b>
   <% @post.increment(:votes) %>  <!-- lo aumenta en 1 -->
@@ -21,34 +18,48 @@
 </p>
 
 <h2>Comentarios</h2>
-<table class="table" width="100%">
-  <thead>
-    <tr>
-      <th scope="col">Autor</th>
-      <th scope="col">Comentario</th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @posts.comment.each do |comment| %>
-      <tr>
-        <th scope="row"></th>
-        <td><%= comment.commenter %></td>
-        <td><%= comment.body%></td>
-        <td><%= link_to 'Borrar comentario', [comment.post, comment],
+<% @post.comments.each do |comment| %>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12"></div>
+    </div>
+    <div class="row">
+      <div class="col-sm-1">
+        <div class="thumbnail">
+          <img class="img-responsive user-photo" src="">
+        </div>
+      </div>
+      <div class="col-sm-10">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <strong><%= comment.commenter %></strong>
+            <span class="text-muted">
+              Hace <%= time_ago_in_words (Time.now - comment.created_at).seconds.from_now %> 
+            <span style="float: right; ">
+              <%= link_to 'Borrar comentario', [comment.post, comment],
                :confirm => '¿Estas seguro que deseas borrarlo?',
-               :method => :delete %></td>      
-      </tr>
-  </tbody>
-  <% end %>
-</table>
+               :method => :delete %>
+            </span>
+            </span>
+          </div>
+          <div class="panel-body">
+            <%= comment.body %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+
  
 <% if current_user.username != "guest" %>  <!-- Quitar el # de lo anterior para que solo el usuario cree un post-->
   <h2>Agrega un comentario:</h2>
   <%= render "comments/form" %>
 <% end %>  <!-- Quitar el # de lo anterior para que solo el usuario cree un post-->
- 
-<br />
+
+
  
 <% if current_user.username == @post.name %> 
   <%= link_to 'Editar Post', edit_post_path(@post) %> |
