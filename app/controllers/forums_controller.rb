@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ForumsController < ApplicationController
   before_action :set_forum, only: %i[show edit update destroy]
 
@@ -6,8 +8,8 @@ class ForumsController < ApplicationController
   def index
     @forums = Forum.all
     respond_to do |format|
-      format.html  # index.html.erb
-      format.json  { render :json => @forums }
+      format.html # index.html.erb
+      format.json { render json: @forums }
     end
   end
 
@@ -18,7 +20,7 @@ class ForumsController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json  { render :json => @forum }
+      format.json { render json: @forum }
     end
   end
 
@@ -27,13 +29,12 @@ class ForumsController < ApplicationController
     @forum = Forum.new
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render :json => @forum }
+      format.json { render json: @forum }
     end
   end
 
   # GET /forums/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /forums
   # POST /forums.json
@@ -42,14 +43,20 @@ class ForumsController < ApplicationController
 
     respond_to do |format|
       if @forum.save
-        format.html  { redirect_to(@forum,
-                                   :notice => 'Forum was successfully created.') }
-        format.json  { render :json => @forum,
-                       :status => :created, :location => @forum }
+        format.html do
+          redirect_to(@forum,
+                      notice: 'Forum was successfully created.')
+        end
+        format.json do
+          render json: @forum,
+                 status: :created, location: @forum
+        end
       else
-        format.html  { render :action => "new" }
-        format.json  { render :json => @forum.errors,
-                       :status => :unprocessable_entity }
+        format.html  { render action: 'new' }
+        format.json  do
+          render json: @forum.errors,
+                 status: :unprocessable_entity
+        end
       end
     end
   end

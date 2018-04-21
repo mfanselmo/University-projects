@@ -31,13 +31,18 @@
 </table>
   
 <% if current_user.username != "guest" %> <!-- Quitar el # de lo anterior para que solo el usuario cree un post-->
-  <h2>Añade un post:</h2>
+  <!-- <h2>Añade un post:</h2> -->
   <%= form_for([@forum, @forum.posts.build]) do |f| %>
     <div class="field">
       <%= f.text_field :name, value: current_user.username, style: "#{'display:none';}" %><br />
       <%#= f.text_field :name %>
     </div>
     <div class="field">
+      <div align="left">
+        <strong><em>
+        Nuevo post
+        </em></strong>
+      </div>
       <%= f.label :title %><br />
       <%= f.text_area :title %>
     </div>
