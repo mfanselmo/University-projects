@@ -1,0 +1,13 @@
+<%= form_for([@post, @post.comments.build]) do |f| %>
+  <div class="field">
+    <%#= f.label :commenter %><!--<br />-->
+    <%= f.text_field :commenter, value: current_user.username, style: "#{'display:none';}" %>
+  </div>
+  <div class="field">
+    <div><h4>Haz un comentario:</h4></div>
+    <%= f.text_area :body %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,18 @@
+<p>
+  <b>Usuario:</b>
+  <%= comment.commenter %>
+</p>
+ 
+<p>
+  <b>Comentario:</b>
+  <%= comment.body %>
+</p>
+
+<% if current_user.username == comment.commenter %> 
+  <p>
+	
+	<%= link_to 'Borrar comentario', [comment.post, comment],
+               :confirm => '¿Estas seguro que deseas borrarlo?',
+               :method => :delete %>
+  </p>
+<% end %>

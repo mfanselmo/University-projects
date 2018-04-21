@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p id="titlesForum">FOROS</p>
+
+<table width="80%" class= "table table-hover">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Número de posts</th>
+      <% if current_user.admin %>
+        
+        <th>Eliminar</th>
+        <th>Editar</th>
+
+      <% end %>
+
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @forums.each do |forum| %>
+      <tr class='clickable-row' data-href='url://'>
+        <td><%= link_to forum.name, forum, { :class=> "linksForum" }%></td>
+        <td class="linksForum"><%= forum.posts.count %></td>
+
+        <% if current_user.admin? %>
+          <td><%= link_to 'Editar foro', edit_forum_path(forum) %></td>
+          <td><%= link_to 'Eliminar foro', forum, method: :delete, data: { confirm: '¿Estás seguro?' } %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+<br>
+
+<% if current_user.admin? %>  <!-- Quitar el # de lo anterior para que solo el admin cree un foro-->
+  <%= link_to 'Nuevo Foro', new_forum_path %>
+<% end %>  <!-- Quitar el # de lo anterior para que solo el usuario cree un post-->

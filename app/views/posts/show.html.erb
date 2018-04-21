@@ -1,0 +1,64 @@
+<p id="notice"><%= notice %></p>
+ 
+
+<h3>
+  <%= @post.title %>
+  <small class="text-muted">de: <%= @post.name %></small>
+</h3>
+ 
+<p>
+  <b>Contenido:</b>
+  <%= @post.content %>
+</p>
+
+<h2>Comentarios</h2>
+
+<% @post.comments.each do |comment| %>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12"></div>
+    </div>
+    <div class="row">
+      <div class="col-sm-1">
+        <div class="thumbnail">
+          <%= image_tag("default-user-image-300x300.png", :alt => "user view") %>
+        </div>
+      </div>
+      <div class="col-sm-10">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <strong><%= comment.commenter %></strong>
+            <span class="text-muted">
+              Hace <%= time_ago_in_words (Time.now - comment.created_at).seconds.from_now %> 
+            <span style="float: right; ">
+              <% if current_user.username == comment.commenter %>
+                <%= link_to 'Borrar comentario', [comment.post, comment],
+                 :confirm => '¿Estas seguro que deseas borrarlo?',
+                 :method => :delete %>
+              <% end %>
+            </span>
+            </span>
+          </div>
+          <div class="panel-body">
+            <%= comment.body %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+
+ 
+<% if current_user.username != "guest" %>  <!-- Quitar el # de lo anterior para que solo el usuario cree un post-->
+  <h2>Agrega un comentario:</h2>
+  <%= render "comments/form" %>
+<% end %>  <!-- Quitar el # de lo anterior para que solo el usuario cree un post-->
+
+
+ 
+<% if current_user.username == @post.name %> 
+  <%= link_to 'Editar Post', edit_post_path(@post) %> |
+<% end %>
+<%= link_to 'De vuelta a ' + @post.forum.name, @post.forum %>
+
