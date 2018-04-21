@@ -19,7 +19,7 @@
     <% @forum.posts.each do |post| %>
       <tr>
         <td><%= post.name %></td>
-        <td><%= post.title%></td>
+        <td><%= post.title.truncate(50) %></td>
         <td><%= post.comments.count %></td>
         <td><%= link_to 'Ver', post %></td>
         <% if current_user.username == post.name %>
