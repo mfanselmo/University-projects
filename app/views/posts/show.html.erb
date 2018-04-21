@@ -11,12 +11,6 @@
   <%= @post.content %>
 </p>
 
-<p>
-  <b>Votos:</b>
-  <% @post.increment(:votes) %>  <!-- lo aumenta en 1 -->
-  <%= @post.votes %>
-</p>
-
 <h2>Comentarios</h2>
 
 <% @post.comments.each do |comment| %>
