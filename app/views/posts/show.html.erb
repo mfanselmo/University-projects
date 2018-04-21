@@ -14,14 +14,7 @@
   <b>Contenido:</b>
   <%= @post.content %>
 </p>
-<p>
-  <b>Votos:</b>
-  <% @post.increment(:votes) %>  <!-- lo aumenta en 1 -->
-  <% @user.increment(:points, 2) %>
-  <%= link_to "Like", post_path, id: @post.id, class: "button" %>
-  <%= @post.votes %>
-  <%= link_to "Dislike", post_path, id: @post.id, class: "button" %>
-</p>
+
 <h2>Comentarios</h2>
 <%= render @post.comments %>
  
