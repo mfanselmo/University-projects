@@ -20,4 +20,6 @@ class Post < ApplicationRecord
     self[attribute] -= by
     save
   end
+
+  acts_as_votable
 end

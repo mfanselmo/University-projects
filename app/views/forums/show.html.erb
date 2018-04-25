@@ -61,10 +61,15 @@
               <em><%= post.comments.count %> comentario(s)</em>
             </span>
             <span style="float: right;" class="text-muted">
-              like | dislike
+              <%= link_to(:controller => "forums", :action => "upvote", :id => post) do %>
+                  <span>Like</span>
+              <% end %> |
+              <%= link_to(:controller => "forums", :action => "downvote", :id => post) do %>
+                  <span>Dislike</span>
+              <% end %>
             </span>
             <div style="text-align: center;" class="text-muted">
-              Se tiene 0 puntos
+              Se tiene <%= post.votes_for.size %> votos
             </div>
           </div>
 

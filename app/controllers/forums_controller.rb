@@ -85,6 +85,23 @@ class ForumsController < ApplicationController
     end
   end
 
+  def upvote
+    @post = Post.find(params[:id])
+    if current_user.username != "guest"
+      @post.upvote_from current_user
+    end
+    redirect_to(:controller => "forums", :action => "show", :id => @post.forum_id)    
+  end
+
+  def downvote
+    @post = Post.find(params[:id])
+    if current_user.username != "guest"
+      @post.downvote_from current_user
+    end
+    redirect_to(:controller => "forums", :action => "show", :id => @post.forum_id)
+
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.

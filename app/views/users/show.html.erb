@@ -11,6 +11,22 @@
 	      <td>Correo electrónico</td>
 	      <td><%= @user.email %></td>
 	    </tr>
+	    <tr>
+	      <td>Puntos</td>
+	      <td><%= @user.points %></td>
+	    </tr>
+	    <tr>
+	      <td>Votos realizados</td>
+	      <td><%= @user.votes.up.size + @user.votes.down.size %></td>
+	    </tr>
+		<tr>
+	      <td>Likes realizados</td>
+	      <td><%= @user.votes.up.size %></td>
+	    </tr>
+	    <tr>
+	      <td>Dislikes realizados</td>
+	      <td><%=  @user.votes.down.size %></td>
+	    </tr>
 	  </tbody>
 	</table>
 

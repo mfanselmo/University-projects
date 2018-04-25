@@ -21,5 +21,5 @@ user.admin = true
 user.username = 'nachocontreras'
 # user.likes = 20
 # user.dislikes = 15
-# user.points = 1000
+user.points = 1000
 user.save!

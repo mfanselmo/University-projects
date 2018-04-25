@@ -28,4 +28,11 @@ Rails.application.routes.draw do
   get '/admin', to: 'index#admin'
   get '/users/:id', to: "users#show", :as => :user
 
+  resources :forums do
+      member do
+          match "upvote", :as => :upvote, :via => [:get, :put]
+          match "downvote", :as => :downvote, :via => [:get, :put]
+      end
+  end
+
 end
