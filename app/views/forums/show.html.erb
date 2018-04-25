@@ -69,7 +69,7 @@
               <% end %>
             </span>
             <div style="text-align: center;" class="text-muted">
-              Se tiene <%= post.votes_for.size %> votos
+              Se tiene <%= post.get_upvotes.size - post.get_downvotes.size %> votos
             </div>
           </div>
 
