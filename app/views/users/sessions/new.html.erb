@@ -28,13 +28,14 @@
     <div class="col-sm-6 col-sm-offset-2">
         <%= f.submit "Ingresar", class: 'btn btn-primary' %>
         <% end %>
-        
-        <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: 'form-horizontal'}) do |f2| %>
-            <%= f2.email_field :email, value:"guest@guest.com", style: "#{'display:none';}" %>
-            <%= f2.password_field :password, value:"123456", style: "#{'display:none';}"  %>
-            <%= f2.submit "Ingresar como invitado", class: 'btn btn-primary',  style: "#{'margin-top:5px;'}"%>
 
-        <% end %>
+
+
+        <form method="get" action="/" >
+            <button type="submit" class="btn btn-primary" style="{margin-top: 20px;}">Ingresar como visita</button>
+        </form>
+
+
         <%= render "users/shared/links" %>
     </div>
 </div>
