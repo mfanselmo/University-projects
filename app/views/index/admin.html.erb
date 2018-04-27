@@ -1,9 +1,7 @@
-<% if not current_user.admin? %>
-	<h1>Oops, no deberias estar aqui!</h1>
 
-	<%= link_to "Volver", root_path , :class => 'customLink'  %>
 
-<% else %>
+
+<% if user_signed_in? and current_user.admin? %>
 	<h1>Pagina de admin</h1>
 
 
@@ -26,7 +24,12 @@
 	  </tbody>
 	</table>
 
-<br>
+	<br>
+
+<% else %>
+	<h1>Oops, no deberias estar aqui!</h1>
+
+	<%= link_to "Volver", root_path , :class => 'customLink'  %>
 
 
 <% end %>
