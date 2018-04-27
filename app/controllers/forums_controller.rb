@@ -80,26 +80,50 @@ class ForumsController < ApplicationController
   def destroy
     @forum.destroy
     respond_to do |format|
-      format.html { redirect_to forums_url, notice: 'Forum was successfully destroyed.' }
+      format.html { redirect_to forums_url, notice: 'Forum was successfully destroyed.'}
       format.json { head :no_content }
     end
   end
 
-  def upvote
+def upvote
     @post = Post.find(params[:id])
     if current_user.username != "guest"
-      @post.upvote_from current_user
+      result = @post.upvote_from current_user
     end
-    redirect_to(:controller => "forums", :action => "show", :id => @post.forum_id)    
+    # respond_to do |format|
+      # format.html {redirect_to :back}
+      #format.js.erb
+    # end
+    render json: {result: result, count: {like: @post.get_likes.size, dislike: @post.get_dislikes.size}}
   end
 
-  def downvote
+def downvote
+    @post = Post.find(params[:id])
+    if current_user.username != "guest"
+      result = @post.downvote_from current_user
+    end
+    # respond_to do |format|,
+      # format.html {redirect_to :back}
+      #format.js.erb
+    # end
+    render json: {result: result, count: {like: @post.get_likes.size, dislike: @post.get_dislikes.size}}
+  end
+
+  def downvote2
     @post = Post.find(params[:id])
     if current_user.username != "guest"
       @post.downvote_from current_user
     end
-    redirect_to(:controller => "forums", :action => "show", :id => @post.forum_id)
-
+    # if request.xhr?
+      # head :ok
+      # render status: 200, json: { count: @post.get_likes.size, id: @post.id }
+    # else
+      # redirect_to(:controller => "forums", :action => "show", :id => @post.forum_id)
+    #
+    respond_to do |format|
+      # format.html {redirect_to :back}
+      format.js.erb
+    end
   end
 
   private
