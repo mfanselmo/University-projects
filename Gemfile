@@ -56,3 +56,5 @@ end
 gem 'devise'
 gem 'i18n', '>= 1.0.0'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
+gem 'acts_as_votable', '~> 0.11.1'
+gem 'jquery-rails'

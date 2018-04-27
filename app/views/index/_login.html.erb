@@ -1,0 +1,46 @@
+<div class="container">
+    	<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<div class="panel panel-login">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-xs-6">
+								<a href="#" class="active" id="login-form-link">Login</a>
+							</div>
+							<div class="col-xs-6">
+								<a href="#" id="register-form-link">Register</a>
+							</div>
+						</div>
+						<hr>
+					</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-lg-12">
+								<%= form_for(:user, :html => {class: 'navbar-form navbar-right form-inline', role: "form", id: 'login-form' }, :url => session_path(:user)) do |f| %>
+				                  <%= f.text_field :email, class: 'form-control', placeholder: 'Email'%>
+				                  <%= f.password_field :password, class: 'form-control', placeholder: 'Contraseña' %>
+				                  <%= f.submit 'Sign in', class: "btn btn-success"%>
+				                <% end %>
+								
+<%= form_for(resource, :as => resource_name, :html => {class: 'navbar-form navbar-right form-inline', role: "form", id: 'register-form' , style: "display: none;"}, :url => session_path(:user)) do |f| %>
+								  <%= devise_error_messages! %>
+
+
+								  <%= f.text_field :username, class: 'form-control', placeholder: 'Username' %>
+
+								  <%= f.email_field :email, class: 'form-control', placeholder: 'Email' %>
+
+								  <%= f.password_field :password, class: 'form-control', placeholder: 'Password' %>
+
+								  <%= f.password_field :password_confirmation, class: 'form-control', placeholder: 'Password' %>
+
+								  <%= f.submit "Sign up", class: "btn btn-success" %>
+								<% end %>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>

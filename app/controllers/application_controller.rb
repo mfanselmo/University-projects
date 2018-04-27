@@ -18,5 +18,7 @@ class ApplicationController < ActionController::Base
                                          password_confirmation
                                          current_password admin])
   end
+
+
   
 end
