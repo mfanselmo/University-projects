@@ -94,7 +94,10 @@ def upvote
       # format.html {redirect_to :back}
       #format.js.erb
     # end
-    render json: {result: result, count: {like: @post.get_likes.size, dislike: @post.get_dislikes.size}}
+    render json: {result: result, count: { votes: 
+                                          {like: @post.get_likes.size, 
+                                           dislike: @post.get_dislikes.size}, 
+                                           points: @post.points}}
   end
 
 def downvote
@@ -106,7 +109,10 @@ def downvote
       # format.html {redirect_to :back}
       #format.js.erb
     # end
-    render json: {result: result, count: {like: @post.get_likes.size, dislike: @post.get_dislikes.size}}
+    render json: {result: result, count: { votes: 
+                                          {like: @post.get_likes.size, 
+                                           dislike: @post.get_dislikes.size}, 
+                                           points: @post.points}}
   end
 
   def downvote2

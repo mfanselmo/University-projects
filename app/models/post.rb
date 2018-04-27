@@ -21,5 +21,9 @@ class Post < ApplicationRecord
     save
   end
 
+  def points
+    return self.get_upvotes.size - self.get_downvotes.size
+  end
+
   acts_as_votable
 end

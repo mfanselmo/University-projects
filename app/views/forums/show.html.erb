@@ -77,7 +77,11 @@
               <%# end %>
             </span>
             <div style="text-align: center;" class="text-muted">
-              Se tiene <%= post.get_upvotes.size - post.get_downvotes.size %> votos // 
+              Se tiene
+              <span class="post-points">
+              <%= post.points %>
+              </span> 
+              <%#= post.get_upvotes.size - post.get_downvotes.size %> puntos //
               <span class="votes-like-count" id="vote_<%= post.id %>">
                 <%= post.get_likes.size%>
               </span>
