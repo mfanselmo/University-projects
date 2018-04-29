@@ -90,10 +90,6 @@ def upvote
     if current_user.username != "guest"
       result = @post.upvote_from current_user
     end
-    # respond_to do |format|
-      # format.html {redirect_to :back}
-      #format.js.erb
-    # end
     render json: {result: result, count: { votes: 
                                           {like: @post.get_likes.size, 
                                            dislike: @post.get_dislikes.size}, 
@@ -105,31 +101,10 @@ def downvote
     if current_user.username != "guest"
       result = @post.downvote_from current_user
     end
-    # respond_to do |format|,
-      # format.html {redirect_to :back}
-      #format.js.erb
-    # end
     render json: {result: result, count: { votes: 
                                           {like: @post.get_likes.size, 
                                            dislike: @post.get_dislikes.size}, 
                                            points: @post.points}}
-  end
-
-  def downvote2
-    @post = Post.find(params[:id])
-    if current_user.username != "guest"
-      @post.downvote_from current_user
-    end
-    # if request.xhr?
-      # head :ok
-      # render status: 200, json: { count: @post.get_likes.size, id: @post.id }
-    # else
-      # redirect_to(:controller => "forums", :action => "show", :id => @post.forum_id)
-    #
-    respond_to do |format|
-      # format.html {redirect_to :back}
-      format.js.erb
-    end
   end
 
   private

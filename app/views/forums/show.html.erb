@@ -63,25 +63,15 @@
               <em><%= post.comments.count %> comentario(s)</em>
             </span>
             <span style="float: right;" class="text-muted">
-              <%#= link_to(:controller => "forums", :action => "upvote", 
-              class: 'vote', method: :put, remote: true, :id => post) do %>
-              <%#= link_to 'Like', like_forum_path(@forum), :class => "upvote", :method => :put, :remote => true %>
-                  <!--<span>Like</span>-->
-              <%# end %> 
               <a id = "countlike" onclick="like(<%=post.id%>)">Like</a>
               <a id = "countdislike" onclick="dislike(<%=post.id%>)">Dislike</a>
-              <%#= link_to(:controller => "forums", :action => "downvote", 
-              class: 'vote', method: :put, remote: true, :id => post) do %>
-              <%#= link_to 'Dislike', dislike_forum_path(@forum), :class => "downvote", :method => :put, :remote => true %>
-                  <!--<span>Dislike</span>-->
-              <%# end %>
             </span>
             <div style="text-align: center;" class="text-muted">
               Se tiene
               <span class="post-points">
               <%= post.points %>
               </span> 
-              <%#= post.get_upvotes.size - post.get_downvotes.size %> puntos //
+              puntos //
               <span class="votes-like-count" id="vote_<%= post.id %>">
                 <%= post.get_likes.size%>
               </span>
