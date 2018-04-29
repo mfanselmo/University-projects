@@ -1,3 +1,5 @@
+
+<div class="container">
 <% if user_signed_in? %>
 
 	<% if current_user.admin? %>
@@ -10,8 +12,7 @@
 
 
 <% else %>
-	<!-- <%= render 'index/login' %> -->
-	Bienvenido Visita
 	<h3> Para ir a los foros: <%= link_to "Foros", forums_path %> <h3>
 	<%= image_tag("mountain.jpg", :alt => "Mountain view") %>
 <% end %>
+</div>
