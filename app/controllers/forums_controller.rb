@@ -80,9 +80,31 @@ class ForumsController < ApplicationController
   def destroy
     @forum.destroy
     respond_to do |format|
-      format.html { redirect_to forums_url, notice: 'Forum was successfully destroyed.' }
+      format.html { redirect_to forums_url, notice: 'Forum was successfully destroyed.'}
       format.json { head :no_content }
     end
+  end
+
+def upvote
+    @post = Post.find(params[:id])
+    if current_user.username != "guest"
+      result = @post.upvote_from current_user
+    end
+    render json: {result: result, count: { votes: 
+                                          {like: @post.get_likes.size, 
+                                           dislike: @post.get_dislikes.size}, 
+                                           points: @post.points}}
+  end
+
+def downvote
+    @post = Post.find(params[:id])
+    if current_user.username != "guest"
+      result = @post.downvote_from current_user
+    end
+    render json: {result: result, count: { votes: 
+                                          {like: @post.get_likes.size, 
+                                           dislike: @post.get_dislikes.size}, 
+                                           points: @post.points}}
   end
 
   private

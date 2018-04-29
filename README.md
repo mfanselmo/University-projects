@@ -21,4 +21,5 @@ Things you may want to cover:
 
 * Deployment instructions
 
-* ...
+
+La página es: http://grupo02-software.herokuapp.com/

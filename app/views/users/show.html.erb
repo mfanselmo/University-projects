@@ -11,20 +11,21 @@
 	      <td>Correo electrónico</td>
 	      <td><%= @user.email %></td>
 	    </tr>
-	    <!--<tr>
-	      <td>Upvotes</td>
-	      <%# @user.increment(:likes, 1) %>
-	      <td><%#= @user.likes %></td>
+	    <tr>
+	      <td>Puntos</td>
+	      <td><%= @user.points %></td>
 	    </tr>
 	    <tr>
-	      <td>Downvotes</td>
-	      <%# @user.decrement(:dislikes, 1) %>
-	      <td><%#= @user.dislikes %></td>
-	    </tr>-->
+	      <td>Votos realizados</td>
+	      <td><%= @user.votes.up.size + @user.votes.down.size %></td>
+	    </tr>
+		<tr>
+	      <td>Likes realizados</td>
+	      <td><%= @user.votes.up.size %></td>
+	    </tr>
 	    <tr>
-	      <td>DCCBlogger's points</td>
-	      <%# @user.calculate_points(:points) %>
-	      <td><%= @user.points %></td>
+	      <td>Dislikes realizados</td>
+	      <td><%=  @user.votes.down.size %></td>
 	    </tr>
 	  </tbody>
 	</table>

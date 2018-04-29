@@ -27,4 +27,6 @@ class User < ApplicationRecord
     self[attribute] -= by
     save
   end
+
+  acts_as_voter
 end
