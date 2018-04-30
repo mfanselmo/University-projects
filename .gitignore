@@ -20,5 +20,6 @@
 
 public/uploads/comment
 public/uploads/post
+public/uploads/user
 
 .env
