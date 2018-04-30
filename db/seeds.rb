@@ -29,3 +29,15 @@ user.admin = true
 user.username = 'mfanselmo'
 user.points = 1001
 user.save!
+
+
+user = User.new
+user.email = 'rihanuch@uc.cl'
+user.password = '000000'
+user.password_confirmation = '000000'
+user.admin = true
+user.username = 'rihanuch'
+# user.likes = 20
+# user.dislikes = 15
+user.points = 1002
+user.save!

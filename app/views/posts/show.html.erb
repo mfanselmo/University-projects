@@ -9,6 +9,11 @@
 <p>
   <b>Contenido:</b>
   <%= @post.content %>
+<p>
+  <strong>Image:</strong>
+  <%= image_tag @post.image %>
+</p>
+  
 </p>
 
 <h2>Comentarios</h2>
@@ -40,7 +45,8 @@
             </span>
           </div>
           <div class="panel-body">
-            <%= comment.body %>
+            <p><%= comment.body %></p>
+            <p><%= image_tag comment.image %></p>
           </div>
         </div>
       </div>
