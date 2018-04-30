@@ -9,6 +9,9 @@
       <tr>
         <th>Nombre</th>
         <th>Número de posts</th>
+        <% if user_signed_in? %>
+          <th>Subscribirse</th>
+        <% end %>
         <% if user_signed_in? and current_user.admin %>
           
           <th>Editar</th>
@@ -24,6 +27,15 @@
         <tr class='clickable-row' data-href='url://'>
           <td><%= link_to forum.name, forum, { :class=> "linksForum" }%></td>
           <td class="linksForum"><%= forum.posts.count %></td>
+
+          <% if user_signed_in? %>
+            <% if current_user.forums.include? forum %>
+              <td><%= link_to "Desubscribirse", Subscription.find_by(:user_id => current_user.id, :forum_id => forum.id), :method => :delete %></td>
+
+            <% else %>
+              <td><%= link_to "Subscribirse", subscriptions_path(:user_id => current_user.id, :forum_id => forum.id), :method => :post %></td>
+            <% end %>
+          <% end %>
 
           <% if user_signed_in? and current_user.admin? %>
             <td><%= link_to 'Editar foro', edit_forum_path(forum) %></td>

@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
 
+  resources :subscriptions
   resources :forums do
     resources :posts
   end
+
+
   
   resources :posts do
     resources :comments
