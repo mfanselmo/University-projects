@@ -25,7 +25,8 @@ class SubscriptionsController < ApplicationController
   # POST /subscriptions.json
   def create
     @subscription = Subscription.new(:user_id => params[:user_id], :forum_id => params[:forum_id])
-    @subscription.save!
+    result = @subscription.save!
+    render json: {result: result, id: @subscription.id}
   end
 
   # PATCH/PUT /subscriptions/1
@@ -45,8 +46,9 @@ class SubscriptionsController < ApplicationController
   # DELETE /subscriptions/1
   # DELETE /subscriptions/1.json
   def destroy
-    @subscription.destroy
-
+    forum_id = @subscription.forum_id
+    result = @subscription.destroy
+    render json: {result: result, forum_id: forum_id}
   end
 
   private
