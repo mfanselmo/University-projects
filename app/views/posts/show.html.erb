@@ -1,15 +1,69 @@
 <p id="notice"><%= notice %></p>
  
 
-<h3>
-  <%= @post.title %>
-  <small class="text-muted">de: <%= @post.name %></small>
-</h3>
- 
-<p>
-  <b>Contenido:</b>
-  <%= @post.content %>
-</p>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-1">
+          <div class="thumbnail">
+            <%= image_tag("default-user-image-300x300.png", :alt => "User view") %>
+          </div>
+        </div>
+        <div class="col-sm-10">
+          <div class="panel panel-default">
+
+            <div class="panel-heading">
+              <strong><%=  @post.title %></strong>
+              <span class="text-muted">
+                Hace <%= time_ago_in_words (Time.now - @post.created_at).seconds.from_now %> 
+              </span>
+              <em>
+                <span style="float: right; " class="text-muted">
+                  <% if user_signed_in? and current_user.username == @post.name %>
+                    <%= link_to 'Editar', edit_post_path(@post) %> |
+                    <%= link_to 'Eliminar', [@post.forum, @post],
+                     :confirm => '¿Estas seguro que deseas borrarlo?',
+                     :method => :delete %>
+                  <% end %>
+                </span>
+              </em>
+            </div>
+
+            <div class="panel-body">
+              <%= @post.content %>
+            </div>
+
+          <div class="panel-footer">
+            <span style="float: left;" class="text-muted">
+              <em><%= @post.name %></em>
+            </span>
+            <span style="float: right;" class="text-muted">
+              <a id = "countlike" onclick="like(<%=@post.id%>)">Like</a>
+              <a id = "countdislike" onclick="dislike(<%=@post.id%>)">Dislike</a>
+            </span>
+            <div style="text-align: center;" class="text-muted">
+              Se tiene
+              <span class="post-points" id="points-vote-<%= @post.id %>">
+              <%= @post.points %>
+              </span> 
+              puntos //
+              <span class="votes-like-count" id="likes-vote-<%= @post.id %>">
+                <%= @post.get_likes.size%>
+              </span>
+              likes //
+              <span class="votes-dislike-count" id="dislikes-vote-<%= @post.id %>">
+                <%= @post.get_dislikes.size%>
+              </span>
+              dislikes
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 <h2>Comentarios</h2>
 
