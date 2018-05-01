@@ -68,15 +68,15 @@
             </span>
             <div style="text-align: center;" class="text-muted">
               Se tiene
-              <span class="post-points">
+              <span class="post-points" id="points-vote-<%= post.id %>">
               <%= post.points %>
               </span> 
               puntos //
-              <span class="votes-like-count" id="vote_<%= post.id %>">
+              <span class="votes-like-count" id="likes-vote-<%= post.id %>">
                 <%= post.get_likes.size%>
               </span>
               likes //
-              <span class="votes-dislike-count" id="vote_<%= post.id %>">
+              <span class="votes-dislike-count" id="dislikes-vote-<%= post.id %>">
                 <%= post.get_dislikes.size%>
               </span>
               dislikes
