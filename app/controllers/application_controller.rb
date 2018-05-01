@@ -16,7 +16,8 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:account_update, keys:
                                       %i[username email password
                                          password_confirmation
-                                         current_password admin])
+                                         current_password admin
+                                         image remove_image image_cache])
   end
 
 
