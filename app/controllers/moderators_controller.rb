@@ -20,17 +20,8 @@ class ModeratorsController < ApplicationController
   # POST /moderators
   # POST /moderators.json
   def create
-    @moderator = Moderator.new(moderator_params)
-
-    respond_to do |format|
-      if @moderator.save
-        format.html { redirect_to @moderator, notice: 'Moderator was successfully created.' }
-        format.json { render :show, status: :created, location: @moderator }
-      else
-        format.html { render :new }
-        format.json { render json: @moderator.errors, status: :unprocessable_entity }
-      end
-    end
+    @moderator = Moderator.new(:user_id => params[:user_id], :forum_id => params[:forum_id])
+    result = @moderator.save!
   end
 
   # PATCH/PUT /moderators/1
@@ -65,6 +56,6 @@ class ModeratorsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def moderator_params
-      params.require(:moderator).permit(:user_id, :forum_id)
+      params.permit(:user_id, :forum_id)
     end
 end

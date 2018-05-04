@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :postulations
   resources :moderators
   resources :subscriptions
   resources :forums do

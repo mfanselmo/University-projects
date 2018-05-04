@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Postulations</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Forum</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @postulations.each do |postulation| %>
+      <tr>
+        <td><%= postulation.user_id %></td>
+        <td><%= postulation.forum_id %></td>
+        <td><%= link_to 'Show', postulation %></td>
+        <td><%= link_to 'Edit', edit_postulation_path(postulation) %></td>
+        <td><%= link_to 'Destroy', postulation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Postulation', new_postulation_path %>

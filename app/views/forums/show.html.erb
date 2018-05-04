@@ -90,8 +90,7 @@
   <% end %>
 
     
-  <% if user_signed_in? %> <!-- Quitar el # de lo anterior para que solo el usuario cree un post-->
-    <!-- <h2>Añade un post:</h2> -->
+  <% if user_signed_in? %> 
     <%= form_for([@forum, @forum.posts.build]) do |f| %>
       <div class="field">
         <%= f.text_field :name, value: current_user.username, style: "#{'display:none';}" %><br />
@@ -114,20 +113,33 @@
         <%= f.submit %>
       </div>
     <% end %>
-  <% end %>  <!-- Quitar el # de lo anterior para que solo el usuario cree un post-->
+
+
+
+
+    <!-- PARTE MODERADORES -->
+    <%  if moderadores(@forum).include? current_user.id  %>
+      <p> Eres moderador </p>
+
+
+      <% elsif current_user.points >= 0 and not esta_postulando(current_user, @forum)%>
+      <p> Podrias ser moderador de este foro! </p>
+      <%= link_to "Postular", postulations_path(:user_id => current_user.id, :forum_id => @forum.id), :method => :post%>
+      
+      <% elsif current_user.points >= 0 and esta_postulando(current_user, @forum)%>
+      <p> Ya estas postulando para ser moderador de este foro!  </p>
+      
+
+    <% end %>
+  <% end %> 
 
   <% if user_signed_in? and current_user.admin? %>
     <%= link_to 'Editar foro', edit_forum_path(@forum) %> |
   <% end %>
 
 
-  <h1>Moderadores</h1>
-  <%  moderadores(@forum).each do |a|   %>
-  <%= User.find(a).username  %>
-  <% end %>
+  
 
-  <h1>Subscriptores</h1>
-  <%  subscriptores(@forum).each do |a|   %>
-  <%= User.find(a).username  %>
-  <% end %>
+  
+
 </div>
