@@ -29,3 +29,4 @@ user.admin = true
 user.username = 'mfanselmo'
 user.points = 1001
 user.save!
+
