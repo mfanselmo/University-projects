@@ -88,7 +88,7 @@ class ForumsController < ApplicationController
 
 def upvote
     @post = Post.find(params[:id])
-    if current_user.username != "guest"
+    if user_signed_in?
       result = @post.upvote_from current_user
     end
     render json: {result: result, count: { votes: 
@@ -99,7 +99,7 @@ def upvote
 
 def downvote
     @post = Post.find(params[:id])
-    if current_user.username != "guest"
+    if user_signed_in?
       result = @post.downvote_from current_user
     end
     render json: {result: result, count: { votes: 

@@ -43,4 +43,7 @@ Rails.application.routes.draw do
   post "like/:id" => "forums#upvote"
   post "dislike/:id" => "forums#downvote"
 
+  post "c-like/:id" => "comments#upvote"
+  post "c-dislike/:id" => "comments#downvote"
+
 end
