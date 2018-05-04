@@ -120,4 +120,14 @@
     <%= link_to 'Editar foro', edit_forum_path(@forum) %> |
   <% end %>
 
+
+  <h1>Moderadores</h1>
+  <%  moderadores(@forum).each do |a|   %>
+  <%= User.find(a).username  %>
+  <% end %>
+
+  <h1>Subscriptores</h1>
+  <%  subscriptores(@forum).each do |a|   %>
+  <%= User.find(a).username  %>
+  <% end %>
 </div>

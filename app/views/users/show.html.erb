@@ -31,3 +31,19 @@
 	</table>
 
 <br>
+
+
+FOROS QUE SIGUES
+<br>
+<% current_user.subscriptions.each do |forum| %>
+<%= link_to 'foro', Forum.find(forum.forum_id) %>
+<br>
+<% end %>
+
+
+FOROS QUE MODERS
+<br>
+<% current_user.moderators.each do |forum| %>
+<%= link_to 'Moderar', Forum.find(forum.forum_id) %>
+<br>
+<% end %>

@@ -13,6 +13,9 @@ class User < ApplicationRecord
   has_many :subscriptions
   has_many :forums, through: :subscriptions
 
+  has_many :moderators
+  has_many :forums, through: :moderators, :source => :mod
+
   def user_params
     params.require(:user).permit(:user, :email)
   end
@@ -30,7 +33,6 @@ class User < ApplicationRecord
     self[attribute] -= by
     save
   end
-
 
   acts_as_voter
 end
