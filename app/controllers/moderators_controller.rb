@@ -22,7 +22,13 @@ class ModeratorsController < ApplicationController
   def create
     @moderator = Moderator.new(:user_id => params[:user_id], :forum_id => params[:forum_id])
     result = @moderator.save!
+
+    @pos = Postulation.find_by(:user_id => params[:user_id], :forum_id => params[:forum_id])
+    @pos.destroy
+
   end
+
+
 
   # PATCH/PUT /moderators/1
   # PATCH/PUT /moderators/1.json

@@ -26,6 +26,9 @@ class PostulationsController < ApplicationController
   def create
     @postulation = Postulation.new(:user_id => params[:user_id], :forum_id => params[:forum_id])
     result = @postulation.save!
+
+    
+    
   end
 
   # PATCH/PUT /postulations/1
