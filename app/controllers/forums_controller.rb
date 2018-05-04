@@ -2,6 +2,7 @@
 
 class ForumsController < ApplicationController
   before_action :set_forum, only: %i[show edit update destroy]
+  before_action :authenticate_user!, only: [:new, :delete, :edit]
 
   # GET /forums
   # GET /forums.json

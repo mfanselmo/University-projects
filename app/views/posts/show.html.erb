@@ -86,6 +86,7 @@
               Hace <%= time_ago_in_words (Time.now - comment.created_at).seconds.from_now %> 
             <span style="float: right; ">
               <% if user_signed_in? and current_user.username == comment.commenter %>
+                <%= link_to 'Editar', edit_post_comment_path(@post, comment) %>
                 <%= link_to 'Borrar comentario', [comment.post, comment],
                  :confirm => '¿Estas seguro que deseas borrarlo?',
                  :method => :delete %>
