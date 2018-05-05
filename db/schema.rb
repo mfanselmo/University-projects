@@ -44,6 +44,13 @@ ActiveRecord::Schema.define(version: 20180430235049) do
     t.index ["forum_id"], name: "index_posts_on_forum_id"
   end
 
+  create_table "subscriptions", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "forum_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false

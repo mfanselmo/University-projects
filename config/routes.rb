@@ -1,12 +1,18 @@
 Rails.application.routes.draw do
 
+  resources :subscriptions
   resources :forums do
     resources :posts
   end
+
+
   
   resources :posts do
     resources :comments
   end
+
+  resources :comments
+  
   # devise_for :users
   # devise_for :users, path: 'auth', path_names: { sign_in: 'login', sign_out: 'logout', password: 'secret', confirmation: 'verification', unlock: 'unblock', registration: 'register', sign_up: 'cmon_let_me_in'}
 
@@ -28,16 +34,9 @@ Rails.application.routes.draw do
   get '/admin', to: 'index#admin'
   get '/users/:id', to: "users#show", :as => :user
 
-  # resources :forums do
-    #   member do
-          # match "upvote", :as => :upvote, :via => [:get, :put]
-          # match "downvote", :as => :downvote, :via => [:get, :put]
-      #     put "like", to: "forums#upvote"
-        #   put "dislike", to: "forums#downvote"
-      # end
-  # end
-
   post "like/:id" => "forums#upvote"
   post "dislike/:id" => "forums#downvote"
 
+  post "subscribe/:user_id/:forum_id" => "subscriptions#create"
+  delete "unsubscribe/:id" => "subscriptions#destroy"
 end

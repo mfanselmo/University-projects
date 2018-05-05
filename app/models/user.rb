@@ -12,6 +12,9 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :posts, dependent: :destroy
 
+  has_many :subscriptions
+  has_many :forums, through: :subscriptions
+
   def user_params
     params.require(:user).permit(:user, :email, :avatar, :remove_avatar, :avatar_cache)
   end
@@ -29,6 +32,7 @@ class User < ApplicationRecord
     self[attribute] -= by
     save
   end
+
 
   acts_as_voter
 end

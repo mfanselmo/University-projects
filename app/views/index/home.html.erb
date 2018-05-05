@@ -8,7 +8,53 @@
 	  <h2> Bienvenido usuario <%= current_user.username %> <h2>
 	<% end %>
 	<h3> Para ir a los foros: <%= link_to "Foros", forums_path %> <h3>
-	<%= image_tag("mountain.jpg", :alt => "Mountain view") %>
+	<%#= image_tag("mountain.jpg", :alt => "Mountain view") %>
+    <div class="container">
+    <% if current_user.forums.length == 0 %>
+    <p id="titlesForum">No tiene foros suscritos</p>
+    <% else %>
+    <p id="titlesForum">Foros suscritos</p>
+	<table width="80%" class= "table table-hover">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Número de posts</th>
+            <% if user_signed_in? %>
+              <th>Subscribirse</th>
+            <% end %>
+            <% if user_signed_in? and current_user.admin %>
+              
+              <th>Editar</th>
+              <th>Eliminar</th>
+
+            <% end %>
+
+          </tr>
+        </thead>
+    <% current_user.forums.each do |forum| %>
+        <tbody>
+            <tr class='clickable-row' data-href='url://'>
+              <td><%= link_to forum.name, forum, { :class=> "linksForum" }%></td>
+              <td class="linksForum"><%= forum.posts.count %></td>
+
+              <% if user_signed_in? %>
+                <% if current_user.forums.include? forum %>
+                  <td><a id= "subs_button_<%=forum.id%>" onclick="unsubs(<%= Subscription.find_by(:user_id => current_user.id, :forum_id => forum.id).id %>)">Desuscribirse</a></td>
+                <% else %>
+                  <td><a id= "subs_button_<%=forum.id%>" onclick="subs(<%=current_user.id%>, <%=forum.id%>)">Suscribirse</a></td>
+                <% end %>
+              <% end %>
+
+              <% if user_signed_in? and current_user.admin? %>
+                <td><%= link_to 'Editar foro', edit_forum_path(forum) %></td>
+                <td><%= link_to 'Eliminar foro', forum, method: :delete, data: { confirm: '¿Estás seguro?' } %></td>
+              <% end %>          
+            </tr>
+        </tbody>
+    <% end %>
+    </table>
+    <% end %>
+    </div>
 
 
 <% else %>
