@@ -26,6 +26,8 @@ class ModeratorsController < ApplicationController
     @pos = Postulation.find_by(:user_id => params[:user_id], :forum_id => params[:forum_id])
     @pos.destroy
 
+    render json: {result: result}
+
   end
 
 
@@ -47,11 +49,8 @@ class ModeratorsController < ApplicationController
   # DELETE /moderators/1
   # DELETE /moderators/1.json
   def destroy
-    @moderator.destroy
-    respond_to do |format|
-      format.html { redirect_to moderators_url, notice: 'Moderator was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    result = @moderator.destroy
+    render json: {result: result}
   end
 
   private

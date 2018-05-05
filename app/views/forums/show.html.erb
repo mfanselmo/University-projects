@@ -125,17 +125,16 @@
 
     <!-- PARTE MODERADORES -->
     <%  if moderadores(@forum).include? current_user.id  %>
-      <p> Eres moderador </p>
-
+      <p id="postulate_text"> Eres moderador </p>
+      <a id="action_postulate" onclick="unmoderate(<%=Moderator.find_by(:user_id => current_user.id, :forum_id => @forum.id).id%>, <%=current_user.id%>, <%=@forum.id%>)">Dejar de ser moderador</a>
 
       <% elsif current_user.points >= 0 and not esta_postulando(current_user, @forum)%>
-      <p> Podrias ser moderador de este foro! </p>
-      <%= link_to "Postular", postulations_path(:user_id => current_user.id, :forum_id => @forum.id), :method => :post%>
-      
+      <p id="postulate_text"> Podrias ser moderador de este foro! </p>
+      <%#= link_to "Postular", postulations_path(:user_id => current_user.id, :forum_id => @forum.id), :method => :post%>
+      <a id="action_postulate" onclick="postulate(<%=current_user.id%>, <%=@forum.id%>)">Postular </a>
       <% elsif current_user.points >= 0 and esta_postulando(current_user, @forum)%>
       <p> Ya estas postulando para ser moderador de este foro!  </p>
       
-
     <% end %>
   <% end %> 
 

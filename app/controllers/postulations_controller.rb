@@ -26,8 +26,7 @@ class PostulationsController < ApplicationController
   def create
     @postulation = Postulation.new(:user_id => params[:user_id], :forum_id => params[:forum_id])
     result = @postulation.save!
-
-    
+    render json: {result: result}
     
   end
 
@@ -48,7 +47,8 @@ class PostulationsController < ApplicationController
   # DELETE /postulations/1
   # DELETE /postulations/1.json
   def destroy
-    @postulation.destroy
+    result = @postulation.destroy
+    render json: {result: result}
   end
 
   private
