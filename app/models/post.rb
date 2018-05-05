@@ -3,6 +3,8 @@
 class Post < ApplicationRecord
   belongs_to :forum
 
+  mount_uploader :image, ImageUploader
+
   validates :name,  presence: true
   validates :title, presence: true,
                     length: { minimum: 5 }

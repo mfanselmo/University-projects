@@ -7,6 +7,10 @@
     <div><h4>Haz un comentario:</h4></div>
     <%= f.text_area :body %>
   </div>
+  <div class="field">
+    <%= f.label :image %><br>
+    <%= f.file_field :image %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>
