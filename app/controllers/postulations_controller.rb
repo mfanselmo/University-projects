@@ -49,10 +49,6 @@ class PostulationsController < ApplicationController
   # DELETE /postulations/1.json
   def destroy
     @postulation.destroy
-    respond_to do |format|
-      format.html { redirect_to postulations_url, notice: 'Postulation was successfully destroyed.' }
-      format.json { head :no_content }
-    end
   end
 
   private

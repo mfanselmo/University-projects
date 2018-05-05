@@ -36,6 +36,7 @@
 	      <th data-field="username">Postulante</th>
 	      <th data-field="username">Foro postulacion</th>
 	      <th data-field="email" >Aceptar</th>
+	      <th data-field="email" >Eliminar</th>
 	    </tr>
 	  </thead>
 
@@ -45,6 +46,7 @@
 	        <td><%= link_to(User.find(pos.user_id).username, user_path(pos.user_id))%></td>
 	        <td><%= link_to(Forum.find(pos.forum_id).name, forum_path(pos.forum_id))%></td>
 	        <td><%= link_to "Aceptar", moderators_path(:user_id => pos.user_id, :forum_id => pos.forum_id), :method => :post %></td>
+	        <td><%= link_to "Eliminar", Postulation.find_by(:user_id => pos.user_id, :forum_id => pos.forum_id), :method => :delete %></td>
 	      </tr>
 	    <% end %>
 	  </tbody>

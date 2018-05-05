@@ -26,6 +26,13 @@
                     <%= link_to 'Eliminar', [@post.forum, @post],
                      :confirm => '¿Estas seguro que deseas borrarlo?',
                      :method => :delete %>
+
+                  <% elsif user_signed_in? and current_user.admin? or moderadores(@post.forum).include? current_user.id %>
+                    <%= link_to 'Editar', edit_post_path(@post) %> |
+                    <%= link_to 'Eliminar', [@post.forum, @post],
+                     :confirm => '¿Estas seguro que deseas borrarlo?',
+                     :method => :delete %>
+
                   <% end %>
                 </span>
               </em>
