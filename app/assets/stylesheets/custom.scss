@@ -58,17 +58,6 @@ p {
   text-align: center;
 }
 
-/* Links  */
-
-.customLink, .customLink:hover{
-  color: blue;
-  text-decoration: none;
-}
-
-.linksForum {
-  color: black;
-  font-size: 1.7em;
-}
 
 
 
@@ -87,7 +76,7 @@ Follow me on Twitter @maridlcrmn
 .navbar .navbar-collapse .navbar-right > li:last-child { padding-left: 22px; }
 
 .navbar .nav-collapse { position: absolute; z-index: 1; top: 0; left: 0; right: 0; bottom: 0; margin: 0; padding-right: 120px; padding-left: 80px; width: 100%; }
-.navbar.navbar-default .nav-collapse { background-color: #f8f8f8; }
+.navbar.navbar-default .nav-collapse { background-color: #565D78; }
 .navbar.navbar-inverse .nav-collapse { background-color: #222; }
 .navbar .nav-collapse .navbar-form { border-width: 0; box-shadow: none; }
 .nav-collapse>li { float: left; }
@@ -140,8 +129,57 @@ Follow me on Twitter @maridlcrmn
 }
 
 .b {
-  color: #black;
+  color: #white;
   font-weight: bold;
+}
+
+
+/*ITEMS SUBSCRIPCIONES*/
+
+
+#dashboardSubsripciones {
+  background-color: white;
+  border-radius: 5px; 
+
+}
+
+
+
+#titulo_sub {
+    color: #808080;
+    text-align: center;
+    font-weight: bold;
+}
+#titulo_sub:hover {
+    color: #808080;
+    text-align: center;
+    text-decoration: none;
+}
+
+#link_sub {
+  display: block;
+
+  font-size: 16px;
+  color: #808080;
+
+}
+
+
+#link_sub:hover {
+  color: red;
+  background-color: #fff;
+  text-decoration: none;
+}
+
+
+/*POSTS INICIO */
+
+#dashboardPostInicio {
+  background-color: white;
+  border-radius: 5px; 
+  margin-left: 30px;
+
+
 }
 
 
