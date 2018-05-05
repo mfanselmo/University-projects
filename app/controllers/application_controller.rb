@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
                                       %i[username email password
                                          password_confirmation
                                          current_password admin
-                                         image remove_image image_cache])
+                                         avatar remove_avatar avatar_cache])
   end
 
 

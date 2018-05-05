@@ -28,7 +28,7 @@
       <div class="row">
         <div class="col-sm-1">
           <div class="thumbnail">
-            <%= image_tag(User.find_for_authentication(:username => post.name).image.url , :alt => "user view") %>
+            <%= image_tag(User.find_for_authentication(:username => post.name).avatar.url , :alt => "user view") %>
           </div>
         </div>
         <div class="col-sm-10">
