@@ -44,7 +44,7 @@ class CommentsController < ApplicationController
   end
 
   def upvote
-      @comment = Comments.find(params[:id])
+      @comment = Comment.find(params[:id])
       if user_signed_in?
         result = @comment.upvote_from current_user
       end
@@ -55,7 +55,7 @@ class CommentsController < ApplicationController
     end
 
   def downvote
-      @comment = Comments.find(params[:id])
+      @comment = Comment.find(params[:id])
       if user_signed_in?
         result = @comment.downvote_from current_user
       end
