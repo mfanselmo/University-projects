@@ -98,6 +98,32 @@
               <p><%= markdown(comment.body) %></p>
               <p><%= image_tag comment.image %></p>
           </div>
+            <div class="panel-footer">
+              <span style="float: left;" class="text-muted">
+                <em><%= @post.name %></em>
+              </span>
+              <span style="float: right;" class="text-muted">
+              <%= debug comment.id %>
+              <a id = "countlike" onclick="clike(<%=comment.id%>)">Like</a>
+              <a id = "countdislike" onclick="cdislike(<%=comment.id%>)">Dislike</a>
+              </span>
+              <div style="text-align: center;" class="text-muted">
+                Se tiene
+                <span class="c-post-points" id="c-points-vote-<%= comment.id %>">
+                <%= comment.points %>
+                </span> 
+                puntos //
+                <span class="c-votes-like-count" id="c-likes-vote-<%= comment.id %>">
+                  <%= comment.get_likes.size%>
+                </span>
+                likes //
+                <span class="c-votes-dislike-count" id="c-dislikes-vote-<%= comment.id %>">
+                  <%= comment.get_dislikes.size%>
+                </span>
+                dislikes
+              </div>
+
+            </div>
         </div>
       </div>
     </div>

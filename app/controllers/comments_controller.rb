@@ -9,7 +9,7 @@ class CommentsController < ApplicationController
 
 
   def index
-    @comments = Comments.all
+    @comments = Comment.all
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @comments }
@@ -42,6 +42,28 @@ class CommentsController < ApplicationController
         render 'edit'
     end
   end
+
+  def upvote
+      @comment = Comments.find(params[:id])
+      if user_signed_in?
+        result = @comment.upvote_from current_user
+      end
+      render json: {result: result, count: { votes: 
+                                            {like: @comment.get_likes.size, 
+                                             dislike: @comment.get_dislikes.size}, 
+                                             points: @comment.points}}
+    end
+
+  def downvote
+      @comment = Comments.find(params[:id])
+      if user_signed_in?
+        result = @comment.downvote_from current_user
+      end
+      render json: {result: result, count: { votes: 
+                                            {like: @comment.get_likes.size, 
+                                             dislike: @comment.get_dislikes.size}, 
+                                             points: @comment.points}}
+    end
 
   private
 
