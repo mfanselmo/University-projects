@@ -102,8 +102,9 @@
                 <em><%= @post.name %></em>
               </span>
               <span style="float: right;" class="text-muted">
-              <a id = "countlike" onclick="">Like</a>
-              <a id = "countdislike" onclick="">Dislike</a>
+              <%= debug comment.id %>
+              <a id = "countlike" onclick="clike(<%=comment.id%>)">Like</a>
+              <a id = "countdislike" onclick="cdislike(<%=comment.id%>)">Dislike</a>
               </span>
               <div style="text-align: center;" class="text-muted">
                 Se tiene

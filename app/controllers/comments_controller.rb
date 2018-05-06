@@ -5,11 +5,11 @@ class CommentsController < ApplicationController
   # http_basic_authenticate_with :name => "dhh", :password => "secret", :only => :destroy
 
   before_action :find_post, only: [:edit]
-  before_action :authenticate_user!, only: [:create :destroy, :edit]
+  before_action :authenticate_user!, only: [:create, :destroy, :edit]
 
 
   def index
-    @comments = Comments.all
+    @comments = Comment.all
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @comments }
@@ -44,7 +44,7 @@ class CommentsController < ApplicationController
   end
 
   def upvote
-      @comment = Comment.find(params[:id])
+      @comment = Comments.find(params[:id])
       if user_signed_in?
         result = @comment.upvote_from current_user
       end
@@ -55,7 +55,7 @@ class CommentsController < ApplicationController
     end
 
   def downvote
-      @comment = Comment.find(params[:id])
+      @comment = Comments.find(params[:id])
       if user_signed_in?
         result = @comment.downvote_from current_user
       end
