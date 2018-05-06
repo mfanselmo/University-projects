@@ -5,7 +5,8 @@ module MarkDownHelper
       hard_wrap:       true,
       link_attributes: { rel: 'nofollow', target: "_blank" },
       space_after_headers: true,
-      fenced_code_blocks: true
+      fenced_code_blocks: true,
+      no_styles: true
     }
 
     extensions = {
