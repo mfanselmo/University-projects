@@ -8,9 +8,9 @@ function postulate(user_id, forum_id){
             if(data.result){
             	console.log(data);
                 $("#postulate_text").html("Ya estas postulando para ser moderador de este foro!");
-                $("#action_postulate").html("Dejar de postular (hacer)");
-                $("#action_postulate").removeAttr('onclick');
-                $("#action_postulate").attr('disabled', 'disabled');
+                $("#action_postulate").html("Dejar de postular");
+                // $("#action_postulate").removeAttr('onclick');
+                $("#action_postulate").attr("onclick", "unpostulate(" + data.info + ", " + user_id + ", " + forum_id + ")");
             }
         }
     });
@@ -31,6 +31,9 @@ function unpostulate(id, user_id, forum_id){
                 $("#accept_button_" + user_id + "_" + forum_id).html("");
                 $("#accept_button_" + user_id + "_" + forum_id).removeAttr('onclick');
                 $("#accept_button_" + user_id + "_" + forum_id).attr('disabled', 'disabled');
+                $("#postulate_text").html("Podrias ser moderador de este foro!");
+                $("#action_postulate").html("Postular");
+                $("#action_postulate").attr("onclick", "postulate(" + user_id + ", " + forum_id + ")")
             }
         }
     });
