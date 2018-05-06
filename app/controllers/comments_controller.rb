@@ -18,7 +18,7 @@ class CommentsController < ApplicationController
 
   def create
     @post = Post.find(params[:post_id])
-    @comment = @post.comments.create(params[:comment].permit(:commenter, :body))
+    @comment = @post.comments.create(params[:comment].permit(:commenter, :body, :image, :remove_image))
     redirect_to post_path(@post)
   end
 
@@ -68,7 +68,7 @@ class CommentsController < ApplicationController
   private
 
   def comment_params
-    params.require(:user).permit(:body, :commenter, :post_id)
+    params.require(:user).permit(:body, :commenter, :post_id, :image, :remove_image)
   end
 
   private
