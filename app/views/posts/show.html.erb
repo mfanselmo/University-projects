@@ -31,7 +31,7 @@
             </div>
 
             <div class="panel-body">
-              <p><%= @post.content %></p>
+              <p><%= markdown(@post.content) %></p>
               <p><%= image_tag @post.image %></p>
             </div>
 
@@ -95,8 +95,8 @@
             </span>
           </div>
           <div class="panel-body">
-            <p><%= comment.body %></p>
-            <p><%= image_tag comment.image %></p>
+              <p><%= markdown(comment.body) %></p>
+              <p><%= image_tag comment.image %></p>
           </div>
         </div>
       </div>
