@@ -1,6 +1,5 @@
 <p id="notice"><%= notice %></p>
  
-
     <div class="container">
       <div class="row">
         <div class="col-sm-12"></div>
@@ -8,7 +7,7 @@
       <div class="row">
         <div class="col-sm-1">
           <div class="thumbnail">
-            <%= image_tag("default-user-image-300x300.png", :alt => "User view") %>
+            <%= image_tag(User.find_for_authentication(:username => @post.name).avatar.url , :alt => "user view") %>
           </div>
         </div>
         <div class="col-sm-10">
@@ -32,7 +31,8 @@
             </div>
 
             <div class="panel-body">
-              <%= @post.content %>
+              <p><%= markdown(@post.content) %></p>
+              <p><%= image_tag @post.image %></p>
             </div>
 
           <div class="panel-footer">
@@ -75,7 +75,7 @@
     <div class="row">
       <div class="col-sm-1">
         <div class="thumbnail">
-          <%= image_tag("default-user-image-300x300.png", :alt => "user view") %>
+          <%= image_tag(User.find_for_authentication(:username => comment.commenter).avatar.url , :alt => "user view") %>
         </div>
       </div>
       <div class="col-sm-10">
@@ -95,7 +95,8 @@
             </span>
           </div>
           <div class="panel-body">
-            <%= comment.body %>
+              <p><%= markdown(comment.body) %></p>
+              <p><%= image_tag comment.image %></p>
           </div>
             <div class="panel-footer">
               <span style="float: left;" class="text-muted">
