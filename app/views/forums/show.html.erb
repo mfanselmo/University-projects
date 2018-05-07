@@ -102,7 +102,6 @@
     
 
   <% if user_signed_in? %> 
-    <%= points_user(@forum, current_user) %>
     <%= form_for([@forum, @forum.posts.build]) do |f| %>
       <div class="field">
         <%= f.text_field :name, value: current_user.username, style: "#{'display:none';}" %><br />
@@ -134,19 +133,22 @@
 
 
     <!-- PARTE MODERADORES -->
-    <%  if moderadores(@forum).include? current_user.id  %>
+    <% if user_signed_in? and not current_user.admin? %>
+
+    <%  if moderadores(@forum).include? current_user.id %>
       <p id="postulate_text"> Eres moderador </p>
       <a id="action_postulate" onclick="unmoderate(<%=Moderator.find_by(:user_id => current_user.id, :forum_id => @forum.id).id%>, <%=current_user.id%>, <%=@forum.id%>)">Dejar de ser moderador</a>
 
-      <% elsif current_user.points >= 0 and not esta_postulando(current_user, @forum)%>
+      <% elsif points_user(@forum, current_user) >= 5 and not esta_postulando(current_user, @forum)%>
       <p id="postulate_text"> Podrias ser moderador de este foro! </p>
       <%#= link_to "Postular", postulations_path(:user_id => current_user.id, :forum_id => @forum.id), :method => :post%>
       <a id="action_postulate" onclick="postulate(<%=current_user.id%>, <%=@forum.id%>)">Postular </a>
-      <% elsif current_user.points >= 0 and esta_postulando(current_user, @forum)%>
+      <% elsif points_user(@forum, current_user) >= 5 and esta_postulando(current_user, @forum)%>
       <p> Ya estas postulando para ser moderador de este foro!  </p>
       
+      <% end %>
+    <% end %> 
     <% end %>
-  <% end %> 
 
   <% if user_signed_in? and current_user.admin? %>
     <%= link_to 'Editar foro', edit_forum_path(@forum) %> |
