@@ -22,4 +22,20 @@ module UsersHelper
         cd = info["comment_dislikes"]
         return (pl - pd) * 2 - (cl - cd) 
     end
+
+    def subscripciones(usuario)
+      @lista  = []
+      usuario.subscriptions.each do |sub|
+    	  @lista << sub.forum_id
+      end
+      @lista
+    end
+
+    def moderaciones(usuario)
+      @lista  = []
+      usuario.subscriptions.each do |sub|
+    	  @lista << sub.forum_id
+      end
+      @lista
+    end
 end

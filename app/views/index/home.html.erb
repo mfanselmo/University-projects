@@ -1,64 +1,139 @@
-
-<div class="container">
 <% if user_signed_in? %>
-
-	<% if current_user.admin? %>
-	  <h2> Bienvenido adminstrador <%= current_user.username %> <h2>
-	<% else %>
-	  <h2> Bienvenido usuario <%= current_user.username %> <h2>
-	<% end %>
-	<h3> Para ir a los foros: <%= link_to "Foros", forums_path %> <h3>
-	<%#= image_tag("mountain.jpg", :alt => "Mountain view") %>
-    <div class="container">
-    <% if current_user.forums.length == 0 %>
-    <p id="titlesForum">No tiene foros suscritos</p>
-    <% else %>
-    <p id="titlesForum">Foros suscritos</p>
-	<table width="80%" class= "table table-hover">
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Número de posts</th>
-            <% if user_signed_in? %>
-              <th>Subscribirse</th>
-            <% end %>
-            <% if user_signed_in? and current_user.admin %>
+  <div class="row-fluid">
+    <div class="col-md-3" id="dashboardSubsripciones" >
+      <% if subscripciones(current_user).any? %> 
+        <h3 id="titulo_sub" ">Subscripciones</h3>
+        <table class="table">
+          <tbody>
+            <% subscripciones(current_user).each do |sub| %>
               
-              <th>Editar</th>
-              <th>Eliminar</th>
-
-            <% end %>
-
-          </tr>
-        </thead>
-    <% current_user.forums.each do |forum| %>
-        <tbody>
-            <tr class='clickable-row' data-href='url://'>
-              <td><%= link_to forum.name, forum, { :class=> "linksForum" }%></td>
-              <td class="linksForum"><%= forum.posts.count %></td>
-
-              <% if user_signed_in? %>
-                <% if current_user.forums.include? forum %>
-                  <td><a id= "subs_button_<%=forum.id%>" onclick="unsubs(<%= Subscription.find_by(:user_id => current_user.id, :forum_id => forum.id).id %>)">Desuscribirse</a></td>
-                <% else %>
-                  <td><a id= "subs_button_<%=forum.id%>" onclick="subs(<%=current_user.id%>, <%=forum.id%>)">Suscribirse</a></td>
-                <% end %>
-              <% end %>
-
-              <% if user_signed_in? and current_user.admin? %>
-                <td><%= link_to 'Editar foro', edit_forum_path(forum) %></td>
-                <td><%= link_to 'Eliminar foro', forum, method: :delete, data: { confirm: '¿Estás seguro?' } %></td>
-              <% end %>          
+            <tr>
+              <td style="text-align: center;"><%= link_to Forum.find(sub).name, Forum.find(sub), :id => 'link_sub'  %></td>
             </tr>
-        </tbody>
-    <% end %>
-    </table>
-    <% end %>
+            <% end %>
+          </tbody>
+        </table>
+      <% end %>
+      <a href="/forums"><h4 id="titulo_sub" ">Todos los foros</h4></a>
+      <table class="table">
+          <tbody>
+            <% Forum.all.each do |forum| %>
+              
+            <tr>
+              <td style="text-align: center;"><%= link_to forum.name, forum, :id => 'link_sub'  %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
     </div>
 
+    <div class="col-md-8   " id="dashboardPostInicio">
+      <h3 id="titulo_sub" ">Lo mas reciente</h3>
 
+      <% if subscripciones(current_user).any? %> 
+        <% Post.order('created_at').all.each do |post| %>
+
+          <div>
+            <div class="row">
+              <div class="col-sm-12"></div>
+            </div>
+            <div class="row">
+              <div class="col-sm-1">
+                <div class="thumbnail">
+            <%= image_tag "default-user-image-300x300.png", :alt => "User view", size: '35x35' %>
+          </div>
+                
+              </div>
+              <div class="col-sm-10">
+                <div class="panel panel-default">
+
+                  <div class="panel-heading">
+
+
+                    <strong><%=  post.name %></strong>
+                    <span class="text-muted">
+                      Hace <%= time_ago_in_words (Time.now - post.created_at).seconds.from_now %> 
+                    </span>
+                    <em>
+                      <span style="float: right; " class="text-muted">
+                        <% if user_signed_in? %>
+                          <% if current_user.username == post.name %>
+                            |<%= link_to 'Editar', edit_post_path(post) %>|
+                            <%= link_to 'Eliminar', [post.forum, post],
+                             :confirm => '¿Estas seguro que deseas borrarlo?',
+                             :method => :delete %>
+
+                           <% elsif  current_user.admin? or moderadores(post.forum).include? current_user.id %>
+                            |<%= link_to 'Editar', edit_post_path(post) %>|
+                            <%= link_to 'Eliminar', [post.forum, post],
+                             :confirm => '¿Estas seguro que deseas borrarlo?',
+                             :method => :delete %>
+                          <% end %>
+                        <% end %>
+                      </span>
+                      <span style="float: right; " class="text-muted">
+                        <%= link_to 'Ver', post %>
+                      </span>
+                    </em>
+                  </div>
+
+                  <div class="panel-body">
+                    <%= link_to post.title, post %>
+                  </div>
+
+                <div class="panel-footer">
+                  <span style="float: left;" class="text-muted">
+                    <em><%= post.comments.count %> comentario(s)</em>
+                  </span>
+                  <span style="float: right;" class="text-muted">
+                    <% if user_signed_in? %>
+                      <a id = "countlike" onclick="like(<%=post.id%>)">Like</a>
+                      <a id = "countdislike" onclick="dislike(<%=post.id%>)">Dislike</a>
+                    <% end %>
+                  </span>
+                  <div style="text-align: center;" class="text-muted">
+                    Se tiene
+                    <span class="post-points" id="points-vote-<%= post.id %>">
+                    <%= post.points %>
+                    </span> 
+                    puntos //
+                    <span class="votes-like-count" id="likes-vote-<%= post.id %>">
+                      <%= post.get_likes.size%>
+                    </span>
+                    likes //
+                    <span class="votes-dislike-count" id="dislikes-vote-<%= post.id %>">
+                      <%= post.get_dislikes.size%>
+                    </span>
+                    dislikes
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% end %>
+
+      <% else %> SACAR DE CUALQUIER FORO
+
+      <% end %>
+
+
+    </div>
+  </div>
 <% else %>
-	<h3> Para ir a los foros: <%= link_to "Foros", forums_path %> <h3>
-	<%= image_tag("mountain.jpg", :alt => "Mountain view") %>
+<!-- GUEST -->
 <% end %>
-</div>
+  
+
+
+
+
+
+
+
+
+
+
+
+

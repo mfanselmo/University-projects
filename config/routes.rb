@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :postulations
+  resources :moderators
   resources :subscriptions
   resources :forums do
     resources :posts
@@ -42,5 +44,11 @@ Rails.application.routes.draw do
 
   post "subscribe/:user_id/:forum_id" => "subscriptions#create"
   delete "unsubscribe/:id" => "subscriptions#destroy"
+
+  post "postulate/:user_id/:forum_id" => "postulations#create"
+  delete "unpostulate/:id" => "postulations#destroy"
+
+  post "moderate/:user_id/:forum_id" => "moderators#create"
+  delete "unmoderate/:id" => "moderators#destroy"
 
 end

@@ -2,6 +2,7 @@
 
 module ForumsHelper
 
+
 	def points_user(forum, user)
 		@total = 0
 		forum.posts.each do |post|
@@ -12,5 +13,21 @@ module ForumsHelper
 		end
 		@total
 	end
+
+  def subscriptores(forum)
+    @lista  = []
+    forum.subscriptions.each do |sub|
+    	@lista << sub.user_id
+    end
+    @lista
+  end
+
+def moderadores(forum)
+    @lista  = []
+    forum.moderators.each do |sub|
+    	@lista << sub.user_id
+    end
+    @lista
+  end
 
 end
