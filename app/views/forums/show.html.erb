@@ -92,6 +92,7 @@
     
   <% if user_signed_in? %> <!-- Quitar el # de lo anterior para que solo el usuario cree un post-->
     <!-- <h2>Añade un post:</h2> -->
+    <%= points_user(@forum, current_user) %>
     <%= form_for([@forum, @forum.posts.build]) do |f| %>
       <div class="field">
         <%= f.text_field :name, value: current_user.username, style: "#{'display:none';}" %><br />

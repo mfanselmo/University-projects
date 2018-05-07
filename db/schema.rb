@@ -67,7 +67,6 @@ ActiveRecord::Schema.define(version: 20180430235049) do
     t.string "username"
     t.boolean "admin", default: false
     t.integer "kind", default: 0, null: false
-    t.integer "points", default: 0, null: false
     t.string "avatar"
     t.string "image"
     t.index ["email"], name: "index_users_on_email", unique: true
