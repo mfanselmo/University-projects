@@ -15,9 +15,6 @@ user.password = 'Ignacio1'
 user.password_confirmation = 'Ignacio1'
 user.admin = true
 user.username = 'nachocontreras'
-# user.likes = 20
-# user.dislikes = 15
-user.points = 1000
 user.save!
 
 
@@ -27,7 +24,6 @@ user.password = '123456'
 user.password_confirmation = '123456'
 user.admin = true
 user.username = 'mfanselmo'
-user.points = 1001
 user.save!
 
 
@@ -37,7 +33,4 @@ user.password = '000000'
 user.password_confirmation = '000000'
 user.admin = true
 user.username = 'rihanuch'
-# user.likes = 20
-# user.dislikes = 15
-user.points = 1002
 user.save!
