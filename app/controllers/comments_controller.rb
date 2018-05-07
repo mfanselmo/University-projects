@@ -9,7 +9,7 @@ class CommentsController < ApplicationController
 
 
   def index
-    @comments = Comments.all
+    @comments = Comment.all
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @comments }
@@ -18,7 +18,7 @@ class CommentsController < ApplicationController
 
   def create
     @post = Post.find(params[:post_id])
-    @comment = @post.comments.create(params[:comment].permit(:commenter, :body))
+    @comment = @post.comments.create(params[:comment].permit(:commenter, :body, :image, :remove_image))
     redirect_to post_path(@post)
   end
 
@@ -43,10 +43,32 @@ class CommentsController < ApplicationController
     end
   end
 
+  def upvote
+      @comment = Comment.find(params[:id])
+      if user_signed_in?
+        result = @comment.upvote_from current_user
+      end
+      render json: {result: result, count: { votes: 
+                                            {like: @comment.get_likes.size, 
+                                             dislike: @comment.get_dislikes.size}, 
+                                             points: @comment.points}}
+    end
+
+  def downvote
+      @comment = Comment.find(params[:id])
+      if user_signed_in?
+        result = @comment.downvote_from current_user
+      end
+      render json: {result: result, count: { votes: 
+                                            {like: @comment.get_likes.size, 
+                                             dislike: @comment.get_dislikes.size}, 
+                                             points: @comment.points}}
+    end
+
   private
 
   def comment_params
-    params.require(:user).permit(:body, :commenter, :post_id)
+    params.require(:user).permit(:body, :commenter, :post_id, :image, :remove_image)
   end
 
   private

@@ -40,7 +40,7 @@ class PostsController < ApplicationController
   # POST /posts.json
   def create
     @forum = Forum.find(params[:forum_id])
-    @post = @forum.posts.create(params[:post].permit(:name, :title, :content))
+    @post = @forum.posts.create(params[:post].permit(:name, :title, :content, :image, :remove_image))
     redirect_to forum_path(@forum)
   end
 
@@ -77,6 +77,6 @@ class PostsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def post_params
-    params.require(:post).permit(:content, :name, :title, :forum_id)
+    params.require(:post).permit(:content, :name, :title, :forum_id, :image, :remove_image)
   end
 end
