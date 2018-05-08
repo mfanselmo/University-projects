@@ -7,11 +7,13 @@ class ForumsController < ApplicationController
   # GET /forums
   # GET /forums.json
   def index
-    @forums = Forum.all
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @forums }
-    end
+    @q = Forum.search(params[:q])
+    @forums = @q.result
+    # @forums = Forum.all
+    # respond_to do |format|
+    #   format.html # index.html.erb
+    #   format.json { render json: @forums }
+    # end
   end
 
   # GET /forums/1

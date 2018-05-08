@@ -3,6 +3,11 @@
   <p id="notice"><%= notice %></p>
   <p id="titlesForum">FOROS</p>
 
+<%= search_form_for @q do |f| %>
+  <%= f.label :name_cont %>
+  <%= f.search_field :name_cont %>
+  <%= f.submit %>
+<% end %>
 
   <table width="80%" class= "table table-hover">
     <thead>
@@ -44,6 +49,7 @@
       <% end %>
     </tbody>
   </table>
+
 
 
   <br>
