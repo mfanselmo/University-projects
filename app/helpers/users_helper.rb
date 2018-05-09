@@ -20,7 +20,7 @@ module UsersHelper
         pd = info["post_dislikes"]
         cl = info["comment_likes"]
         cd = info["comment_dislikes"]
-        return (pl - pd) * 2 - (cl - cd) 
+        return (pl - pd) * 2 + (cl - cd) 
     end
 
     def subscripciones(usuario)
