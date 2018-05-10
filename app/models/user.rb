@@ -38,4 +38,13 @@ class User < ApplicationRecord
   def self.search(search)
     where('username LIKE ?', "%#{search}%")
   end
+
+  def role_type
+    if admin?
+      "Administrador"
+    else
+      "Usuario"
+    end
+  end
+
 end
