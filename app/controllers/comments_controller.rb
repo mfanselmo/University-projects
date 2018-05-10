@@ -20,10 +20,6 @@ class CommentsController < ApplicationController
     else
       @comments = Comment.all.order("created_at DESC")
     end
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @comments }
-    end
   end
 
   def create
@@ -52,6 +48,28 @@ class CommentsController < ApplicationController
         render 'edit'
     end
   end
+
+  def upvote
+      @comment = Comment.find(params[:id])
+      if user_signed_in?
+        result = @comment.upvote_from current_user
+      end
+      render json: {result: result, count: { votes: 
+                                            {like: @comment.get_likes.size, 
+                                             dislike: @comment.get_dislikes.size}, 
+                                             points: @comment.points}}
+    end
+
+  def downvote
+      @comment = Comment.find(params[:id])
+      if user_signed_in?
+        result = @comment.downvote_from current_user
+      end
+      render json: {result: result, count: { votes: 
+                                            {like: @comment.get_likes.size, 
+                                             dislike: @comment.get_dislikes.size}, 
+                                             points: @comment.points}}
+    end
 
   private
 

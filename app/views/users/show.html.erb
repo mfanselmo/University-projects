@@ -13,7 +13,7 @@
 	    </tr>
 	    <tr>
 	      <td>Puntos</td>
-	      <td><%= @user.points %></td>
+	      <td><%= calculate_points(vote_info(@user)) %></td>
 	    </tr>
 	    <tr>
 	      <td>Votos realizados</td>
@@ -31,3 +31,19 @@
 	</table>
 
 <br>
+
+
+FOROS QUE SIGUES
+<br>
+<% current_user.subscriptions.each do |forum| %>
+<%= link_to Forum.find(forum.forum_id).name, Forum.find(forum.forum_id) %>
+<br>
+<% end %>
+
+
+FOROS QUE MODERAS
+<br>
+<% current_user.moderators.each do |forum| %>
+<%= link_to Forum.find(forum.forum_id).name, Forum.find(forum.forum_id) %>
+<br>
+<% end %>

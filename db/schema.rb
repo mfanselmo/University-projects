@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180430235049) do
+ActiveRecord::Schema.define(version: 20180504211945) do
+
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +33,13 @@ ActiveRecord::Schema.define(version: 20180430235049) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "moderators", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "forum_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "posts", force: :cascade do |t|
     t.string "name"
     t.string "title"
@@ -42,6 +50,13 @@ ActiveRecord::Schema.define(version: 20180430235049) do
     t.integer "votes", default: 0, null: false
     t.string "image"
     t.index ["forum_id"], name: "index_posts_on_forum_id"
+  end
+
+  create_table "postulations", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "forum_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "subscriptions", force: :cascade do |t|
@@ -67,7 +82,6 @@ ActiveRecord::Schema.define(version: 20180430235049) do
     t.string "username"
     t.boolean "admin", default: false
     t.integer "kind", default: 0, null: false
-    t.integer "points", default: 0, null: false
     t.string "avatar"
     t.string "image"
     t.index ["email"], name: "index_users_on_email", unique: true

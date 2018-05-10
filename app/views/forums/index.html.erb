@@ -4,6 +4,8 @@
   <p id="titlesForum">FOROS</p>
 
 
+
+
   <table width="80%" class= "table table-hover">
     <thead>
       <tr>
@@ -29,7 +31,8 @@
           <td class="linksForum"><%= forum.posts.count %></td>
 
           <% if user_signed_in? %>
-            <% if current_user.forums.include? forum %>
+
+            <% if subscripciones(current_user).include? forum.id  %>
               <td><a id= "subs_button_<%=forum.id%>" onclick="unsubs(<%= Subscription.find_by(:user_id => current_user.id, :forum_id => forum.id).id %>)">Desuscribirse</a></td>
             <% else %>
               <td><a id= "subs_button_<%=forum.id%>" onclick="subs(<%=current_user.id%>, <%=forum.id%>)">Suscribirse</a></td>

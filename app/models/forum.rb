@@ -10,4 +10,5 @@ class Forum < ApplicationRecord
   	where("name LIKE ?", "%#{search}%")
   	#where("name LIKE ? OR ingredients LIKE ? OR cooking_instructions LIKE ?", "%#{search}%", "%#{search}%", "%#{search}%")
   end
+
 end

@@ -40,11 +40,19 @@
               </span>
               <em>
                 <span style="float: right; " class="text-muted">
-                  <% if user_signed_in? and current_user.username == post.name %>
-                    |<%= link_to 'Editar', edit_post_path(post) %>|
-                    <%= link_to 'Eliminar', [post.forum, post],
-                     :confirm => '¿Estas seguro que deseas borrarlo?',
-                     :method => :delete %>
+                  <% if user_signed_in? %>
+                    <% if current_user.username == post.name %>
+                      |<%= link_to 'Editar', edit_post_path(post) %>|
+                      <%= link_to 'Eliminar', [post.forum, post],
+                       :confirm => '¿Estas seguro que deseas borrarlo?',
+                       :method => :delete %>
+
+                     <% elsif  current_user.admin? or moderadores(@forum).include? current_user.id %>
+                      |<%= link_to 'Editar', edit_post_path(post) %>|
+                      <%= link_to 'Eliminar', [post.forum, post],
+                       :confirm => '¿Estas seguro que deseas borrarlo?',
+                       :method => :delete %>
+                    <% end %>
                   <% end %>
                 </span>
                 <span style="float: right; " class="text-muted">
@@ -62,8 +70,10 @@
               <em><%= post.comments.count %> comentario(s)</em>
             </span>
             <span style="float: right;" class="text-muted">
-              <a id = "countlike" onclick="like(<%=post.id%>)">Like</a>
-              <a id = "countdislike" onclick="dislike(<%=post.id%>)">Dislike</a>
+              <% if user_signed_in? %>
+                <a id = "countlike" onclick="like(<%=post.id%>)">Like</a>
+                <a id = "countdislike" onclick="dislike(<%=post.id%>)">Dislike</a>
+              <% end %>
             </span>
             <div style="text-align: center;" class="text-muted">
               Se tiene
@@ -89,8 +99,8 @@
   <% end %>
 
     
-  <% if user_signed_in? %> <!-- Quitar el # de lo anterior para que solo el usuario cree un post-->
-    <!-- <h2>Añade un post:</h2> -->
+
+  <% if user_signed_in? %> 
     <%= form_for([@forum, @forum.posts.build]) do |f| %>
       <div class="field">
         <%= f.text_field :name, value: current_user.username, style: "#{'display:none';}" %><br />
@@ -117,10 +127,35 @@
         <%= f.submit %>
       </div>
     <% end %>
-  <% end %>  <!-- Quitar el # de lo anterior para que solo el usuario cree un post-->
+
+
+
+
+    <!-- PARTE MODERADORES -->
+    <% if user_signed_in? and not current_user.admin? %>
+
+    <%  if moderadores(@forum).include? current_user.id %>
+      <p id="postulate_text"> Eres moderador </p>
+      <a id="action_postulate" onclick="unmoderate(<%=Moderator.find_by(:user_id => current_user.id, :forum_id => @forum.id).id%>, <%=current_user.id%>, <%=@forum.id%>)">Dejar de ser moderador</a>
+
+      <% elsif points_user(@forum, current_user) >= 5 and not esta_postulando(current_user, @forum)%>
+      <p id="postulate_text"> Podrias ser moderador de este foro! </p>
+      <%#= link_to "Postular", postulations_path(:user_id => current_user.id, :forum_id => @forum.id), :method => :post%>
+      <a id="action_postulate" onclick="postulate(<%=current_user.id%>, <%=@forum.id%>)">Postular </a>
+      <% elsif points_user(@forum, current_user) >= 5 and esta_postulando(current_user, @forum)%>
+      <p> Ya estas postulando para ser moderador de este foro!  </p>
+      
+      <% end %>
+    <% end %> 
+    <% end %>
 
   <% if user_signed_in? and current_user.admin? %>
     <%= link_to 'Editar foro', edit_forum_path(@forum) %> |
   <% end %>
+
+
+  
+
+  
 
 </div>

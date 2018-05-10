@@ -26,6 +26,38 @@
 
 	<br>
 
+
+
+	<h4>Postulaciones a moderador</h4>
+	<% if Postulation.any? %>
+  	<table class=" table table-striped">
+	  <thead>
+	    <tr>
+	      <th data-field="username">Postulante</th>
+	      <th data-field="username">Foro postulacion</th>
+	      <th data-field="email" >Aceptar</th>
+	      <th data-field="email" >Rechazar</th>
+	    </tr>
+	  </thead>
+
+	  <tbody>
+	    <% Postulation.all.each do |pos| %>
+	      <tr>
+	        <td><%= link_to(User.find(pos.user_id).username, user_path(pos.user_id))%></td>
+	        <td><%= link_to(Forum.find(pos.forum_id).name, forum_path(pos.forum_id))%></td>
+	        <td><a id="accept_button_<%=pos.user_id%>_<%=pos.forum_id%>" onclick="moderate(<%=pos.user_id%>, <%=pos.forum_id%>)">Aceptar</a></td>
+	        <td><a id="delete_button_<%=pos.user_id%>_<%=pos.forum_id%>" onclick="unpostulate(<%=Postulation.find_by(:user_id => pos.user_id, :forum_id => pos.forum_id).id%>, <%=pos.user_id%>, <%=pos.forum_id%>)">Rechazar</a></td>
+	      </tr>
+	    <% end %>
+	  </tbody>
+	</table>
+
+
+
+	<% else %>
+		<p>No hay ninguna postulacion actualmente</p>
+	<% end %>
+
 <% else %>
 	<h1>Oops, no deberias estar aqui!</h1>
 
