@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'users/index'
+
   resources :subscriptions
   resources :forums do
     resources :posts
@@ -29,6 +31,9 @@ Rails.application.routes.draw do
   devise_for :users do
     get '/users/sign_out' => 'devise/sessions#destroy'
   end
+
+  match '/users',   to: 'users#index',   via: 'get'
+  match '/users/:id', to: 'users#show', via: 'get'
 
   get '/profile', to: "users#show"
   get '/admin', to: 'index#admin'
