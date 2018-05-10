@@ -7,13 +7,16 @@ class ForumsController < ApplicationController
   # GET /forums
   # GET /forums.json
   def index
-    @q = Forum.search(params[:q])
-    @forums = @q.result
-    # @forums = Forum.all
-    # respond_to do |format|
-    #   format.html # index.html.erb
-    #   format.json { render json: @forums }
-    # end
+    @forums = Forum.all
+    if params[:search]
+      @forums = Forum.search(params[:search]).order("created_at DESC")
+    else
+      @forums = Forum.all.order("created_at DESC")
+    end
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @forums }
+    end
   end
 
   # GET /forums/1
@@ -119,6 +122,6 @@ def downvote
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def forum_params
-    params.require(:forum).permit(:name, :forum, :post)
+    params.require(:forum).permit(:name, :forum, :posts)
   end
 end

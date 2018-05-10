@@ -30,7 +30,7 @@ Rails.application.routes.draw do
     get '/users/sign_out' => 'devise/sessions#destroy'
   end
 
-  # get '/profile', to: "users#show"
+  get '/profile', to: "users#show"
   get '/admin', to: 'index#admin'
   get '/users/:id', to: "users#show", :as => :user
 

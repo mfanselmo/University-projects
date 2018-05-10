@@ -9,7 +9,17 @@ class CommentsController < ApplicationController
 
 
   def index
-    @comments = Comments.all
+    @comments = Comment.all
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @comments }
+    end
+    # @comments = Comment.all
+    if params[:search]
+      @comments = Comment.search(params[:search]).order("created_at DESC")
+    else
+      @comments = Comment.all.order("created_at DESC")
+    end
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @comments }

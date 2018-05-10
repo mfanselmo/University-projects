@@ -7,6 +7,24 @@
 
   </head>
 
+<%= form_tag(forums_path, :method => "get", id: "search-form") do %>
+    <%= text_field_tag :search, params[:search], placeholder: "Search Forums" %>
+    <%= submit_tag "Search", :name => nil %>
+<% end %>
+
+<%= form_tag(posts_path, :method => "get", id: "search-form") do %>
+    <%= text_field_tag :search, params[:search], placeholder: "Search Posts" %>
+    <%= submit_tag "Search", :name => nil %>
+<% end %>
+
+<%= form_tag(comments_path, :method => "get", id: "search-form") do %>
+    <%= text_field_tag :search, params[:search], placeholder: "Search Comments" %>
+    <%= submit_tag "Search", :name => nil %>
+<% end %>
+
+
+
+
   <body>
     
     <%= render 'layouts/header' %>

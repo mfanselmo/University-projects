@@ -33,6 +33,9 @@ class User < ApplicationRecord
     save
   end
 
-
   acts_as_voter
+
+  def self.search(search)
+    where('username LIKE ?', "%#{search}%")
+  end
 end
