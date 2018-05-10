@@ -37,4 +37,17 @@ class User < ApplicationRecord
   end
 
   acts_as_voter
+
+  def self.search(search)
+    where('username LIKE ?', "%#{search}%")
+  end
+
+  def role_type
+    if admin?
+      "Administrador"
+    else
+      "Usuario"
+    end
+  end
+
 end

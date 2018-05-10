@@ -14,6 +14,12 @@ class CommentsController < ApplicationController
       format.html # index.html.erb
       format.json { render json: @comments }
     end
+    # @comments = Comment.all
+    if params[:search]
+      @comments = Comment.search(params[:search]).order("created_at DESC")
+    else
+      @comments = Comment.all.order("created_at DESC")
+    end
   end
 
   def create

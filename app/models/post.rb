@@ -28,4 +28,11 @@ class Post < ApplicationRecord
   end
 
   acts_as_votable
+
+  def self.search(search)
+    # title es nombre del post
+    # name es usuario creador
+    where('title LIKE ? OR name LIKE ?', "%#{search}%", "%#{search}%")
+    # where("name LIKE ? OR ingredients LIKE ? OR cooking_instructions LIKE ?", "%#{search}%", "%#{search}%", "%#{search}%")
+  end
 end

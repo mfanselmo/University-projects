@@ -1,0 +1,41 @@
+<h1>Usuarios existentes</h1>
+
+<% @users.each do |user| %>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12"></div>
+		</div>
+			<div class="row">
+			<div class="col-sm-1">
+				<div class="thumbnail">
+					<%= image_tag(user.avatar.url , :alt => "user view") %>
+				</div>
+			</div>
+			<div class="col-sm-10">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<strong><%= user.username %></strong>
+					</div>
+					<div class="panel-body">
+						<table width="100%" class= "table table-hover">
+							<thead>
+								<tr>
+									<th>Rol</th>
+									<th>Puntos</th>
+									<th>Subscripciones</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><%= user.role_type %></td>
+									<td><%= user.points %></td>
+									<td><%= user.subscriptions.count %></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<% end %>
