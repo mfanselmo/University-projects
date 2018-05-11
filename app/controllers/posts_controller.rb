@@ -4,17 +4,17 @@ class PostsController < ApplicationController
   # http_basic_authenticate_with :name => "dhh", :password => "secret", :except => [:index, :show]
 
   before_action :set_post, only: %i[show edit update destroy]
-  before_action :authenticate_user!, only: [:create, :destroy, :edit]
+  before_action :authenticate_user!, only: %i[create destroy edit]
 
   # GET /posts
   # GET /posts.json
   def index
     @posts = Post.all
-    if params[:search]
-      @posts = Post.search(params[:search]).order("created_at DESC")
-    else
-      @posts = Post.all.order("created_at DESC")
-    end
+    @posts = if params[:search]
+               Post.search(params[:search]).order('created_at DESC')
+             else
+               Post.all.order('created_at DESC')
+             end
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @posts }

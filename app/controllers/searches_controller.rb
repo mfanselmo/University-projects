@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class SearchesController < ApplicationController
-  before_action :set_search, only: [:show, :edit, :update, :destroy]
+  before_action :set_search, only: %i[show edit update destroy]
 
   require 'uri'
 
@@ -44,8 +46,7 @@ class SearchesController < ApplicationController
 
   # GET /searches/1
   # GET /searches/1.json
-  def show
-  end
+  def show; end
 
   # GET /searches/new
   def new
@@ -53,8 +54,7 @@ class SearchesController < ApplicationController
   end
 
   # GET /searches/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /searches
   # POST /searches.json
@@ -97,13 +97,14 @@ class SearchesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_search
-      @search = Search.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def search_params
-      params.fetch(:search, {})
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_search
+    @search = Search.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def search_params
+    params.fetch(:search, {})
+  end
 end

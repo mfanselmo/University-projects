@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AvatarUploader < CarrierWave::Uploader::Base
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
@@ -14,8 +16,8 @@ class AvatarUploader < CarrierWave::Uploader::Base
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
-  def default_url(*args)
-    ActionController::Base.helpers.asset_path("fallback/" + [version_name, "default_user_image.jpg"].compact.join('_'))
+  def default_url(*_args)
+    ActionController::Base.helpers.asset_path('fallback/' + [version_name, 'default_user_image.jpg'].compact.join('_'))
   end
 
   # Process files as they are uploaded:
@@ -27,21 +29,21 @@ class AvatarUploader < CarrierWave::Uploader::Base
 
   # Create different versions of your uploaded files:
   version :thumb do
-    process :resize_to_fill => [100, 100]
+    process resize_to_fill: [100, 100]
   end
 
   version :medium do
-    process :resize_to_fill => [300, 300]
+    process resize_to_fill: [300, 300]
   end
 
   version :small do
-    process :resize_to_fill => [140, 140]
+    process resize_to_fill: [140, 140]
   end
 
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
   def extension_whitelist
-    %w(jpg jpeg gif png)
+    %w[jpg jpeg gif png]
   end
 
   # Override the filename of the uploaded files:

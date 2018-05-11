@@ -9,7 +9,7 @@ class Post < ApplicationRecord
   validates :title, presence: true,
                     length: { minimum: 1 }
   validates :content, presence: true,
-                    length: { minimum: 1 }
+                      length: { minimum: 1 }
 
   has_many :comments, dependent: :destroy
 
@@ -26,7 +26,7 @@ class Post < ApplicationRecord
   end
 
   def points
-    return self.get_upvotes.size - self.get_downvotes.size
+    get_upvotes.size - get_downvotes.size
   end
 
   acts_as_votable

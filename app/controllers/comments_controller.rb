@@ -4,9 +4,8 @@
 class CommentsController < ApplicationController
   # http_basic_authenticate_with :name => "dhh", :password => "secret", :only => :destroy
 
-  before_action :find_post, only: [:edit, :update]
-  before_action :authenticate_user!, only: [:create, :destroy, :edit]
-
+  before_action :find_post, only: %i[edit update]
+  before_action :authenticate_user!, only: %i[create destroy edit]
 
   def index
     @comments = Comment.all
@@ -15,11 +14,11 @@ class CommentsController < ApplicationController
       format.json { render json: @comments }
     end
     # @comments = Comment.all
-    if params[:search]
-      @comments = Comment.search(params[:search]).order("created_at DESC")
-    else
-      @comments = Comment.all.order("created_at DESC")
-    end
+    @comments = if params[:search]
+                  Comment.search(params[:search]).order('created_at DESC')
+                else
+                  Comment.all.order('created_at DESC')
+                end
   end
 
   def create
@@ -41,34 +40,30 @@ class CommentsController < ApplicationController
 
   def update
     @comment = @post.comments.find(params[:id])
-    @comment.update_attributes(comment_params)
+    @comment.update(comment_params)
     if @comment.save
-        redirect_to @post
+      redirect_to @post
     else
-        render 'edit'
+      render 'edit'
     end
   end
 
   def upvote
-      @comment = Comment.find(params[:id])
-      if user_signed_in?
-        result = @comment.upvote_from current_user
-      end
-      render json: {result: result, count: { votes: 
-                                            {like: @comment.get_likes.size, 
-                                             dislike: @comment.get_dislikes.size}, 
-                                             points: @comment.points}}
+    @comment = Comment.find(params[:id])
+    result = @comment.upvote_from current_user if user_signed_in?
+    render json: { result: result, count: { votes:
+                                          { like: @comment.get_likes.size,
+                                            dislike: @comment.get_dislikes.size },
+                                            points: @comment.points } }
     end
 
   def downvote
-      @comment = Comment.find(params[:id])
-      if user_signed_in?
-        result = @comment.downvote_from current_user
-      end
-      render json: {result: result, count: { votes: 
-                                            {like: @comment.get_likes.size, 
-                                             dislike: @comment.get_dislikes.size}, 
-                                             points: @comment.points}}
+    @comment = Comment.find(params[:id])
+    result = @comment.downvote_from current_user if user_signed_in?
+    render json: { result: result, count: { votes:
+                                          { like: @comment.get_likes.size,
+                                            dislike: @comment.get_dislikes.size },
+                                            points: @comment.points } }
     end
 
   private
@@ -82,6 +77,4 @@ class CommentsController < ApplicationController
   def find_post
     @post = Post.find(params[:post_id])
   end
-
-
 end

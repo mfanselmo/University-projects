@@ -5,7 +5,7 @@ class Comment < ApplicationRecord
   acts_as_votable
 
   validates :body, presence: true,
-                    length: { minimum: 1 }
+                   length: { minimum: 1 }
 
   mount_uploader :image, ImageUploader
 
@@ -22,12 +22,11 @@ class Comment < ApplicationRecord
   end
 
   def self.search(search)
-    where("commenter LIKE ? OR body LIKE ?", "%#{search}%", "%#{search}%")
+    where('commenter LIKE ? OR body LIKE ?', "%#{search}%", "%#{search}%")
     # where("name LIKE ? OR ingredients LIKE ? OR cooking_instructions LIKE ?", "%#{search}%", "%#{search}%", "%#{search}%")
   end
 
   def points
-    return self.get_upvotes.size - self.get_downvotes.size
+    get_upvotes.size - get_downvotes.size
   end
-  
 end
