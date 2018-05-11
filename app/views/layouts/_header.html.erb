@@ -43,7 +43,7 @@
               <% elsif not user_signed_in? %>
               <ul class="nav navbar-nav navbar-right">
                 <li><a style="color: #DCDCDC;">Modo visita </a></li>
-                <li><%= link_to "Registrarse", new_user_registration_path, :class => 'navbar-link',:style => "color: #DCDCDC;"  %></li> 
+                <li><%= link_to "Registrarse", new_user_registration_path, :class => 'navbar-link',:style => "color: #DCDCDC;", method: :get  %></li> 
                 <li>
                   <a class="btn btn-default btn-outline btn-circle collapsed"  data-toggle="collapse" href="#nav-collapse2" aria-expanded="false" aria-controls="nav-collapse2" style = "color: #DCDCDC;">Ingresar</a>
 
@@ -64,7 +64,7 @@
               <% else %>
                 <ul class="nav navbar-nav navbar-right">
                 <li>
-                  <%= link_to "Registrarse", new_user_registration_path, :class => 'navbar-link'  %>
+                  <%= link_to "Registrarse", new_user_registration_path, :class => 'navbar-link', method: :get  %>
                 </li>
                 <li>
                   <%= link_to "Ingresar", new_user_session_path, :class => 'navbar-link'  %>
