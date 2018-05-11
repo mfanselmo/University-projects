@@ -21,6 +21,8 @@ end
   def self.search(search)
     where("commenter LIKE ? OR body LIKE ?", "%#{search}%", "%#{search}%")
     # where("name LIKE ? OR ingredients LIKE ? OR cooking_instructions LIKE ?", "%#{search}%", "%#{search}%", "%#{search}%")
+  end
+  
   def points
     return self.get_upvotes.size - self.get_downvotes.size
   end
