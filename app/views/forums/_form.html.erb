@@ -12,8 +12,10 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name, id: :forum_name %>
+    <%= form.label :name %><br>
+    <%= form.text_field :name, id: :forum_name %><br>
+    <%= form.label :description %><br>
+    <%= form.text_area :description %>
   </div>
 
   <div class="actions">

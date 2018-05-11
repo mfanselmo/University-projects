@@ -11,6 +11,7 @@
       <tr>
         <th>Nombre</th>
         <th>Número de posts</th>
+        <th>Número de suscriptores</th>
         <% if user_signed_in? %>
           <th>Subscribirse</th>
         <% end %>
@@ -29,6 +30,7 @@
         <tr class='clickable-row' data-href='url://'>
           <td><%= link_to forum.name, forum, { :class=> "linksForum" }%></td>
           <td class="linksForum"><%= forum.posts.count %></td>
+          <td><%= subscriptores(forum).length %></td>
 
           <% if user_signed_in? %>
 
