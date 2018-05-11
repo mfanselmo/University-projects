@@ -133,6 +133,6 @@ def downvote
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def forum_params
-    params.require(:forum).permit(:name, :forum, :posts)
+    params.require(:forum).permit(:name, :description, :forum, :posts)
   end
 end

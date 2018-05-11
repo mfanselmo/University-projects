@@ -7,7 +7,9 @@ class Post < ApplicationRecord
 
   validates :name,  presence: true
   validates :title, presence: true,
-                    length: { minimum: 5 }
+                    length: { minimum: 1 }
+  validates :content, presence: true,
+                    length: { minimum: 1 }
 
   has_many :comments, dependent: :destroy
 

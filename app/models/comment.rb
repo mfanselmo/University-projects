@@ -4,6 +4,9 @@ class Comment < ApplicationRecord
   belongs_to :post
   acts_as_votable
 
+  validates :body, presence: true,
+                    length: { minimum: 1 }
+
   mount_uploader :image, ImageUploader
 
   def increment(attribute, by = 1)
