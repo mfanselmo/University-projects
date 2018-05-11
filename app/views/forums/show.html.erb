@@ -5,6 +5,14 @@
   <p id="titlesForum">
     <%= @forum.name %>
   </p>
+  <h4> Descripción del foro </h4>
+  <h5><%= @forum.description %></h5>
+  <% sub_count = subscriptores(@forum).length %>
+  <% if sub_count == 1 %>
+    <p class="btn pull-right" id="sub_count"><%= sub_count %> suscriptor </p>
+  <% else %>
+    <p class="btn pull-right" id="sub_count"><%= sub_count %> suscriptores </p>
+  <% end %>
 
 
   <% if not @forum.posts.any? %>

@@ -4,7 +4,7 @@
 class CommentsController < ApplicationController
   # http_basic_authenticate_with :name => "dhh", :password => "secret", :only => :destroy
 
-  before_action :find_post, only: [:edit]
+  before_action :find_post, only: [:edit, :update]
   before_action :authenticate_user!, only: [:create, :destroy, :edit]
 
 
@@ -74,7 +74,7 @@ class CommentsController < ApplicationController
   private
 
   def comment_params
-    params.require(:user).permit(:body, :commenter, :post_id, :image, :remove_image)
+    params.require(:comment).permit(:body, :commenter, :post_id, :image, :remove_image)
   end
 
   private
