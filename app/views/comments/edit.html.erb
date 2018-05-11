@@ -1,12 +1,5 @@
 <h1>Editando comentario</h1>
 
-<%= instance_variable_names.inspect %>
+<%= render 'form', comment: @comment %>
 
-<%#= form_for([@post, @comment]) do |c| %>
-    <%#= c.input :content %>
-    <%#= c.submit "Update thought" %>
-<%# end %>
-
-<%#= render 'form', comment: @comment %>
-
-<!--<%#= link_to 'Back', comment.post %>-->
+<%= link_to 'Back', post_path(@post) %>

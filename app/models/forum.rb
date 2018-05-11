@@ -3,8 +3,11 @@
 class Forum < ApplicationRecord
   has_many :posts, dependent: :destroy
 
-  has_many :subcriptions
-  has_many :users, through: :subcriptions
+  has_many :subscriptions
+  has_many :users, through: :subscriptions
+
+  validates :name, presence: true,
+                    length: { minimum: 1 }
 
   def self.search(search)
   	where("name LIKE ?", "%#{search}%")
