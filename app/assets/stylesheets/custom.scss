@@ -134,6 +134,15 @@ Follow me on Twitter @maridlcrmn
 }
 
 
+
+#link_boton {
+  color: black;
+  /*"color: #DCDCDC;"*/
+}
+
+
+
+
 /*ITEMS SUBSCRIPCIONES*/
 
 
@@ -181,6 +190,43 @@ Follow me on Twitter @maridlcrmn
 
 
 }
+
+#con_1 {
+    float: left;
+    margin-right:5px;
+}
+#con_2 {
+    float: left;
+    margin-right:5px;
+    text-align: left;
+}
+#con_3 {
+    margin-left:15px;
+    float: right;
+}
+#con_4 {
+    float: right
+}
+
+
+.asa:hover {
+  cursor:pointer;
+  background-color: #f2f2f2;
+  text-decoration: none;
+  font-size: 1.2em;
+}
+
+#cada_post_1:hover {
+  background-color: #f2f2f2;
+}
+
+#cada_post_1 {
+  border: solid;
+  border-color: #f2f2f2;
+  border-width: 1px;
+  padding: 20px 20px 20px 20px;
+  margin-top: 0px;
+  margin-bottom: 0px;
 
 
 /*BARRA DE BUSQUEDA */

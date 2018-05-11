@@ -32,9 +32,18 @@ module UsersHelper
     end
 
     def moderaciones(usuario)
+      # Retorna los foros que el usuario modera
       @lista  = []
-      usuario.subscriptions.each do |sub|
-    	  @lista << sub.forum_id
+      if usuario.admin?
+        Forum.all.each do |forum|
+          @lista << forum.id
+        end
+      else
+        Moderator.all.each do |mod|
+          if mod.user_id = usuario.id
+            @lista << mod.forum_id
+          end  
+        end  
       end
       @lista
     end
