@@ -22,12 +22,40 @@ module ForumsHelper
     @lista
   end
 
-def moderadores(forum)
-    @lista  = []
-    forum.moderators.each do |sub|
-    	@lista << sub.user_id
+  def moderadores(forum)
+      @lista  = []
+      forum.moderators.each do |sub|
+      	@lista << sub.user_id
+      end
+      @lista
     end
-    @lista
+
+  def activity(user, forum)
+    info = Hash["posts" => [], "comments" => []]
+    count = 0
+    forum.posts.each do |post|
+      puts count
+      comm = []
+      if post.name == user.username
+        puts "post"
+        post.comments.each do |com|
+          if com.commenter == user.username
+            puts "comentario user post"
+            comm << com
+          end
+        info["posts"] << Hash["post" => post, "comment" => comm]
+        end
+      else
+        post.comments.each do |com|
+          if com.commenter == user.username
+            puts "comentario"
+            info["comments"] << comm
+          end
+        end
+      end
+      count += 1
+    end
+    info
   end
 
 end
