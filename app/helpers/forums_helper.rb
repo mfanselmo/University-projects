@@ -30,35 +30,12 @@ module ForumsHelper
     end
 
   def activity(user, forum)
-    # info = Hash["posts" => [], "comments" => []]
-    # count = 0
-    # forum.posts.each do |post|
-    #   comm = []
-    #   if post.name == user.username
-    #     post.comments.each do |com|
-    #       if com.commenter == user.username
-    #         comm << com
-    #       end
-    #     info["posts"] << Hash["post" => post, "comment" => comm]
-    #     end
-    #   else
-    #     post.comments.each do |com|
-    #       if com.commenter == user.username
-    #         info["comments"] << comm
-    #       end
-    #     end
-    #   end
-    #   count += 1
-    # end
-    # list = []
     info = Hash["posts" => [], "comments" => []]
     forum.posts.each do |post|
       if post.name == user.username
-        # list << p.name
         cc = []
         post.comments.each do |comment|
           if comment.commenter == user.username
-            # x = "c" + c.commenter
             cc << comment
           end
         end
@@ -66,8 +43,6 @@ module ForumsHelper
       else
         post.comments.each do |comment|
           if comment.commenter == user.username
-            # x = "cd" + c.commenter
-            # list << x
             info["comments"] << comment
           end
         end
