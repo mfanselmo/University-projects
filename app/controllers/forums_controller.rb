@@ -2,17 +2,17 @@
 
 class ForumsController < ApplicationController
   before_action :set_forum, only: %i[show edit update destroy]
-  before_action :authenticate_user!, only: [:new, :delete, :edit]
+  before_action :authenticate_user!, only: %i[new delete edit]
 
   # GET /forums
   # GET /forums.json
   def index
     @forums = Forum.all
-    if params[:search]
-      @forums = Forum.search(params[:search]).order("created_at DESC")
-    else
-      @forums = Forum.all.order("created_at DESC")
-    end
+    @forums = if params[:search]
+                Forum.search(params[:search]).order('created_at DESC')
+              else
+                Forum.all.order('created_at DESC')
+              end
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @forums }
@@ -84,44 +84,34 @@ class ForumsController < ApplicationController
   # DELETE /forums/1
   # DELETE /forums/1.json
   def destroy
-    #Destruir moderaciones
+    # Destruir moderaciones
     Moderator.all.each do |mod|
-      if mod.forum_id = @forum.id
-        mod.destroy
-      end
-    end  
+      mod.destroy if mod.forum_id == @forum.id
+    end
 
     @forum.destroy
     respond_to do |format|
-      format.html { redirect_to forums_url, notice: 'Forum was successfully destroyed.'}
+      format.html { redirect_to forums_url, notice: 'Forum was successfully destroyed.' }
       format.json { head :no_content }
     end
-
-
-
-
   end
 
-def upvote
+  def upvote
     @post = Post.find(params[:id])
-    if user_signed_in?
-      result = @post.upvote_from current_user
-    end
-    render json: {result: result, count: { votes: 
-                                          {like: @post.get_likes.size, 
-                                           dislike: @post.get_dislikes.size}, 
-                                           points: @post.points}}
+    result = @post.upvote_from current_user if user_signed_in?
+    render json: { result: result, count: { votes:
+                                          { like: @post.get_likes.size,
+                                            dislike: @post.get_dislikes.size },
+                                            points: @post.points } }
   end
 
-def downvote
+  def downvote
     @post = Post.find(params[:id])
-    if user_signed_in?
-      result = @post.downvote_from current_user
-    end
-    render json: {result: result, count: { votes: 
-                                          {like: @post.get_likes.size, 
-                                           dislike: @post.get_dislikes.size}, 
-                                           points: @post.points}}
+    result = @post.downvote_from current_user if user_signed_in?
+    render json: { result: result, count: { votes:
+                                          { like: @post.get_likes.size,
+                                            dislike: @post.get_dislikes.size },
+                                            points: @post.points } }
   end
 
   private

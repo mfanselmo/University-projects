@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class PostulationsControllerTest < ActionDispatch::IntegrationTest
@@ -5,17 +7,17 @@ class PostulationsControllerTest < ActionDispatch::IntegrationTest
     @postulation = postulations(:one)
   end
 
-  test "should get index" do
+  test 'should get index' do
     get postulations_url
     assert_response :success
   end
 
-  test "should get new" do
+  test 'should get new' do
     get new_postulation_url
     assert_response :success
   end
 
-  test "should create postulation" do
+  test 'should create postulation' do
     assert_difference('Postulation.count') do
       post postulations_url, params: { postulation: { forum_id: @postulation.forum_id, user_id: @postulation.user_id } }
     end
@@ -23,22 +25,22 @@ class PostulationsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to postulation_url(Postulation.last)
   end
 
-  test "should show postulation" do
+  test 'should show postulation' do
     get postulation_url(@postulation)
     assert_response :success
   end
 
-  test "should get edit" do
+  test 'should get edit' do
     get edit_postulation_url(@postulation)
     assert_response :success
   end
 
-  test "should update postulation" do
+  test 'should update postulation' do
     patch postulation_url(@postulation), params: { postulation: { forum_id: @postulation.forum_id, user_id: @postulation.user_id } }
     assert_redirected_to postulation_url(@postulation)
   end
 
-  test "should destroy postulation" do
+  test 'should destroy postulation' do
     assert_difference('Postulation.count', -1) do
       delete postulation_url(@postulation)
     end

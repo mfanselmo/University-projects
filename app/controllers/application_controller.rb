@@ -19,7 +19,4 @@ class ApplicationController < ActionController::Base
                                          current_password admin
                                          avatar remove_avatar avatar_cache])
   end
-
-
-  
 end

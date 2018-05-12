@@ -1,0 +1,81 @@
+<!-- PONERLE EL for each do |post| antes -->
+
+    <div class="media" id = "cada_post_1">
+      <div class="media-left media-top">
+        <!-- <img src="img_avatar1.png" class="media-object" style="width:60px"> -->
+        <%= image_tag(User.find_for_authentication(:username => post.name).avatar.url , :alt => "user view", :size => "60x60") %>
+      </div>
+      <div class="media-body" style="text-align: "." start;">
+        <h4 class="media-heading" >
+            <div id="container">
+              <div id="con_1"> <%= link_to post.title, post %> </div>
+              <div id="con_2"> <i><small><%= time_ago_in_words (Time.now - post.created_at).seconds.from_now %> ago by <%= post.name %></small></i></div>
+              <div id="con_4">
+              
+              <small>
+              <%= link_to 'Ver', post %>
+              <% if user_signed_in? %> 
+                <% if current_user.username == post.name %>
+                        | <%= link_to 'Editar', edit_post_path(post) %> |
+                        <%= link_to 'Eliminar', [post.forum, post],
+                         :confirm => '¿Estas seguro que deseas borrarlo?',
+                         :method => :delete %>
+
+                 <% elsif  current_user.admin? or moderadores(post.forum).include? current_user.id %>
+                        | <%= link_to 'Editar', edit_post_path(post) %> |
+                        <%= link_to 'Eliminar', [post.forum, post],
+                         :confirm => '¿Estas seguro que deseas borrarlo?',
+                         :method => :delete %>
+                  <% end %>
+                <% end %>
+                </small>
+
+              </div>
+          </div>
+        </h4>
+        <br>
+
+
+        <p><%= markdown(post.content) %></p>
+        <p><%= image_tag post.image.medium %></p>
+        <h5 class="media-body" >
+            <div id="container">
+          <div id="con_1"> <em><%= post.comments.count %> comentario(s)</em></div>
+          <div id="con_3">
+          </div>
+              
+            <div id="con_4" >
+                  Total
+              <% if user_signed_in? %>
+                  <span class="post-points" id="points-vote-<%= post.id %>">
+                  <%= post.points %>
+                  </span> 
+                <a id = "countlike" onclick="like(<%=post.id%>)" class = "asa"> 
+                  &#128077;
+                  <span class="votes-like-count " id="likes-vote-<%= post.id %>">
+                    <%= post.get_likes.size%>
+                  </span>
+
+                </a>
+                <a id = "countdislike" onclick="dislike(<%=post.id%>)"  class = "asa"> 
+                  &#128078;
+                  <span class="votes-dislike-count" id="dislikes-vote-<%= post.id %>">
+                    <%= post.get_dislikes.size%>
+                  </span>
+                </a>
+              <% else %>
+              <%=  post.points %>
+              &#128077;<%= post.get_likes.size%>
+              &#128078;<%= post.get_dislikes.size%>
+              
+                
+              <% end %>
+              
+      
+
+            </div>
+          </div>
+        </h6>
+      </div>
+    </div>
+

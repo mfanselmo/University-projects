@@ -134,11 +134,52 @@ Follow me on Twitter @maridlcrmn
 }
 
 
+
+#link_boton {
+  color: black;
+  /*"color: #DCDCDC;"*/
+}
+
+
+
+
 /*ITEMS SUBSCRIPCIONES*/
+
+#custom-search-input{
+    padding: 3px;
+    border: solid 1px #E4E4E4;
+    border-radius: 6px;
+    background-color: #fff;
+}
+
+#custom-search-input input{
+    border: 0;
+    box-shadow: none;
+}
+
+#custom-search-input button{
+    margin: 2px 0 0 0;
+    background: none;
+    box-shadow: none;
+    border: 0;
+    color: #666666;
+    padding: 0 8px 0 10px;
+    border-left: solid 1px #ccc;
+}
+
+#custom-search-input button:hover{
+    border: 0;
+    box-shadow: none;
+    border-left: solid 1px #ccc;
+}
+
+#custom-search-input .glyphicon-search{
+    font-size: 23px;
+}
 
 
 #dashboardSubsripciones {
-  background-color: white;
+  // background-color: gray;
   border-radius: 5px; 
 
 }
@@ -154,6 +195,7 @@ Follow me on Twitter @maridlcrmn
     color: #808080;
     text-align: center;
     text-decoration: none;
+    background-color: transparent;
 }
 
 #link_sub {
@@ -181,5 +223,44 @@ Follow me on Twitter @maridlcrmn
 
 
 }
+
+#con_1 {
+    float: left;
+    margin-right:5px;
+}
+#con_2 {
+    float: left;
+    margin-right:5px;
+    text-align: left;
+}
+#con_3 {
+    margin-left:15px;
+    float: right;
+}
+#con_4 {
+    float: right
+}
+
+
+.asa:hover {
+  cursor:pointer;
+  background-color: #f2f2f2;
+  text-decoration: none;
+  font-size: 1.2em;
+}
+
+#cada_post_1:hover {
+  background-color: #f2f2f2;
+}
+
+#cada_post_1 {
+  border: solid;
+  border-color: #f2f2f2;
+  border-width: 1px;
+  padding: 20px 20px 20px 20px;
+  margin-top: 0px;
+  margin-bottom: 10px;
+}
+
 
 

@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     resources :posts
   end
 
-
+  resources :searches
   
   resources :posts do
     resources :comments

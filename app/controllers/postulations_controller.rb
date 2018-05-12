@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class PostulationsController < ApplicationController
-  before_action :set_postulation, only: [:show, :edit, :update, :destroy]
+  before_action :set_postulation, only: %i[show edit update destroy]
 
   # GET /postulations
   # GET /postulations.json
@@ -9,8 +11,7 @@ class PostulationsController < ApplicationController
 
   # GET /postulations/1
   # GET /postulations/1.json
-  def show
-  end
+  def show; end
 
   # GET /postulations/new
   def new
@@ -18,16 +19,14 @@ class PostulationsController < ApplicationController
   end
 
   # GET /postulations/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /postulations
   # POST /postulations.json
   def create
-    @postulation = Postulation.new(:user_id => params[:user_id], :forum_id => params[:forum_id])
+    @postulation = Postulation.new(user_id: params[:user_id], forum_id: params[:forum_id])
     result = @postulation.save!
-    render json: {result: result, info: @postulation.id}
-    
+    render json: { result: result, info: @postulation.id }
   end
 
   # PATCH/PUT /postulations/1
@@ -48,17 +47,18 @@ class PostulationsController < ApplicationController
   # DELETE /postulations/1.json
   def destroy
     result = @postulation.destroy
-    render json: {result: result}
+    render json: { result: result }
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_postulation
-      @postulation = Postulation.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def subscription_params
-      params.permit(:user_id, :forum_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_postulation
+    @postulation = Postulation.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def subscription_params
+    params.permit(:user_id, :forum_id)
+  end
 end
