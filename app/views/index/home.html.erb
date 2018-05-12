@@ -111,6 +111,7 @@
     </div>
 
     <div class="col-md-8" id="dashboardPostInicio">
+      <h3 id="titulo_sub" ">Lo mas reciente</h3>
       <% Post.order('created_at').all.each do |post| %>
         <%= render 'index/todos_los_post', post: post,  mi_tipo: "cada_post_1"%>
       <% end %>
