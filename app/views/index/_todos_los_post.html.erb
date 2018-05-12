@@ -9,7 +9,7 @@
         <h4 class="media-heading" >
             <div id="container">
               <div id="con_1"> <%= link_to post.title, post %> </div>
-              <div id="con_2"> <i><small><%= time_ago_in_words (Time.now - post.created_at).seconds.from_now %>ago by <%= post.name %></small></i></div>
+              <div id="con_2"> <i><small><%= time_ago_in_words (Time.now - post.created_at).seconds.from_now %> ago by <%= post.name %></small></i></div>
               <div id="con_4">
               
               <small>
@@ -21,7 +21,7 @@
                          :confirm => '¿Estas seguro que deseas borrarlo?',
                          :method => :delete %>
 
-                 <% elsif  current_user.admin? or moderadores(@forum).include? current_user.id %>
+                 <% elsif  current_user.admin? or moderadores(post.forum).include? current_user.id %>
                         | <%= link_to 'Editar', edit_post_path(post) %> |
                         <%= link_to 'Eliminar', [post.forum, post],
                          :confirm => '¿Estas seguro que deseas borrarlo?',
@@ -37,7 +37,7 @@
 
 
         <p><%= markdown(post.content) %></p>
-        <p><%= image_tag post.image.medium %></p>>
+        <p><%= image_tag post.image.medium %></p>
         <h5 class="media-body" >
             <div id="container">
           <div id="con_1"> <em><%= post.comments.count %> comentario(s)</em></div>
@@ -45,8 +45,8 @@
           </div>
               
             <div id="con_4" >
-              <% if user_signed_in? %>
                   Total
+              <% if user_signed_in? %>
                   <span class="post-points" id="points-vote-<%= post.id %>">
                   <%= post.points %>
                   </span> 

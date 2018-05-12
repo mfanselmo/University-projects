@@ -1,6 +1,31 @@
 <% if user_signed_in? %>
   <div class="row-fluid">
       <div class="col-md-3" id="dashboardSubsripciones" >
+
+        <div class="row-fluid"">
+
+          <%= form_tag(searches_path, :method => "get", id: "search-form") do %>
+          <div class="row">
+            <div id="custom-search-input">
+              <div class="input-group col-md-12">
+                <%= text_field_tag :search, params[:search], placeholder: "user/post/forum: nombre ", class: "form-control input-lg"%>
+
+                <span class="input-group-btn">
+                    <button class="btn btn-info btn-lg" type="button">
+                        <%= submit_tag "Buscar", :name => nil, :class=>"btn"%>
+                    </button>
+                    
+                </span>
+              </div>
+            </div>
+          </div>
+          <% end %>
+          </div>
+
+        
+                  
+
+        <div class="row" style="background-color: white; margin-top: 20px; padding: 10px 10px 10px 10px; border-radius: 5px;">
         <% if subscripciones(current_user).any? %> 
           <h3 id="titulo_sub" ">Subscripciones</h3>
           <table class="table">
@@ -43,10 +68,12 @@
               <% end %>
             </tbody|>
         </table>
+        </div>
       </div>
 
       <!-- PARTE POSTS -->
       <div class="col-md-8   " id="dashboardPostInicio">
+        
         <h3 id="titulo_sub" ">Lo mas reciente</h3>
 
 
@@ -69,7 +96,7 @@
 <% else %>
 <!-- GUEST -->
 <div class="row-fluid">
-    <div class="col-md-3" id="dashboardSubsripciones" >
+    <div class="col-md-3" id="dashboardSubsripciones" style="background-color: white;" >
         <a href="/forums"><h4 id="titulo_sub" ">Todos los foros</h4></a>
         <table class="table">
             <tbody>
@@ -84,6 +111,7 @@
     </div>
 
     <div class="col-md-8" id="dashboardPostInicio">
+      <h3 id="titulo_sub" ">Lo mas reciente</h3>
       <% Post.order('created_at').all.each do |post| %>
         <%= render 'index/todos_los_post', post: post,  mi_tipo: "cada_post_1"%>
       <% end %>

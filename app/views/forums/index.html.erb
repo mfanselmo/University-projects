@@ -54,7 +54,7 @@
   <br>
 
   <% if user_signed_in? and current_user.admin? %>  
-    <%= link_to 'Nuevo Foro', new_forum_path %>
+    <%= link_to 'Nuevo Foro', new_forum_path, :id => 'titulo_sub' %>
   <% end %> 
 
 

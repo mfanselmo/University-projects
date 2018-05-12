@@ -17,12 +17,6 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="navbar-collapse-1">
             
-        <ul class="nav navbar-nav navbar-center">
-        <%= form_tag(searches_path, :method => "get", id: "search-form") do %>
-          <%= text_field_tag :search, params[:search], placeholder: "Usuarios: 'user: 'kajfgnadfkgna ", class: 'form-control'%>
-          <%= submit_tag "Busque", :name => nil%>
-        <% end %>
-        </ul>
 
               <!-- USUARIO NORMAL -->
               <% if user_signed_in? %>
