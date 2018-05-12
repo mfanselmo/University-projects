@@ -1,25 +1,15 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
+----
 
 La página es: http://grupo02-software.herokuapp.com/
+
+
+----
+
+El uso de el buscador es como sigue:
+
+- ```user: ``` (notar el espacio) y nombre del usuario (también se puede como ```users: ```)
+- ```post: ``` (notar el espacio) y nombre del post (también se puede como ```posts: ```)
+- ```comment: ``` (notar el espacio) y nombre del comment (también se puede como ```comments: ```)
+- ```forum: ``` (notar el espacio) y nombre del foro (también se puede como ```forums: ```)
