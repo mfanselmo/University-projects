@@ -10,14 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20180511211331) do
-=======
-
-
-ActiveRecord::Schema.define(version: 20180511015010) do
-
->>>>>>> 4c4d51a6a783c65621f43b424b98b10a3b258ea8
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -94,7 +87,6 @@ ActiveRecord::Schema.define(version: 20180511015010) do
     t.string "username"
     t.boolean "admin", default: false
     t.integer "kind", default: 0, null: false
-    t.integer "points", default: 0, null: false
     t.string "avatar"
     t.string "image"
     t.index ["email"], name: "index_users_on_email", unique: true
