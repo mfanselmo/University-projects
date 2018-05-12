@@ -17,8 +17,10 @@
   </div>
 
   <div class="field">
-    <%= form.label :title, "Titulo"%>
-    <%= form.text_field :title, id: :post_title %>
+    <div class="form-group">
+        <%= form.text_field :title, id: :post_title, class: 'form-control', placeholder: 'Titulo' %>
+      </div>
+    
   </div>
 
   <div class="field">
