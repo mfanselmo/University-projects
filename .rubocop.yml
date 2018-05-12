@@ -4,6 +4,24 @@ Style/ClassVars:
 Layout/AccessModifierIndentation:
   Enabled: true
 
+Lint/BooleanSymbol:
+  Enabled: false
+
+Documentation:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Rails/LexicallyScopedActionFilter:
+  Enabled: false
+
+Rails/HasManyOrHasOneDependent:
+  Enabled: false
+
+Naming/UncommunicativeMethodParamName:
+  Enabled: false
+
 AllCops:
   TargetRubyVersion: 2.5
   DisplayStyleGuide: true
@@ -35,6 +53,9 @@ Metrics/MethodLength:
 Metrics/LineLength:
   IgnoredPatterns: ['\A\s*#']
 
+Metrics/LineLength:
+  Max: 140
+
 Metrics/CyclomaticComplexity:
   Max: 11
 
@@ -42,4 +63,4 @@ Metrics/ModuleLength:
   Max: 150
 
 Metrics/PerceivedComplexity:
-  Max: 7
+  Max: 12
