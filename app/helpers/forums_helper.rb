@@ -21,16 +21,15 @@ module ForumsHelper
   end
 
   def moderadores(forum)
-
-      @lista  = []
-      forum.moderators.each do |sub|
-      	@lista << sub.user_id
-      end
-      @lista
+    @lista = []
+    forum.moderators.each do |sub|
+      @lista << sub.user_id
     end
+    @lista
+  end
 
   def activity(user, forum)
-    info = Hash["posts" => [], "comments" => []]
+    info = Hash['posts' => [], 'comments' => []]
     forum.posts.each do |post|
       if post.name == user.username
         cc = []
@@ -39,11 +38,11 @@ module ForumsHelper
             cc << comment
           end
         end
-        info["posts"] << Hash["post" => post, "comment" => cc]
+        info['posts'] << Hash['post' => post, 'comment' => cc]
       else
         post.comments.each do |comment|
           if comment.commenter == user.username
-            info["comments"] << comment
+            info['comments'] << comment
           end
         end
       end

@@ -12,7 +12,7 @@ class IndexController < ApplicationController
   end
 
   def postulation
-  	@forum = Forum.find(params[:forum_id])
-  	@user = User.find(params[:user_id])
+    @forum = Forum.find(params[:forum_id])
+    @user = User.find(params[:user_id])
   end
 end
