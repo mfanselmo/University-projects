@@ -34,12 +34,9 @@
     <% end %>
   </div>
 
-  <label class="btn btn-primary">
-    Add a file!
-    <span style="display:none;">
-      <%= form.file_field :image %>
-    </span>
-  </label>
+  <div class="field">
+    <%= form.file_field :image %>
+  </div>
 
   <label class="btn btn-primary">
     Submit

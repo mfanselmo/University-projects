@@ -69,12 +69,11 @@
         <%= f.text_area :content, class: 'form-control', placeholder:'Contenido' %>
       </div>
 
-      <label class="btn btn-primary">
-        Add a file!
-        <span style="display:none;">
-          <%= f.file_field :image %>
-        </span>
-      </label>
+      <div class="field">
+        <%= f.file_field :image %>
+      </div>
+
+      
       <label class="btn btn-primary">
         Submit
         <span style="display:none;">
