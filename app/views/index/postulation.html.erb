@@ -1,10 +1,178 @@
+<% if current_user and current_user.admin? %>
 <% info = activity(@user, @forum) %>
-<% info["posts"].each do |data| %>
-	<p>Post: <%= data["post"].title %></p>
-	<% data["comment"].each do |c| %>
-		<p>Comentario: <%= c.commenter %></p>
-	<% end %>
-<% end %>
-<% info["comments"].each do |data| %>
-	<p>Comentario out: <%= data.commenter %></p>
+<!--<%# info["posts"].each do |data| %>
+	<p>Post: <%#= data["post"].title %></p>
+	<%# data["comment"].each do |c| %>
+		<p>Comentario: <%#= c.body %></p>
+	<%# end %>
+<%# end %>
+<%# info["comments"].each do |data| %>
+	<p>Comentario out: <%#= data.commenter %></p>
+<%# end %>-->
+
+<p id="notice"><%= notice %></p>
+	<h2>
+    	Participación de <%=@user.username %> en <%=@forum.name %>	
+    </h2>
+
+    <div class="container">
+      <% info["posts"].each do |data| %>
+      <div class="row">
+        <div class="col-sm-12"></div>
+      </div>
+      <div class="row">
+      	<div class="col-sm-1">
+          <div class="thumbnail">
+            <%= image_tag(User.find_for_authentication(:username => data["post"].name).avatar.url , :alt => "user view") %>
+          </div>
+        </div>
+        <div class="col-sm-10">
+          <div class="panel panel-default">
+
+            <div class="panel-heading">
+              <strong><%=  data["post"].title %></strong>
+              <span class="text-muted">
+                Hace <%= time_ago_in_words (Time.now - data["post"].created_at).seconds.from_now %> 
+              </span>
+              <span style="float: right; ">Post</span>
+            </div>
+
+            <div class="panel-body">
+              <p><%= markdown(data["post"].content) %></p>
+              <p><%= image_tag data["post"].image.medium %></p>
+            </div>
+
+          <div class="panel-footer">
+            <span style="float: left;" class="text-muted">
+              <em><%= data["post"].name %></em>
+            </span>
+            <div style="text-align: center;" class="text-muted">
+              Se tiene
+              <span class="post-points" id="points-vote-<%= data["post"].id %>">
+              <%= data["post"].points %>
+              </span> 
+              puntos //
+              <span class="votes-like-count" id="likes-vote-<%= data["post"].id %>">
+                <%= data["post"].get_likes.size%>
+              </span>
+              likes //
+              <span class="votes-dislike-count" id="dislikes-vote-<%= data["post"].id %>">
+                <%= data["post"].get_dislikes.size%>
+              </span>
+              dislikes
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <% data["comment"].each do |comment| %>
+      <div class="row">
+        <div class="col-sm-12"></div>
+      </div>
+      <div class="row">
+      	<div class="col-sm-2"></div>
+        <div class="col-sm-9">
+          <div class="panel panel-default">
+
+            <div class="panel-heading">
+              <strong><%= data["post"].title %></strong>
+              <span class="text-muted">
+                Hace <%= time_ago_in_words (Time.now - comment.created_at).seconds.from_now %> 
+              </span>
+              <span style="float: right; ">Comentario del Post</span>
+
+            </div>
+
+            <div class="panel-body">
+              <p><%= markdown(comment.body) %></p>
+              <p><%= image_tag comment.image.medium %></p>
+            </div>
+
+          <div class="panel-footer">
+            <span style="float: left;" class="text-muted">
+              <em><%= data["post"].name %></em>
+            </span>
+            <div style="text-align: center;" class="text-muted">
+              Se tiene
+              <span class="post-points" id="points-vote-<%= comment.id %>">
+              <%= comment.points %>
+              </span> 
+              puntos //
+              <span class="votes-like-count" id="likes-vote-<%= comment.id %>">
+                <%= comment.get_likes.size%>
+              </span>
+              likes //
+              <span class="votes-dislike-count" id="dislikes-vote-<%= comment.id %>">
+                <%= comment.get_dislikes.size%>
+              </span>
+              dislikes
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <% end %>
+    <% end %>
+    <% info["comments"].each do |comment| %>
+    <% post = Post.find(comment.post_id) %>
+      <div class="row">
+        <div class="col-sm-12"></div>
+      </div>
+      <div class="row">
+      	<div class="col-sm-1">
+          <div class="thumbnail">
+            <%= image_tag(User.find_for_authentication(:username => post.name).avatar.url , :alt => "user view") %>
+          </div>
+        </div>
+        <div class="col-sm-10">
+          <div class="panel panel-default">
+
+            <div class="panel-heading">
+              <strong><%= post.title %></strong>
+              <span class="text-muted">
+                Hace <%= time_ago_in_words (Time.now - comment.created_at).seconds.from_now %> 
+              </span>
+              <span style="float: right; ">Comentario</span>
+
+            </div>
+
+            <div class="panel-body">
+              <p><%= markdown(comment.body) %></p>
+              <p><%= image_tag comment.image.medium %></p>
+            </div>
+
+          <div class="panel-footer">
+            <span style="float: left;" class="text-muted">
+              <em><%= post.name %></em>
+            </span>
+            <div style="text-align: center;" class="text-muted">
+              Se tiene
+              <span class="post-points" id="points-vote-<%= comment.id %>">
+              <%= comment.points %>
+              </span> 
+              puntos //
+              <span class="votes-like-count" id="likes-vote-<%= comment.id %>">
+                <%= comment.get_likes.size%>
+              </span>
+              likes //
+              <span class="votes-dislike-count" id="dislikes-vote-<%= comment.id %>">
+                <%= comment.get_dislikes.size%>
+              </span>
+              dislikes
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <% end %>
+  </div>
+
+<% else %>
+<h1> Oops, no deberías estar aquí ... </h1>
+<script type="text/javascript">
+    	window.location.href="/"
+</script>
 <% end %>
