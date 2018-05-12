@@ -40,6 +40,7 @@ Rails.application.routes.draw do
 
   get '/profile', to: "users#show"
   get '/admin', to: 'index#admin'
+  get '/admin/postulation/:user_id/:forum_id', to: 'index#postulation', as: "postulation_info"
   get '/users/:id', to: "users#show", :as => :user
 
   post "like/:id" => "forums#upvote"

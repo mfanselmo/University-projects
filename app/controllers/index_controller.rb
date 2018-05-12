@@ -10,4 +10,9 @@ class IndexController < ApplicationController
   def index
     @currentUser = current_user.id
   end
+
+  def postulation
+  	@forum = Forum.find(params[:forum_id])
+  	@user = User.find(params[:user_id])
+  end
 end
