@@ -7,6 +7,15 @@ Layout/AccessModifierIndentation:
 Lint/BooleanSymbol:
   Enabled: false
 
+Rails/OutputSafety:
+  Enabled: false
+
+Naming/VariableName:
+  Enabled: false
+
+Naming/AccessorMethodName:
+  Enabled: false
+
 Documentation:
   Enabled: false
 
@@ -45,7 +54,7 @@ Metrics/ClassLength:
   Max: 200
 
 Metrics/AbcSize:
-  Max: 30
+  Max: 60
 
 Metrics/MethodLength:
   Max: 30
