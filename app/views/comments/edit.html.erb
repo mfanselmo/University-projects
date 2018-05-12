@@ -1,5 +1,22 @@
-<h1>Editando comentario</h1>
 
-<%= render 'form', comment: @comment %>
 
-<%= link_to 'Back', post_path(@post) %>
+
+<% if user_signed_in? %>
+	<% if current_user.username == @post.name or current_user.admin? or moderadores(@post.forum).include? current_user.id %> 
+
+		<h1>Editando comentario</h1>
+
+		<%= render 'form', comment: @comment %>
+
+		<%= link_to 'Back', post_path(@post) %>
+		
+	<% else %>
+	<script type="text/javascript"> 
+	 	window.location.href="/"
+	</script>
+	<% end %>
+<% else %>
+	<script type="text/javascript"> 
+	 	window.location.href="/"
+	</script>
+<% end %>
