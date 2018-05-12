@@ -35,6 +35,7 @@
 	    <tr>
 	      <th data-field="username">Postulante</th>
 	      <th data-field="username">Foro postulacion</th>
+	      <th data-field="username">Participación</th>
 	      <th data-field="email" >Aceptar</th>
 	      <th data-field="email" >Rechazar</th>
 	    </tr>
@@ -43,8 +44,24 @@
 	  <tbody>
 	    <% Postulation.all.each do |pos| %>
 	      <tr>
-	        <td><%= link_to(User.find(pos.user_id).username, user_path(pos.user_id))%></td>
-	        <td><%= link_to(Forum.find(pos.forum_id).name, forum_path(pos.forum_id))%></td>
+	      	<!--
+	      	<% user = User.find(pos.user_id) %>
+	      	<%# forum = Forum.find(pos.forum_id) %>
+	      	<%# info = activity(user, forum) %>
+	      	<%# info["posts"].each do |data| %>
+		      	<p>Post: <%#= data["post"].title %></p>
+		      	<%# data["comment"].each do |c| %>
+		      		<p>Comentario: <%#= c.commenter %></p>
+		      	<%# end %>
+	      	<%# end %>
+	      	<%# info["comments"].each do |data| %>
+		      	<p>Comentario out: <%#= data.commenter %></p>
+	      	<%# end %>-->
+	      	<% user = User.find(pos.user_id) %>
+	      	<% forum = Forum.find(pos.forum_id) %>
+	        <td><%= link_to(user.username, user_path(pos.user_id))%></td>
+	        <td><%= link_to(forum.name, forum_path(pos.forum_id))%></td>
+	        <td><%= link_to "Ver aqui", postulation_info_path(:user_id => pos.user_id, :forum_id => pos.forum_id) %></td>
 	        <td><a id="accept_button_<%=pos.user_id%>_<%=pos.forum_id%>" onclick="moderate(<%=pos.user_id%>, <%=pos.forum_id%>)">Aceptar</a></td>
 	        <td><a id="delete_button_<%=pos.user_id%>_<%=pos.forum_id%>" onclick="unpostulate(<%=Postulation.find_by(:user_id => pos.user_id, :forum_id => pos.forum_id).id%>, <%=pos.user_id%>, <%=pos.forum_id%>)">Rechazar</a></td>
 	      </tr>
