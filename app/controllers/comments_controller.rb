@@ -55,7 +55,7 @@ class CommentsController < ApplicationController
                                           { like: @comment.get_likes.size,
                                             dislike: @comment.get_dislikes.size },
                                             points: @comment.points } }
-    end
+  end
 
   def downvote
     @comment = Comment.find(params[:id])
@@ -64,15 +64,13 @@ class CommentsController < ApplicationController
                                           { like: @comment.get_likes.size,
                                             dislike: @comment.get_dislikes.size },
                                             points: @comment.points } }
-    end
+  end
 
   private
 
   def comment_params
     params.require(:comment).permit(:body, :commenter, :post_id, :image, :remove_image)
   end
-
-  private
 
   def find_post
     @post = Post.find(params[:post_id])

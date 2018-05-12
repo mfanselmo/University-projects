@@ -86,7 +86,7 @@ class ForumsController < ApplicationController
   def destroy
     # Destruir moderaciones
     Moderator.all.each do |mod|
-      mod.destroy if mod.forum_id = @forum.id
+      mod.destroy if mod.forum_id == @forum.id
     end
 
     @forum.destroy
@@ -103,7 +103,7 @@ class ForumsController < ApplicationController
                                           { like: @post.get_likes.size,
                                             dislike: @post.get_dislikes.size },
                                             points: @post.points } }
-    end
+  end
 
   def downvote
     @post = Post.find(params[:id])
@@ -112,7 +112,7 @@ class ForumsController < ApplicationController
                                           { like: @post.get_likes.size,
                                             dislike: @post.get_dislikes.size },
                                             points: @post.points } }
-    end
+  end
 
   private
 

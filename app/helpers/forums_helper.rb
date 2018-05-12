@@ -26,5 +26,5 @@ module ForumsHelper
       @lista << sub.user_id
     end
     @lista
-    end
+  end
 end

@@ -41,7 +41,7 @@ module UsersHelper
       end
     else
       Moderator.all.each do |mod|
-        @lista << mod.forum_id if mod.user_id = usuario.id
+        @lista << mod.forum_id if mod.user_id == usuario.id
       end
     end
     @lista
