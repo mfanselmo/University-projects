@@ -2,11 +2,17 @@
 
 class ForumsController < ApplicationController
   before_action :set_forum, only: %i[show edit update destroy]
+  before_action :authenticate_user!, only: %i[new delete edit]
 
   # GET /forums
   # GET /forums.json
   def index
     @forums = Forum.all
+    @forums = if params[:search]
+                Forum.search(params[:search]).order('created_at DESC')
+              else
+                Forum.all.order('created_at DESC')
+              end
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @forums }
@@ -78,11 +84,34 @@ class ForumsController < ApplicationController
   # DELETE /forums/1
   # DELETE /forums/1.json
   def destroy
+    # Destruir moderaciones
+    Moderator.all.each do |mod|
+      mod.destroy if mod.forum_id == @forum.id
+    end
+
     @forum.destroy
     respond_to do |format|
       format.html { redirect_to forums_url, notice: 'Forum was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def upvote
+    @post = Post.find(params[:id])
+    result = @post.upvote_from current_user if user_signed_in?
+    render json: { result: result, count: { votes:
+                                          { like: @post.get_likes.size,
+                                            dislike: @post.get_dislikes.size },
+                                            points: @post.points } }
+  end
+
+  def downvote
+    @post = Post.find(params[:id])
+    result = @post.downvote_from current_user if user_signed_in?
+    render json: { result: result, count: { votes:
+                                          { like: @post.get_likes.size,
+                                            dislike: @post.get_dislikes.size },
+                                            points: @post.points } }
   end
 
   private
@@ -94,6 +123,6 @@ class ForumsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def forum_params
-    params.require(:forum).permit(:name, :forum, :post)
+    params.require(:forum).permit(:name, :description, :forum, :posts)
   end
 end

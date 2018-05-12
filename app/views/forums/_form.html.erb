@@ -1,3 +1,4 @@
+
 <%= form_with(model: forum, local: true) do |form| %>
   <% if forum.errors.any? %>
     <div id="error_explanation">
@@ -11,12 +12,17 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name, id: :forum_name %>
-  </div>
+ 	<div class="form-group">
+		<%= form.text_field :name, id: :forum_name, placeholder: 'Nombre del foro', class: 'form-control' %>
+  	</div>
+ 	<div class="form-group">
+        <%= form.text_area :descripcion, class: 'form-control', placeholder:'Descripcion' %>
+      </div>
 
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+  <label class="btn btn-primary">
+	Submit
+	<span style="display:none;">
+	  <%= form.submit  %>
+	</span>
+	</label	>
 <% end %>

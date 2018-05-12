@@ -1,9 +1,7 @@
-<% if not current_user.admin? %>
-	<h1>Oops, no deberias estar aqui!</h1>
 
-	<%= link_to "Volver", root_path , :class => 'customLink'  %>
 
-<% else %>
+
+<% if user_signed_in? and current_user.admin? %>
 	<h1>Pagina de admin</h1>
 
 
@@ -26,7 +24,63 @@
 	  </tbody>
 	</table>
 
-<br>
+	<br>
+
+
+
+	<h4>Postulaciones a moderador</h4>
+	<% if Postulation.any? %>
+  	<table class=" table table-striped">
+	  <thead>
+	    <tr>
+	      <th data-field="username">Postulante</th>
+	      <th data-field="username">Foro postulacion</th>
+	      <th data-field="username">Participación</th>
+	      <th data-field="email" >Aceptar</th>
+	      <th data-field="email" >Rechazar</th>
+	    </tr>
+	  </thead>
+
+	  <tbody>
+	    <% Postulation.all.each do |pos| %>
+	      <tr>
+	      	<!--
+	      	<% user = User.find(pos.user_id) %>
+	      	<%# forum = Forum.find(pos.forum_id) %>
+	      	<%# info = activity(user, forum) %>
+	      	<%# info["posts"].each do |data| %>
+		      	<p>Post: <%#= data["post"].title %></p>
+		      	<%# data["comment"].each do |c| %>
+		      		<p>Comentario: <%#= c.commenter %></p>
+		      	<%# end %>
+	      	<%# end %>
+	      	<%# info["comments"].each do |data| %>
+		      	<p>Comentario out: <%#= data.commenter %></p>
+	      	<%# end %>-->
+	      	<% user = User.find(pos.user_id) %>
+	      	<% forum = Forum.find(pos.forum_id) %>
+	        <td><%= link_to(user.username, user_path(pos.user_id))%></td>
+	        <td><%= link_to(forum.name, forum_path(pos.forum_id))%></td>
+	        <td><%= link_to "Ver aqui", postulation_info_path(:user_id => pos.user_id, :forum_id => pos.forum_id) %></td>
+	        <td><a id="accept_button_<%=pos.user_id%>_<%=pos.forum_id%>" onclick="moderate(<%=pos.user_id%>, <%=pos.forum_id%>)">Aceptar</a></td>
+	        <td><a id="delete_button_<%=pos.user_id%>_<%=pos.forum_id%>" onclick="unpostulate(<%=Postulation.find_by(:user_id => pos.user_id, :forum_id => pos.forum_id).id%>, <%=pos.user_id%>, <%=pos.forum_id%>)">Rechazar</a></td>
+	      </tr>
+	    <% end %>
+	  </tbody>
+	</table>
+
+
+
+	<% else %>
+		<p>No hay ninguna postulacion actualmente</p>
+	<% end %>
+
+<% else %>
+	<h1>Oops, no deberias estar aqui!</h1>
+
+	<script type="text/javascript">
+    	window.location.href="/"
+  	</script>
 
 
 <% end %>

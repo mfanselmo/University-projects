@@ -4,11 +4,17 @@ class PostsController < ApplicationController
   # http_basic_authenticate_with :name => "dhh", :password => "secret", :except => [:index, :show]
 
   before_action :set_post, only: %i[show edit update destroy]
+  before_action :authenticate_user!, only: %i[create destroy edit]
 
   # GET /posts
   # GET /posts.json
   def index
     @posts = Post.all
+    @posts = if params[:search]
+               Post.search(params[:search]).order('created_at DESC')
+             else
+               Post.all.order('created_at DESC')
+             end
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @posts }
@@ -39,7 +45,7 @@ class PostsController < ApplicationController
   # POST /posts.json
   def create
     @forum = Forum.find(params[:forum_id])
-    @post = @forum.posts.create(params[:post].permit(:name, :title, :content))
+    @post = @forum.posts.create(params[:post].permit(:name, :title, :content, :image, :remove_image))
     redirect_to forum_path(@forum)
   end
 
@@ -76,6 +82,6 @@ class PostsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def post_params
-    params.require(:post).permit(:content, :name, :title, :forum_id)
+    params.require(:post).permit(:content, :name, :title, :forum_id, :image, :remove_image)
   end
 end

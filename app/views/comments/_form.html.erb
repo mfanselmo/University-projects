@@ -1,13 +1,23 @@
-<%= form_for([@post, @post.comments.build]) do |f| %>
+<%= form_for([@post, get_comment()]) do |f| %>
   <div class="field">
-    <%#= f.label :commenter %><!--<br />-->
     <%= f.text_field :commenter, value: current_user.username, style: "#{'display:none';}" %>
   </div>
+
+  <div class="form-group">
+    <%= f.text_area :body, class: 'form-control', placeholder:'Contenido' %>
+  </div>
   <div class="field">
-    <div><h4>Haz un comentario:</h4></div>
-    <%= f.text_area :body %>
+    <%= f.file_field :image %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  
+  <label class="btn btn-primary">
+    Submit
+    <span style="display:none;">
+      <%= f.submit  %>
+    </span>
+  </label>
+    
+    
 <% end %>
+
+
