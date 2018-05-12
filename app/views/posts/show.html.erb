@@ -16,8 +16,9 @@
 
           <div class="panel-heading">
             <strong><%=  @post.title %></strong>
+            <i>&nbsp;&nbsp;<%=  @post.name %></i>
             <span class="text-muted">
-              Hace <%= time_ago_in_words (Time.now - @post.created_at).seconds.from_now %> 
+              <%= time_ago_in_words (Time.now - @post.created_at).seconds.from_now %> ago 
             </span>
             <em>
               <span style="float: right; " class="text-muted">
@@ -92,7 +93,7 @@
             <div class="panel-heading">
               <strong><%= comment.commenter %></strong>
               <span class="text-muted">
-                Hace <%= time_ago_in_words (Time.now - comment.created_at).seconds.from_now %> 
+                <%= time_ago_in_words (Time.now - comment.created_at).seconds.from_now %> ago 
               <span style="float: right; ">
                 <% if user_signed_in? %>
                   <% if  current_user.username == comment.commenter %>

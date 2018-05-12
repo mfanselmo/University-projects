@@ -90,15 +90,17 @@
   
 
   <div class="row-fluid" style="background-color: white; padding: 1em 1em 1em 1em; border-radius: 5px;margin-bottom: 5em;">
-
-    <% if not @forum.posts.any? %>
+    <% if @forum.posts.count == 0%>
       <h4>No hay nada creado</h4>
       <h4>Se el primero!</h4>
+      <% if not user_signed_in? %>
+        <%= link_to "Registate", new_user_registration_path, method: :get, :id=> "titulo_sub"  %> o
+       <%= link_to "Inicia sesion", new_user_registration_path, method: :get,:id=> "titulo_sub"  %>
+      <% end %>
     <% end %>
 
     <% post_de_este_foro.each do |post| %>
       <%= render 'index/todos_los_post', post: post, mi_tipo: "cada_post_2"%>
-
     <% end %>
   </div>
 

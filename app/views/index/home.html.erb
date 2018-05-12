@@ -2,7 +2,7 @@
   <div class="row-fluid">
       <div class="col-md-3" id="dashboardSubsripciones" >
 
-        <div class="row-fluid" style="background-color: red;">
+        <div class="row-fluid"">
 
           <%= form_tag(searches_path, :method => "get", id: "search-form") do %>
           <div class="row">
@@ -96,7 +96,7 @@
 <% else %>
 <!-- GUEST -->
 <div class="row-fluid">
-    <div class="col-md-3" id="dashboardSubsripciones" >
+    <div class="col-md-3" id="dashboardSubsripciones" style="background-color: white;" >
         <a href="/forums"><h4 id="titulo_sub" ">Todos los foros</h4></a>
         <table class="table">
             <tbody>

@@ -11,8 +11,7 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :name %>
+  <div class="field" style="display: none;">
     <%= form.text_field :name, id: :post_name %>
   </div>
 
@@ -23,13 +22,11 @@
     
   </div>
 
-  <div class="field">
-    <%= form.label :content, "Contenido"%>
-    <%= form.text_area :content, id: :post_content %>
+  <div class="form-group">
+        <%= form.text_area :content, class: 'form-control', placeholder:'Contenido' %>
   </div>
+  
   <div class="field">
-    <%= form.label :image %><br>
-    <%= form.file_field :image %>
     <% if form.object.image? %>
       <%= image_tag form.object.image.thumb.url %>
       <%= form.label :remove_image %>
@@ -37,7 +34,18 @@
     <% end %>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+  <label class="btn btn-primary">
+    Add a file!
+    <span style="display:none;">
+      <%= form.file_field :image %>
+    </span>
+  </label>
+
+  <label class="btn btn-primary">
+    Submit
+    <span style="display:none;">
+      <%= form.submit  %>
+    </span>
+  </label>
+        
 <% end %>

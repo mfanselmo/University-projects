@@ -61,7 +61,9 @@
 <% else %>
 	<h1>Oops, no deberias estar aqui!</h1>
 
-	<%= link_to "Volver", root_path , :class => 'customLink'  %>
+	<script type="text/javascript">
+    window.location.href="/"
+  	</script>
 
 
 <% end %>

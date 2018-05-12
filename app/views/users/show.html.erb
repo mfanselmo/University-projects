@@ -1,35 +1,42 @@
-<h1> Perfil de usuario </h1>
+<% if user_signed_in? %>
 
-<table class=" table table-striped" data-sort-name="name" data-sort-order="desc">
+	<h1> Perfil de usuario </h1>
 
-	  <tbody>
-	    <tr>
-	      <td>Usuario</td>
-	      <td><%= @user.username %></td>
-	    </tr>
-	    <tr>
-	      <td>Correo electrónico</td>
-	      <td><%= @user.email %></td>
-	    </tr>
-	    <tr>
-	      <td>Puntos</td>
-	      <td><%= calculate_points(vote_info(@user)) %></td>
-	    </tr>
-	    <tr>
-	      <td>Votos realizados</td>
-	      <td><%= @user.votes.up.size + @user.votes.down.size %></td>
-	    </tr>
-		<tr>
-	      <td>Likes realizados</td>
-	      <td><%= @user.votes.up.size %></td>
-	    </tr>
-	    <tr>
-	      <td>Dislikes realizados</td>
-	      <td><%=  @user.votes.down.size %></td>
-	    </tr>
-	  </tbody>
-	</table>
+	<table class=" table table-striped" data-sort-name="name" data-sort-order="desc">
 
-<br>
+		  <tbody>
+		    <tr>
+		      <td>Usuario</td>
+		      <td><%= @user.username %></td>
+		    </tr>
+		    <tr>
+		      <td>Correo electrónico</td>
+		      <td><%= @user.email %></td>
+		    </tr>
+		    <tr>
+		      <td>Puntos</td>
+		      <td><%= calculate_points(vote_info(@user)) %></td>
+		    </tr>
+		    <tr>
+		      <td>Votos realizados</td>
+		      <td><%= @user.votes.up.size + @user.votes.down.size %></td>
+		    </tr>
+			<tr>
+		      <td>Likes realizados</td>
+		      <td><%= @user.votes.up.size %></td>
+		    </tr>
+		    <tr>
+		      <td>Dislikes realizados</td>
+		      <td><%=  @user.votes.down.size %></td>
+		    </tr>
+		  </tbody>
+		</table>
 
+	<br>
+
+<% else %>
+	<script type="text/javascript">
+    window.location.href="/"  // put your correct path in a string here
+  	</script>
+<% end %>
 
