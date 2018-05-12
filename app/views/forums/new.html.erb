@@ -1,6 +1,6 @@
 <h1>New Forum</h1>
 
-<% if user_signed_in? and not current_user.admin? %>
+<% if user_signed_in? and current_user.admin? %>
 <div class="row-fluid" style="padding-left: 10%; padding-right: 10%;margin-top: 3em;">
 	<%= render 'form', forum: @forum %>
 
