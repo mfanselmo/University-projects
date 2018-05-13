@@ -88,6 +88,11 @@ class ForumsController < ApplicationController
     Moderator.all.each do |mod|
       mod.destroy if mod.forum_id == @forum.id
     end
+    
+    # Destruir subscripciones
+    Subscription.all.each do |sub|
+      sub.destroy if sub.forum_id == @forum.id
+    end
 
     @forum.destroy
     respond_to do |format|
