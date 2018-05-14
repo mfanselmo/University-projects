@@ -3,7 +3,12 @@
     <div class="media" id = "cada_post_1">
       <div class="media-left media-top">
         <!-- <img src="img_avatar1.png" class="media-object" style="width:60px"> -->
-        <%= image_tag(User.find_for_authentication(:username => post.name).avatar.url , :alt => "user view", :size => "60x60") %>
+        <% user = User.find_for_authentication(:username => post.name) %>
+        <% if user.nil? %>
+          <%= image_tag("default-user-image.png", :alt => "user view", :size => "60x60") %>
+        <% else %>
+          <%= image_tag(user.avatar.url , :alt => "user view", :size => "60x60") %>
+        <% end %>
       </div>
       <div class="media-body" style="text-align: "." start;">
         <h4 class="media-heading" >
