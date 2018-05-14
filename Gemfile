@@ -62,3 +62,4 @@ gem 'mini_magick'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 gem 'redcarpet'
+gem 'will_paginate', '~> 3.1.1'

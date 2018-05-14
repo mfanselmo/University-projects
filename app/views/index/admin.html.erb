@@ -16,7 +16,7 @@
 	  </thead>
 
 	  <tbody>
-	    <% User.all.each do |user| %>
+	    <% @users.each do |user| %>
 	      <tr>
 	        <td><%= link_to(user.username, user_path(user))%></td>
 	        <td><%= user.email %></td>
@@ -25,6 +25,7 @@
 	    <% end %>
 	  </tbody>
 	</table>
+	<%= will_paginate @users %>
 
 	<br>
 

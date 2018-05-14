@@ -28,6 +28,7 @@ class ForumsController < ApplicationController
       format.html # show.html.erb
       format.json { render json: @forum }
     end
+    @posts = @forum.posts.paginate(page: params[:page], per_page: 10)
   end
 
   # GET /forums/new

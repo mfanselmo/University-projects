@@ -15,4 +15,8 @@ class IndexController < ApplicationController
     @forum = Forum.find(params[:forum_id])
     @user = User.find(params[:user_id])
   end
+
+  def admin
+  	@users = User.all.paginate(page: params[:page], per_page: 1)
+  end
 end
