@@ -12,10 +12,10 @@ class User < ApplicationRecord
   has_many :comments # , dependent: :destroy
   has_many :posts # , dependent: :destroy
 
-  has_many :subscriptions
+  has_many :subscriptions, dependent: :destroy
   has_many :forums, through: :subscriptions
 
-  has_many :moderators
+  has_many :moderators, dependent: :destroy
   has_many :forums, through: :moderators, source: :mod
 
   def user_params
