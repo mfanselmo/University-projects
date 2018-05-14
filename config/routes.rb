@@ -37,6 +37,7 @@ Rails.application.routes.draw do
 
   match '/users',   to: 'users#index',   via: 'get'
   match '/users/:id', to: 'users#show', via: 'get'
+  match 'users/:id' => 'users#destroy', :via => :delete
 
   get '/profile', to: "users#show"
   get '/admin', to: 'index#admin'

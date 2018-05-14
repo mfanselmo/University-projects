@@ -8,7 +8,12 @@
     <div class="row">
       <div class="col-sm-1">
         <div class="thumbnail">
-          <%= image_tag(User.find_for_authentication(:username => @post.name).avatar.url , :alt => "user view") %>
+        <% user = User.find_for_authentication(:username => @post.name) %>
+        <% if user.nil? %>
+          <%= image_tag("default-user-image.png", :alt => "user view", :size => "60x60") %>
+        <% else %>
+          <%= image_tag(user.avatar.url , :alt => "user view", :size => "60x60") %>
+        <% end %>
         </div>
       </div>
       <div class="col-sm-10">
@@ -16,10 +21,6 @@
 
           <div class="panel-heading">
             <strong><%=  @post.title %></strong>
-            <i>&nbsp;&nbsp;<%=  @post.name %></i>
-            <span class="text-muted">
-              <%= time_ago_in_words (Time.now - @post.created_at).seconds.from_now %> ago 
-            </span>
             <em>
               <span style="float: right; " class="text-muted">
                 <% if user_signed_in? %>
@@ -48,7 +49,8 @@
 
         <div class="panel-footer">
           <span style="float: left;" class="text-muted">
-            <em><%= @post.name %></em>
+            <i><small><%= time_ago_in_words (Time.now - @post.created_at).seconds.from_now %> ago by 
+            <%= @post.name %></small></i>
           </span>
           <span style="float: right;" class="text-muted">
             <a id = "countlike" onclick="like(<%=@post.id%>)">Like</a>
@@ -85,7 +87,12 @@
       <div class="row">
         <div class="col-sm-1">
           <div class="thumbnail">
-            <%= image_tag(User.find_for_authentication(:username => comment.commenter).avatar.url , :alt => "user view") %>
+            <% user = User.find_for_authentication(:username => comment.commenter) %>
+            <% if user.nil? %>
+              <%= image_tag("default-user-image.png", :alt => "user view", :size => "60x60") %>
+            <% else %>
+              <%= image_tag(user.avatar.url , :alt => "user view", :size => "60x60") %>
+            <% end %>
           </div>
         </div>
         <div class="col-sm-10" >
@@ -117,7 +124,8 @@
             </div>
               <div class="panel-footer">
                 <span style="float: left;" class="text-muted">
-                  <em><%= @post.name %></em>
+                  <i><small><%= time_ago_in_words (Time.now - comment.created_at).seconds.from_now %> ago by 
+                  <%= comment.commenter %></small></i>
                 </span>
                 <span style="float: right;" class="text-muted">
                 <a id = "countlike" onclick="clike(<%=comment.id%>)">Like</a>
