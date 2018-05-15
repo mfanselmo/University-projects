@@ -9,8 +9,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :comments # , dependent: :destroy
-  has_many :posts # , dependent: :destroy
+  has_many :comments
+  has_many :posts
 
   has_many :subscriptions, dependent: :destroy
   has_many :forums, through: :subscriptions
