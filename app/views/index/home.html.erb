@@ -80,16 +80,19 @@
 
         <% if subscripciones(current_user).any? %> 
         <!-- USUARIO TIENE SUBSCRIPCIONES -->
-          <% Post.order('created_at').all.each do |post| %>
+          <% posts = Post.order('created_at').all.paginate(page: params[:page], per_page: 6) %>
+          <% posts.order('created_at').all.each do |post| %>
             <%= render 'index/todos_los_post', post: post, mi_tipo: "cada_post_1"%>
           <% end %>
 
         <% else %>
          <!-- NO TIENE NINGUNA SUBSCRIPCION, POR AHORA SE MUESTRA DE TODOS LOS FOROS IGUAL -->
-          <% Post.order('created_at').all.each do |post| %>
+          <% posts = Post.order('created_at').all.paginate(page: params[:page], per_page: 6) %>
+          <% posts.each do |post| %>
             <%= render 'index/todos_los_post', post: post,  mi_tipo: "cada_post_1"%>
           <% end %>
         <% end %>
+        <%= will_paginate posts %>
       </div>
   </div>
        

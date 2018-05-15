@@ -17,6 +17,6 @@ class IndexController < ApplicationController
   end
 
   def admin
-  	@users = User.all.paginate(page: params[:page], per_page: 1)
+  	@users = User.all.paginate(page: params[:page], per_page: 10)
   end
 end

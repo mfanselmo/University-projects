@@ -13,6 +13,7 @@ class ForumsController < ApplicationController
               else
                 Forum.all.order('created_at DESC')
               end
+    @forums = @forums.paginate(page: params[:page], per_page: 20)
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @forums }
