@@ -13,9 +13,9 @@
     <div class="col-sm-6" style="background-color:white;">
       <% sub_count = subscriptores(@forum).length %>
       <% if sub_count == 1 %>
-        <%= sub_count %> suscriptor
+        <p id="subs_count"><%= sub_count %> suscriptor</p>
       <% else %>
-        <%= sub_count %> suscriptores
+        <p id="subs_count"><%= sub_count %> suscriptores</p>
       <% end %>
     </div>
   </div>

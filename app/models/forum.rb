@@ -16,4 +16,17 @@ class Forum < ApplicationRecord
     where('name LIKE ?', "%#{search}%")
     # where("name LIKE ? OR ingredients LIKE ? OR cooking_instructions LIKE ?", "%#{search}%", "%#{search}%", "%#{search}%")
   end
+
+  def subscriptores
+    count = 0
+    self.subscriptions.each do |sub|
+      count += 1
+    end
+    if count != 1
+      return "#{count} subscriptores"
+    else
+      return "1 subscriptor"
+    end
+  end
+
 end
