@@ -44,19 +44,19 @@ Rails.application.routes.draw do
   get '/admin/postulation/:user_id/:forum_id', to: 'index#postulation', as: "postulation_info"
   get '/users/:id', to: "users#show", :as => :user
 
-  post "like/:id" => "forums#upvote"
-  post "dislike/:id" => "forums#downvote"
+  post "like/:id", to: "forums#upvote"
+  post "dislike/:id", to: "forums#downvote"
 
-  post "c-like/:id" => "comments#upvote"
-  post "c-dislike/:id" => "comments#downvote"
+  post "c-like/:id", to: "comments#upvote"
+  post "c-dislike/:id", to: "comments#downvote"
 
-  post "subscribe/:user_id/:forum_id" => "subscriptions#create"
-  delete "unsubscribe/:id" => "subscriptions#destroy"
+  post "subscribe/:user_id/:forum_id", to: "subscriptions#create"
+  delete "unsubscribe/:id", to: "subscriptions#destroy"
 
-  post "postulate/:user_id/:forum_id" => "postulations#create"
-  delete "unpostulate/:id" => "postulations#destroy"
+  post "postulate/:user_id/:forum_id", to: "postulations#create"
+  delete "unpostulate/:id", to: "postulations#destroy"
 
-  post "moderate/:user_id/:forum_id" => "moderators#create"
-  delete "unmoderate/:id" => "moderators#destroy"
+  post "moderate/:user_id/:forum_id", to: "moderators#create"
+  delete "unmoderate/:id", to: "moderators#destroy"
 
 end

@@ -133,3 +133,11 @@
 	background-color: #1CA347;
 	border-color: #1CA347;
 }
+
+.pagination {
+  .previous_page { background: white; color: dodgerblue }
+  .previous_page.disabled { background: white; color: #777 }
+  .current { background: white; color: black; font-size: 16px}
+  .next_page { background: white; color: dodgerblue }
+  .next_page.disabled { background: white; color: #777 }
+}
