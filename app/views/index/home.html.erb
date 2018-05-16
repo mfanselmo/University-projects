@@ -57,7 +57,7 @@
         
 
 
-        <a href="/forums"><h4 id="titulo_sub" ">Todos los foros</h4></a>
+        <a href="/forums"><h3 id="titulo_sub" ">Todos los foros</h3></a>
         <table class="table">
             <tbody>
               <% Forum.all.each do |forum| %>
@@ -99,7 +99,7 @@
 <% else %>
 <!-- GUEST -->
 <div class="row-fluid">
-    <div class="col-md-3" id="dashboardSubsripciones" style="background-color: white;" >
+    <div class="col-md-3" id="dashboardSubsripciones" style="background-color: white; position: fixed" >
         <a href="/forums"><h4 id="titulo_sub" ">Todos los foros</h4></a>
         <table class="table">
             <tbody>
@@ -109,7 +109,7 @@
                 <td style="text-align: center;"><%= link_to forum.name, forum, :id => 'link_sub'  %></td>
               </tr>
               <% end %>
-            </tbody|>
+            </tbody>
         </table>
     </div>
 
