@@ -24,11 +24,11 @@ class SubscriptionsController < ApplicationController
   # POST /subscriptions
   # POST /subscriptions.json
   def create
-    id = params[:forum_id]
-    @forum = Forum.find_by(id: id)
+    @forum = Forum.find_by(id: params[:forum_id])
     @subscription = Subscription.new(user_id: params[:user_id], forum_id: params[:forum_id])
     result = @subscription.save!
-    render json: { result: result, info: { id: @subscription.id } } # , count: ForumsHelper.subscriptores(@forum).length}}
+    number = @forum.subscriptores # helpers.subscriptores(@forum).length
+    render json: { result: result, info: { id: @subscription.id, count: number}}
   end
 
   # PATCH/PUT /subscriptions/1
@@ -51,7 +51,8 @@ class SubscriptionsController < ApplicationController
     forum_id = @subscription.forum_id
     result = @subscription.destroy
     @forum = Forum.find_by(id: forum_id)
-    render json: { result: result, info: { forum_id: forum_id } } # , count: ForumsHelper.subscriptores(@forum).length}}
+    number = @forum.subscriptores
+    render json: { result: result, info: { forum_id: forum_id , count: number}}
   end
 
   private

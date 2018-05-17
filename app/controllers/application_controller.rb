@@ -2,6 +2,7 @@
 
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
+  rescue_from ActiveRecord::RecordNotFound, :with => :not_found
 
   before_action :configure_permitted_parameters, if: :devise_controller?
 
@@ -18,5 +19,9 @@ class ApplicationController < ActionController::Base
                                          password_confirmation
                                          current_password admin
                                          avatar remove_avatar avatar_cache])
+  end
+
+  def not_found
+    redirect_to root_path, notice: "No se encontró la página"
   end
 end
