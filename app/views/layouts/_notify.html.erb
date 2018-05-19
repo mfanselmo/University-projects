@@ -28,8 +28,13 @@
           <% if notification.action.include? "creó" %>
             <% title = "Comentario en Post" %>
           <% end %>
-        <% elsif notification.notifiable_type == "Forum" %>
-          <% object = Forum.find(notification.notifiable_id) %>
+        <% elsif notification.notifiable_type == "Postulation" %>
+          <% link = "../admin" %>
+          <% title = "Postulación" %>
+        <% elsif notification.notifiable_type == "Moderator" %>
+          <% object = Moderator.find(notification.notifiable_id) %>
+          <% link = "../forums/#{object.forum_id}" %>
+          <% title = "Moderador" %>
         <% end %>
          <a class="content" href="<%= link %>"> 
            <div class="notification-item">
