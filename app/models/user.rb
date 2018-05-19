@@ -51,4 +51,9 @@ class User < ApplicationRecord
       'Usuario'
     end
   end
+
+  def all_notifications
+    self.notifications.order(created_at: :desc)
+  end
+
 end

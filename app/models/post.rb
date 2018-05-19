@@ -37,4 +37,10 @@ class Post < ApplicationRecord
     where('title LIKE ? OR name LIKE ?', "%#{search}%", "%#{search}%")
     # where("name LIKE ? OR ingredients LIKE ? OR cooking_instructions LIKE ?", "%#{search}%", "%#{search}%", "%#{search}%")
   end
+
+  def notify(creator, object, message)
+    observer = User.find_by(:username => self.name)
+    Notification.create(recipient: observer, user: creator, action: message, notifiable: object)
+  end
+
 end

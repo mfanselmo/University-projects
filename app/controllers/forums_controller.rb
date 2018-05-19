@@ -106,6 +106,10 @@ class ForumsController < ApplicationController
   def upvote
     @post = Post.find(params[:id])
     result = @post.upvote_from current_user if user_signed_in?
+    if result
+      msg = "Has recibido un like en el post " + @post.title
+      @post.notify(current_user, @post, msg)
+    end
     render json: { result: result, count: { votes:
                                           { like: @post.get_likes.size,
                                             dislike: @post.get_dislikes.size },
@@ -115,6 +119,10 @@ class ForumsController < ApplicationController
   def downvote
     @post = Post.find(params[:id])
     result = @post.downvote_from current_user if user_signed_in?
+    if result
+      msg = "Has recibido un dislike en el post " + @post.title
+      @post.notify(current_user, @post, msg)
+    end
     render json: { result: result, count: { votes:
                                           { like: @post.get_likes.size,
                                             dislike: @post.get_dislikes.size },

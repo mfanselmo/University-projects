@@ -20,7 +20,7 @@
 
               <!-- USUARIO NORMAL -->
               <% if user_signed_in? %>
-              
+              <%= render 'layouts/notify', notifications: current_user.all_notifications %>
               <ul class="nav navbar-nav navbar-right">
                 <li><a style="color: #DCDCDC;">Ingresado como <%= current_user.username %></a></li>
                 <li>

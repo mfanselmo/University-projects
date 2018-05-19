@@ -1,0 +1,35 @@
+<li class="dropdown"> 
+  <a id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="/page.html">
+    <i class="glyphicon glyphicon-bell"></i>
+  </a>
+  
+  <ul class="dropdown-menu notifications" role="menu" aria-labelledby="dLabel">
+    
+    <div class="notification-heading"><h4 class="menu-title">Notificaciones</h4><h4 class="menu-title pull-right">View all<i class="glyphicon glyphicon-circle-arrow-right"></i></h4>
+    </div>
+    <div class="notifications-wrapper">
+     <% notifications.each do |notification| %> 
+        <% user = User.find(notification.user_id) %>
+        <% if notification.notifiable_type == "Post" %>
+          <% object = Post.find(notification.notifiable_id) %>
+        <% elsif notification.notifiable_type == "Comment" %>
+          <% object = Comment.find(notification.notifiable_id) %>
+        <% elsif notification.notifiable_type == "Forum" %>
+          <% object = Forum.find(notification.notifiable_id) %>
+        <% end %>
+         <a class="content" href="<%= object %>"> 
+           <div class="notification-item">
+             <% if user.nil? %>
+               <%= image_tag("default-user-image.png", :alt => "user view", :size => "60x60") %>
+             <% else %>
+               <%= image_tag(user.avatar.url , :alt => "user view", :size => "60x60") %>
+             <% end %>
+             <h4 class="item-title"><%= notification.notifiable_type %><small>
+              <%= time_ago_in_words (Time.now - notification.created_at).seconds.from_now %> ago</small></h4>
+            <p class="item-info"><%= notification.action %></p>
+          </div>  
+        </a>
+      <% end %>
+    </div>
+  </ul>
+  </li>

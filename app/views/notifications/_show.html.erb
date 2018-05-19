@@ -1,3 +1,3 @@
 <% notifications.each do |notification| %>
-	<p> <%= User.find(notification.user_id).username %> <%= notification.action %> you! </p>
+	<p><%= debug notification %></p>
 <% end %>
