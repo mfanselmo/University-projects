@@ -20,9 +20,10 @@
 
               <!-- USUARIO NORMAL -->
               <% if user_signed_in? %>
-              <%= render 'layouts/notify', notifications: current_user.all_notifications %>
+              <%#= render 'layouts/notify', notifications: current_user.all_notifications %>
               <ul class="nav navbar-nav navbar-right">
                 <li><a style="color: #DCDCDC;">Ingresado como <%= current_user.username %></a></li>
+                <%= render 'layouts/notify', notifications: current_user.all_notifications %>
                 <li>
                   <div class="dropdown">
                    <button class="btn btn-primary   dropdown-toggle"  type="button" data-toggle="dropdown">Perfil</button>

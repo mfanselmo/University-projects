@@ -46,7 +46,7 @@ class PostsController < ApplicationController
   def create
     @forum = Forum.find(params[:forum_id])
     @post = @forum.posts.create(params[:post].permit(:name, :title, :content, :image, :remove_image))
-    msg = current_user.username + ' create a post in forum ' + @forum.name
+    msg = current_user.username + ' creó un post en foro suscrito: ' + @forum.name
     @forum.notify(current_user, @post, msg)
     redirect_to forum_path(@forum)
   end
