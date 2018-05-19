@@ -18,6 +18,8 @@ class User < ApplicationRecord
   has_many :moderators, dependent: :destroy
   has_many :forums, through: :moderators, source: :mod
 
+  has_many :notifications, foreign_key: :recipient_id
+
   def user_params
     params.require(:user).permit(:user, :email, :avatar, :remove_avatar, :avatar_cache)
   end
