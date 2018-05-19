@@ -357,6 +357,7 @@ ul.dropdown-menu.notifications .notifications-wrapper a.content:hover {
 }
 ul.dropdown-menu.notifications {
     padding: 0px;
+    min-width: 320px;
 }
 .dropdown .glyphicon-bell {  
     vertical-align: middle;
