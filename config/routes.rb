@@ -31,9 +31,12 @@ Rails.application.routes.draw do
   # devise_for :users do
     # get 'logout' => 'devise/sessions#destroy'
   # end
-  devise_for :users do
-    get '/users/sign_out' => 'devise/sessions#destroy'
-  end
+
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+
+  # devise_for :users do
+  #   get '/users/sign_out' => 'devise/sessions#destroy'
+  # end
 
   match '/users',   to: 'users#index',   via: 'get'
   match '/users/:id', to: 'users#show', via: 'get'
