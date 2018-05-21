@@ -15,6 +15,9 @@ class User < ApplicationRecord
   has_many :subscriptions, dependent: :destroy
   has_many :forums, through: :subscriptions
 
+  has_many :favorites, dependent: :destroy
+  has_many :posts, through: :favorites
+
   has_many :moderators, dependent: :destroy
   has_many :forums, through: :moderators, source: :mod
 

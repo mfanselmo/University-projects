@@ -13,6 +13,9 @@ class Post < ApplicationRecord
 
   has_many :comments, dependent: :destroy
 
+  has_many :favorites, dependent: :destroy
+  has_many :users, through: :favorites
+
   def increment(attribute, by = 1)
     self[attribute] ||= 0
     self[attribute] += by
