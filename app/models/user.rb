@@ -56,4 +56,8 @@ class User < ApplicationRecord
     self.notifications.order(created_at: :desc)
   end
 
+  def unread_notifications
+    self.notifications.where(:unread => true)
+  end
+
 end

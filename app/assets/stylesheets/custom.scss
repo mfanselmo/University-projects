@@ -316,6 +316,11 @@ Code snippet by hdpixelz for Bootsnipp.com
     display: block;
     color:#000;
 }
+.notifications a.content_unread {
+    text-decoration: none;
+    display: block;
+    color:#000;
+}
 .notification-item {
     position: relative;
     padding: 10px;
@@ -341,15 +346,31 @@ ul.dropdown-menu.notifications .notifications-wrapper a.content {
     background: rgba(0, 0, 0, 0.04);
     border-bottom: 1px solid #d1d1d1;
 }
+ul.dropdown-menu.notifications .notifications-wrapper a.content_unread {
+    padding: 0px !important;
+    background: lightsalmon;
+    border-bottom: 1px solid #d1d1d1;
+}
 ul.dropdown-menu.notifications .notifications-wrapper a.content:hover {
     color: #000;
     background: rgba(0, 0, 0, 0.1);
+}
+ul.dropdown-menu.notifications .notifications-wrapper a.content_unread:hover {
+    color: #000;
+    background: sandybrown;
 }
 .login-nav ul.nav.navbar-nav.navbar-right li a {
     display: block;
 }
 .notification-heading {
     background: #000;.notifications a.content {
+    text-decoration: none;
+    display: block;
+}
+    padding: 3px 10px;
+}
+.notification-heading {
+    background: #000;.notifications a.content_unread {
     text-decoration: none;
     display: block;
 }

@@ -1,7 +1,14 @@
 <li class="dropdown"> 
-  <a id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="/page.html">
+  <% unread_messages = current_user.unread_notifications.length %>
+  <% if unread_messages != 0 %>
+    <a id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="/page.html">
+    <i class="glyphicon glyphicon-bell"></i><span class="badge badge-primary"><%= unread_messages %></span>
+    </a>
+  <% else %>
+    <a id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="/page.html">
     <i class="glyphicon glyphicon-bell"></i>
-  </a>
+    </a>
+  <% end %>
   
   <ul class="dropdown-menu notifications" role="menu" aria-labelledby="dLabel">
     
@@ -36,7 +43,8 @@
           <% link = "../forums/#{object.forum_id}" %>
           <% title = "Moderador" %>
         <% end %>
-         <a class="content" href="<%= link %>"> 
+        <% if notification.unread %>
+         <a class="content_unread" href="<%= link %>" onclick="change_unread(<%=notification.id%>)"> 
            <div class="notification-item">
              <% if user.nil? %>
                <%= image_tag("default-user-image.png", :alt => "user view", :size => "60x60") %>
@@ -48,6 +56,20 @@
             <p class="item-info"><%= notification.action %></p>
           </div>  
         </a>
+        <% else %>
+          <a class="content" href="<%= link %>"> 
+           <div class="notification-item">
+             <% if user.nil? %>
+               <%= image_tag("default-user-image.png", :alt => "user view", :size => "60x60") %>
+             <% else %>
+               <%= image_tag(user.avatar.url , :alt => "user view", :size => "60x60") %>
+             <% end %>
+             <h4 class="item-title"><%= title %><small>
+              <%= time_ago_in_words (Time.now - notification.created_at).seconds.from_now %> ago</small></h4>
+            <p class="item-info"><%= notification.action %></p>
+          </div>  
+        </a>
+        <% end %>
       <% end %>
      <% if count == 0 %>
        <div class="notification-item">
