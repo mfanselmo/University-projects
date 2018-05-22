@@ -63,3 +63,7 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 gem 'redcarpet'
 gem 'will_paginate', '~> 3.1.1'
+
+gem 'devise'
+gem 'omniauth-facebook'
+gem 'koala'

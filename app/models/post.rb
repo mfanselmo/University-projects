@@ -13,6 +13,12 @@ class Post < ApplicationRecord
 
   has_many :comments, dependent: :destroy
 
+
+  after_create :new_post_send
+  def new_post_send
+    EmailerMailer.new_post_mail(forum, self).deliver_now
+  end
+
   def increment(attribute, by = 1)
     self[attribute] ||= 0
     self[attribute] += by
