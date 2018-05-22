@@ -46,6 +46,7 @@ class PostsController < ApplicationController
   def create
     @forum = Forum.find(params[:forum_id])
     @post = @forum.posts.create(params[:post].permit(:name, :title, :content, :image, :remove_image))
+    #EmailMailer.with(forum: @forum, post: @post).new_post_mail.deliver_now
     redirect_to forum_path(@forum)
   end
 
