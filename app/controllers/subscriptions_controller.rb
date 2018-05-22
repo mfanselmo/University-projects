@@ -28,6 +28,8 @@ class SubscriptionsController < ApplicationController
     @subscription = Subscription.new(user_id: params[:user_id], forum_id: params[:forum_id])
     result = @subscription.save!
     number = @forum.subscriptores # helpers.subscriptores(@forum).length
+    @user = User.find_by(id: params[:user_id])
+    EmailMailer.with(user: @user, forum: @forum).subscription_mail.deliver_now
     render json: { result: result, info: { id: @subscription.id, count: number}}
   end
 
