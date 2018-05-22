@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180518161620) do
+
+ActiveRecord::Schema.define(version: 20180522165607) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +27,13 @@ ActiveRecord::Schema.define(version: 20180518161620) do
     t.index ["post_id"], name: "index_comments_on_post_id"
   end
 
+  create_table "favorites", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "post_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "forums", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -38,6 +46,18 @@ ActiveRecord::Schema.define(version: 20180518161620) do
     t.integer "forum_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.bigint "user_id"
+    t.integer "recipient_id"
+    t.string "action"
+    t.string "notifiable_type"
+    t.integer "notifiable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "unread", default: true
+    t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -117,4 +137,5 @@ ActiveRecord::Schema.define(version: 20180518161620) do
     t.index ["voter_type", "voter_id"], name: "index_votes_on_voter_type_and_voter_id"
   end
 
+  add_foreign_key "notifications", "users"
 end

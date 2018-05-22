@@ -62,4 +62,6 @@ Rails.application.routes.draw do
   post "moderate/:user_id/:forum_id", to: "moderators#create"
   delete "unmoderate/:id", to: "moderators#destroy"
 
+  post "unread/:notification_id", to: "users#unread"
+
 end
