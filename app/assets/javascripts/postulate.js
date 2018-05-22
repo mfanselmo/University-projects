@@ -38,3 +38,17 @@ function unpostulate(id, user_id, forum_id){
         }
     });
 }
+
+function postulate_admin(user_id){
+    console.log("/ad_postulate/%s/%s", user_id)
+    $.ajax({
+        url: "/ad_postulate/" + user_id,
+        type:"POST",
+        dataType:"json",
+        success: function(data){
+            if(data.result){
+                console.log(data);
+            }
+        }
+    });
+}

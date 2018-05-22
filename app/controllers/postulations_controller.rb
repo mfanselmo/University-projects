@@ -31,6 +31,14 @@ class PostulationsController < ApplicationController
     render json: { result: result, info: @postulation.id }
   end
 
+  def postulate_admin
+    @postulation = Postulation.new(user_id: params[:user_id], forum_id: 0)
+    result = @postulation.save!
+    msg = current_user.username + ' postuló para ser administrador'
+    @postulation.notify(current_user, @postulation, msg)
+    render json: { result: result, info: @postulation.id }
+  end
+
   # PATCH/PUT /postulations/1
   # PATCH/PUT /postulations/1.json
   def update

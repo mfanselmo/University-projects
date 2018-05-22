@@ -35,3 +35,17 @@ function unmoderate(id, user_id, forum_id){
         }
     });
 }
+
+function administrate(user_id){
+    $.ajax({
+        url: "/administrate/" + user_id,
+        type:"POST",
+        dataType:"json",
+        success: function(data){
+            console.log(data);
+            if(data.result){
+                console.log(data);
+            }
+        }
+    });
+}

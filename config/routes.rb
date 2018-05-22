@@ -64,4 +64,8 @@ Rails.application.routes.draw do
 
   post "unread/:notification_id", to: "users#unread"
 
+  post "ad_postulate/:user_id", to: "postulations#postulate_admin"
+
+  post "administrate/:user_id", to: "moderators#admin_create"
+
 end
