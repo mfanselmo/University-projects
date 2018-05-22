@@ -51,7 +51,7 @@ Rails.application.routes.draw do
   post "c-like/:id", to: "comments#upvote"
   post "c-dislike/:id", to: "comments#downvote"
 
-  post "fav/:user_id/:post_id:", to: "favorites#create"
+  post "fav/:user_id/:post_id", to: "favorites#create"
   delete "unfav/:id", to: "favorites#destroy"
 
   post "subscribe/:user_id/:forum_id", to: "subscriptions#create"

@@ -1,5 +1,6 @@
 class FavoritesController < ApplicationController
   before_action :set_favorite, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: %i[index]
 
   # GET /favorites
   # GET /favorites.json
@@ -47,11 +48,12 @@ class FavoritesController < ApplicationController
   # DELETE /favorites/1
   # DELETE /favorites/1.json
   def destroy
-    @favorite.destroy
-    respond_to do |format|
-      format.html { redirect_to favorites_url, notice: 'Favorite was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    result = @favorite.destroy
+    # respond_to do |format|
+      # format.html { redirect_to favorites_url, notice: 'Favorite was successfully destroyed.' }
+      # format.json { head :no_content }
+    # end
+    render json: {result: result}
   end
 
   private

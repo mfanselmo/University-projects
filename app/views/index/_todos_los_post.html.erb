@@ -55,12 +55,20 @@
                   <span class="post-points" id="points-vote-<%= post.id %>">
                   <%= post.points %>
                   </span> 
-
-                <a id = "dar_favorito" onclick="fav(<%=current_user.id%>, <%=post.id%>)">
-                  <span class="corazon_no_apretado" onclick="cambiar_clase_corazon(this)">
-                  &#9829;
-                </span>
-                </a>  
+                <% favorite = Favorite.find_by(:user_id => current_user.id, :post_id => post.id) %>
+                <% if favorite %>
+                  <a id = "dar_favorito" onclick="unfav(<%=favorite.id %>, <%=current_user.id%>, <%=post.id%>)">
+                    <span class="corazon_apretado" onclick="cambiar_clase_corazon(this)">
+                    &#9829;
+                    </span>
+                  </a> 
+                <% else %>
+                  <a id = "dar_favorito" onclick="fav(<%=current_user.id%>, <%=post.id%>)">
+                    <span class="corazon_no_apretado" onclick="cambiar_clase_corazon(this)">
+                    &#9829;
+                    </span>
+                  </a> 
+                <% end %> 
                 
                 <a id = "countlike" onclick="like(<%=post.id%>)" class = "asa"> 
                   &#128077;
