@@ -32,7 +32,9 @@ class Forum < ApplicationRecord
   def notify(creator, object, message)
     self.subscriptions.each do |sub|
       observer = User.find(sub.user_id)
-      Notification.create(recipient: observer, user: creator, action: message, notifiable: object)
+      if creator != observer
+        Notification.create(recipient: observer, user: creator, action: message, notifiable: object)
+      end
     end
   end
 

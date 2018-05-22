@@ -40,7 +40,9 @@ class Post < ApplicationRecord
 
   def notify(creator, object, message)
     observer = User.find_by(:username => self.name)
-    Notification.create(recipient: observer, user: creator, action: message, notifiable: object)
+    if creator != observer
+      Notification.create(recipient: observer, user: creator, action: message, notifiable: object)
+    end
   end
 
 end
