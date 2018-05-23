@@ -24,6 +24,8 @@ class CommentsController < ApplicationController
   def create
     @post = Post.find(params[:post_id])
     @comment = @post.comments.create(params[:comment].permit(:commenter, :body, :image, :remove_image))
+    msg = current_user.username + ' creó un comentario en su post: ' + @post.title
+    @post.notify(current_user, @comment, msg)
     redirect_to post_path(@post)
   end
 

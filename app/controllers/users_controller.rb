@@ -25,4 +25,11 @@ class UsersController < ApplicationController
         redirect_to root_url, notice: "User deleted."
     end
   end
+
+  def unread
+    notification = Notification.find(params[:notification_id])
+    notification.unread = false
+    result = notification.save
+    render json: {result: result}
+  end
 end
