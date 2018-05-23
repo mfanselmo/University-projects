@@ -11,7 +11,11 @@ class Comment < ApplicationRecord
 
   after_create :new_comment_send
   def new_comment_send
-    EmailerMailer.new_comment_mail(post, self).deliver_now
+    Thread.new do
+      Rails.application.executor.wrap do
+        EmailerMailer.new_comment_mail(post, self).deliver_now
+      end
+    end
   end
 
   def increment(attribute, by = 1)

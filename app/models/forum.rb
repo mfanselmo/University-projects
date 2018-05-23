@@ -38,4 +38,12 @@ class Forum < ApplicationRecord
     end
   end
 
+  def send_mail(user)
+    Thread.new do
+      Rails.application.executor.wrap do
+        EmailMailer.with(user: user, forum: self).subscription_mail.deliver_now
+      end
+    end
+  end
+
 end
