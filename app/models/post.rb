@@ -16,7 +16,11 @@ class Post < ApplicationRecord
 
   after_create :new_post_send
   def new_post_send
-    EmailerMailer.new_post_mail(forum, self).deliver_now
+    Thread.new do
+      Rails.application.executor.wrap do
+        EmailerMailer.new_post_mail(forum, self).deliver_now
+      end
+    end
   end
 
   def increment(attribute, by = 1)
