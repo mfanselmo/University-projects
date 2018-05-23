@@ -45,6 +45,9 @@
         <% end %>
         <% if notification.unread %>
          <a class="content_unread" href="<%= link %>" onclick="change_unread(<%=notification.id%>)"> 
+            <button type="button" class="close" aria-label="Close" onclick="delete_notify(<%= notification.id %>)">
+              <span aria-hidden="true">&times;</span>
+            </button> 
            <div class="notification-item">
              <% if user.nil? %>
                <%= image_tag("default-user-image.png", :alt => "user view", :size => "60x60") %>
@@ -54,10 +57,13 @@
              <h4 class="item-title"><%= title %><small>
               <%= time_ago_in_words (Time.now - notification.created_at).seconds.from_now %> ago</small></h4>
             <p class="item-info"><%= notification.action %></p>
-          </div>  
+          </div>
         </a>
         <% else %>
           <a class="content" href="<%= link %>"> 
+            <button type="button" class="close" aria-label="Close" onclick="delete_notify(<%= notification.id %>)">
+              <span aria-hidden="true">&times;</span>
+            </button>  
            <div class="notification-item">
              <% if user.nil? %>
                <%= image_tag("default-user-image.png", :alt => "user view", :size => "60x60") %>
@@ -67,7 +73,7 @@
              <h4 class="item-title"><%= title %><small>
               <%= time_ago_in_words (Time.now - notification.created_at).seconds.from_now %> ago</small></h4>
             <p class="item-info"><%= notification.action %></p>
-          </div>  
+          </div>
         </a>
         <% end %>
       <% end %>

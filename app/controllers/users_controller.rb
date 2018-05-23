@@ -32,4 +32,19 @@ class UsersController < ApplicationController
     result = notification.save
     render json: {result: result}
   end
+
+  def del_notify
+    notification = Notification.find(params[:notification_id])
+    result = notification.destroy
+    render json: {result: result}
+  end
+
+  def admin_create
+    user = User.find(params[:user_id])
+    user.admin = true
+    result = user.save
+    @pos = Postulation.find_by(user_id: params[:user_id], forum_id: 0)
+    @pos.destroy
+    render json: {result: result}
+  end
 end
