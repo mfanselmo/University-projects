@@ -1,7 +1,12 @@
 <% if user_signed_in? %>
 
 	<h1> Perfil de usuario </h1>
-    <a id = "admini" onclick="postulate_admin(<%=@user.id%>)">Postular administrador</a>
+	<% if not @user.admin? %>
+		<% if moderaciones(@user).length > -1 %>
+	     <a id = "admini" onclick="postulate_admin(<%=@user.id%>)" 
+	     class='btn btn-default btn-xs'>Postular administrador</a>
+	    <% end %>
+    <% end %>
 
 	<div class="col-md-3">
 		<div class="user-card">

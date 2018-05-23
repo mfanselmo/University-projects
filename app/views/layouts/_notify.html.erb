@@ -51,11 +51,14 @@
              <% else %>
                <%= image_tag(user.avatar.url , :alt => "user view", :size => "60x60") %>
              <% end %>
-             <h4 class="item-title"><%= title %><small>
+             <h4 class="item-title"><%= title %><%=notification.id%><small>
               <%= time_ago_in_words (Time.now - notification.created_at).seconds.from_now %> ago</small></h4>
             <p class="item-info"><%= notification.action %></p>
           </div>  
         </a>
+        <button type="button" class="close" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
         <% else %>
           <a class="content" href="<%= link %>"> 
            <div class="notification-item">
@@ -69,6 +72,9 @@
             <p class="item-info"><%= notification.action %></p>
           </div>  
         </a>
+        <button type="button" class="close" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
         <% end %>
       <% end %>
      <% if count == 0 %>

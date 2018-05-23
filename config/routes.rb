@@ -66,6 +66,6 @@ Rails.application.routes.draw do
 
   post "ad_postulate/:user_id", to: "postulations#postulate_admin"
 
-  post "administrate/:user_id", to: "moderators#admin_create"
+  post "administrate/:user_id", to: "users#admin_create"
 
 end

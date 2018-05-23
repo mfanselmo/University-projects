@@ -29,15 +29,6 @@ class ModeratorsController < ApplicationController
     render json: { result: result }
   end
 
-  def admin_create
-    user = User.find(params[:user_id])
-    user.admin = true
-    result = user.save
-    @pos = Postulation.find_by(user_id: params[:user_id], forum_id: 0)
-    @pos.destroy
-    render json: {result: result}
-  end
-
   # PATCH/PUT /moderators/1
   # PATCH/PUT /moderators/1.json
   def update
