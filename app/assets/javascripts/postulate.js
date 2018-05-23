@@ -48,6 +48,10 @@ function postulate_admin(user_id){
         success: function(data){
             if(data.result){
                 console.log(data);
+                text = "Ya estas postulando para ser administrador!";
+                $("#administrate").replaceWith($('<p>' + text + '</p>'));
+                $("#administrate").removeAttr('onclick');
+                $("#administrate").toggleClass('text-capitalize')
             }
         }
     });
