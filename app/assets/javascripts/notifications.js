@@ -12,3 +12,16 @@ function change_unread(notification_id){
         }
     });
 }
+
+function delete_notify(notification_id){
+    $.ajax({
+        url: "/del_notify/" + notification_id,
+        type:"DELETE",
+        dataType:"json",
+        success: function(data){
+            if(data.result){
+                console.log(data);
+            }
+        }
+    });
+}
