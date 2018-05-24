@@ -31,7 +31,7 @@
 				<% if current_user.id == @user.id %>
 				<hr>
 					<div class="bg-c-blue counter-block m-t-10 p-20" style="text-align: center;">
-						<% if not @user.admin? and moderaciones(@user).length > 9%>
+						<% if not @user.admin? and moderaciones(@user).length > -1%>
 							<% if not esta_postulando(@user.id, 0)%>
 						      <a id = "administrate" onclick="postulate_admin(<%=@user.id%>)" 
 						     class='btn btn-default btn-xs'>Postular a administrador</a>
