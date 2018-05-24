@@ -45,6 +45,8 @@ class UsersController < ApplicationController
     result = user.save
     @pos = Postulation.find_by(user_id: params[:user_id], forum_id: 0)
     @pos.destroy
+    msg = "Enhorabuena! Eres administrador!"
+    @user.notify(@user, @user, msg)
     render json: {result: result}
   end
 end

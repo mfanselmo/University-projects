@@ -42,6 +42,9 @@
           <% object = Moderator.find(notification.notifiable_id) %>
           <% link = "../forums/#{object.forum_id}" %>
           <% title = "Moderador" %>
+        <% elsif notification.notifiable_type == "User" %>
+          <% link = "../admin" %>
+          <% title = "Administrador" %>
         <% end %>
         <% if notification.unread %>
          <a class="content_unread" href="<%= link %>" onclick="change_unread(<%=notification.id%>)"> 

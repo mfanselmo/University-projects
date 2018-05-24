@@ -74,4 +74,9 @@ class User < ApplicationRecord
       # user.skip_confirmation!
     end
   end
+
+  def notify(creator, object, message)
+    Notification.create(recipient: creator, user: creator, action: message, notifiable: object)
+  end
+  
 end
