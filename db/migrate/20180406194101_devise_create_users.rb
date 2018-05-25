@@ -23,7 +23,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.1]
 
       ## facebook
       t.string :token
-      # t.string :uid
+      t.string :uid
 
       ## Confirmable
       # t.string   :confirmation_token
