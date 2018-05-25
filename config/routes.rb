@@ -38,7 +38,7 @@ Rails.application.routes.draw do
   #   get '/users/sign_out' => 'devise/sessions#destroy'
   # end
 
-  mount ActionCable.server, at: '/cable'
+  # mount ActionCable.server, at: '/cable'
 
   match '/users',   to: 'users#index',   via: 'get'
   match '/users/:id', to: 'users#show', via: 'get'
