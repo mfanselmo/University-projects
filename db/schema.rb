@@ -106,11 +106,8 @@ ActiveRecord::Schema.define(version: 20180522165607) do
     t.string "username"
     t.boolean "admin", default: false
     t.integer "kind", default: 0, null: false
-    t.string "avatar"
     t.string "image"
     t.string "provider"
-    t.string "uid"
-    t.string "name"
     t.string "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
