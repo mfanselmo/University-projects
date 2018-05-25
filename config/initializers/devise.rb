@@ -261,7 +261,7 @@ Devise.setup do |config|
 
   # facebook
   config.omniauth :facebook, "1621892541242854", "2c9db247bcce00ddd35efd10e12a80e6", 
-                  callback_url: "http://localhost:3000/users/auth/facebook/callback"
+                  callback_url: "http://grupo02-software.herokuapp.com/users/auth/facebook/callback"
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
