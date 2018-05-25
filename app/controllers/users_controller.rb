@@ -21,6 +21,12 @@ class UsersController < ApplicationController
   def destroy
     @user = User.find(params[:id])
 
+    Notification.all.each do |noti|
+      if noti.user_id == @user.id
+        noti.destroy
+      end
+    end
+
     if @user.destroy
         redirect_to root_url, notice: "User deleted."
     end
