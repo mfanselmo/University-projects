@@ -18,7 +18,7 @@
 	  <tbody>
 	    <% @users.each do |user| %>
 	      <tr>
-	        <td><%= link_to(user.username, user_path(user))%></td>
+	        <td><%= link_to user.username, user_path(user), :id => "link_normal"%></td>
 	        <td><%= user.email %></td>
 	        <% if user.username != current_user.username %>
 	        <td><%= button_to "Eliminar usuario", user, data: { confirm: "Are you sure?" }, method: :delete, class: 'btn btn-default btn-xs' %></td>
@@ -66,11 +66,11 @@
 	      	<%# end %>-->
 	      	<% user = User.find(pos.user_id) %>
 	      	<% forum = Forum.find(pos.forum_id) %>
-	        <td><%= link_to(user.username, user_path(pos.user_id))%></td>
-	        <td><%= link_to(forum.name, forum_path(pos.forum_id))%></td>
-	        <td><%= link_to "Ver aqui", postulation_info_path(:user_id => pos.user_id, :forum_id => pos.forum_id) %></td>
-	        <td><a id="accept_button_<%=pos.user_id%>_<%=pos.forum_id%>" onclick="moderate(<%=pos.user_id%>, <%=pos.forum_id%>)">Aceptar</a></td>
-	        <td><a id="delete_button_<%=pos.user_id%>_<%=pos.forum_id%>" onclick="unpostulate(<%=Postulation.find_by(:user_id => pos.user_id, :forum_id => pos.forum_id).id%>, <%=pos.user_id%>, <%=pos.forum_id%>)">Rechazar</a></td>
+	        <td><%= link_to user.username, user_path(pos.user_id), :id => "link_normal" %></td>
+	        <td><%= link_to forum.name, forum_path(pos.forum_id), :id => "link_normal" %></td>
+	        <td><%= link_to "Ver aqui", postulation_info_path(:user_id => pos.user_id, :forum_id => pos.forum_id), :id => "link_normal" %></td>
+	        <td><a class="link_normal" id="accept_button_<%=pos.user_id%>_<%=pos.forum_id%>" onclick="moderate(<%=pos.user_id%>, <%=pos.forum_id%>)">Aceptar</a></td>
+	        <td><a class="link_normal" id="delete_button_<%=pos.user_id%>_<%=pos.forum_id%>" onclick="unpostulate(<%=Postulation.find_by(:user_id => pos.user_id, :forum_id => pos.forum_id).id%>, <%=pos.user_id%>, <%=pos.forum_id%>)">Rechazar</a></td>
 	      </tr>
 	    <% end %>
 	  </tbody>

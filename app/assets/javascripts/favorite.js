@@ -6,6 +6,7 @@ function cambiar_clase_corazon(a) {
   else{
     a.className = "corazon_no_apretado";
   }
+  
 }
 
 
@@ -28,6 +29,7 @@ function fav(user_id, post_id){
             }
         }
     });
+    window.event.stopPropagation();
 }
 
 function unfav(id, user_id, forum_id){
@@ -43,4 +45,5 @@ function unfav(id, user_id, forum_id){
             }
         }
     });
+    window.event.stopPropagation();
 }

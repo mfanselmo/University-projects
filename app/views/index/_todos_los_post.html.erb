@@ -1,6 +1,6 @@
 <!-- PONERLE EL for each do |post| antes -->
 
-    <div class="media" id = "cada_post_1">
+    <div onclick="funcion_click('<%= post_path(post) %>');" class="media" id = "cada_post_1">
       <div class="media-left media-top">
         <!-- <img src="img_avatar1.png" class="media-object" style="width:60px"> -->
         <% user = User.find_for_authentication(:username => post.name) %>
@@ -10,27 +10,38 @@
           <%= image_tag(user.avatar.url , :alt => "user view", :size => "60x60") %>
         <% end %>
       </div>
-      <div class="media-body" style="text-align: "." start;">
+      <div class="media-body" style="text-align: '.' start;">
         <h4 class="media-heading" >
             <div id="container">
-              <div id="con_1"> <%= link_to post.title, post %> </div>
+              <div id="con_1"> <%= link_to post.title, post, :id => "link_normal" %> </div>
               <div id="con_2"> <i><small><%= time_ago_in_words (Time.now - post.created_at).seconds.from_now %> ago by <%= post.name %></small></i></div>
               <div id="con_4">
               
               <small>
-              <%= link_to 'Ver', post %>
+              <%= link_to 'Ver', post, :id => "link_normal" %>
               <% if user_signed_in? %> 
                 <% if current_user.username == post.name %>
-                        | <%= link_to 'Editar', edit_post_path(post) %> |
+                      | <%= link_to 'Editar', edit_post_path(post), 
+                            :onclick => 'window.event.stopPropagation();',
+                            :id => "link_normal"%>
+                      |
                         <%= link_to 'Eliminar', [post.forum, post],
                          :confirm => '¿Estas seguro que deseas borrarlo?',
-                         :method => :delete %>
+                         :method => :delete,
+                         :onclick => 'window.event.stopPropagation();',
+                         :id => "link_normal"
+                          %>
 
                  <% elsif  current_user.admin? or moderadores(post.forum).include? current_user.id %>
-                        | <%= link_to 'Editar', edit_post_path(post) %> |
+                      | <%= link_to 'Editar', edit_post_path(post),
+                                :onclick => 'window.event.stopPropagation();',
+                                :id => "link_normal" %>
+                      |
                         <%= link_to 'Eliminar', [post.forum, post],
                          :confirm => '¿Estas seguro que deseas borrarlo?',
-                         :method => :delete %>
+                         :method => :delete,
+                         :onclick => 'window.event.stopPropagation();',
+                         :id => "link_normal" %>
                   <% end %>
                 <% end %>
                 </small>
@@ -43,15 +54,16 @@
 
         <p><%= markdown(post.content) %></p>
         <p><%= image_tag post.image.medium %></p>
-        <h5 class="media-body" >
-            <div id="container">
+        <h5>
+          <div id="container" onclick="window.event.stopPropagation();">
           <div id="con_1"> <em><%= post.comments.count %> comentario(s)</em></div>
           <div id="con_3">
           </div>
               
-            <div id="con_4" >
-                  Total
+            <div id="con_4">
+                  
               <% if user_signed_in? %>
+                  Total
                   <span class="post-points" id="points-vote-<%= post.id %>">
                   <%= post.points %>
                   </span> 
@@ -84,10 +96,11 @@
                   </span>
                 </a>
               <% else %>
+              <p onclick="window.event.stopPropagation();">Total
               <%=  post.points %>
               &#128077;<%= post.get_likes.size%>
               &#128078;<%= post.get_dislikes.size%>
-              
+              </p>
                 
               <% end %>
               
@@ -95,7 +108,7 @@
 
             </div>
           </div>
-        </h6>
+        </h5>
       </div>
     </div>
 

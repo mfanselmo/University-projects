@@ -41,6 +41,7 @@ Rails.application.routes.draw do
   match 'users/:id' => 'users#destroy', :via => :delete
 
   get '/profile', to: "users#show"
+  get '/favoritos', to: "users#favoritos"
   get '/admin', to: 'index#admin'
   get '/admin/postulation/:user_id/:forum_id', to: 'index#postulation', as: "postulation_info"
   get '/users/:id', to: "users#show", :as => :user

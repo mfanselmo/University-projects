@@ -36,4 +36,14 @@ $(function() {
 
 });
 
+$("#cada_post_1").click(function() {
+	console.log("click");
+  // window.location = $(this).find("a").attr("href"); 
+  // return false;
+});
 
+
+function funcion_click(post_path) {
+	window.location.replace(post_path);
+	// console.log(post_path)
+}

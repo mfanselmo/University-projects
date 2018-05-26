@@ -1,0 +1,16 @@
+<% if user_signed_in? %>
+
+	<h1> Favoritos del usuario </h1>
+	<div class="container" id="posts_favoritos">
+
+		<% posts_favoritos(current_user).each do |id_post| %>
+		<%= render 'index/todos_los_post', post: Post.find(id_post), mi_tipo: "cada_post_1"%>
+		<% end %>
+	</div>
+
+
+<% else %>
+	<script type="text/javascript">
+    window.location.href="/"  // put your correct path in a string here
+  	</script>
+<% end %>
