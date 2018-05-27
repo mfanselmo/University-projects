@@ -9,6 +9,15 @@ class Comment < ApplicationRecord
 
   mount_uploader :image, ImageUploader
 
+  after_create :new_comment_send
+  def new_comment_send
+    Thread.new do
+      Rails.application.executor.wrap do
+        EmailerMailer.new_comment_mail(post, self).deliver_now
+      end
+    end
+  end
+
   def increment(attribute, by = 1)
     self[attribute] ||= 0
     self[attribute] += by

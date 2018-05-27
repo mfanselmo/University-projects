@@ -25,10 +25,14 @@ class SubscriptionsController < ApplicationController
   # POST /subscriptions.json
   def create
     @forum = Forum.find_by(id: params[:forum_id])
-    @subscription = Subscription.new(user_id: params[:user_id], forum_id: params[:forum_id])
-    result = @subscription.save!
-    number = @forum.subscriptores # helpers.subscriptores(@forum).length
-    render json: { result: result, info: { id: @subscription.id, count: number}}
+    if not Subscription.find_by(user_id: params[:user_id], forum_id: params[:forum_id])
+      @subscription = Subscription.new(user_id: params[:user_id], forum_id: params[:forum_id])
+      result = @subscription.save!
+      number = @forum.subscriptores # helpers.subscriptores(@forum).length
+      render json: { result: result, info: { id: @subscription.id, count: number}}
+      @user = User.find_by(id: params[:user_id])
+      @forum.send_mail(@user)
+    end
   end
 
   # PATCH/PUT /subscriptions/1

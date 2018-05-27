@@ -6,6 +6,10 @@ module PostulationsHelper
     Postulation.all.each do |pos|
       lista_postulaciones << [pos.user_id, pos.forum_id]
     end
-    lista_postulaciones.include? [usuario.id, forum.id]
+    if forum.is_a? Integer
+    	lista_postulaciones.include? [usuario, forum]
+    else
+    	lista_postulaciones.include? [usuario.id, forum.id]
+    end
   end
 end

@@ -41,8 +41,10 @@ Rails.application.configure do
 
   # Mount Action Cable outside main process or domain
   # config.action_cable.mount_path = nil
-  # config.action_cable.url = 'wss://example.com/cable'
-  # config.action_cable.allowed_request_origins = [ 'http://example.com', /http:\/\/example.*/ ]
+  # config.action_cable.url = 'wss://192.168.99.100:3000/cable'
+  # config.action_cable.allowed_request_origins = [ 'http://192.168.99.100:3000/']
+  # config.action_cable.url = 'wss://grupo02-software.herokuapp.com/cable'
+  # config.action_cable.allowed_request_origins = [ 'https://grupo02-software.herokuapp.com/']
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # config.force_ssl = true
@@ -88,4 +90,38 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  # config.action_mailer.delivery_method = :smtp
+  # # change to true to allow email to be sent during development
+  # config.action_mailer.perform_deliveries = true
+  # config.action_mailer.raise_delivery_errors = true
+  # config.action_mailer.default :charset => "utf-8"
+
+  # config.action_mailer.smtp_settings = {
+  #   address: "smtp.gmail.com",
+  #   port: 587,
+  #   domain: "gmail.com",
+  #   authentication: "plain",
+  #   enable_starttls_auto: true,
+  #   user_name: ENV["grupo02software@gmail.com"],
+  #   password: ENV["GRUPO02123456789"]
+  # }
+
+
+  config.action_mailer.default_url_options = { :host => "grupo02-software.herokuapp.com" }
+
+  config.action_mailer.delivery_method = :smtp 
+  config.action_mailer.raise_delivery_errors = true
+
+  # Gmail SMTP server setup
+  ActionMailer::Base.smtp_settings = {
+    :address => "smtp.gmail.com",
+    :enable_starttls_auto => true,
+    :port => 587,
+    :authentication => :plain,
+    :user_name => "grupo02software@gmail.com",
+    :password => 'GRUPO02123456789'
+  }
+
 end

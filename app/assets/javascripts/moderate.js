@@ -35,3 +35,23 @@ function unmoderate(id, user_id, forum_id){
         }
     });
 }
+
+function administrate(user_id){
+    $.ajax({
+        url: "/administrate/" + user_id,
+        type:"POST",
+        dataType:"json",
+        success: function(data){
+            console.log(data);
+            if(data.result){
+                console.log(data);
+                $("#accept_button_" + user_id + "_0").html("Aceptado");
+                $("#accept_button_" + user_id + "_0").removeAttr('onclick');
+                $("#accept_button_" + user_id + "_0").attr('disabled', 'disabled');
+                $("#delete_button_" + user_id + "_0").html("");
+                $("#delete_button_" + user_id + "_0").removeAttr('onclick');
+                $("#delete_button_" + user_id + "_0").attr('disabled', 'disabled');
+            }
+        }
+    });
+}

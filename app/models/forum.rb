@@ -29,4 +29,21 @@ class Forum < ApplicationRecord
     end
   end
 
+  def notify(creator, object, message)
+    self.subscriptions.each do |sub|
+      observer = User.find(sub.user_id)
+      if creator != observer
+        Notification.create(recipient: observer, user: creator, action: message, notifiable: object)
+      end
+    end
+  end
+
+  def send_mail(user)
+    Thread.new do
+      Rails.application.executor.wrap do
+        EmailMailer.with(user: user, forum: self).subscription_mail.deliver_now
+      end
+    end
+  end
+
 end

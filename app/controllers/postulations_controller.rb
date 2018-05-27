@@ -26,6 +26,16 @@ class PostulationsController < ApplicationController
   def create
     @postulation = Postulation.new(user_id: params[:user_id], forum_id: params[:forum_id])
     result = @postulation.save!
+    msg = current_user.username + ' postuló para ser moderador'
+    @postulation.notify(current_user, @postulation, msg)
+    render json: { result: result, info: @postulation.id }
+  end
+
+  def postulate_admin
+    @postulation = Postulation.new(user_id: params[:user_id], forum_id: 0)
+    result = @postulation.save!
+    msg = current_user.username + ' postuló para ser administrador'
+    @postulation.notify(current_user, @postulation, msg)
     render json: { result: result, info: @postulation.id }
   end
 
@@ -46,6 +56,10 @@ class PostulationsController < ApplicationController
   # DELETE /postulations/1
   # DELETE /postulations/1.json
   def destroy
+    notifications = Notification.where(:notifiable => @postulation)
+    notifications.each do |noti|
+      noti.destroy
+    end
     result = @postulation.destroy
     render json: { result: result }
   end

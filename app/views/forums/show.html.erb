@@ -44,7 +44,6 @@
         <a id="action_postulate" onclick="postulate(<%=current_user.id%>, <%=@forum.id%>)" class="link_normal">Postular </a>
         <% elsif points_user(@forum, current_user) >= 5 and esta_postulando(current_user, @forum)%>
         <p> Ya estas postulando para ser moderador de este foro!  </p>
-      
       <% end %>
     <% end %> 
 

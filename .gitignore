@@ -20,3 +20,5 @@
 
 public/uploads/*
 .env
+
+localhost.key

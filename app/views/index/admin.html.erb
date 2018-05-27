@@ -65,12 +65,19 @@
 		      	<p>Comentario out: <%#= data.commenter %></p>
 	      	<%# end %>-->
 	      	<% user = User.find(pos.user_id) %>
-	      	<% forum = Forum.find(pos.forum_id) %>
-	        <td><%= link_to user.username, user_path(pos.user_id), :id => "link_normal" %></td>
-	        <td><%= link_to forum.name, forum_path(pos.forum_id), :id => "link_normal" %></td>
-	        <td><%= link_to "Ver aqui", postulation_info_path(:user_id => pos.user_id, :forum_id => pos.forum_id), :id => "link_normal" %></td>
-	        <td><a class="link_normal" id="accept_button_<%=pos.user_id%>_<%=pos.forum_id%>" onclick="moderate(<%=pos.user_id%>, <%=pos.forum_id%>)">Aceptar</a></td>
-	        <td><a class="link_normal" id="delete_button_<%=pos.user_id%>_<%=pos.forum_id%>" onclick="unpostulate(<%=Postulation.find_by(:user_id => pos.user_id, :forum_id => pos.forum_id).id%>, <%=pos.user_id%>, <%=pos.forum_id%>)">Rechazar</a></td>
+
+	      	<%if pos.forum_id != 0 %> 
+	      	  <% forum = Forum.find(pos.forum_id) %>
+	          <td><%= link_to forum.name, forum_path(pos.forum_id), :id => "link_normal" %></td>
+	          <td><%= link_to "Ver aqui", postulation_info_path(:user_id => pos.user_id, :forum_id => pos.forum_id), :id => "link_normal" %></td>
+	          <td><a id="accept_button_<%=pos.user_id%>_<%=pos.forum_id%>" onclick="moderate(<%=pos.user_id%>, <%=pos.forum_id%>)">Aceptar</a></td>
+	        <% else %>
+   			  <td>Administrador</td>
+   			  <td>Visualizacion de mod</td>
+	          <td><a id="accept_button_<%=pos.user_id%>_<%=pos.forum_id%>" onclick="administrate(<%=pos.user_id%>)">Aceptar</a></td>
+	        <% end %> 
+	        <td><a id="delete_button_<%=pos.user_id%>_<%=pos.forum_id%>" onclick="unpostulate(<%=Postulation.find_by(:user_id => pos.user_id, :forum_id => pos.forum_id).id%>, <%=pos.user_id%>, <%=pos.forum_id%>)">Rechazar</a></td>
+
 	      </tr>
 	    <% end %>
 	  </tbody>

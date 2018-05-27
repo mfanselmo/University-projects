@@ -21,8 +21,38 @@ class UsersController < ApplicationController
   def destroy
     @user = User.find(params[:id])
 
+    Notification.all.each do |noti|
+      if noti.user_id == @user.id
+        noti.destroy
+      end
+    end
+
     if @user.destroy
         redirect_to root_url, notice: "User deleted."
     end
+  end
+
+  def unread
+    notification = Notification.find(params[:notification_id])
+    notification.unread = false
+    result = notification.save
+    render json: {result: result}
+  end
+
+  def del_notify
+    notification = Notification.find(params[:notification_id])
+    result = notification.destroy
+    render json: {result: result}
+  end
+
+  def admin_create
+    user = User.find(params[:user_id])
+    user.admin = true
+    result = user.save
+    @pos = Postulation.find_by(user_id: params[:user_id], forum_id: 0)
+    @pos.destroy
+    msg = "Enhorabuena! Eres administrador!"
+    user.notify(user, user, msg)
+    render json: {result: result}
   end
 end

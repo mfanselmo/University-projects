@@ -20,9 +20,10 @@
 
               <!-- USUARIO NORMAL -->
               <% if user_signed_in? %>
-              
+              <%#= render 'layouts/notify', notifications: current_user.all_notifications %>
               <ul class="nav navbar-nav navbar-right">
                 <li><a style="color: #DCDCDC;">Ingresado como <%= current_user.username %></a></li>
+                <%= render 'layouts/notify', notifications: current_user.all_notifications %>
                 <li>
                   <div class="dropdown">
                    <button class="btn btn-primary   dropdown-toggle"  type="button" data-toggle="dropdown">Perfil</button>
@@ -61,7 +62,11 @@
                   <%= f.password_field :password, class: 'form-control', placeholder: 'Contraseña' %>
                   <%= f.submit 'Sign in', class: "btn btn-success"%>
                 <% end %>
-
+                <div><a role="button" href="<%=user_facebook_omniauth_authorize_path%>" 
+                  class="nav navbar-nav navbar-right">
+                <i class="fa fa-facebook-square" style="font-size:36px"></i>
+                </a>
+                </div>
 
               </div>
 

@@ -32,9 +32,14 @@ Rails.application.routes.draw do
   # devise_for :users do
     # get 'logout' => 'devise/sessions#destroy'
   # end
-  devise_for :users do
-    get '/users/sign_out' => 'devise/sessions#destroy'
-  end
+
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+
+  # devise_for :users do
+  #   get '/users/sign_out' => 'devise/sessions#destroy'
+  # end
+
+  # mount ActionCable.server, at: '/cable'
 
   match '/users',   to: 'users#index',   via: 'get'
   match '/users/:id', to: 'users#show', via: 'get'
@@ -63,5 +68,12 @@ Rails.application.routes.draw do
 
   post "moderate/:user_id/:forum_id", to: "moderators#create"
   delete "unmoderate/:id", to: "moderators#destroy"
+
+  post "unread/:notification_id", to: "users#unread"
+  delete "del_notify/:notification_id", to: "users#del_notify"
+
+  post "ad_postulate/:user_id", to: "postulations#postulate_admin"
+
+  post "administrate/:user_id", to: "users#admin_create"
 
 end
