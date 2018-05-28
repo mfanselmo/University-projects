@@ -11,12 +11,9 @@
           </button>
           <a class="navbar-brand" href= "/" style="font-size: 25px; color: #DCDCDC;"><span class="b">DCC</span>Blogger</a>
         </div>
-
-
     
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="navbar-collapse-1">
-            
 
               <!-- USUARIO NORMAL -->
               <% if user_signed_in? %>
@@ -80,6 +77,23 @@
                 </li>
                 </ul> 
               <% end %>
+
+              <ul class="nav navbar-nav navbar-right" style="padding-top: 10px;">
+              <li>
+              <%= form_tag(searches_path, :method => "get", id: "search-form") do %>
+                <div id="custom-search-input-2">
+                    <%=select_tag :option, options_for_select([["Usuario", "user"], ["Publicación", "post"], 
+                    ["Foro", "forum"], ["Comentario", "comment"]])%>
+                    <%= text_field_tag :search, params[:search], placeholder: "Escribe aquí "%>
+                    <span>
+                        <button type="button">
+                            <%= submit_tag "Buscar", :name => nil, :class=>"btn", style: "#{'display:none';}"%>
+                        </button>  
+                    </span>
+                </div>
+              <% end %>
+              </li>
+              </ul>
 
 
           

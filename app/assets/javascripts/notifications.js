@@ -24,4 +24,5 @@ function delete_notify(notification_id){
             }
         }
     });
+    window.event.stopPropagation();
 }

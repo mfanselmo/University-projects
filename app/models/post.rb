@@ -7,7 +7,8 @@ class Post < ApplicationRecord
 
   validates :name,  presence: true
   validates :title, presence: true,
-                    length: { minimum: 1 }
+                    length: { minimum: 1 },
+                    uniqueness: { case_sensitive: false }
   validates :content, presence: true,
                       length: { minimum: 1 }
 
