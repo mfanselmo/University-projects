@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :favorites
   get 'users/index'
 
   resources :postulations
@@ -45,6 +46,7 @@ Rails.application.routes.draw do
   match 'users/:id' => 'users#destroy', :via => :delete
 
   get '/profile', to: "users#show"
+  get '/favoritos', to: "users#favoritos"
   get '/admin', to: 'index#admin'
   get '/admin/postulation/:user_id/:forum_id', to: 'index#postulation', as: "postulation_info"
   get '/users/:id', to: "users#show", :as => :user
@@ -54,6 +56,9 @@ Rails.application.routes.draw do
 
   post "c-like/:id", to: "comments#upvote"
   post "c-dislike/:id", to: "comments#downvote"
+
+  post "fav/:user_id/:post_id", to: "favorites#create"
+  delete "unfav/:id", to: "favorites#destroy"
 
   post "subscribe/:user_id/:forum_id", to: "subscriptions#create"
   delete "unsubscribe/:id", to: "subscriptions#destroy"

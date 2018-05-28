@@ -225,6 +225,18 @@ Follow me on Twitter @maridlcrmn
 }
 
 
+#link_normal:hover {
+  text-decoration: none;
+  background-color: transparent;
+}
+
+.link_normal:hover {
+  text-decoration: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+
 /*POSTS INICIO */
 
 #dashboardPostInicio {

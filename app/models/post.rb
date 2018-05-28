@@ -14,6 +14,10 @@ class Post < ApplicationRecord
   has_many :comments, dependent: :destroy
 
 
+  has_many :favorites, dependent: :destroy
+  has_many :users, through: :favorites
+
+
   after_create :new_post_send
   def new_post_send
     Thread.new do
@@ -22,6 +26,7 @@ class Post < ApplicationRecord
       end
     end
   end
+
 
   def increment(attribute, by = 1)
     self[attribute] ||= 0

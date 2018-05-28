@@ -14,6 +14,8 @@ function dislike(id){
             }
         }
     });
+    
+    window.event.stopPropagation();
 }
 
 function cdislike(id){
