@@ -57,8 +57,6 @@ ActiveRecord::Schema.define(version: 20180521032711) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
 
-    t.boolean "unread", default: true
-
     t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
