@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe ForumsController, type: :controller do
 
-	describe "GET /forums/:id" do
+	describe "GET /forums" do
 		it "render the forums/show template" do
-			get :show, params: {id: 1}
+			get :index
 			expect(response.status).to eq(200)
 		end
 	end
