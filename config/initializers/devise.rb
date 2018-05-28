@@ -260,7 +260,7 @@ Devise.setup do |config|
 
 
   # facebook
-  config.omniauth :facebook, "1621892541242854", "2c9db247bcce00ddd35efd10e12a80e6", 
+  config.omniauth :facebook, "210054539800605", "98f9b37fa673f19f2b43d72f13118e1f",
                   callback_url: "https://grupo02-software.herokuapp.com/users/auth/facebook/callback"
 
   # ==> Warden configuration
