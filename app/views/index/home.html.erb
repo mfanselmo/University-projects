@@ -35,6 +35,7 @@
                   
 
         <div class="row" style="background-color: white; margin-top: 20px; padding: 10px 10px 10px 10px; border-radius: 5px;">
+        <a href="../stats"><h3 id="titulo_sub" ">Estadísticas</h3></a>
         <% if subscripciones(current_user).any? %> 
           <h3 id="titulo_sub" ">Subscripciones</h3>
           <table class="table">
@@ -77,7 +78,6 @@
               <% end %>
             </tbody>
         </table>
-        <a href="../stats"><h3 id="titulo_sub" ">Estadísticas</h3></a>
         </div>
       </div>
 
@@ -113,7 +113,6 @@
       <div class="col-md-3" id="dashboardSubsripciones" >
 
           <div class="row-fluid"">
-
           <%= form_tag(searches_path, :method => "get", id: "search-form") do %>
           <div class="row">
             <div id="custom-search-input" style="padding: 10px;">
@@ -135,7 +134,7 @@
                   
 
         <div class="row" style="background-color: white; margin-top: 20px; padding: 10px 10px 10px 10px; border-radius: 5px;">
-
+        <a href="../stats"><h3 id="titulo_sub" ">Estadísticas</h3></a>
         <a href="/forums"><h3 id="titulo_sub" ">Todos los foros</h3></a>
         <table class="table">
             <tbody>
@@ -147,7 +146,6 @@
               <% end %>
             </tbody>
         </table>
-        <a href="../stats"><h3 id="titulo_sub" ">Estadísticas</h3></a>
         </div>
       </div>
 
