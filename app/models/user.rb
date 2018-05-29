@@ -3,6 +3,7 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
+  include UsersHelper
 
   mount_uploader :avatar, AvatarUploader
 
@@ -57,6 +58,9 @@ class User < ApplicationRecord
     end
   end
 
+  def points
+    calculate_points(vote_info(self))
+  end
 
   def all_notifications
     self.notifications.order(created_at: :desc)
