@@ -61,7 +61,7 @@
 	    <% @users.each do |user| %>
 	      <tr>
 	        <td><%= link_to user.username, user_path(user), :id => "link_normal"%></td>
-	        <td><%= calculate_points(vote_info(user)) %></td>
+	        <td><%= user.points%></td>
 	      </tr>
 	    <% end %>
 	  </tbody>

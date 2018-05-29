@@ -23,11 +23,11 @@ class IndexController < ApplicationController
 
   def stats
     @forums = Forum.all
-    @forums = @forums.paginate(page: params[:page],per_page: 10)
+    @forums = @forums.paginate(page: params[:page], per_page: 10)
     @forums = @forums.sort_by {|forum| forum.subscriptions.length }.reverse
     @users = User.all
-    @users = @users.paginate(page: params[:page],per_page: 10)
-    @users = @users.sort_by {|user| user.votes.up.size }.reverse
+    @users = @users.paginate(page: params[:page], per_page: 10)
+    @users = @users.sort_by {|user| user.points }.reverse
   end
 
 end
