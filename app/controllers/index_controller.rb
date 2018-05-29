@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class IndexController < ApplicationController
+
   protect_from_forgery with: :exception
 
   def hello
@@ -18,6 +19,15 @@ class IndexController < ApplicationController
 
   def admin
   	@users = User.all.paginate(page: params[:page], per_page: 10)
+  end
+
+  def stats
+    @forums = Forum.all
+    @forums = @forums.paginate(page: params[:page],per_page: 10)
+    @forums = @forums.sort_by {|forum| forum.subscriptions.length }.reverse
+    @users = User.all
+    @users = @users.paginate(page: params[:page],per_page: 10)
+    @users = @users.sort_by {|user| user.votes.up.size }.reverse
   end
 
 end

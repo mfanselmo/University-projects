@@ -1,0 +1,71 @@
+<div class="container">
+  <p id="notice"><%= notice %></p>
+
+<div class="col-md-6">
+  <p id="titlesForum">FOROS</p>
+  <table width="80%" class= "table table-hover">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Número de suscriptores</th>
+        <% if user_signed_in? %>
+          <th>Subscribirse</th>
+        <% end %>
+        <% if user_signed_in? and current_user.admin %>
+          
+          <th>Editar</th>
+          <th>Eliminar</th>
+
+        <% end %>
+
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @forums.each do |forum| %>
+        <tr class='clickable-row' data-href='url://'>
+          <td><%= link_to forum.name, forum, { :class=> "linksForum" }%></td>
+          <td><%= subscriptores(forum).length %></td>
+
+          <% if user_signed_in? %>
+
+            <% if subscripciones(current_user).include? forum.id  %>
+              <td><a id= "subs_button_<%=forum.id%>" onclick="unsubs(<%= Subscription.find_by(:user_id => current_user.id, :forum_id => forum.id).id %>, id: 'linksForum')">Desuscribirse</a></td>
+            <% else %>
+              <td><a id= "subs_button_<%=forum.id%>" onclick="subs(<%=current_user.id%>, <%=forum.id%>)">Suscribirse</a></td>
+            <% end %>
+          <% end %>
+
+          <% if user_signed_in? and current_user.admin? %>
+            <td><%= link_to 'Editar foro', edit_forum_path(forum) %></td>
+            <td><%= link_to 'Eliminar foro', forum, method: :delete, data: { confirm: '¿Estás seguro?' } %></td>
+          <% end %>          
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+</div>
+
+<div class="col-md-6">
+	<p id="titlesForum">Usuarios</p>
+	<table class=" table table-striped" data-sort-name="name" data-sort-order="desc">
+	  <thead>
+	    <tr>
+	      <th data-field="username" data-sortable="true">Username</th>
+	      <th data-field="email" data-sortable="true">Puntos</th>
+	    </tr>
+	  </thead>
+
+	  <tbody>
+	    <% @users.each do |user| %>
+	      <tr>
+	        <td><%= link_to user.username, user_path(user), :id => "link_normal"%></td>
+	        <td><%= calculate_points(vote_info(user)) %></td>
+	      </tr>
+	    <% end %>
+	  </tbody>
+	</table>
+</div>
+
+</div>

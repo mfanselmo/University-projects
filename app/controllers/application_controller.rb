@@ -24,4 +24,24 @@ class ApplicationController < ActionController::Base
   def not_found
     redirect_to root_path, notice: "No se encontró la página"
   end
+
+  def after_sign_out_path_for(resource_or_scope)
+    if (request.path == "/admin" or
+        request.path == "/favorites" or
+        request.path.include?("/users"))
+      root_path
+    else
+      request.referrer
+    end
+  end
+
+  def after_sign_in_path_for(resource_or_scope)
+    puts request.path
+    if (request.path == "/users/sign_up" or
+        request.path == "/users/sign_in")
+      root_path
+    else
+      request.referrer
+    end
+  end
 end
