@@ -48,11 +48,11 @@
         <% end %>
         <% if notification.unread %>
          <a class="content_unread" href="<%= link %>" onclick="change_unread(<%=notification.id%>)"> 
+            <div id="container" onclick="window.event.stopPropagation();">
             <button type="button" class="close" aria-label="Close" onclick="delete_notify(<%= notification.id %>)">
-              <div id="container" onclick="window.event.stopPropagation();">
               <span aria-hidden="true">&times;</span>
-              </div>
-            </button> 
+            </button>
+            </div> 
            <div class="notification-item">
              <% if user.nil? %>
                <%= image_tag("default-user-image.png", :alt => "user view", :size => "60x60") %>
@@ -65,7 +65,7 @@
           </div>
         </a>
         <% else %>
-          <a class="content" href="<%= link %>"> 
+          <a class="content" onclick="funcion_click(<%= link %>)"> 
             <button type="button" class="close" aria-label="Close" onclick="delete_notify(<%= notification.id %>)">
               <span aria-hidden="true">&times;</span>
             </button>  
