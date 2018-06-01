@@ -56,10 +56,8 @@ class PostulationsController < ApplicationController
   # DELETE /postulations/1
   # DELETE /postulations/1.json
   def destroy
-    notifications = Notification.where(:notifiable => @postulation)
-    notifications.each do |noti|
-      noti.destroy
-    end
+    notifications = Notification.where(notifiable: @postulation)
+    notifications.each(&:destroy)
     result = @postulation.destroy
     render json: { result: result }
   end

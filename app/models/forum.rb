@@ -19,22 +19,20 @@ class Forum < ApplicationRecord
 
   def subscriptores
     count = 0
-    self.subscriptions.each do |sub|
+    subscriptions.each do |_sub|
       count += 1
     end
     if count != 1
       return "#{count} subscriptores"
     else
-      return "1 subscriptor"
+      return '1 subscriptor'
     end
   end
 
   def notify(creator, object, message)
-    self.subscriptions.each do |sub|
+    subscriptions.each do |sub|
       observer = User.find(sub.user_id)
-      if creator != observer
-        Notification.create(recipient: observer, user: creator, action: message, notifiable: object)
-      end
+      Notification.create(recipient: observer, user: creator, action: message, notifiable: object) if creator != observer
     end
   end
 
@@ -45,5 +43,4 @@ class Forum < ApplicationRecord
       end
     end
   end
-
 end

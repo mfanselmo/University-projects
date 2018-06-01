@@ -24,7 +24,7 @@ class ModeratorsController < ApplicationController
 
     @pos = Postulation.find_by(user_id: params[:user_id], forum_id: params[:forum_id])
     @pos.destroy
-    msg = "Enhorabuena! Eres moderador de: " + Forum.find(params[:forum_id]).name
+    msg = 'Enhorabuena! Eres moderador de: ' + Forum.find(params[:forum_id]).name
     @moderator.notify(User.find(params[:user_id]), @moderator, msg)
     render json: { result: result }
   end
@@ -46,10 +46,8 @@ class ModeratorsController < ApplicationController
   # DELETE /moderators/1
   # DELETE /moderators/1.json
   def destroy
-    notifications = Notification.where(:notifiable => @moderator)
-    notifications.each do |noti|
-      noti.destroy
-    end
+    notifications = Notification.where(notifiable: @moderator)
+    notifications.each(&:destroy)
     result = @moderator.destroy
     render json: { result: result }
   end

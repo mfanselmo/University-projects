@@ -90,7 +90,7 @@ class ForumsController < ApplicationController
     Moderator.all.each do |mod|
       mod.destroy if mod.forum_id == @forum.id
     end
-    
+
     # Destruir subscripciones
     Subscription.all.each do |sub|
       sub.destroy if sub.forum_id == @forum.id
@@ -107,7 +107,7 @@ class ForumsController < ApplicationController
     @post = Post.find(params[:id])
     result = @post.upvote_from current_user if user_signed_in?
     if result
-      msg = "Has recibido un like en el post " + @post.title
+      msg = 'Has recibido un like en el post ' + @post.title
       @post.notify(current_user, @post, msg)
     end
     render json: { result: result, count: { votes:
@@ -120,7 +120,7 @@ class ForumsController < ApplicationController
     @post = Post.find(params[:id])
     result = @post.downvote_from current_user if user_signed_in?
     if result
-      msg = "Has recibido un dislike en el post " + @post.title
+      msg = 'Has recibido un dislike en el post ' + @post.title
       @post.notify(current_user, @post, msg)
     end
     render json: { result: result, count: { votes:

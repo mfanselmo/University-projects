@@ -2,7 +2,7 @@
 
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  rescue_from ActiveRecord::RecordNotFound, :with => :not_found
+  rescue_from ActiveRecord::RecordNotFound, with: :not_found
 
   before_action :configure_permitted_parameters, if: :devise_controller?
 
@@ -22,26 +22,26 @@ class ApplicationController < ActionController::Base
   end
 
   def not_found
-    redirect_to root_path, notice: "No se encontró la página"
+    redirect_to root_path, notice: 'No se encontró la página'
   end
 
-  def after_sign_out_path_for(resource_or_scope)
-    if (request.path == "/admin" or
-        request.path == "/favorites" or
-        request.path.include?("/users"))
+  def after_sign_out_path_for(_resource_or_scope)
+    if (request.path == '/admin') ||
+       (request.path == '/favorites') ||
+       request.path.include?('/users')
       root_path
     else
-      request.referrer
+      request.referer
     end
   end
 
-  def after_sign_in_path_for(resource_or_scope)
+  def after_sign_in_path_for(_resource_or_scope)
     puts request.path
-    if (request.path == "/users/sign_up" or
-        request.path == "/users/sign_in")
+    if (request.path == '/users/sign_up') ||
+       (request.path == '/users/sign_in')
       root_path
     else
-      request.referrer
+      request.referer
     end
   end
 end

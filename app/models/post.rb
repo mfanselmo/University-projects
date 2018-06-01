@@ -14,10 +14,8 @@ class Post < ApplicationRecord
 
   has_many :comments, dependent: :destroy
 
-
   has_many :favorites, dependent: :destroy
   has_many :users, through: :favorites
-
 
   after_create :new_post_send
   def new_post_send
@@ -27,7 +25,6 @@ class Post < ApplicationRecord
       end
     end
   end
-
 
   def increment(attribute, by = 1)
     self[attribute] ||= 0
@@ -55,10 +52,7 @@ class Post < ApplicationRecord
   end
 
   def notify(creator, object, message)
-    observer = User.find_by(:username => self.name)
-    if creator != observer
-      Notification.create(recipient: observer, user: creator, action: message, notifiable: object)
-    end
+    observer = User.find_by(username: name)
+    Notification.create(recipient: observer, user: creator, action: message, notifiable: object) if creator != observer
   end
-
 end

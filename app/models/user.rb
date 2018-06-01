@@ -11,7 +11,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   devise :omniauthable, omniauth_providers: %i[facebook]
-  
+
   has_many :comments
   has_many :posts
 
@@ -63,11 +63,11 @@ class User < ApplicationRecord
   end
 
   def all_notifications
-    self.notifications.order(created_at: :desc)
+    notifications.order(created_at: :desc)
   end
 
   def unread_notifications
-    self.notifications.where(:unread => true)
+    notifications.where(unread: true)
   end
 
   def self.from_omniauth(auth)
@@ -85,5 +85,4 @@ class User < ApplicationRecord
   def notify(creator, object, message)
     Notification.create(recipient: creator, user: creator, action: message, notifiable: object)
   end
-  
 end

@@ -48,7 +48,7 @@ class PostsController < ApplicationController
     @post = @forum.posts.create(params[:post].permit(:name, :title, :content, :image, :remove_image))
     msg = current_user.username + ' creó un post en foro suscrito: ' + @forum.name
     @forum.notify(current_user, @post, msg)
-    #EmailMailer.with(forum: @forum, post: @post).new_post_mail.deliver_now
+    # EmailMailer.with(forum: @forum, post: @post).new_post_mail.deliver_now
     redirect_to forum_path(@forum)
   end
 

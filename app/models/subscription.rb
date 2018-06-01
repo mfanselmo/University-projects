@@ -6,6 +6,6 @@ class Subscription < ApplicationRecord
 
   after_create :subscription_send
   def subscription_send
-  	EmailerMailer.subscription_mail(user, forum).deliver_now
+    EmailerMailer.subscription_mail(user, forum).deliver_now
   end
 end

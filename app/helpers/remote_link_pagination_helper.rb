@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RemoteLinkPaginationHelper
   class LinkRenderer < WillPaginate::ActionView::LinkRenderer
     def link(text, target, attributes = {})

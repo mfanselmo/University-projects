@@ -7,9 +7,9 @@ module PostulationsHelper
       lista_postulaciones << [pos.user_id, pos.forum_id]
     end
     if forum.is_a? Integer
-    	lista_postulaciones.include? [usuario, forum]
+      lista_postulaciones.include? [usuario, forum]
     else
-    	lista_postulaciones.include? [usuario.id, forum.id]
+      lista_postulaciones.include? [usuario.id, forum.id]
     end
   end
 end

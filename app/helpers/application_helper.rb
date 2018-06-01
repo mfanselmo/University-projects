@@ -13,7 +13,7 @@ module ApplicationHelper
     @devise_mapping ||= Devise.mappings[:user]
   end
 
-  def paginate(collection, params= {})
-    will_paginate collection, params.merge(:renderer => RemoteLinkPaginationHelper::LinkRenderer)
+  def paginate(collection, params = {})
+    will_paginate collection, params.merge(renderer: RemoteLinkPaginationHelper::LinkRenderer)
   end
 end

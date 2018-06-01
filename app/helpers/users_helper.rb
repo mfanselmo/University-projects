@@ -32,14 +32,13 @@ module UsersHelper
     @lista
   end
 
-  
   def posts_favoritos(user)
     # Retorna ids de posts favoritos
     @lista = []
-      user.favorites.order(created_at: :desc).each do |fav|
-        @lista << fav.post_id
-      end
-      @lista
+    user.favorites.order(created_at: :desc).each do |fav|
+      @lista << fav.post_id
+    end
+    @lista
   end
 
   def moderaciones(usuario)

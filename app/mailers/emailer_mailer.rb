@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class EmailerMailer < ApplicationMailer
   default from: 'grupo02software@gmail.com'
 

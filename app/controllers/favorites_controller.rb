@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class FavoritesController < ApplicationController
-  before_action :set_favorite, only: [:show, :edit, :update, :destroy]
+  before_action :set_favorite, only: %i[show edit update destroy]
   before_action :authenticate_user!, only: %i[index]
 
   # GET /favorites
@@ -10,8 +12,7 @@ class FavoritesController < ApplicationController
 
   # GET /favorites/1
   # GET /favorites/1.json
-  def show
-  end
+  def show; end
 
   # GET /favorites/new
   def new
@@ -19,8 +20,7 @@ class FavoritesController < ApplicationController
   end
 
   # GET /favorites/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /favorites
   # POST /favorites.json
@@ -28,7 +28,7 @@ class FavoritesController < ApplicationController
   def create
     @favorite = Favorite.new(user_id: params[:user_id], post_id: params[:post_id])
     result = @favorite.save!
-    render json: {result: result, info: @favorite.id}
+    render json: { result: result, info: @favorite.id }
   end
 
   # PATCH/PUT /favorites/1
@@ -50,20 +50,21 @@ class FavoritesController < ApplicationController
   def destroy
     result = @favorite.destroy
     # respond_to do |format|
-      # format.html { redirect_to favorites_url, notice: 'Favorite was successfully destroyed.' }
-      # format.json { head :no_content }
+    # format.html { redirect_to favorites_url, notice: 'Favorite was successfully destroyed.' }
+    # format.json { head :no_content }
     # end
-    render json: {result: result}
+    render json: { result: result }
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_favorite
-      @favorite = Favorite.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def favorite_params
-      params.permit(:user_id, :post_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_favorite
+    @favorite = Favorite.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def favorite_params
+    params.permit(:user_id, :post_id)
+  end
 end

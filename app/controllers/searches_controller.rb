@@ -10,11 +10,11 @@ class SearchesController < ApplicationController
   def index
     @searches = Search.all
 
-    if params[:option] == "user"
+    if params[:option] == 'user'
       redirect_to(controller: 'users', action: 'index',
                   search: params[:search])
 
-    elsif params[:option] == "forum"
+    elsif params[:option] == 'forum'
       redirect_to(controller: 'forums', action: 'index',
                   search: params[:search])
 

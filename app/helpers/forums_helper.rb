@@ -34,16 +34,12 @@ module ForumsHelper
       if post.name == user.username
         cc = []
         post.comments.each do |comment|
-          if comment.commenter == user.username
-            cc << comment
-          end
+          cc << comment if comment.commenter == user.username
         end
         info['posts'] << Hash['post' => post, 'comment' => cc]
       else
         post.comments.each do |comment|
-          if comment.commenter == user.username
-            info['comments'] << comment
-          end
+          info['comments'] << comment if comment.commenter == user.username
         end
       end
     end
