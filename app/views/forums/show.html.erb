@@ -98,7 +98,7 @@
       <% end %>
     <% end %>
 
-    <% @posts.each do |post| %>
+    <% @posts.order(created_at: :desc).each do |post| %>
       <%= render 'index/todos_los_post', post: post, mi_tipo: "cada_post_2"%>
     <% end %>
     <%= will_paginate @posts %>

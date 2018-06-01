@@ -1,3 +1,4 @@
+<div class="media">
 <%= form_for([@post, get_comment()]) do |f| %>
   <div class="field">
     <%= f.text_field :commenter, value: current_user.username, style: "#{'display:none';}" %>
@@ -16,8 +17,7 @@
       <%= f.submit  %>
     </span>
   </label>
-    
-    
 <% end %>
+</div>
 
 

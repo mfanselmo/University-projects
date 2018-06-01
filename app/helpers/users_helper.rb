@@ -36,7 +36,7 @@ module UsersHelper
   def posts_favoritos(user)
     # Retorna ids de posts favoritos
     @lista = []
-      user.favorites.each do |fav|
+      user.favorites.order(created_at: :desc).each do |fav|
         @lista << fav.post_id
       end
       @lista
