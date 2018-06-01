@@ -23,6 +23,7 @@
               <%= link_to 'Ver', post, :id => "link_normal" %>
               <% if user_signed_in? %> 
                 <% if current_user.username == post.name %>
+
                       | <%= link_to 'Editar', edit_post_path(post), 
                             :onclick => 'window.event.stopPropagation();',
                             :id => "link_normal"%>
@@ -30,7 +31,6 @@
                         <%= link_to 'Eliminar', [post.forum, post],
                          :confirm => '¿Estas seguro que deseas borrarlo?',
                          :method => :delete,
-                         :onclick => 'window.event.stopPropagation();',
                          :id => "link_normal"
                           %>
 
@@ -42,8 +42,7 @@
                         <%= link_to 'Eliminar', [post.forum, post],
                          :confirm => '¿Estas seguro que deseas borrarlo?',
                          :method => :delete,
-                         :onclick => 'window.event.stopPropagation();',
-                         :id => "link_normal" %>
+                          :id => "link_normal" %>
                   <% end %>
                 <% end %>
                 </small>
