@@ -11,6 +11,7 @@ function change_unread(notification_id){
             }
         }
     });
+    window.event.stopPropagation();
 }
 
 function delete_notify(notification_id){

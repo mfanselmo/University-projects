@@ -35,9 +35,9 @@
           <% if user_signed_in? %>
 
             <% if subscripciones(current_user).include? forum.id  %>
-              <td><a id= "subs_button_<%=forum.id%>" onclick="unsubs(<%= Subscription.find_by(:user_id => current_user.id, :forum_id => forum.id).id %>)">Desuscribirse</a></td>
+              <td><a class='btn btn-default btn-xs' id= "subs_button_<%=forum.id%>" onclick="unsubs(<%= Subscription.find_by(:user_id => current_user.id, :forum_id => forum.id).id %>)">Desuscribirse</a></td>
             <% else %>
-              <td><a id= "subs_button_<%=forum.id%>" onclick="subs(<%=current_user.id%>, <%=forum.id%>)">Suscribirse</a></td>
+              <td><a class='btn btn-default btn-xs' id= "subs_button_<%=forum.id%>" onclick="subs(<%=current_user.id%>, <%=forum.id%>)">Suscribirse</a></td>
             <% end %>
           <% end %>
 

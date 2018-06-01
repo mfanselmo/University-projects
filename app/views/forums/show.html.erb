@@ -18,13 +18,16 @@
     </div>
   </div>
   <div class="row-fluid" style="background-color: white;padding-bottom: 5em;border-radius: 5px; margin-bottom: 2em;">
-    <div class="col-sm-6" style="background-color:white;padding-bottom: 2em;">
+    <div class="col-sm-6" style="background-color:white;">
       <% if user_signed_in? %>
 
         <% if subscripciones(current_user).include? @forum.id  %>
-          <td><a id= "subs_button_<%=@forum.id%>" onclick="unsubs(<%= Subscription.find_by(:user_id => current_user.id, :forum_id => @forum.id).id %>)">Desuscribirse</a></td>
+          <td><a class='btn btn-default btn-xs' id= "subs_button_<%=@forum.id%>" 
+            onclick="unsubs(<%= Subscription.find_by(:user_id => current_user.id, 
+            :forum_id => @forum.id).id %>)">Desuscribirse</a></td>
         <% else %>
-          <td><a id= "subs_button_<%=@forum.id%>" class="link_normal" onclick="subs(<%=current_user.id%>, <%=@forum.id%>)">Suscribirse</a></td>
+          <td><a class='btn btn-default btn-xs' id= "subs_button_<%=@forum.id%>" 
+            class="link_normal" onclick="subs(<%=current_user.id%>, <%=@forum.id%>)">Suscribirse</a></td>
         <% end %>
       <% end %>
 
@@ -90,7 +93,7 @@
       <h4>No hay nada creado</h4>
       <h4>Se el primero!</h4>
       <% if not user_signed_in? %>
-        <%= link_to "Registate", new_user_registration_path, method: :get, :id=> "titulo_sub"  %> o
+        <%= link_to "Registrate", new_user_registration_path, method: :get, :id=> "titulo_sub"  %> o
        <%= link_to "Inicia sesion", new_user_registration_path, method: :get,:id=> "titulo_sub"  %>
       <% end %>
     <% end %>
