@@ -12,23 +12,23 @@
   <div class="row-fluid">
       <div class="col-md-3" id="dashboardSubsripciones" >
 
-        <div class="row-fluid"">
-
-          <%= form_tag(searches_path, :method => "get", id: "search-form") do %>
-          <div class="row">
-            <div id="custom-search-input" style="padding: 10px;">
-                <%=select_tag :option, options_for_select([["Usuario", "user"], ["Publicación", "post"], 
-                ["Foro", "forum"], ["Comentario", "comment"]])%>
-                <%= text_field_tag :search, params[:search], placeholder: "Escribe aquí ", size: 25%>
-                <span class="input-group-btn">
-                    <button class="btn btn-info btn-lg" type="button">
-                        <%= submit_tag "Buscar", :name => nil, :class=>"btn", style: "#{'display:none';}"%>
-                    </button>
-                    
-                </span>
-              </div>
-          </div>
-          <% end %>
+        <div class="row" style="background-color: white; border-radius: 5px;padding: 5px 5px 5px 0px ;">
+			<%= form_tag(searches_path, :method => "get", id: "search-form", class: "seacrh") do %>
+			<div id="custom-search-input" style="border: none;">
+			    <%=select_tag :option, options_for_select([["Usuario", "user"], 
+			    										   ["Publicación", "post"], 
+			    										   ["Foro", "forum"], 
+			    										   ["Comentario", "comment"]]),
+				     id: "boton_search",
+			    	:class => "btn btn-secondary"%>
+			    <%= text_field_tag :search, params[:search], placeholder: "Escribe aquí ", id: "search_form"%>
+			    <span>
+			        <button type="button">
+			            <%= submit_tag "Buscar", :name => nil, :class=>"btn", style: "#{'display:none';}"%>
+			        </button>  
+			    </span>
+			</div>
+			<% end %>
           </div>
 
         
@@ -112,22 +112,23 @@
 
       <div class="col-md-3" id="dashboardSubsripciones" >
 
-          <div class="row-fluid"">
-          <%= form_tag(searches_path, :method => "get", id: "search-form") do %>
-          <div class="row">
-            <div id="custom-search-input" style="padding: 10px;">
-                <%=select_tag :option, options_for_select([["Usuario", "user"], ["Publicación", "post"], 
-                ["Foro", "forum"], ["Comentario", "comment"]])%>
-                <%= text_field_tag :search, params[:search], placeholder: "Escribe aquí ", size: 25%>
-                <span class="input-group-btn">
-                    <button class="btn btn-info btn-lg" type="button">
-                        <%= submit_tag "Buscar", :name => nil, :class=>"btn", style: "#{'display:none';}"%>
-                    </button>
-                    
-                </span>
-              </div>
-          </div>
-          <% end %>
+          <div class="row" style="background-color: white; border-radius: 5px;padding: 5px 5px 5px 5px ;">
+			<%= form_tag(searches_path, :method => "get", id: "search-form", class: "seacrh") do %>
+			<div id="custom-search-input" style="border: none;">
+			    <%=select_tag :option, options_for_select([["Usuario", "user"], 
+			    										   ["Publicación", "post"], 
+			    										   ["Foro", "forum"], 
+			    										   ["Comentario", "comment"]]),
+				     id: "boton_search",
+			    	:class => "btn btn-secondary"%>
+			    <%= text_field_tag :search, params[:search], placeholder: "Escribe aquí ", id: "search_form"%>
+			    <span>
+			        <button type="button">
+			            <%= submit_tag "Buscar", :name => nil, :class=>"btn", style: "#{'display:none';}"%>
+			        </button>  
+			    </span>
+			</div>
+			<% end %>
           </div>
 
         

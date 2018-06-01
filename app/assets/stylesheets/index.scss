@@ -141,3 +141,20 @@
   .next_page { background: white; color: dodgerblue }
   .next_page.disabled { background: white; color: #777 }
 }
+
+#boton_search {
+	border: solid;
+	border-width: 1px;
+	border-color: LightGray;
+}
+
+#search_form:input {
+	background-color: red;
+	// margin:  2px 2px 2px 2px;
+	border-bottom:  5px solid red;
+}
+
+#search_form:focus {
+	// background-color: blue;
+	border: none;
+}
