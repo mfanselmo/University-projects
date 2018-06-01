@@ -147,6 +147,7 @@
         <% if comment.body? %>
           
           <div class="row" id="cada_comentario">
+            <div class="row">
             <div class="col-sm-1" >
                 <% user = User.find_for_authentication(:username => comment.commenter) %>
                 <% if user.nil? %>
@@ -166,7 +167,7 @@
               
             </div>
             <div class="col-sm-2">
-              <div class="row-fluid">
+              <div class="row-fluid" style="margin-right: 2px">
                 <% if user_signed_in? %>
                   <% if  current_user.username == comment.commenter %>
                     <%= link_to 'Editar | ', edit_post_comment_path(@post, comment),:class => 'link_normal' %>
@@ -183,7 +184,12 @@
                   <% end %>
                 <% end %>
               </div>
-              <div class="row-fluid">
+            </div>
+            </div>
+            <div class="row">
+              <div id="con_1"></div>
+              <div id="con_3"></div>
+              <div id="con_4" style="margin-right: 30px">
                 <% if user_signed_in? %>
                   Total
                   <span class="c-post-points" id="c-points-vote-<%= comment.id %>">
