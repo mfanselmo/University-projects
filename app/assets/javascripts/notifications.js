@@ -26,5 +26,5 @@ function delete_notify(notification_id){
         }
     });
     location.reload();
-    window.event.stopPropagation();
+    return false
 }
