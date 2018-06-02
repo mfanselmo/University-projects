@@ -167,7 +167,8 @@
               
             </div>
             <div class="col-sm-2">
-              <div class="row-fluid" style="margin-right: 2px">
+              <div class="row-fluid" style="margin-left: 60px">
+                <a></a>
                 <% if user_signed_in? %>
                   <% if  current_user.username == comment.commenter %>
                     <%= link_to 'Editar | ', edit_post_comment_path(@post, comment),:class => 'link_normal' %>
