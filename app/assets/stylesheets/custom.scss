@@ -140,10 +140,52 @@ Follow me on Twitter @maridlcrmn
   /*"color: #DCDCDC;"*/
 }
 
+.fa-facebook-square {
+    padding-top: 6px;
+    padding-right: 12px;
+    padding-bottom: 6px;
+    padding-left: 12px;
+    color: white;
+  }
+.fa-facebook-square:hover{
+  background: #565D78;
+}  
+
 
 
 
 /*ITEMS SUBSCRIPCIONES*/
+
+#custom-search-input-2{
+    padding: 3px;
+    border: solid 1px #E4E4E4;
+    border-radius: 6px;
+    background-color: #fff;
+}
+
+#custom-search-input-2 input{
+    border: 0;
+    box-shadow: none;
+}
+
+#custom-search-input-2 button{
+    background: none;
+    box-shadow: none;
+    border: 0;
+    color: #666666;
+    padding: 0 8px 0 10px;
+    border-left: solid 1px #ccc;
+}
+
+#custom-search-input-2 button:hover{
+    border: 0;
+    box-shadow: none;
+    border-left: solid 1px #ccc;
+}
+
+#custom-search-input-2 .glyphicon-search{
+    font-size: 23px;
+}
 
 #custom-search-input{
     padding: 3px;
@@ -214,6 +256,18 @@ Follow me on Twitter @maridlcrmn
 }
 
 
+#link_normal:hover {
+  text-decoration: none;
+  background-color: transparent;
+}
+
+.link_normal:hover {
+  text-decoration: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+
 /*POSTS INICIO */
 
 #dashboardPostInicio {
@@ -264,3 +318,138 @@ Follow me on Twitter @maridlcrmn
 
 
 
+/* NOTIFICATIONS */
+
+/*
+Code snippet by hdpixelz for Bootsnipp.com
+*/
+
+.glyphicon-bell {
+   
+    font-size:1.5rem;
+    color: white;
+  }
+
+.glyphicon-bell:focus {
+   
+   background: red;
+  }
+
+.notifications {
+   min-width:320px; 
+  }
+  
+  .notifications-wrapper {
+     overflow:auto;
+      max-height:250px;
+    }
+.menu-title {
+    color: #ffffff;
+    font-size: 13px;
+    display: inline-block;
+    font-weight: bold;
+}
+
+.close {
+   position: relative;
+   top: 10px;
+   right: 10px;
+   z-index:9999;
+ }
+ 
+.glyphicon-circle-arrow-right {
+      margin-left:10px;     
+   }
+  
+   
+ .notification-heading, .notification-footer  {
+  padding:2px 10px;
+       }
+      
+        
+.dropdown-menu.divider {
+  margin:5px 0;          
+  }
+
+.item-title {
+    font-size: 1.3rem;
+    color: #000;
+    font-weight: bold;
+    margin: 5px 0px;
+}
+
+.notifications a.content {
+    text-decoration: none;
+    display: block;
+    color:#000;
+}
+.notifications a.content_unread {
+    text-decoration: none;
+    display: block;
+    color:#000;
+}
+.notification-item {
+    position: relative;
+    padding: 10px;
+    padding-left: 70px;
+    padding-bottom: 0px;
+}
+.notification-item img {
+    position: absolute;
+    top: 7px;
+    left: 10px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+}
+.dropdown-menu .divider {
+    height: 1px;
+    margin: 5px 0;
+    overflow: hidden;
+    background-color: #e5e5e5;
+}
+ul.dropdown-menu.notifications .notifications-wrapper a.content {
+    padding: 0px !important;
+    background: rgba(0, 0, 0, 0.04);
+    border-bottom: 1px solid #d1d1d1;
+}
+ul.dropdown-menu.notifications .notifications-wrapper a.content_unread {
+    padding: 0px !important;
+    background: lightsalmon;
+    border-bottom: 1px solid #d1d1d1;
+}
+ul.dropdown-menu.notifications .notifications-wrapper a.content:hover {
+    color: #000;
+    background: rgba(0, 0, 0, 0.1);
+}
+ul.dropdown-menu.notifications .notifications-wrapper a.content_unread:hover {
+    color: #000;
+    background: sandybrown;
+}
+.login-nav ul.nav.navbar-nav.navbar-right li a {
+    display: block;
+}
+.notification-heading {
+    background: #000;.notifications a.content {
+    text-decoration: none;
+    display: block;
+}
+    padding: 3px 10px;
+}
+.notification-heading {
+    background: #000;.notifications a.content_unread {
+    text-decoration: none;
+    display: block;
+}
+    padding: 3px 10px;
+}
+ul.dropdown-menu.notifications {
+    padding: 0px;
+    min-width: 320px;
+}
+.dropdown .glyphicon-bell {  
+    vertical-align: middle;
+}
+.dropdown{
+    list-style:none;
+}

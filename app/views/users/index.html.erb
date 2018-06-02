@@ -1,4 +1,4 @@
-<% if user_signed_in? %>
+
 <h1>Usuarios existentes</h1>
 
 <% @users.each do |user| %>
@@ -37,10 +37,4 @@
 			</div>
 		</div>
 	</div>
-<% end %>
-<% else %>
-	<script type="text/javascript">
-	window.location.href="/"  // put your correct path in a string here
-	</script>
-
 <% end %>

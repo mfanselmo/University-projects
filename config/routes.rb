@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :favorites
   get 'users/index'
 
   resources :postulations
@@ -31,31 +32,49 @@ Rails.application.routes.draw do
   # devise_for :users do
     # get 'logout' => 'devise/sessions#destroy'
   # end
-  devise_for :users do
-    get '/users/sign_out' => 'devise/sessions#destroy'
-  end
+
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+
+  # devise_for :users do
+  #   get '/users/sign_out' => 'devise/sessions#destroy'
+  # end
+
+  # mount ActionCable.server, at: '/cable'
 
   match '/users',   to: 'users#index',   via: 'get'
   match '/users/:id', to: 'users#show', via: 'get'
+  match 'users/:id' => 'users#destroy', :via => :delete
 
   get '/profile', to: "users#show"
+  get '/favoritos', to: "users#favoritos"
   get '/admin', to: 'index#admin'
   get '/admin/postulation/:user_id/:forum_id', to: 'index#postulation', as: "postulation_info"
   get '/users/:id', to: "users#show", :as => :user
+  get '/stats', to: 'index#stats'
 
-  post "like/:id" => "forums#upvote"
-  post "dislike/:id" => "forums#downvote"
+  post "like/:id", to: "forums#upvote"
+  post "dislike/:id", to: "forums#downvote"
 
-  post "c-like/:id" => "comments#upvote"
-  post "c-dislike/:id" => "comments#downvote"
+  post "c-like/:id", to: "comments#upvote"
+  post "c-dislike/:id", to: "comments#downvote"
 
-  post "subscribe/:user_id/:forum_id" => "subscriptions#create"
-  delete "unsubscribe/:id" => "subscriptions#destroy"
+  post "fav/:user_id/:post_id", to: "favorites#create"
+  delete "unfav/:id", to: "favorites#destroy"
 
-  post "postulate/:user_id/:forum_id" => "postulations#create"
-  delete "unpostulate/:id" => "postulations#destroy"
+  post "subscribe/:user_id/:forum_id", to: "subscriptions#create"
+  delete "unsubscribe/:id", to: "subscriptions#destroy"
 
-  post "moderate/:user_id/:forum_id" => "moderators#create"
-  delete "unmoderate/:id" => "moderators#destroy"
+  post "postulate/:user_id/:forum_id", to: "postulations#create"
+  delete "unpostulate/:id", to: "postulations#destroy"
+
+  post "moderate/:user_id/:forum_id", to: "moderators#create"
+  delete "unmoderate/:id", to: "moderators#destroy"
+
+  post "unread/:notification_id", to: "users#unread"
+  delete "del_notify/:notification_id", to: "users#del_notify"
+
+  post "ad_postulate/:user_id", to: "postulations#postulate_admin"
+
+  post "administrate/:user_id", to: "users#admin_create"
 
 end

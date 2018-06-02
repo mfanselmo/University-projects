@@ -1,3 +1,41 @@
 // Place all the styles related to the Comments controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+#comentario_nuevo {
+	background-color: white;
+	padding-left: 1em;
+	padding-right: 1em;
+	padding-bottom: 1em;
+}
+
+#form_nuevo_comentario:focus {
+	-webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    -o-box-shadow: none;
+    box-shadow: none;
+}
+
+#todos_los_comentarios {
+	background-color: white;
+	// padding-right: 1em;
+	// padding-left: 1em;
+	margin-top: 0px;
+	margin-bottom: 5em;
+
+}
+
+#cada_comentario {
+	// margin-top: 1em;
+	border: solid;
+	border-width:1px; 
+	border-color: lightgray;
+	padding: 5px 5px 5px 5px;
+	margin:  5px 5px 5px 5px;
+
+}
+
+#cada_comentario:hover {
+	background-color: #f2f2f2;
+}

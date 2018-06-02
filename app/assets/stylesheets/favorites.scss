@@ -1,0 +1,42 @@
+// Place all the styles related to the Favorites controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.corazon_no_apretado:hover {
+  cursor:pointer;
+  background-color: #f2f2f2;
+  text-decoration: none!important;
+  font-size: 1.2em;
+  color: white;
+}
+
+
+.corazon_apretado:hover {
+  cursor:pointer;
+  background-color: #f2f2f2;
+  // text-decoration: none;
+  font-size: 1.2em;
+  color: red;
+}
+
+.corazon_no_apretado {
+	text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+	color: white;
+	font-size: 1.2em;
+}
+
+.corazon_apretado {
+	text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+	color: red;
+	font-size: 1.2em;
+}
+
+#dar_favorito:hover {
+  text-decoration: none;
+}
+
+#posts_favoritos {
+  padding-top: 1em;
+  border-radius: 5px;
+  background-color: white;
+}

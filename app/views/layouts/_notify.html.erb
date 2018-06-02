@@ -1,0 +1,90 @@
+<li class="dropdown"> 
+  <% unread_messages = current_user.unread_notifications.length %>
+  <% if unread_messages != 0 %>
+    <a id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="/page.html">
+    <i class="glyphicon glyphicon-bell"></i><span class="badge badge-primary"><%= unread_messages %></span>
+    </a>
+  <% else %>
+    <a id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="/page.html">
+    <i class="glyphicon glyphicon-bell"></i>
+    </a>
+  <% end %>
+  
+  <ul class="dropdown-menu notifications" role="menu" aria-labelledby="dLabel">
+    
+    <div class="notification-heading"><h4 class="menu-title">Notificaciones</h4><!--<h4 class="menu-title pull-right">View all<i class="glyphicon glyphicon-circle-arrow-right"></i>--></h4>
+    </div>
+    <div class="notifications-wrapper">
+     <% count = 0 %> 
+     <% notifications.each do |notification| %> 
+        <% count += 1 %>
+        <% user = User.find(notification.user_id) %>
+        <% title = notification.notifiable_type %>
+        <% if notification.notifiable_type == "Post" %>
+          <% object = Post.find(notification.notifiable_id) %>
+          <% link = "../posts/#{object.id}" %>
+          <% if notification.action.include? "suscrito" %>
+            <% title = "Post en Foro suscrito" %>
+          <% elsif notification.action.include? "like" %>
+            <% title = "Reacción en Post" %>
+          <% end %>
+        <% elsif notification.notifiable_type == "Comment" %>
+          <% comment = Comment.find(notification.notifiable_id) %>
+          <% object = Post.find(comment.post_id) %>
+          <% link = "../posts/#{object.id}" %>
+          <% if notification.action.include? "creó" %>
+            <% title = "Comentario en Post" %>
+          <% end %>
+        <% elsif notification.notifiable_type == "Postulation" %>
+          <% link = "../admin" %>
+          <% title = "Postulación" %>
+        <% elsif notification.notifiable_type == "Moderator" %>
+          <% object = Moderator.find(notification.notifiable_id) %>
+          <% link = "../forums/#{object.forum_id}" %>
+          <% title = "Moderador" %>
+        <% elsif notification.notifiable_type == "User" %>
+          <% link = "../admin" %>
+          <% title = "Administrador" %>
+        <% end %>
+        <% if notification.unread %>
+         <a class="content_unread" href="<%= link %>" onclick="change_unread(<%=notification.id%>)"> 
+            <button type="button" class="close" aria-label="Close" onclick="return delete_notify(<%= notification.id %>)">
+              <span aria-hidden="true">&times;</span>
+            </button> 
+           <div class="notification-item">
+             <% if user.nil? %>
+               <%= image_tag("default-user-image.png", :alt => "user view", :size => "60x60") %>
+             <% else %>
+               <%= image_tag(user.avatar.url , :alt => "user view", :size => "60x60") %>
+             <% end %>
+             <h4 class="item-title"><%= title %><small>
+              <%= time_ago_in_words (Time.now - notification.created_at).seconds.from_now %> ago</small></h4>
+            <p class="item-info"><%= notification.action %></p>
+          </div>
+        </a>
+        <% else %>
+          <a class="content" href="<%= link %>"> 
+            <button type="button" class="close" aria-label="Close" onclick="return delete_notify(<%= notification.id %>)">
+              <span aria-hidden="true">&times;</span>
+            </button>
+           <div class="notification-item">
+             <% if user.nil? %>
+               <%= image_tag("default-user-image.png", :alt => "user view", :size => "60x60") %>
+             <% else %>
+               <%= image_tag(user.avatar.url , :alt => "user view", :size => "60x60") %>
+             <% end %>
+             <h4 class="item-title"><%= title %><small>
+              <%= time_ago_in_words (Time.now - notification.created_at).seconds.from_now %> ago</small></h4>
+            <p class="item-info"><%= notification.action %></p>
+          </div>
+        </a>
+        <% end %>
+      <% end %>
+     <% if count == 0 %>
+       <div class="notification-item">
+         <p>No tiene notificaciones</p>
+       </div>
+     <% end %>  
+    </div>
+  </ul>
+  </li>

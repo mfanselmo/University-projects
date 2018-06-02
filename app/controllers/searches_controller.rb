@@ -10,37 +10,21 @@ class SearchesController < ApplicationController
   def index
     @searches = Search.all
 
-    if params[:search].include? 'user:'
+    if params[:option] == 'user'
       redirect_to(controller: 'users', action: 'index',
-                  search: params[:search][6..-1])
+                  search: params[:search])
 
-    elsif params[:search].include? 'users:'
-      redirect_to(controller: 'users', action: 'index',
-                  search: params[:search][7..-1])
-
-    elsif params[:search].include? 'forum:'
+    elsif params[:option] == 'forum'
       redirect_to(controller: 'forums', action: 'index',
-                  search: params[:search][7..-1])
+                  search: params[:search])
 
-    elsif params[:search].include? 'forums:'
-      redirect_to(controller: 'forums', action: 'index',
-                  search: params[:search][8..-1])
-
-    elsif params[:search].include? 'comment:'
+    elsif params[:option] == 'comment'
       redirect_to(controller: 'comments', action: 'index',
-                  search: params[:search][9..-1])
+                  search: params[:search])
 
-    elsif params[:search].include? 'comments:'
-      redirect_to(controller: 'comments', action: 'index',
-                  search: params[:search][10..-1])
-
-    elsif params[:search].include? 'post:'
+    elsif params[:option] == 'post'
       redirect_to(controller: 'posts', action: 'index',
-                  search: params[:search][6..-1])
-
-    elsif params[:search].include? 'posts:'
-      redirect_to(controller: 'posts', action: 'index',
-                  search: params[:search][7..-1])
+                  search: params[:search])
     end
   end
 

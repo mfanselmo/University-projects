@@ -7,11 +7,24 @@ class Post < ApplicationRecord
 
   validates :name,  presence: true
   validates :title, presence: true,
-                    length: { minimum: 1 }
+                    length: { minimum: 1 },
+                    uniqueness: { case_sensitive: false }
   validates :content, presence: true,
                       length: { minimum: 1 }
 
   has_many :comments, dependent: :destroy
+
+  has_many :favorites, dependent: :destroy
+  has_many :users, through: :favorites
+
+  after_create :new_post_send
+  def new_post_send
+    Thread.new do
+      Rails.application.executor.wrap do
+        EmailerMailer.new_post_mail(forum, self).deliver_now
+      end
+    end
+  end
 
   def increment(attribute, by = 1)
     self[attribute] ||= 0
@@ -36,5 +49,10 @@ class Post < ApplicationRecord
     # name es usuario creador
     where('title LIKE ? OR name LIKE ?', "%#{search}%", "%#{search}%")
     # where("name LIKE ? OR ingredients LIKE ? OR cooking_instructions LIKE ?", "%#{search}%", "%#{search}%", "%#{search}%")
+  end
+
+  def notify(creator, object, message)
+    observer = User.find_by(username: name)
+    Notification.create(recipient: observer, user: creator, action: message, notifiable: object) if creator != observer
   end
 end

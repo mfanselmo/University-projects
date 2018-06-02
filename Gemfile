@@ -28,7 +28,7 @@ gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 4.0'
+gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
 
 # Use Capistrano for deployment
@@ -40,7 +40,9 @@ group :development, :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'bcrypt', '~> 3.1.11'
   gem 'capybara', '~> 2.13'
+  gem 'rails-controller-testing'
   gem 'selenium-webdriver'
+  gem 'shoulda-matchers', '~> 3.1'
 end
 
 group :development do
@@ -48,6 +50,7 @@ group :development do
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'web-console', '>= 3.3.0'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'rspec-rails', '~>3.7'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
@@ -62,3 +65,7 @@ gem 'mini_magick'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 gem 'redcarpet'
+gem 'will_paginate', '~> 3.1.1'
+
+gem 'koala'
+gem 'omniauth-facebook'

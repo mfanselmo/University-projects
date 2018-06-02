@@ -1,39 +1,49 @@
+<!--<form action="/fav/1/1" method="POST">
+
+  <input type="submit" name="param1" value="val" />
+
+</form>-->
+
+
 <% if user_signed_in? %>
+  <div id="notifications">
+    <%#= render 'notifications/show', notifications: current_user.all_notifications %> 
+  </div>
   <div class="row-fluid">
       <div class="col-md-3" id="dashboardSubsripciones" >
 
-        <div class="row-fluid"">
-
-          <%= form_tag(searches_path, :method => "get", id: "search-form") do %>
-          <div class="row">
-            <div id="custom-search-input">
-              <div class="input-group col-md-12">
-                <%= text_field_tag :search, params[:search], placeholder: "user/post/forum: nombre ", class: "form-control input-lg"%>
-
-                <span class="input-group-btn">
-                    <button class="btn btn-info btn-lg" type="button">
-                        <%= submit_tag "Buscar", :name => nil, :class=>"btn"%>
-                    </button>
-                    
-                </span>
-              </div>
-            </div>
-          </div>
-          <% end %>
+        <div class="row" style="background-color: white; border-radius: 5px;padding: 5px 5px 5px 0px ;">
+			<%= form_tag(searches_path, :method => "get", id: "search-form", class: "seacrh") do %>
+			<div id="custom-search-input" style="border: none;">
+			    <%=select_tag :option, options_for_select([["Usuario", "user"], 
+			    										   ["Publicación", "post"], 
+			    										   ["Foro", "forum"], 
+			    										   ["Comentario", "comment"]]),
+				     id: "boton_search",
+			    	:class => "btn btn-secondary"%>
+			    <%= text_field_tag :search, params[:search], placeholder: "Escribe aquí ", id: "search_form"%>
+			    <span>
+			        <button type="button">
+			            <%= submit_tag "Buscar", :name => nil, :class=>"btn", style: "#{'display:none';}"%>
+			        </button>  
+			    </span>
+			</div>
+			<% end %>
           </div>
 
         
                   
 
         <div class="row" style="background-color: white; margin-top: 20px; padding: 10px 10px 10px 10px; border-radius: 5px;">
+        <a href="../stats"><h3 id="titulo_sub" ">Estadísticas</h3></a>
         <% if subscripciones(current_user).any? %> 
-          <h3 id="titulo_sub" ">Subscripciones</h3>
-          <table class="table">
-            <tbody>
+          <h3 id="titulo_sub"">Subscripciones</h3>
+          <table class="table table-striped" style="width: 100%;">
+            <tbody style="height: 100%; max-height: 200px; overflow-y: auto; display: block;">
               <% subscripciones(current_user).each do |sub| %>
                 
-              <tr>
-                <td style="text-align: center;"><%= link_to Forum.find(sub).name, Forum.find(sub), :id => 'link_sub'  %></td>
+              <tr style="display: block;">
+                <td style="text-align: center; display: block;"><%= link_to Forum.find(sub).name, Forum.find(sub), :id => 'link_sub'  %></td>
               </tr>
               <% end %>
             </tbody>
@@ -43,12 +53,12 @@
 
         <% if moderaciones(current_user).any? %>
           <h3 id="titulo_sub" ">Foros que moderas</h3>
-          <table class="table">
-            <tbody>
+          <table class="table table-striped" style="width: 100%">
+            <tbody style="height: 100%; max-height: 200px; overflow-y: auto; display: block;">
               <% moderaciones(current_user).each do |sub| %>
                 
-              <tr>
-                <td style="text-align: center;"><%= link_to Forum.find(sub).name, Forum.find(sub), :id => 'link_sub'  %></td>
+              <tr style="display: block;">
+                <td style="text-align: center;display: block;"><%= link_to Forum.find(sub).name, Forum.find(sub), :id => 'link_sub'  %></td>
               </tr>
               <% end %>
             </tbody>
@@ -57,62 +67,92 @@
         
 
 
-        <a href="/forums"><h4 id="titulo_sub" ">Todos los foros</h4></a>
-        <table class="table">
-            <tbody>
+        <a href="/forums"><h3 id="titulo_sub" ">Todos los foros</h3></a>
+        <table class="table table-striped" style="width: 100%">
+            <tbody style="height: 100%; max-height:200px; overflow-y: auto; display: block;">
               <% Forum.all.each do |forum| %>
                 
-              <tr>
-                <td style="text-align: center;"><%= link_to forum.name, forum, :id => 'link_sub'  %></td>
+              <tr style="display: block;">
+                <td style="text-align: center;display: block;"><%= link_to forum.name, forum, :id => 'link_sub'  %></td>
               </tr>
               <% end %>
-            </tbody|>
+            </tbody>
         </table>
         </div>
       </div>
 
       <!-- PARTE POSTS -->
-      <div class="col-md-8   " id="dashboardPostInicio">
+      <div class="col-md-8" id="dashboardPostInicio">
         
-        <h3 id="titulo_sub" ">Lo mas reciente</h3>
+        <h3 id="titulo_sub">Lo mas reciente</h3>
 
 
 
         <% if subscripciones(current_user).any? %> 
         <!-- USUARIO TIENE SUBSCRIPCIONES -->
-          <% Post.order('created_at').all.each do |post| %>
+          <% posts = Post.order(created_at: :desc).all.paginate(page: params[:page], per_page: 5) %>
+          <% posts.order(created_at: :desc).all.each do |post| %>
             <%= render 'index/todos_los_post', post: post, mi_tipo: "cada_post_1"%>
           <% end %>
 
         <% else %>
          <!-- NO TIENE NINGUNA SUBSCRIPCION, POR AHORA SE MUESTRA DE TODOS LOS FOROS IGUAL -->
-          <% Post.order('created_at').all.each do |post| %>
+          <% posts = Post.order(created_at: :desc).all.paginate(page: params[:page], per_page: 5) %>
+          <% posts.each do |post| %>
             <%= render 'index/todos_los_post', post: post,  mi_tipo: "cada_post_1"%>
           <% end %>
         <% end %>
+      <div class="col-md-4 col-md-offset-4"><%= will_paginate posts %></div>
       </div>
   </div>
        
 <% else %>
 <!-- GUEST -->
 <div class="row-fluid">
-    <div class="col-md-3" id="dashboardSubsripciones" style="background-color: white;" >
-        <a href="/forums"><h4 id="titulo_sub" ">Todos los foros</h4></a>
-        <table class="table">
-            <tbody>
+
+      <div class="col-md-3" id="dashboardSubsripciones" >
+
+          <div class="row" style="background-color: white; border-radius: 5px;padding: 5px 5px 5px 0px ;">
+			<%= form_tag(searches_path, :method => "get", id: "search-form", class: "seacrh") do %>
+			<div id="custom-search-input" style="border: none;">
+			    <%=select_tag :option, options_for_select([["Usuario", "user"], 
+			    										   ["Publicación", "post"], 
+			    										   ["Foro", "forum"], 
+			    										   ["Comentario", "comment"]]),
+				     id: "boton_search",
+			    	:class => "btn btn-secondary"%>
+			    <%= text_field_tag :search, params[:search], placeholder: "Escribe aquí ", id: "search_form"%>
+			    <span>
+			        <button type="button">
+			            <%= submit_tag "Buscar", :name => nil, :class=>"btn", style: "#{'display:none';}"%>
+			        </button>  
+			    </span>
+			</div>
+			<% end %>
+          </div>
+
+        
+                  
+
+        <div class="row" style="background-color: white; margin-top: 20px; padding: 10px 10px 10px 10px; border-radius: 5px;">
+        <a href="../stats"><h3 id="titulo_sub" ">Estadísticas</h3></a>
+        <a href="/forums"><h3 id="titulo_sub" ">Todos los foros</h3></a>
+        <table class="table table-striped" style="width: 100%;">
+            <tbody style="height: 100%; max-height: 200px; overflow-y: auto; display: block;">
               <% Forum.all.each do |forum| %>
                 
-              <tr>
-                <td style="text-align: center;"><%= link_to forum.name, forum, :id => 'link_sub'  %></td>
+              <tr style="display: block;">
+                <td style="text-align: center; display: block;"><%= link_to forum.name, forum, :id => 'link_sub'  %></td>
               </tr>
               <% end %>
-            </tbody|>
+            </tbody>
         </table>
-    </div>
+        </div>
+      </div>
 
     <div class="col-md-8" id="dashboardPostInicio">
       <h3 id="titulo_sub" ">Lo mas reciente</h3>
-      <% Post.order('created_at').all.each do |post| %>
+      <% Post.order(created_at: :desc).all.each do |post| %>
         <%= render 'index/todos_los_post', post: post,  mi_tipo: "cada_post_1"%>
       <% end %>
 

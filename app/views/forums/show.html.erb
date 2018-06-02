@@ -2,8 +2,6 @@
   <!-- Sin esto no funciona -->
   <% post_de_este_foro = @forum.posts.all %>  
 
-  <p id="notice"><%= notice %></p>
-
   <p id="titlesForum">
     <%= @forum.name %>
   </p>
@@ -13,20 +11,23 @@
     <div class="col-sm-6" style="background-color:white;">
       <% sub_count = subscriptores(@forum).length %>
       <% if sub_count == 1 %>
-        <%= sub_count %> suscriptor
+        <p id="subs_count"><%= sub_count %> suscriptor</p>
       <% else %>
-        <%= sub_count %> suscriptores
+        <p id="subs_count"><%= sub_count %> suscriptores</p>
       <% end %>
     </div>
   </div>
   <div class="row-fluid" style="background-color: white;padding-bottom: 5em;border-radius: 5px; margin-bottom: 2em;">
-    <div class="col-sm-6" style="background-color:white;padding-bottom: 2em;">
+    <div class="col-sm-6" style="background-color:white;">
       <% if user_signed_in? %>
 
         <% if subscripciones(current_user).include? @forum.id  %>
-          <td><a id= "subs_button_<%=@forum.id%>" onclick="unsubs(<%= Subscription.find_by(:user_id => current_user.id, :forum_id => @forum.id).id %>)">Desuscribirse</a></td>
+          <td><a class='btn btn-default btn-xs' id= "subs_button_<%=@forum.id%>" 
+            onclick="unsubs(<%= Subscription.find_by(:user_id => current_user.id, 
+            :forum_id => @forum.id).id %>)">Desuscribirse</a></td>
         <% else %>
-          <td><a id= "subs_button_<%=@forum.id%>" onclick="subs(<%=current_user.id%>, <%=@forum.id%>)">Suscribirse</a></td>
+          <td><a class='btn btn-default btn-xs' id= "subs_button_<%=@forum.id%>" 
+            class="link_normal" onclick="subs(<%=current_user.id%>, <%=@forum.id%>)">Suscribirse</a></td>
         <% end %>
       <% end %>
 
@@ -36,20 +37,19 @@
 
       <%  if moderadores(@forum).include? current_user.id %>
         <p id="postulate_text"> Eres moderador </p>
-        <a id="action_postulate" onclick="unmoderate(<%=Moderator.find_by(:user_id => current_user.id, :forum_id => @forum.id).id%>, <%=current_user.id%>, <%=@forum.id%>)">Dejar de ser moderador</a>
+        <a id="action_postulate" onclick="unmoderate(<%=Moderator.find_by(:user_id => current_user.id, :forum_id => @forum.id).id%>, <%=current_user.id%>, <%=@forum.id%>)" class="link_normal">Dejar de ser moderador</a>
 
         <% elsif points_user(@forum, current_user) >= 5 and not esta_postulando(current_user, @forum)%>
         <p id="postulate_text"> Podrias ser moderador de este foro! </p>
         <%#= link_to "Postular", postulations_path(:user_id => current_user.id, :forum_id => @forum.id), :method => :post%>
-        <a id="action_postulate" onclick="postulate(<%=current_user.id%>, <%=@forum.id%>)">Postular </a>
+        <a id="action_postulate" onclick="postulate(<%=current_user.id%>, <%=@forum.id%>)" class="link_normal">Postular </a>
         <% elsif points_user(@forum, current_user) >= 5 and esta_postulando(current_user, @forum)%>
         <p> Ya estas postulando para ser moderador de este foro!  </p>
-      
       <% end %>
     <% end %> 
 
     <% if user_signed_in? and current_user.admin? %>
-      <%= link_to 'Editar foro', edit_forum_path(@forum) %> 
+      <%= link_to 'Editar foro', edit_forum_path(@forum), :id => "link_normal" %> 
     <% end %>
     </div>
   </div>
@@ -93,14 +93,15 @@
       <h4>No hay nada creado</h4>
       <h4>Se el primero!</h4>
       <% if not user_signed_in? %>
-        <%= link_to "Registate", new_user_registration_path, method: :get, :id=> "titulo_sub"  %> o
+        <%= link_to "Registrate", new_user_registration_path, method: :get, :id=> "titulo_sub"  %> o
        <%= link_to "Inicia sesion", new_user_registration_path, method: :get,:id=> "titulo_sub"  %>
       <% end %>
     <% end %>
 
-    <% post_de_este_foro.each do |post| %>
+    <% @posts.order(created_at: :desc).each do |post| %>
       <%= render 'index/todos_los_post', post: post, mi_tipo: "cada_post_2"%>
     <% end %>
+    <%= will_paginate @posts %>
   </div>
 
 
