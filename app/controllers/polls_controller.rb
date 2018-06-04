@@ -15,6 +15,7 @@ class PollsController < ApplicationController
   # GET /polls/new
   def new
     @poll = Poll.new(post_id: params[:post_id])
+    @poll.questions.build
   end
 
   # GET /polls/1/edit
@@ -26,14 +27,12 @@ class PollsController < ApplicationController
   def create
     @poll = Poll.new(poll_params)
 
-    respond_to do |format|
-      if @poll.save
-        format.html { redirect_to @poll, notice: 'Poll was successfully created.' }
-        format.json { render :show, status: :created, location: @poll }
-      else
-        format.html { render :new }
-        format.json { render json: @poll.errors, status: :unprocessable_entity }
-      end
+    if @poll.save
+      @questions = @poll.questions.create
+      @questions.save
+      redirect_to @poll #todo: where do we want to redirect?
+    else
+      render 'new'
     end
   end
 
@@ -41,7 +40,7 @@ class PollsController < ApplicationController
   # PATCH/PUT /polls/1.json
   def update
     respond_to do |format|
-      if @poll.update(poll_params)
+      if @poll.update_attributes!(poll_params)
         format.html { redirect_to @poll, notice: 'Poll was successfully updated.' }
         format.json { render :show, status: :ok, location: @poll }
       else
@@ -69,6 +68,6 @@ class PollsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def poll_params
-      params.require(:poll).permit(:title, :post_id, question_attributes: [:poll_id, :content])
+      params.require(:poll).permit(:title, :post_id, questions_attributes: [:id, :poll_id, :content])
     end
 end

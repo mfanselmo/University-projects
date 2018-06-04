@@ -29,7 +29,6 @@
   <%# end %>
   <%= form.fields_for :questions do |ff| %>
   <div>
-    <%= ff.hidden_field :poll_id, :value => poll.id %>
     <%= ff.label :content %>
     <%= ff.text_field :content %>
   </div>

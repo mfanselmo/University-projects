@@ -1,4 +1,4 @@
 class Poll < ApplicationRecord
-  has_many :questions
-  belongs_to :post
+  has_many :questions, :dependent => :destroy, :inverse_of => :poll
+  belongs_to :post, optional: true
 end

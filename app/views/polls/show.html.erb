@@ -10,5 +10,12 @@
   <%= @poll.post_id %>
 </p>
 
+<p>
+  <strong>Content:</strong>
+  <% @poll.questions.each do |q| %>
+  <%= q.content %>
+  <% end %>
+</p>
+
 <%= link_to 'Edit', edit_poll_path(@poll) %> |
 <%= link_to 'Back', polls_path %>

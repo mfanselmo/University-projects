@@ -17,6 +17,7 @@
         <%= debug poll.questions %>
         <td><%= poll.title %></td>
         <td><%= poll.post_id %></td>
+        <td><%= poll.questions.first%></td>
         <td><%= link_to 'Show', poll %></td>
         <td><%= link_to 'Edit', edit_poll_path(poll) %></td>
         <td><%= link_to 'Destroy', poll, method: :delete, data: { confirm: 'Are you sure?' } %></td>
