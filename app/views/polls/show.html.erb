@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <strong>Title:</strong>
   <%= @poll.title %>
@@ -16,6 +14,8 @@
   <%= q.content %>
   <% end %>
 </p>
+
+<%= render 'attempts/form', attempt: @attempt %>
 
 <%= link_to 'Edit', edit_poll_path(@poll) %> |
 <%= link_to 'Back', polls_path %>

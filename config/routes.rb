@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   end
 
   resources :questions
+  resources :attempts
 
   resources :favorites
   get 'users/index'

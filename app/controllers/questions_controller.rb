@@ -25,6 +25,8 @@ class QuestionsController < ApplicationController
   # POST /questions.json
   def create
     @question = Question.new(question_params)
+    if not question.content == ""
+      puts "Question" question.content
 
     respond_to do |format|
       if @question.save
@@ -34,6 +36,7 @@ class QuestionsController < ApplicationController
         format.html { render :new }
         format.json { render json: @question.errors, status: :unprocessable_entity }
       end
+    end
     end
   end
 

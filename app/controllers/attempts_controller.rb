@@ -69,6 +69,6 @@ class AttemptsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def attempt_params
-      params.require(:attempt).permit(:user_id, :question_id, :poll_id)
+      params.require(:attempt).permit(:user_id, :question_id)
     end
 end

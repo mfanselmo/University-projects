@@ -12,15 +12,19 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :user_id %>
-    <%= form.number_field :user_id, id: :attempt_user_id %>
+    <%#= form.label :user_id%>
+    <%= form.hidden_field :user_id, :value => current_user.id%>
+    <%#= form.number_field :user_id, id: :attempt_user_id %>
   </div>
 
-  <div class="field">
-    <%= form.label :question_id %>
-    <%= form.number_field :question_id, id: :attempt_question_id %>
-  </div>
+  <!--<div class="field">
+    <%#= form.label :question_id %>
+    <%#= form.number_field :question_id, id: :attempt_question_id %>
+  </div>-->
 
+  <% @poll.questions.each do |question| %>
+    <p><%= form.check_box :question_id, id: :attempt_question_id %><%= question.content %></p>
+  <% end %>
   <div class="actions">
     <%= form.submit %>
   </div>
