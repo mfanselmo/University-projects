@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
 
-  resources :polls
+  resources :polls do
+    resources :questions
+  end
+
+  resources :questions
 
   resources :favorites
   get 'users/index'

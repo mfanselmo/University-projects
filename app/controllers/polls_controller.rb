@@ -14,7 +14,7 @@ class PollsController < ApplicationController
 
   # GET /polls/new
   def new
-    @poll = Poll.new
+    @poll = Poll.new(post_id: params[:post_id])
   end
 
   # GET /polls/1/edit
@@ -69,6 +69,6 @@ class PollsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def poll_params
-      params.require(:poll).permit(:title, :post_id)
+      params.require(:poll).permit(:title, :post_id, question_attributes: [:poll_id, :content])
     end
 end

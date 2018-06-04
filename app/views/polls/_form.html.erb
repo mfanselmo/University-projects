@@ -16,12 +16,24 @@
     <%= form.text_field :title, id: :poll_title %>
   </div>
 
-  <div class="field">
-    <%= form.label :post_id %>
-    <%= form.number_field :post_id, id: :poll_post_id %>
-  </div>
+  <!--<div class="field">
+    <%#= form.label :post_id %>
+    <%#= form.number_field :post_id, id: :poll_post_id %>
+  </div>-->
+  <%= form.hidden_field :post_id, :value => 1 %>
 
-  <%= link_to "Añadir opcion", new_question_path(poll_id: poll.id) %>
+  <%#= link_to "Añadir opcion", new_question_path(poll_id: poll.id) %>
+  <!--<p><%#= link_to_add_fields "Add Question", f, :questions %></p>-->
+  <%#= form.fields_for :questions do |builder| %>
+    <%#= render "question_fields", :form => builder %>
+  <%# end %>
+  <%= form.fields_for :questions do |ff| %>
+  <div>
+    <%= ff.hidden_field :poll_id, :value => poll.id %>
+    <%= ff.label :content %>
+    <%= ff.text_field :content %>
+  </div>
+  <% end %>
 
   <div class="actions">
     <%= form.submit %>
