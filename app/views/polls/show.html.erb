@@ -7,14 +7,22 @@
   <strong>Post:</strong>
   <%= @poll.post_id %>
 </p>
-<% attempt = @poll.attempts.where(user_id: 1).first %>
-<% if attempt %>
+<% att = @poll.attempts.where(user_id: 1).first %>
+<% if att %>
   <% @poll.questions.each do |q| %>
-    <p><%= q.content %></p>
+    <% if q.id == att.question_id %>
+      <p style="color: red;"><%= q.content %> | Cantidad de votos: <%= q.attempts.size %> </p>
+    <% else %>
+      <p><%= q.content %> | Cantidad de votos: <%= q.attempts.size %></p>
+    <% end %>
   <% end %>
 <% else %>
-  <%= render 'attempts/form', attempt: @attempt %>
+  <% if not votable %>
+    En este foro hay una encuesta: <%= @poll.title %>
+  <% else %>
+    <%= render 'attempts/form', attempt: @attempt %>
+  <% end %>
 <% end %>
 
-<%= link_to 'Edit', edit_poll_path(@poll) %> |
-<%= link_to 'Back', polls_path %>
+<%= link_to 'Editar poll', edit_poll_path(@poll) %>
+<%#= link_to 'Back', polls_path %>

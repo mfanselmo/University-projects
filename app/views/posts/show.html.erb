@@ -50,7 +50,10 @@
 
 
       <p><%= markdown(@post.content) %></p>
-      <p><%= image_tag @post.image.medium %></p>
+      <p><%= image_tag @post.image.medium %></p> <!-- entrega la imagen uploaded-->
+      <% if @poll %>
+        <p><%= render :template => "polls/show", locals: {:poll => @poll, votable: true} %></p>
+      <% end %>
       <h5>
         <div id="container" >
         <div id="con_1"> <em><%= @post.comments.count %> comentario(s)</em></div>

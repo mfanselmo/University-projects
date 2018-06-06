@@ -32,7 +32,7 @@ class PollsController < ApplicationController
 
     if @poll.save
       # @questions = @poll.questions.create
-      redirect_to @poll
+      redirect_to @poll, votable: true
     else
       render 'new'
     end

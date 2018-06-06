@@ -15,8 +15,8 @@
     <%= form.label :title %>
     <%= form.text_field :title, id: :poll_title %>
   </div>
-
-  <%= form.hidden_field :post_id, :value => 1 %>
+  <%= form.label :post_id %>
+  <%= form.number_field :post_id %>
 
   <%= form.fields_for :questions do |builder| %>
     <%= render "question_fields", :f => builder %>

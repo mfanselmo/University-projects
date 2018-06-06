@@ -29,10 +29,11 @@ class AttemptsController < ApplicationController
     data.delete_if {|key, value| key == "poll_id" }
     # puts @poll
     # puts data
-    number = Integer(data["question_id"])
+    # number = Integer(data["question_id"])
     # puts @poll.questions[0]
-    new_id = @poll.questions[number].id
-    data["question_id"] = new_id
+    # new_id = @poll.questions[number].id
+    puts data
+    # data["question_id"] = number
     puts data
     # puts @poll.questions[Integer(data["question_id"])].first.id
     @attempt = Attempt.new(data)
@@ -48,7 +49,7 @@ class AttemptsController < ApplicationController
     # end
     result = @attempt.save
     if result
-      redirect_to polls_path
+      redirect_to post_path(Post.find(@poll.post_id))
     else
       redirect_to root_path
     end

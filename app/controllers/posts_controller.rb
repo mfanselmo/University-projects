@@ -27,6 +27,11 @@ class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
     @user = User.find_by(username: @post.name)
+    @poll = @post.polls.first || nil
+    if @poll
+      @attempt = Attempt.new
+    end
+    # votable = true
   end
 
   # GET /posts/new

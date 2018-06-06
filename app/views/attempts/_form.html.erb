@@ -22,13 +22,12 @@
     <%#= form.label :question_id %>
     <%#= form.number_field :question_id, id: :attempt_question_id %>
   </div>-->
-
   <% @poll.questions.each do |question| %>
     <%# if not question.content.blank? %>
       <%#  if question.attempts.where(user_id: 1) != [] %>
       <p><%#= form.check_box :question_id, checked: true%><%#= question.content %></p>
       <%# else %>
-      <p><%= form.check_box :question_id %><%= question.content %></p>
+      <p><%= form.check_box :question_id, { multiple: false }, question.id, false %><%= question.content %></p>
       <%# end %>
     <%# end %>
   <% end %>
