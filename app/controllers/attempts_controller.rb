@@ -26,14 +26,20 @@ class AttemptsController < ApplicationController
   def create
     @attempt = Attempt.new(attempt_params)
 
-    respond_to do |format|
-      if @attempt.save
-        format.html { redirect_to @attempt, notice: 'Attempt was successfully created.' }
-        format.json { render :show, status: :created, location: @attempt }
-      else
-        format.html { render :new }
-        format.json { render json: @attempt.errors, status: :unprocessable_entity }
-      end
+    # respond_to do |format|
+      # if @attempt.save
+        # format.html { redirect_to @attempt, notice: 'Attempt was successfully created.' }
+        # format.json { render :show, status: :created, location: @attempt }
+      # else
+        # format.html { render :new }
+        # format.json { render json: @attempt.errors, status: :unprocessable_entity }
+      # end
+    # end
+    result = @attempt.save
+    if result
+      redirect_to polls_path
+    else
+      redirect_to root_path
     end
   end
 

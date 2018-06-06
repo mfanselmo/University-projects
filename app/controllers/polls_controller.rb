@@ -26,12 +26,13 @@ class PollsController < ApplicationController
   # POST /polls
   # POST /polls.json
   def create
-    @poll = Poll.new(poll_params)
+    data = poll_params
+    data["questions_attributes"].delete_if {|key, value| value == {"content"=>""} }
+    @poll = Poll.new(data)
 
     if @poll.save
-      @questions = @poll.questions.create
-      @questions.save
-      redirect_to @poll #todo: where do we want to redirect?
+      # @questions = @poll.questions.create
+      redirect_to @poll
     else
       render 'new'
     end

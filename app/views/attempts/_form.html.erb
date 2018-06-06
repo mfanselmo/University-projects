@@ -23,7 +23,9 @@
   </div>-->
 
   <% @poll.questions.each do |question| %>
-    <p><%= form.check_box :question_id, id: :attempt_question_id %><%= question.content %></p>
+    <%# if not question.content.blank? %>
+      <p><%= form.check_box :question_id %><%= question.content %><%= question.id %></p>
+    <%# end %>
   <% end %>
   <div class="actions">
     <%= form.submit %>
