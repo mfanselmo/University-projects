@@ -14,6 +14,7 @@
   <div class="field">
     <%#= form.label :user_id%>
     <%= form.hidden_field :user_id, :value => current_user.id%>
+    <%= form.hidden_field :poll_id, :value => @poll.id%>
     <%#= form.number_field :user_id, id: :attempt_user_id %>
   </div>
 
@@ -24,7 +25,11 @@
 
   <% @poll.questions.each do |question| %>
     <%# if not question.content.blank? %>
-      <p><%= form.check_box :question_id %><%= question.content %><%= question.id %></p>
+      <%#  if question.attempts.where(user_id: 1) != [] %>
+      <p><%#= form.check_box :question_id, checked: true%><%#= question.content %></p>
+      <%# else %>
+      <p><%= form.check_box :question_id %><%= question.content %></p>
+      <%# end %>
     <%# end %>
   <% end %>
   <div class="actions">

@@ -24,7 +24,18 @@ class AttemptsController < ApplicationController
   # POST /attempts
   # POST /attempts.json
   def create
-    @attempt = Attempt.new(attempt_params)
+    @poll = Poll.find(attempt_params["poll_id"])
+    data = attempt_params
+    data.delete_if {|key, value| key == "poll_id" }
+    # puts @poll
+    # puts data
+    number = Integer(data["question_id"])
+    # puts @poll.questions[0]
+    new_id = @poll.questions[number].id
+    data["question_id"] = new_id
+    puts data
+    # puts @poll.questions[Integer(data["question_id"])].first.id
+    @attempt = Attempt.new(data)
 
     # respond_to do |format|
       # if @attempt.save
@@ -46,8 +57,10 @@ class AttemptsController < ApplicationController
   # PATCH/PUT /attempts/1
   # PATCH/PUT /attempts/1.json
   def update
+    data = attempt_params
+    data.delete_if {|key, value| key == "poll_id" }
     respond_to do |format|
-      if @attempt.update(attempt_params)
+      if @attempt.update(data)
         format.html { redirect_to @attempt, notice: 'Attempt was successfully updated.' }
         format.json { render :show, status: :ok, location: @attempt }
       else
@@ -75,6 +88,6 @@ class AttemptsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def attempt_params
-      params.require(:attempt).permit(:user_id, :question_id)
+      params.require(:attempt).permit(:user_id, :question_id, :poll_id)
     end
 end

@@ -7,15 +7,14 @@
   <strong>Post:</strong>
   <%= @poll.post_id %>
 </p>
-
-<p>
-  <strong>Content:</strong>
+<% attempt = @poll.attempts.where(user_id: 1).first %>
+<% if attempt %>
   <% @poll.questions.each do |q| %>
-  <%= q.content %>
+    <p><%= q.content %></p>
   <% end %>
-</p>
-
-<%= render 'attempts/form', attempt: @attempt %>
+<% else %>
+  <%= render 'attempts/form', attempt: @attempt %>
+<% end %>
 
 <%= link_to 'Edit', edit_poll_path(@poll) %> |
 <%= link_to 'Back', polls_path %>
