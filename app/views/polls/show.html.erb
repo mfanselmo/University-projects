@@ -2,14 +2,21 @@
   <strong>Title:</strong>
   <%= @poll.title %>
 </p>
-
-<% att = @poll.attempts.where(user_id: 1).first %>
-<% if att %>
-  <% @poll.questions.each do |q| %>
-    <% if q.id == att.question_id %>
-      <p style="color: red;"><%= q.content %> | Cantidad de votos: <%= q.attempts.size %> </p>
+<% if user_signed_in? %>
+  <% att = @poll.attempts.where(user_id: current_user.id).first %>
+  <% if att %>
+    <% @poll.questions.each do |q| %>
+      <% if q.id == att.question_id %>
+        <p style="color: red;"><%= q.content %> | Cantidad de votos: <%= q.attempts.size %> </p>
+      <% else %>
+        <p><%= q.content %> | Cantidad de votos: <%= q.attempts.size %></p>
+      <% end %>
+    <% end %>
+  <% else %>
+    <% if not votable %>
+      En este foro hay una encuesta: <%= @poll.title %>
     <% else %>
-      <p><%= q.content %> | Cantidad de votos: <%= q.attempts.size %></p>
+      <%= render 'attempts/form', attempt: @attempt %>
     <% end %>
   <% end %>
 <% else %>
@@ -20,5 +27,9 @@
   <% end %>
 <% end %>
 
-<%= link_to 'Editar poll', edit_poll_path(@poll) %>
+<% post ||= @post%>
+<% if user_signed_in? and post.name == current_user.username %>
+  <%= link_to 'Editar poll', edit_poll_path(@poll) %> |
+  <%= link_to 'Eliminar poll', poll, method: :delete, data: { confirm: 'Are you sure?' } %>
+<% end %>
 <%#= link_to 'Back', polls_path %>

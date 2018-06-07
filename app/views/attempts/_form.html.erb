@@ -17,12 +17,12 @@
     </div>
   <% end %>
 
-  <% @poll.questions.each do |question| %>
+  <% @poll.questions.each do |q| %>
     <%# if not question.content.blank? %>
       <%#  if question.attempts.where(user_id: 1) != [] %>
       <p><%#= form.check_box :question_id, checked: true%><%#= question.content %></p>
       <%# else %>
-      <p><%= form.check_box :question_id, { multiple: false }, question.id, false %><%= question.content %></p>
+      <p><%= form.check_box :question_id, { multiple: false }, q.id, false %><%= q.content %> | Cantidad de votos: <%= q.attempts.size %> </p>
       <%# end %>
     <%# end %>
   <% end %>

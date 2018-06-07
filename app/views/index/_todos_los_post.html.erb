@@ -57,7 +57,7 @@
         <p><%= image_tag post.image.medium %></p>
         <% @poll = post.polls.first || nil %>
         <% if @poll %>
-          <p><%= render :template => "polls/show", locals: {:poll => @poll, :votable => false} %></p>
+          <p><%= render :template => "polls/show", locals: {:poll => @poll, :votable => false, :post => post} %></p>
         <% end %>
         <h5>
           <div id="container" onclick="window.event.stopPropagation();">

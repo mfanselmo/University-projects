@@ -43,11 +43,11 @@ class PollsController < ApplicationController
   def update
     # respond_to do |format|
     data = poll_params
-    data["questions_attributes"].delete_if {|key, value| value == {"content"=>""} }
+    data["questions_attributes"].delete_if {|key, value| value["content"] == ""}
       if @poll.update_attributes!(data)
         # format.html { redirect_to @poll, notice: 'Poll was successfully updated.' }
         # format.json { render :show, status: :ok, location: @poll }
-        redirect_to Post.find(@poll.post_id)
+        redirect_to Post.find(@poll.post_id), notice: 'El poll se ha actualizado correctamente.'
       else
         # format.html { render :edit }
         # format.json { render json: @poll.errors, status: :unprocessable_entity }
@@ -59,9 +59,10 @@ class PollsController < ApplicationController
   # DELETE /polls/1
   # DELETE /polls/1.json
   def destroy
+    id = @poll.post_id
     @poll.destroy
     respond_to do |format|
-      format.html { redirect_to polls_url, notice: 'Poll was successfully destroyed.' }
+      format.html { redirect_to Post.find(@poll.post_id), notice: 'Se ha eliminado el poll de este post.' }
       format.json { head :no_content }
     end
   end
@@ -74,6 +75,6 @@ class PollsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def poll_params
-      params.require(:poll).permit(:title, :post_id, questions_attributes: [:id, :poll_id, :content])
+      params.require(:poll).permit(:title, :post_id, questions_attributes: [:id, :poll_id, :content, :_destroy])
     end
 end
