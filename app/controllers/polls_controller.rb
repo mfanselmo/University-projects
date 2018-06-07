@@ -32,7 +32,7 @@ class PollsController < ApplicationController
 
     if @poll.save
       # @questions = @poll.questions.create
-      redirect_to @poll, votable: true
+      redirect_to Post.find(@poll.post_id)
     else
       render 'new'
     end
@@ -41,15 +41,19 @@ class PollsController < ApplicationController
   # PATCH/PUT /polls/1
   # PATCH/PUT /polls/1.json
   def update
-    respond_to do |format|
-      if @poll.update_attributes!(poll_params)
-        format.html { redirect_to @poll, notice: 'Poll was successfully updated.' }
-        format.json { render :show, status: :ok, location: @poll }
+    # respond_to do |format|
+    data = poll_params
+    data["questions_attributes"].delete_if {|key, value| value == {"content"=>""} }
+      if @poll.update_attributes!(data)
+        # format.html { redirect_to @poll, notice: 'Poll was successfully updated.' }
+        # format.json { render :show, status: :ok, location: @poll }
+        redirect_to Post.find(@poll.post_id)
       else
-        format.html { render :edit }
-        format.json { render json: @poll.errors, status: :unprocessable_entity }
+        # format.html { render :edit }
+        # format.json { render json: @poll.errors, status: :unprocessable_entity }
+        render 'edit'
       end
-    end
+    # end
   end
 
   # DELETE /polls/1

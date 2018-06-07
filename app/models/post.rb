@@ -17,7 +17,7 @@ class Post < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :users, through: :favorites
 
-  has_many :polls
+  has_many :polls, dependent: :destroy
 
   after_create :new_post_send
   def new_post_send

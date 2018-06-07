@@ -3,10 +3,6 @@
   <%= @poll.title %>
 </p>
 
-<p>
-  <strong>Post:</strong>
-  <%= @poll.post_id %>
-</p>
 <% att = @poll.attempts.where(user_id: 1).first %>
 <% if att %>
   <% @poll.questions.each do |q| %>

@@ -1,10 +1,10 @@
-<%= form_with(model: poll, local: true) do |form| %>
-  <% if poll.errors.any? %>
+<%= form_with(model: get_poll(), local: true) do |form| %>
+  <% if @poll.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(poll.errors.count, "error") %> prohibited this poll from being saved:</h2>
+      <h2><%= pluralize(@poll.errors.count, "error") %> prohibited this poll from being saved:</h2>
 
       <ul>
-      <% poll.errors.full_messages.each do |message| %>
+      <% @poll.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
