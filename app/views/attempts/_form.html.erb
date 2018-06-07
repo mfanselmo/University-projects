@@ -10,18 +10,13 @@
       </ul>
     </div>
   <% end %>
+  <% if user_signed_in? %>
+    <div class="field">
+      <%= form.hidden_field :user_id, :value => current_user.id%>
+      <%= form.hidden_field :poll_id, :value => @poll.id%>
+    </div>
+  <% end %>
 
-  <div class="field">
-    <%#= form.label :user_id%>
-    <%= form.hidden_field :user_id, :value => current_user.id%>
-    <%= form.hidden_field :poll_id, :value => @poll.id%>
-    <%#= form.number_field :user_id, id: :attempt_user_id %>
-  </div>
-
-  <!--<div class="field">
-    <%#= form.label :question_id %>
-    <%#= form.number_field :question_id, id: :attempt_question_id %>
-  </div>-->
   <% @poll.questions.each do |question| %>
     <%# if not question.content.blank? %>
       <%#  if question.attempts.where(user_id: 1) != [] %>
@@ -31,7 +26,14 @@
       <%# end %>
     <%# end %>
   <% end %>
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+
+  <% if user_signed_in? %>
+    <div class="actions">
+      <%= form.submit %>
+    </div>
+  <% else %>
+    <div class="actions">
+      Para votar debe <%= link_to "Registrarse", new_user_registration_path, method: :get %>
+    </div>
+  <% end %>
 <% end %>

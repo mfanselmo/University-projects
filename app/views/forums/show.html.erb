@@ -99,7 +99,7 @@
     <% end %>
 
     <% @posts.order(created_at: :desc).each do |post| %>
-      <%= render 'index/todos_los_post', post: post, mi_tipo: "cada_post_2"%>
+      <%= render 'index/todos_los_post', post: post, mi_tipo: "cada_post_2", votable: true%>
     <% end %>
     <%= will_paginate @posts %>
   </div>
