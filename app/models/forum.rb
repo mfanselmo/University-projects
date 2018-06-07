@@ -43,4 +43,9 @@ class Forum < ApplicationRecord
       end
     end
   end
+
+  def self.cant_subs
+    [Forum.subscriptions.size]
+  end
+
 end

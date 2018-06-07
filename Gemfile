@@ -69,3 +69,4 @@ gem 'will_paginate', '~> 3.1.1'
 
 gem 'koala'
 gem 'omniauth-facebook'
+gem 'd3-rails'
