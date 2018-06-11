@@ -73,7 +73,9 @@
         <%= form.file_field :image %>
       </div>
 
-      <%#= render 'polls/form', post: @post%>
+      <%#= form.fields_for :polls do |builder_poll| %>
+        <%#= render 'poll_fields', post: @post, :ff => builder_poll%>
+      <%# end %>
       
       <label class="btn btn-primary">
         Submit
