@@ -50,7 +50,7 @@
 
 
       <p><%= markdown(@post.content) %></p>
-      <p><%= image_tag @post.image.medium %></p> <!-- entrega la imagen uploaded-->
+      <p><%= image_tag @post.image.medium%></p> <!-- entrega la imagen uploaded-->
       <% if @poll %>
         <p><%= render :template => "polls/show", locals: {:poll => @poll, votable: true} %></p>
       <% end %>
