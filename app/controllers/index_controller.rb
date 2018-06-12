@@ -42,18 +42,24 @@ class IndexController < ApplicationController
   def stats
     @forums = Forum.all
     @forums = @forums.sort_by { |forum| forum.subscriptions.length }.reverse[0..9]
+
     @sub_count = []
     Forum.all.each do |form|
       # agrega los foros con su contador de la forma id, nombre, cant_subs
-      @sub_count.push("name": form.name, "count": form.subscriptions.size)
+      @sub_count.push([form.name, form.subscriptions.size])
     end
-    @puntos_usuario = []
-    User.all.each do |usr|
-      @puntos_usuario << {"name": usr.username, "points": calculate_points(vote_info(usr))}
+
+    @user_points = []
+    User.all.each do |user|
+      # toma los puntajes de cada usuario
+      @user_points.push([user.username, user.points()])
     end
+
     @users = User.all
-    @users = @users.sort_by(&:points).reverse[0..9]
-    response = { forums: @forums, users: @users, sub_count: @sub_count, user_points: @puntos_usuario }
+    @posts = Post.all
+
+    response = { forums: @forums, users: @users, posts: @posts,
+                 sub_count: @sub_count, user_points: @user_points }
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: response }
