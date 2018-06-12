@@ -27,7 +27,9 @@ class PollsController < ApplicationController
   # POST /polls.json
   def create
     data = poll_params
-    data["questions_attributes"].delete_if {|key, value| value == {"content"=>""} }
+    puts data
+    data["questions_attributes"].delete_if {|key, value| value["content"] == ""}
+    puts data
     @poll = Poll.new(data)
 
     if @poll.save
