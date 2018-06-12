@@ -53,6 +53,11 @@ class CommentsController < ApplicationController
   def upvote
     @comment = Comment.find(params[:id])
     result = @comment.upvote_from current_user if user_signed_in?
+    if result
+      @post = Post.find(@comment.post_id)
+      msg = 'Has recibido un like en comentario del post' + @post.title
+      @comment.notify(current_user, @comment, msg)
+    end
     render json: { result: result, count: { votes:
                                           { like: @comment.get_likes.size,
                                             dislike: @comment.get_dislikes.size },
@@ -62,6 +67,11 @@ class CommentsController < ApplicationController
   def downvote
     @comment = Comment.find(params[:id])
     result = @comment.downvote_from current_user if user_signed_in?
+    if result
+      @post = Post.find(@comment.post_id)
+      msg = 'Has recibido un dislike en comentario del post' + @post.title
+      @comment.notify(current_user, @comment, msg)
+    end
     render json: { result: result, count: { votes:
                                           { like: @comment.get_likes.size,
                                             dislike: @comment.get_dislikes.size },
