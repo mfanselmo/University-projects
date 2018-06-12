@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
 
+  resources :polls do
+    resources :questions
+  end
+
+  resources :questions
+  resources :attempts
+
   resources :favorites
   get 'users/index'
 

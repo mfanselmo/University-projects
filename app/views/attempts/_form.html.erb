@@ -1,0 +1,52 @@
+<div class="media" id = "cada_poll" style="background-color: snow; margin-right: 70px;">
+<%= form_with(model: attempt, local: true) do |form| %>
+  <% if attempt.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(attempt.errors.count, "error") %> prohibited this attempt from being saved:</h2>
+
+      <ul>
+      <% attempt.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <% if user_signed_in? %>
+    <div class="field">
+      <%= form.hidden_field :user_id, :value => current_user.id%>
+      <%= form.hidden_field :poll_id, :value => @poll.id%>
+    </div>
+  <% end %>
+  
+  <div class="row">
+  <% @poll.questions.each do |q| %>
+    <%# if not question.content.blank? %>
+      <%#  if question.attempts.where(user_id: 1) != [] %>
+      <!--<p><%#= form.check_box :question_id, checked: true%><%#= question.content %></p>-->
+      <%# else %>
+      <!--Cantidad de votos: <%#= q.attempts.size %>-->
+        <div class="col-md-8">
+        <%= form.check_box :question_id, { multiple: false }, q.id, false %>  <%= q.content%>
+        </div>
+        <div class="col-md-4">
+        <div class="progress">
+          <% value_data = (@poll.total_answers != 0)? (q.attempts.size*100/@poll.total_answers).round : 0 %>
+          <div class="progress-bar" role="progressbar" style="width: <%=value_data%>%;" aria-valuenow="<%=value_data%>" aria-valuemin="0" aria-valuemax="100"><%=value_data%>%</div>
+        </div>
+        </div>
+      <%# end %>
+    <%# end %>
+  <% end %>
+  </div>
+
+  <% if user_signed_in? %>
+    <div class="actions">
+      <%= form.submit "Votar"%>
+    </div>
+  <% else %>
+    <div class="actions">
+      Para votar debe <%= link_to "Registrarse", new_user_registration_path, method: :get %>
+    </div>
+  <% end %>
+<% end %>
+</div>

@@ -1,0 +1,55 @@
+<div class="media" id = "cada_poll" style="background-color: snow; margin-right: 70px;">
+<p>
+  <strong>Titulo encuesta:</strong>
+  <%= @poll.title %>
+</p>
+<% if user_signed_in? %>
+  <% att = @poll.attempts.where(user_id: current_user.id).first %>
+  <% if att %>
+    <div class="row">
+    <% @poll.questions.each do |q| %>
+      <% if q.id == att.question_id %>
+        <div class="col-md-8" style="overflow-wrap:break-word; color: red;">
+          <%= q.content%> <%= image_tag("check.png", :alt => "selected", size: "20x20") %>
+        </div>
+        <div class="col-md-4">
+        <div class="progress">
+          <% value_data = (@poll.total_answers != 0)? (q.attempts.size*100/@poll.total_answers).round : 0 %>
+          <div class="progress-bar" role="progressbar" style="width: <%=value_data%>%;" aria-valuenow="<%=value_data%>" aria-valuemin="0" aria-valuemax="100"><%=value_data%>%</div>
+        </div>
+        </div>
+      <% else %>
+        <div class="col-md-8" style="overflow-wrap:break-word;">
+          <%= q.content%>
+        </div>
+        <div class="col-md-4">
+        <div class="progress">
+          <% value_data = (@poll.total_answers != 0)? (q.attempts.size*100/@poll.total_answers).round : 0 %>
+          <div class="progress-bar" role="progressbar" style="width: <%=value_data%>%;" aria-valuenow="<%=value_data%>" aria-valuemin="0" aria-valuemax="100"><%=value_data%>%</div>
+        </div>
+        </div>
+      <% end %>
+    <% end %>
+    </div>
+  <% else %>
+    <% if not votable %>
+      En este foro hay una encuesta: <%= @poll.title %>
+    <% else %>
+      <%= render 'attempts/form', attempt: @attempt %>
+    <% end %>
+  <% end %>
+<% else %>
+  <% if not votable %>
+    En este foro hay una encuesta: <%= @poll.title %>
+  <% else %>
+    <%= render 'attempts/form', attempt: @attempt %>
+  <% end %>
+<% end %>
+
+<% post ||= @post%>
+<% if user_signed_in? and post.name == current_user.username %>
+  <%= link_to 'Editar poll', edit_poll_path(@poll) %> |
+  <%= link_to 'Eliminar poll', poll, method: :delete, data: { confirm: 'Are you sure?' } %>
+<% end %>
+</div>
+<%#= link_to 'Back', polls_path %>
