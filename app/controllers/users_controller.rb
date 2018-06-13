@@ -46,7 +46,9 @@ class UsersController < ApplicationController
     user.admin = true
     result = user.save
     @pos = Postulation.find_by(user_id: params[:user_id], forum_id: 0)
-    @pos.destroy
+    if @pos
+      @pos.destroy
+    end
     msg = 'Enhorabuena! Eres administrador!'
     subs = Subscription.new(user_id: user.id, forum_id: 3)
     subs.save!
