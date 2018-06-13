@@ -48,6 +48,8 @@ class UsersController < ApplicationController
     @pos = Postulation.find_by(user_id: params[:user_id], forum_id: 0)
     @pos.destroy
     msg = 'Enhorabuena! Eres administrador!'
+    subs = Subscription.new(user_id: user.id, forum_id: 3)
+    subs.save!
     user.notify(user, user, msg)
     render json: { result: result }
   end
