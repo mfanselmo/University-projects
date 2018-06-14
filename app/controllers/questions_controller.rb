@@ -34,7 +34,6 @@ class QuestionsController < ApplicationController
         format.json { render json: @question.errors, status: :unprocessable_entity }
       end
     end
-    end
   end
 
   # PATCH/PUT /questions/1
