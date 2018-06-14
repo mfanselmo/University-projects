@@ -10,10 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180522165607) do
+ActiveRecord::Schema.define(version: 20180604032113) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "attempts", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "question_id"
+    t.integer "poll_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "comments", force: :cascade do |t|
     t.string "commenter"
@@ -59,6 +67,13 @@ ActiveRecord::Schema.define(version: 20180522165607) do
     t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
+  create_table "polls", force: :cascade do |t|
+    t.string "title"
+    t.integer "post_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "posts", force: :cascade do |t|
     t.string "name"
     t.string "title"
@@ -74,6 +89,13 @@ ActiveRecord::Schema.define(version: 20180522165607) do
   create_table "postulations", force: :cascade do |t|
     t.integer "user_id"
     t.integer "forum_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.integer "poll_id"
+    t.string "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -137,7 +137,7 @@
                   
 
         <div class="row" style="background-color: white; margin-top: 20px; padding: 10px 10px 10px 10px; border-radius: 5px;">
-        <a href="../stats"><h3 id="titulo_sub" ">Estadísticas</h3></a>
+        <!--<a href="../stats"><h3 id="titulo_sub" ">Estadísticas</h3></a>-->
         <a href="/forums"><h3 id="titulo_sub" ">Todos los foros</h3></a>
         <table class="table table-striped" style="width: 100%;">
             <tbody style="height: 100%; max-height: 200px; overflow-y: auto; display: block;">
@@ -154,7 +154,8 @@
 
     <div class="col-md-8" id="dashboardPostInicio">
       <h3 id="titulo_sub" ">Lo mas reciente</h3>
-      <% Post.order(created_at: :desc).all.each do |post| %>
+      <% posts = Post.order(created_at: :desc).all.paginate(page: params[:page], per_page: 5)%>
+      <% posts.each do |post| %>
         <%= render 'index/todos_los_post', post: post,  mi_tipo: "cada_post_1"%>
       <% end %>
 

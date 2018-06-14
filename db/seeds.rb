@@ -7,6 +7,10 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
+forum_idea = Forum.new
+forum_idea.name = "Ideas"
+forum_idea.description = "Este foro es utilizado para sugerir ideas de foros!"
+forum_idea.save!
 
 
 user = User.new

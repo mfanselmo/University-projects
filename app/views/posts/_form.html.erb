@@ -38,6 +38,11 @@
     <%= form.file_field :image %>
   </div>
 
+  <%#= form.fields_for :polls do |builder| %>
+    <%#= render "polls/polls_fields", :f => builder %>
+  <%# end %>
+  <%#= link_to_add_fields "Add Poll", form, :polls %>
+
   <label class="btn btn-primary">
     Submit
     <span style="display:none;">

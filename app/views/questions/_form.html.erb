@@ -1,0 +1,17 @@
+<div class="media">
+<%= form_for([@poll, get_question()]) do |f| %>
+
+  <div class="field">
+    <%= f.label :content %>
+    <%= f.text_field :content, id: :question_content %>
+  </div>
+ 
+ <!-- 
+  <label class="btn btn-primary">
+    Submit
+    <span style="display:none;">
+      <%#= f.submit  %>
+    </span>
+  </label> -->
+<% end %>
+</div>

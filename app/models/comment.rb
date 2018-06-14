@@ -38,4 +38,10 @@ class Comment < ApplicationRecord
   def points
     get_upvotes.size - get_downvotes.size
   end
+
+  def notify(creator, object, message)
+    observer = User.find_by(username: commenter)
+    Notification.create(recipient: observer, user: creator, action: message, notifiable: object) if creator != observer
+  end
+
 end

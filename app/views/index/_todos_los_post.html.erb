@@ -55,6 +55,10 @@
 
         <p><%= markdown(post.content) %></p>
         <p><%= image_tag post.image.medium %></p>
+        <% @poll = post.polls.first || nil %>
+        <% if @poll %>
+          <p><%= render :template => "polls/show", locals: {:poll => @poll, :votable => false, :post => post} %></p>
+        <% end %>
         <h5>
           <div id="container" onclick="window.event.stopPropagation();">
           <div id="con_1"> <em><%= post.comments.count %> comentario(s)</em></div>
