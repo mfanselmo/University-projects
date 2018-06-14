@@ -21,7 +21,11 @@
         <% user = User.find(notification.user_id) %>
         <% title = notification.notifiable_type %>
         <% if notification.notifiable_type == "Post" %>
-          <% object = Post.find(notification.notifiable_id) %>
+          <% object = nil %>
+          <% object ||= Post.find(notification.notifiable_id) %>
+          <% if object == nil %>
+            <% next %>
+          <% end %>  
           <% link = "../posts/#{object.id}" %>
           <% if notification.action.include? "suscrito" %>
             <% title = "Post en Foro suscrito" %>
@@ -30,7 +34,11 @@
           <% end %>
         <% elsif notification.notifiable_type == "Comment" %>
           <% comment = Comment.find(notification.notifiable_id) %>
-          <% object = Post.find(comment.post_id) %>
+          <% object = nil %>
+          <% object ||= Post.find(comment.post_id) %>
+          <% if object == nil %>
+            <% next %>
+          <% end %>  
           <% link = "../posts/#{object.id}" %>
           <% if notification.action.include? "creó" %>
             <% title = "Comentario en Post" %>
