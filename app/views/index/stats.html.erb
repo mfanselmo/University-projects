@@ -67,5 +67,51 @@
 	  </tbody>
 	</table>
 </div>
-
 </div>
+
+<body>
+
+  <div class="container-fluid">
+
+    <div class="row">
+      <!-- cantidad de posts hechos por foro por fecha -->
+      <div class="col-md-6">
+        <%= line_chart @forums.map { |forum|
+        {name: forum.name, data: forum.posts.group_by_day(:created_at).count}
+          }, messages: {empty: "No hay datos"}, xtitle: "Fecha",
+            ytitle: "Posts por día (foros)" %>
+      </div>
+
+      <!-- cantidad de comentarios hechos por post por fecha -->
+      <div class="col-md-6">
+        <%= line_chart @posts.map { |post|
+        {name: post.title, data: post.comments.group_by_day(:created_at).count}
+          }, messages: {empty: "No hay datos"}, xtitle: "Fecha",
+            ytitle: "Comentarios por día (posts)" %>
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- cantidad subscriptores por foro -->
+      <div class="col-md-6">
+        <%= pie_chart @sub_count, donut: true, messages: {empty: "No hay datos"} %>
+      </div>
+
+      <!-- cantidad de usuarios creados por fecha -->
+      <div class="col-md-6">
+        <%= area_chart User.group_by_day(:created_at).count, xtitle: "Fecha",
+            ytitle: "Usuarios creados por día" %>    
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- cantidad puntos usuario -->
+      <div class="col-md-12">
+        <%= bar_chart @user_points, xtitle: "Puntos",
+            ytitle: "Usuario" %>
+      </div>
+    </div>    
+
+  </div>
+
+</body>

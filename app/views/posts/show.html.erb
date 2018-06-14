@@ -1,8 +1,8 @@
 <div class="container">
 
   
-  <div class="media" id = "cada_post_1" style="background-color: white;">
-    <div class="media-left media-top">
+  <div class="media" id = "cada_post_1" style="background-color: white;padding: 1em 1em 1em 1em; margin-bottom: 1em; margin-top: 1em; border-radius: 5px;">
+    <div class="media-left media-top" >
       <!-- <img src="img_avatar1.png" class="media-object" style="width:60px"> -->
       <% user = User.find_for_authentication(:username => @post.name) %>
       <% if user.nil? %>
@@ -13,7 +13,7 @@
     </div>
     <div class="media-body" style="text-align: '.' start;">
       <h4 class="media-heading" >
-          <div id="container">
+          <div id="container" >
             <div id="con_1"> <%= link_to @post.title, @post, :id => "link_normal" %> </div>
             <div id="con_2"> <i><small><%= time_ago_in_words (Time.now - @post.created_at).seconds.from_now %> ago by <%= @post.name %></small></i></div>
             <div id="con_4">
@@ -113,7 +113,7 @@
   </div>
 
   <% if user_signed_in? %>  <!-- Para crear un comentario -->
-    <div class="media" id="comentario_nuevo">
+    <div class="media" id="comentario_nuevo" style="background-color: white;padding: 1em 1em 1em 1em; margin-bottom: 1em; margin-top: 1em; border-radius: 5px;">
       <%= form_for([@post, get_comment()]) do |f| %>
         <div class="field">
           <%= f.text_field :commenter, value: current_user.username, style: "#{'display:none';}" %>
@@ -136,6 +136,32 @@
             </label>
           </div>
         </div>          
+
+      <div onclick="cambiaVisibilidad()"><a id="accionar"><%= markdown('Esta página soporta _sintaxis_ de _**Markdown**_') %></a></div>
+      <div style="display:none;" id="markdown_hide">
+        <div class="row-fluid" style="text-align: left;">
+         <%= markdown('
+## Funcionalidades
+---
+Markdown es un formato de estilo muy popular debido a su alta flexibilidad, con el que
+
+1. Se
+2. pueden
+3. hacer
+4. listas
+
+O [links (sí, _es clickeable_)](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet), junto con **negritas**, _cursivas_, ~~tachar~~, o ~~_**todas**_~~, entre otras cosas... (además de poder hacer un pie de página ^1 )
+
+# Se pueden hacer títulos...
+## ...subtítulos...
+### ...y subsubtítulos!
+
+También se puede 
+```console.log("implementar código")
+```
+^1 Este [**link**](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) contiene una guía completa de cómo utilizar este **fabuloso formato**')%>
+     </div>
+
 
       <% end %>
     </div>
