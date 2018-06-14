@@ -55,7 +55,7 @@ class IndexController < ApplicationController
       @user_points.push([user.username, user.points()])
     end
 
-    @users = User.all
+    @users = User.all.sort_by(&:points).reverse[0..9]
     @posts = Post.all
 
     response = { forums: @forums, users: @users, posts: @posts,
