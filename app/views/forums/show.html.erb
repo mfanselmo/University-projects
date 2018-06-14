@@ -70,18 +70,20 @@
         <%= f.text_area :content, class: 'form-control', placeholder:'Contenido' %>
       </div>
 
-      <div class="field">
-        <%= f.file_field :image %>
-      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <%= f.file_field :image %>
+        </div>
+        <div class="col-sm-6">
+          <label class="btn btn-primary btn-sm pull-right">
+            Submit
+            <span style="display:none;">
+              <%= f.submit  %>
+            </span>
+          </label>
+        </div>
+      </div>       
 
-      
-      <label class="btn btn-primary">
-        Submit
-        <span style="display:none;">
-          <%= f.submit  %>
-        </span>
-      </label>
-        
       <div onclick="cambiaVisibilidad()"><a id="accionar"><%= markdown('Esta página soporta _sintaxis_ de _**Markdown**_') %></a></div>
       <div style="display:none;" id="markdown_hide">
         <div class="row-fluid" style="text-align: left;">
@@ -105,7 +107,6 @@ También se puede
 ```console.log("implementar código")
 ```
 ^1 Este [**link**](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) contiene una guía completa de cómo utilizar este **fabuloso formato**')%>
-        </div>
      </div>
             
     <% end %>
