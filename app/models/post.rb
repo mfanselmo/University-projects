@@ -57,4 +57,8 @@ class Post < ApplicationRecord
     observer = User.find_by(username: name)
     Notification.create(recipient: observer, user: creator, action: message, notifiable: object) if creator != observer
   end
+
+  def com_size
+    self.comments.size
+  end
 end
