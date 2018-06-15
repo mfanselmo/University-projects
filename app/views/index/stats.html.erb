@@ -76,7 +76,7 @@
     <div class="row">
       <!-- cantidad de posts hechos por foro por fecha -->
       <div class="col-md-6">
-        <%= line_chart @forums.map { |forum|
+        <%= line_chart @forums[0..9].map { |forum|
         {name: forum.name, data: forum.posts.group_by_day(:created_at).count}
           }, messages: {empty: "No hay datos"}, xtitle: "Fecha",
             ytitle: "Posts por día (foros)" %>

@@ -3,7 +3,7 @@
 # :nodoc:
 class CommentsController < ApplicationController
   # http_basic_authenticate_with :name => "dhh", :password => "secret", :only => :destroy
-
+  include ActionView::Helpers::TextHelper
   before_action :find_post, only: %i[edit update]
   before_action :authenticate_user!, only: %i[create destroy edit]
 
@@ -24,7 +24,7 @@ class CommentsController < ApplicationController
   def create
     @post = Post.find(params[:post_id])
     @comment = @post.comments.create(params[:comment].permit(:commenter, :body, :image, :remove_image))
-    msg = current_user.username + ' creó un comentario en su post: ' + @post.title
+    msg = current_user.username + ' creó un comentario en su post: ' + truncate(@post.title, lenght: 20)
     @post.notify(current_user, @comment, msg)
     redirect_to post_path(@post)
   end
@@ -69,7 +69,7 @@ class CommentsController < ApplicationController
     result = @comment.downvote_from current_user if user_signed_in?
     if result
       @post = Post.find(@comment.post_id)
-      msg = 'Has recibido un dislike en comentario del post' + @post.title
+      msg = 'Has recibido un dislike en comentario del post' + truncate(@post.title, lenght: 20)
       @comment.notify(current_user, @comment, msg)
     end
     render json: { result: result, count: { votes:

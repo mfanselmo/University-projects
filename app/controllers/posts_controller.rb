@@ -2,7 +2,7 @@
 
 class PostsController < ApplicationController
   # http_basic_authenticate_with :name => "dhh", :password => "secret", :except => [:index, :show]
-
+  include ActionView::Helpers::TextHelper
   before_action :set_post, only: %i[show edit update destroy]
   before_action :authenticate_user!, only: %i[create destroy edit]
 
@@ -59,7 +59,7 @@ class PostsController < ApplicationController
     # puts new_data
     # @poll = Poll.new(new_data)
     # puts data
-    msg = current_user.username + ' creó un post en foro suscrito: ' + @forum.name
+    msg = current_user.username + ' creó un post en foro suscrito: ' + truncate(@forum.name, lenght: 20)
     @forum.notify(current_user, @post, msg)
     # EmailMailer.with(forum: @forum, post: @post).new_post_mail.deliver_now
     redirect_to forum_path(@forum)
@@ -83,6 +83,9 @@ class PostsController < ApplicationController
   # DELETE /posts/1.json
   def destroy
     @forum = Forum.find(@post.forum_id)
+    Notification.all.each do |noti|
+      noti.destroy if noti.notifiable == @post
+    end
     @post.destroy
     respond_to do |format|
       format.html { redirect_to @forum, notice: 'Se borro exitosamente el post' }
@@ -100,7 +103,7 @@ class PostsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def post_params
     params.require(:post).permit(:content, :name, :title, :forum_id, :image, :remove_image)
-    params.require(:poll).permit(:title, :post_id, questions_attributes: [:id, :poll_id, :content, :_destroy])
+    # params.require(:poll).permit(:title, :post_id, questions_attributes: [:id, :poll_id, :content, :_destroy])
       # {polls_attributes: [:title, :post_id, questions_attributes: [:id, :poll_id, :content, :_destroy]]})
   end
 end
