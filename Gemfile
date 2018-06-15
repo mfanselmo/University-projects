@@ -72,3 +72,4 @@ gem 'omniauth-facebook'
 
 gem "chartkick"
 gem 'groupdate'
+gem 'faker'
