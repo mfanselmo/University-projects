@@ -14,12 +14,13 @@
     <div class="media-body" style="text-align: '.' start;">
       <h4 class="media-heading" >
           <div id="container" >
-            <div id="con_1"> <%= link_to @post.title, @post, :id => "link_normal" %> </div>
+            <div id="con_1" style="overflow-wrap:break-word;"> 
+              <%= link_to @post.title, @post, :id => "link_normal" %> </div>
             <div id="con_2"> <i><small><%= time_ago_in_words (Time.now - @post.created_at).seconds.from_now %> ago by <%= @post.name %></small></i></div>
         </div>
       </h4>
       </br>
-
+      <div class="row"></div>
 
       <p><%= markdown(@post.content) %></p>
       <p><%= image_tag @post.image.medium%></p> <!-- entrega la imagen uploaded-->
