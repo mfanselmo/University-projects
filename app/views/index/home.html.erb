@@ -152,7 +152,7 @@
         </div>
       </div>
 
-    <div class="col-md-8" id="dashboardPostInicio">
+    <div class="col-md-8" id="dashboardPostInicio" >
       <h3 id="titulo_sub" ">Lo mas reciente</h3>
       <% posts = Post.order(created_at: :desc).all.paginate(page: params[:page], per_page: 5)%>
       <% posts.each do |post| %>

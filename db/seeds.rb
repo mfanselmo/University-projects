@@ -38,14 +38,15 @@ forum_chuck.save!
 
 # post de chuck norris
 # Falta hacer un loop, y en el user.find darle un numero al azar
-a = 1
-post = Post.new
-post.name = User.find(20).username # random username
-post.title = "Dato numero #{a} de Chuck Norris"
-post.content = Faker::ChuckNorris.fact
-post.forum_id = 2
-post.created_at = '2018-05-28' # random date
-post.save!
+(1..100).each do |a|
+	post = Post.new
+	post.name = User.find(20).username # random username
+	post.title = "Dato numero #{a} de Chuck Norris"
+	post.content = Faker::ChuckNorris.unique.fact
+	post.forum_id = 2
+	post.created_at = '2018-05-28' # random date
+	post.save!
+end
 
 # comentarios post de chuck norris
 
@@ -69,25 +70,26 @@ forum_dessert.save!
 
 # post de postres
 # Falta hacer un loop, y en el user.find darle un numero al azar
-a = 1
-post = Post.new
-post.name = User.find(1).username # random username
-post.title = "Postre numero #{a}"
-variety = Faker::Dessert.variety
-topping = Faker::Dessert.topping
-flavor = Faker::Dessert.flavor
-contenido = "
-### Postre
-#### tipo : #{variety}
+(1..100).each do |a|
+	post = Post.new
+	post.name = User.find(1).username # random username
+	post.title = "Postre numero #{a}"
+	variety = Faker::Dessert.variety
+	topping = Faker::Dessert.topping
+	flavor = Faker::Dessert.flavor
+	contenido = "
+	### Postre
+	#### tipo : #{variety}
 
-Recete:
- - sabor: #{flavor}
- - Agregados: #{topping}
-			"
-post.content = contenido
-post.forum_id = 3
-post.created_at = '2018-05-28' # random date
-post.save!
+	Recete:
+	 - sabor: #{flavor}
+	 - Agregados: #{topping}
+				"
+	post.content = contenido
+	post.forum_id = 3
+	post.created_at = '2018-05-28' # random date
+	post.save!
+end
 
 # comentarios post de postres
 forum_dessert.posts.all.each do |post|
@@ -103,15 +105,15 @@ end
 
 # forum_perros
 forum_perros = Forum.new
-forum_perros.name = "Postres"
-forum_perros.description = "Foro para la discusion de postres"
+forum_perros.name = "Perros"
+forum_perros.description = "Sube a tus perros!"
 forum_perros.save!
 
 # Falta hacer un loop, y en el user.find darle un numero al azar
-(1..20).each do |a|
+(1..100).each do |a|
 	post = Post.new
 	post.name = User.find(1).username # random username
-	post.title = "Mi perro #{Faker::Dog.name}"
+	post.title = "Mi perro #{Faker::Dog.unique.name}"
 	raza = Faker::Dog.breed
 	sonido = Faker::Dog.sound
 	frase = Faker::Dog.meme_phrase
@@ -149,26 +151,26 @@ forum_got.name = "Game of Thrones"
 forum_got.description = "Para los aficionados de GoT"
 forum_got.save!
 
-# Falta hacer un loop, y en el user.find darle un numero al azar
-a = 1
-post = Post.new
-post.name = User.find(1).username # random username
-character = Faker::GameOfThrones.character 
-house = Faker::GameOfThrones.house
-city = Faker::GameOfThrones.city 
-quote = Faker::GameOfThrones.quote 
-dragon = Faker::GameOfThrones.dragon
+(1..100).each do |a|
+	post = Post.new
+	post.name = User.find(1).username # random username
+	character = Faker::GameOfThrones.character 
+	house = Faker::GameOfThrones.house
+	city = Faker::GameOfThrones.city 
+	quote = Faker::GameOfThrones.quote 
+	dragon = Faker::GameOfThrones.dragon
 
-post.title = "#{character}"
-contenido = "
-#{character} es mi personaje favorito de game of thrones, aunque mi casa preferida es la casa #{house}.
-Me encanta cuando muestran #{city} siendo atacada por el dragon #{dragon}
-'#{quote}!'
-			"
-post.content = contenido
-post.forum_id = 5
-post.created_at = '2018-05-28' # random date
-post.save!
+	post.title = "#{a}. #{character}"
+	contenido = "
+	#{character} es mi personaje favorito de game of thrones, aunque mi casa preferida es la casa #{house}.
+	Me encanta cuando muestran #{city} siendo atacada por el dragon #{dragon}
+	'#{quote}!'
+				"
+	post.content = contenido
+	post.forum_id = 5
+	post.created_at = '2018-05-28' # random date
+	post.save!
+end
 
 forum_got.posts.all.each do |post|
 	# Falta hacer un for i in range(random.randint)
@@ -190,25 +192,26 @@ forum_harry.description = "Para los aficionados de Harry potter"
 forum_harry.save!
 
 # Falta hacer un loop, y en el user.find darle un numero al azar
-a = 1
-post = Post.new
-post.name = User.find(1).username # random username
-character = Faker::HarryPotter.character #=> "Harry Potter"
-location = Faker::HarryPotter.location #=> "Hogwarts"
-quote = Faker::HarryPotter.quote #=> "I solemnly swear that I am up to no good."
-book = Faker::HarryPotter.book #=> "Harry Potter and the Chamber of Secrets"
-house = Faker::HarryPotter.house #=> "Gryffindor"
-spell = Faker::HarryPotter.spell #=> "Reparo" No esta funcionando
+(1..100).each do |a|
+	post = Post.new
+	post.name = User.find(1).username # random username
+	character = Faker::HarryPotter.character #=> "Harry Potter"
+	location = Faker::HarryPotter.location #=> "Hogwarts"
+	quote = Faker::HarryPotter.quote #=> "I solemnly swear that I am up to no good."
+	book = Faker::HarryPotter.book #=> "Harry Potter and the Chamber of Secrets"
+	house = Faker::HarryPotter.house #=> "Gryffindor"
+	spell = 'Avada Kadabra!' #Faker::HarryPotter.spell #=> "Reparo" No esta funcionando
 
-post.title = "#{quote}"
-contenido = "
-Me encanta Harry Potter y #{location}. Yo soy de la casa #{house}, mi personaje favorito es #{character}.
-#{spell}!
-			"
-post.content = contenido
-post.forum_id = 6
-post.created_at = '2018-05-28' # random date
-post.save!
+	post.title = "#{a}. #{quote}"
+	contenido = "
+	Me encanta Harry Potter y #{location}. Yo soy de la casa #{house}, mi personaje favorito es #{character}.
+	#{spell}!
+				"
+	post.content = contenido
+	post.forum_id = 6
+	post.created_at = '2018-05-28' # random date
+	post.save!
+end
 
 forum_harry.posts.all.each do |post|
 	# Falta hacer un for i in range(random.randint)
