@@ -1,7 +1,7 @@
 <div class="container">
 
-  
   <div class="media" id = "cada_post_1" style="background-color: white;padding: 1em 1em 1em 1em; margin-bottom: 1em; margin-top: 1em; border-radius: 5px;">
+    <div class="row">
     <div class="media-left media-top" >
       <!-- <img src="img_avatar1.png" class="media-object" style="width:60px"> -->
       <% user = User.find_for_authentication(:username => @post.name) %>
@@ -14,101 +14,102 @@
     <div class="media-body" style="text-align: '.' start;">
       <h4 class="media-heading" >
           <div id="container" >
-            <div id="con_1"> <%= link_to @post.title, @post, :id => "link_normal" %> </div>
+            <div id="con_1" style="overflow-wrap:break-word;"> 
+              <%= link_to @post.title, @post, :id => "link_normal" %> </div>
             <div id="con_2"> <i><small><%= time_ago_in_words (Time.now - @post.created_at).seconds.from_now %> ago by <%= @post.name %></small></i></div>
-            <div id="con_4">
-            
-            <small>
-            <% if user_signed_in? %> 
-              <% if current_user.username == @post.name %>
-
-                    <%= link_to 'Editar', edit_post_path(@post), 
-                          :id => "link_normal"%>
-                    |
-                      <%= link_to 'Eliminar', [@post.forum, @post],
-                       :confirm => '¿Estas seguro que deseas borrarlo?',
-                       :method => :delete,
-                       :id => "link_normal"
-                        %>
-
-               <% elsif  current_user.admin? or moderadores(@post.forum).include? current_user.id %>
-                    <%= link_to 'Editar', edit_post_path(@post),
-                              :id => "link_normal" %>
-                    |
-                      <%= link_to 'Eliminar', [@post.forum, @post],
-                       :confirm => '¿Estas seguro que deseas borrarlo?',
-                       :method => :delete,
-                        :id => "link_normal" %>
-                <% end %>
-              <% end %>
-              </small>
-
-            </div>
         </div>
       </h4>
       </br>
-
+      <div class="row"></div>
 
       <p><%= markdown(@post.content) %></p>
       <p><%= image_tag @post.image.medium%></p> <!-- entrega la imagen uploaded-->
       <% if @poll %>
-        <p><%= render :template => "polls/show", locals: {:poll => @poll, votable: true} %></p>
+        <p style="margin-right: 0px;">
+          <%= render :template => "polls/show", locals: {:poll => @poll, votable: true} %></p>
       <% end %>
-      <h5>
-        <div id="container" >
-        <div id="con_1"> <em><%= @post.comments.count %> comentario(s)</em></div>
-        <div id="con_3">
-        </div>
-            
-          <div id="con_4">
-                
-            <% if user_signed_in? %>
-                Total
-                <span class="@post-points" id="points-vote-<%= @post.id %>">
-                <%= @post.points %>
-                </span> 
-              <% favorite = Favorite.find_by(:user_id => current_user.id, :post_id => @post.id) %>
-              <% if favorite %>
-                <a id = "dar_favorito" onclick="unfav(<%=favorite.id %>, <%=current_user.id%>, <%=@post.id%>)">
-                  <span class="corazon_apretado" onclick="cambiar_clase_corazon(this)">
-                  &#9829;
-                  </span>
-                </a> 
-              <% else %>
-                <a id = "dar_favorito" onclick="fav(<%=current_user.id%>, <%=@post.id%>)">
-                  <span class="corazon_no_apretado" onclick="cambiar_clase_corazon(this)">
-                  &#9829;
-                  </span>
-                </a> 
-              <% end %> 
-              
-              <a id = "countlike" onclick="like(<%=@post.id%>)" class = "asa"> 
-                &#128077;
-                <span class="votes-like-count " id="likes-vote-<%= @post.id %>">
-                  <%= @post.get_likes.size%>
-                </span>
+    </div>
+    <div class="media-right media-top">
+      <div id="con_4" style="width: 100px">
+        <small>
+        <% if user_signed_in? %> 
+          <% if current_user.username == @post.name %>
 
-              </a>
-              <a id = "countdislike" onclick="dislike(<%=@post.id%>)"  class = "asa"> 
-                &#128078;
-                <span class="votes-dislike-count" id="dislikes-vote-<%= @post.id %>">
-                  <%= @post.get_dislikes.size%>
-                </span>
-              </a>
-            <% else %>
-            <p>Total
-            <%=  @post.points %>
-            &#128077;<%= @post.get_likes.size%>
-            &#128078;<%= @post.get_dislikes.size%>
-            </p>
-              
+                <%= link_to 'Editar', edit_post_path(@post), 
+                      :id => "link_normal"%>
+                |
+                  <%= link_to 'Eliminar', [@post.forum, @post],
+                   :confirm => '¿Estas seguro que deseas borrarlo?',
+                   :method => :delete,
+                   :id => "link_normal"
+                    %>
+
+           <% elsif  current_user.admin? or moderadores(@post.forum).include? current_user.id %>
+                <%= link_to 'Editar', edit_post_path(@post),
+                          :id => "link_normal" %>
+                |
+                  <%= link_to 'Eliminar', [@post.forum, @post],
+                   :confirm => '¿Estas seguro que deseas borrarlo?',
+                   :method => :delete,
+                    :id => "link_normal" %>
             <% end %>
-            
+          <% end %>
+          </small>
 
-
-          </div>
         </div>
-      </h5>
+    </div>
+    </div>
+    <div class="row">
+      <div class="media-left"></div>
+      <div class="media-body">
+        <h5>
+          <div id="container" onclick="window.event.stopPropagation();">
+            <div id="con_1"> <em><%= @post.comments.count %> comentario(s)</em></div>
+            <div id="con_4"> 
+              <% if user_signed_in? %>
+                  Total
+                  <span class="post-points" id="points-vote-<%= @post.id %>">
+                  <%= @post.points %>
+                  </span> 
+                <% favorite = Favorite.find_by(:user_id => current_user.id, :post_id => @post.id) %>
+                <% if favorite %>
+                  <a id = "dar_favorito" onclick="unfav(<%=favorite.id %>, <%=current_user.id%>, <%=@post.id%>)">
+                    <span class="corazon_apretado" onclick="cambiar_clase_corazon(this)">
+                    &#9829;
+                    </span>
+                  </a> 
+                <% else %>
+                  <a id = "dar_favorito" onclick="fav(<%=current_user.id%>, <%=@post.id%>)">
+                    <span class="corazon_no_apretado" onclick="cambiar_clase_corazon(this)">
+                    &#9829;
+                    </span>
+                  </a> 
+                <% end %> 
+                
+                <a id = "countlike" onclick="like(<%=@post.id%>)" class = "asa"> 
+                  &#128077;
+                  <span class="votes-like-count " id="likes-vote-<%= @post.id %>">
+                    <%= @post.get_likes.size%>
+                  </span>
+                </a>
+                <a id = "countdislike" onclick="dislike(<%=@post.id%>)"  class = "asa"> 
+                  &#128078;
+                  <span class="votes-dislike-count" id="dislikes-vote-<%= @post.id %>">
+                    <%= @post.get_dislikes.size%>
+                  </span>
+                </a>
+              <% else %>
+              <p onclick="window.event.stopPropagation();">Total
+              <%=  @post.points %>
+              &#128077;<%= @post.get_likes.size%>
+              &#128078;<%= @post.get_dislikes.size%>
+              </p>
+                
+              <% end %>
+            </div>
+          </div>
+        </h5>
+      </div>
     </div>
   </div>
 
@@ -137,7 +138,7 @@
           </div>
         </div>          
 
-      <div onclick="cambiaVisibilidad()"><a id="accionar"><%= markdown('Esta página soporta _sintaxis_ de _**Markdown**_') %></a></div>
+      <div onclick="cambiaVisibilidad()"><a id="accionar" class="link_normal"><%= markdown('Esta página soporta _sintaxis_ de _**Markdown**_') %></a></div>
       <div style="display:none;" id="markdown_hide">
         <div class="row-fluid" style="text-align: left;">
          <%= markdown('
