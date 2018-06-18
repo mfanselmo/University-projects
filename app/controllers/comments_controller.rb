@@ -32,6 +32,9 @@ class CommentsController < ApplicationController
   def destroy
     @post = Post.find(params[:post_id])
     @comment = @post.comments.find(params[:id])
+    Notification.all.each do |noti|
+      noti.destroy if noti.notifiable == @comment
+    end
     @comment.destroy
     redirect_to post_path(@post)
   end
