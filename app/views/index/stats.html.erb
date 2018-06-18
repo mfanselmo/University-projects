@@ -30,9 +30,11 @@
           <% if user_signed_in? %>
 
             <% if subscripciones(current_user).include? forum.id  %>
-              <td><a id= "subs_button_<%=forum.id%>" onclick="unsubs(<%= Subscription.find_by(:user_id => current_user.id, :forum_id => forum.id).id %>, id: 'linksForum')">Desuscribirse</a></td>
+              <td><a class="link_normal" id= "subs_button_<%=forum.id%>" 
+                onclick="unsubs(<%= Subscription.find_by(:user_id => current_user.id, :forum_id => forum.id).id %>)"> Desuscribirse</a></td>
             <% else %>
-              <td><a id= "subs_button_<%=forum.id%>" onclick="subs(<%=current_user.id%>, <%=forum.id%>)">Suscribirse</a></td>
+              <td><a class="link_normal" id= "subs_button_<%=forum.id%>" 
+                onclick="subs(<%=current_user.id%>, <%=forum.id%>)">Suscribirse</a></td>
             <% end %>
           <% end %>
 
@@ -76,7 +78,7 @@
     <div class="row">
       <!-- cantidad de posts hechos por foro por fecha -->
       <div class="col-md-6">
-        <%= line_chart @forums.map { |forum|
+        <%= line_chart @forums[0..9].map { |forum|
         {name: forum.name, data: forum.posts.group_by_day(:created_at).count}
           }, messages: {empty: "No hay datos"}, xtitle: "Fecha",
             ytitle: "Posts por día (foros)" %>

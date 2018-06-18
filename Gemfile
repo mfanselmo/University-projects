@@ -70,6 +70,6 @@ gem 'will_paginate', '~> 3.1.1'
 gem 'koala'
 gem 'omniauth-facebook'
 
-gem "chartkick"
+gem "chartkick", "~> 2.3.4"
 gem 'groupdate'
 gem 'faker'

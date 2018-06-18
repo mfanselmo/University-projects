@@ -277,7 +277,7 @@ DEPENDENCIES
   byebug
   capybara (~> 2.13)
   carrierwave
-  chartkick
+  chartkick (~> 2.3.4)
   coffee-rails (~> 4.2)
   devise
   faker
