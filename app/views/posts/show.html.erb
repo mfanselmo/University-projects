@@ -208,6 +208,8 @@ También se puede
                      :method => :delete %>
 
                   <% elsif  current_user.admin? or moderadores(@post.forum).include? current_user.id %>
+                  <%= link_to 'Editar', edit_post_path(@post),
+                          :id => "link_normal" %> |
                     <%= link_to 'Borrar', [comment.post, comment],
                      :confirm => '¿Estas seguro que deseas borrarlo?',
                      :class => 'link_normal',

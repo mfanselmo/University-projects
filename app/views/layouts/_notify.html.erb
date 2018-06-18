@@ -34,7 +34,9 @@
           <% end %>
         <% elsif notification.notifiable_type == "Comment" %>
           <% comment = Comment.find_by(id: notification.notifiable_id) %>
-          <%# object = nil %>
+          <% if comment == nil %>
+            <% next %>
+          <% end %> 
           <% object = Post.find_by(id: comment.post_id) %>
           <% if object == nil %>
             <% next %>
@@ -48,6 +50,9 @@
           <% title = "Postulación" %>
         <% elsif notification.notifiable_type == "Moderator" %>
           <% object = Moderator.find_by(id: notification.notifiable_id) %>
+          <% if object == nil %>
+            <% next %>
+          <% end %> 
           <% link = "../forums/#{object.forum_id}" %>
           <% title = "Moderador" %>
         <% elsif notification.notifiable_type == "User" %>
