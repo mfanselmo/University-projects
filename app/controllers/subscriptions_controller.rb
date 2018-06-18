@@ -37,6 +37,9 @@ class SubscriptionsController < ApplicationController
       @user = User.find_by(id: params[:user_id])
       @forum.send_mail(@user)
     end
+    Rails.application.executor.wrap do
+      render json: { result: false, info: { id: 0, count: 0 } }
+    end
   end
 
   # PATCH/PUT /subscriptions/1

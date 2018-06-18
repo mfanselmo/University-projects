@@ -276,7 +276,7 @@ User.all.each do |user|
 		begin
 			sub = Subscription.new
 			sub.user_id = user.id
-			forum =  Forum.find(rand(1..Forum.count))
+			forum =  Forum.find(i)
 			sub.forum_id = forum.id
 			# sub.created_at = random
 			sub.created_at = time_rand [user.created_at, forum.created_at].max
