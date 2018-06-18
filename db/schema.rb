@@ -86,6 +86,7 @@ ActiveRecord::Schema.define(version: 20180604032113) do
     t.index ["forum_id"], name: "index_posts_on_forum_id"
   end
 
+
   create_table "postulations", force: :cascade do |t|
     t.integer "user_id"
     t.integer "forum_id"

@@ -11,6 +11,7 @@ class Forum < ApplicationRecord
 
   validates :name, presence: true,
                    length: { minimum: 1 }
+  validates :description, presence: true
 
   def self.search(search)
     where('name LIKE ?', "%#{search}%")
