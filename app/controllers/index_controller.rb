@@ -2,6 +2,7 @@
 
 class IndexController < ApplicationController
   protect_from_forgery with: :exception
+  before_action :authenticate_user!, only: %i[stats]
 
   def index
     @currentUser = current_user.id
