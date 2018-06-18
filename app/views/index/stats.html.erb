@@ -78,6 +78,7 @@
     <div class="row">
       <!-- cantidad de posts hechos por foro por fecha -->
       <div class="col-md-6">
+        <h2>Posts por día</h2>
         <%= line_chart @forums[0..9].map { |forum|
         {name: forum.name, data: forum.posts.group_by_day(:created_at).count}
           }, messages: {empty: "No hay datos"}, xtitle: "Fecha",
@@ -86,6 +87,7 @@
 
       <!-- cantidad de comentarios hechos por post por fecha -->
       <div class="col-md-6">
+        <h2>Comentarios por día</h2>
         <%= line_chart @posts.map { |post|
         {name: post.title, data: post.comments.group_by_day(:created_at).count}
           }, messages: {empty: "No hay datos"}, xtitle: "Fecha",
@@ -96,11 +98,13 @@
     <div class="row">
       <!-- cantidad subscriptores por foro -->
       <div class="col-md-6">
+        <h2>Cantidad de subscriptores por foro</h2>
         <%= pie_chart @sub_count, donut: true, messages: {empty: "No hay datos"} %>
       </div>
 
       <!-- cantidad de usuarios creados por fecha -->
       <div class="col-md-6">
+        <h2>Usuarios nuevos por día</h2>
         <%= area_chart User.group_by_day(:created_at).count, xtitle: "Fecha",
             ytitle: "Usuarios creados por día" %>    
       </div>
@@ -109,6 +113,7 @@
     <div class="row">
       <!-- cantidad puntos usuario -->
       <div class="col-md-12">
+        <h2>Puntos por usuario</h2>
         <%= bar_chart @user_points, xtitle: "Puntos",
             ytitle: "Usuario" %>
       </div>
