@@ -28,16 +28,19 @@ class IndexController < ApplicationController
     end
 
     @users = User.all.sort_by(&:points).reverse[0..9]
-    @posts = Post.all.sort_by(&:com_size).reverse[0..9]
 
-    @user_points = []
-    @users.each do |user|
-      # toma los puntajes de cada usuario
-      @user_points.push([user.username, user.points()])
+    if user_signed_in? and current_user.admin?
+      @posts = Post.all.sort_by(&:com_size).reverse[0..9]
+
+      @user_points = []
+      @users.each do |user|
+        # toma los puntajes de cada usuario
+        @user_points.push([user.username, user.points()])
+      end
+      response = { forums: @forums, users: @users, posts: @posts,
+                   sub_count: @sub_count, user_points: @user_points }
     end
-
-    response = { forums: @forums, users: @users, posts: @posts,
-                 sub_count: @sub_count, user_points: @user_points }
+    response = { forums: @forums, users: @users}
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: response }
