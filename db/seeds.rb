@@ -4,16 +4,16 @@ def time_rand from = Time.local(2018, 5, 1), to = Time.now
 	Time.at(from + rand*(to.to_f - from.to_f))
 end
 
-POST_HARRY = 50
-POST_CHUCK = 50
-POST_GOT = 50
-POST_POSTRES = 50
-POST_PERROS = 50
-MAXIMO_LIKES_POR_POST = 25 # 25
-MAXIMO_DISLIKES_POR_POST = 15 # 15
-MIN_COM_POR_POST = 5 # 5
-MAX_COM_POR_POST = 25 # 25
-MAX_FAVORITOS = 20 # 20
+POST_HARRY = 5
+POST_CHUCK = 5
+POST_GOT = 5
+POST_POSTRES = 5
+POST_PERROS = 5
+MAXIMO_LIKES_POR_POST = 2 # 25
+MAXIMO_DISLIKES_POR_POST = 1 # 15
+MIN_COM_POR_POST = 1 # 5
+MAX_COM_POR_POST = 4 # 25
+MAX_FAVORITOS = 2 # 20
 
 
 Forum.destroy_all
@@ -293,7 +293,7 @@ Post.all.each do |post|
 	numero_likes = rand(1..MAXIMO_LIKES_POR_POST)
 	(1..numero_likes).each do |like|
 		begin
-			post.upvote_from User.find(rand(1..User.find))
+			post.upvote_from User.find(rand(1..User.count))
 		rescue
 			puts "Ya le hizo like"
 		end
@@ -307,7 +307,7 @@ Post.all.each do |post|
 	numero_dislikes = rand(1..MAXIMO_DISLIKES_POR_POST)
 	(1..numero_dislikes).each do |dislike|
 		begin
-			post.downvote_from User.find(rand(1..User.find))
+			post.downvote_from User.find(rand(1..User.count))
 		rescue
 			puts "Ya le hizo dislike"
 		end
