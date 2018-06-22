@@ -63,12 +63,14 @@
         <%= form.text_field :name, value: current_user.username, style: "#{'display:none';}" %><br />
       </div>
       <div class="form-group">
-        <%= form.text_field :title, class: 'form-control', placeholder: 'Titulo' %>
+        <%= form.text_field :title, class: 'form-control', placeholder: 'Titulo', id: "form_titulo_post" %>
       </div>
 
       <div class="form-group">
-        <%= form.text_area :content, class: 'form-control', placeholder:'Contenido' %>
+        <%= form.text_area :content, class: 'form-control', placeholder:'Contenido',  id: 'form_contenido_post', onchange: 'sendCodePost()' %>
       </div>
+
+      <div id="show_md_post" style="display: none;"></div>
 
       <div class="row">
         <div class="col-sm-6">
@@ -85,6 +87,9 @@
             <span style="display:none;">
               <%= form.submit  %>
             </span>
+          </label>
+          <label class="btn btn-primary btn-sm pull-right" id="boton_preview_post" style="margin-right: 1em;" onclick="change_post_to_preview()">
+              Preview
           </label>
         </div>
       </div>       
@@ -139,3 +144,4 @@ También se puede
 
 
 </div>
+
