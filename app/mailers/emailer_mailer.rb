@@ -31,10 +31,13 @@ class EmailerMailer < ApplicationMailer
     end
   end
 
+
   def subscriptores_forum(forum)
     @lista = []
-    forum.subscriptions.each do |sub|
-      @lista << sub.user_id
+    if not forum.nil?
+      forum.subscriptions.each do |sub|
+        @lista << sub.user_id
+      end
     end
     @lista
   end

@@ -26,6 +26,8 @@ class User < ApplicationRecord
 
   has_many :notifications, foreign_key: :recipient_id
 
+  has_many :attempts, dependent: :destroy
+
   def user_params
     params.require(:user).permit(:user, :email, :avatar, :remove_avatar, :avatar_cache)
   end
