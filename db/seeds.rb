@@ -338,3 +338,35 @@ Post.all.each do |post|
 	puts "Favoritos post #{post.id} listos"
 
 end
+
+
+# Likes a comentarios
+
+Comment.all.each do |comment|
+	numero_likes = rand(1..MAXIMO_LIKES_POR_COMENTARIO)
+	(1..numero_likes).each do |like|
+		begin
+			comment.upvote_from User.find(rand(1..User.count))
+		rescue
+			puts "Ya le hizo like"
+		end
+	end
+	puts "likes comentarios #{comment.id} listos"
+end
+
+# dislikes a comentarios
+
+Comment.all.each do |comment|
+	numero_dislikes = rand(1..MAXIMO_DISLIKES_POR_COMENTARIO)
+	(1..numero_dislikes).each do |dislike|
+		begin
+			comment.downvote_from User.find(rand(1..User.count))
+		rescue
+			puts "Ya le hizo dislike"
+		end
+	end
+	puts "dislikes commentario #{comment.id} listos"
+
+end
+
+
