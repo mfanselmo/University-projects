@@ -7,7 +7,11 @@ class Subscription < ApplicationRecord
   after_create :subscription_send  
   def subscription_send
   	begin
-    	EmailerMailer.subscription_mail(user, forum).deliver_now
+      Thread.new do
+        Rails.application.executor.wrap do
+    	    EmailerMailer.subscription_mail(user, forum).deliver_now
+        end
+      end
   	rescue
   		puts 'Hubo un error'
   	end
