@@ -2,6 +2,7 @@
 
 
     <div onclick="funcion_click('<%= post_path(post) %>');" class="media" id = "cada_post_1">
+      <div class="row">
 
       <div class="media-left media-top">
         <!-- <img src="img_avatar1.png" class="media-object" style="width:60px"> -->
@@ -15,8 +16,9 @@
       <div class="media-body" style="text-align: '.' start;">
         <h4 class="media-heading" >
             <div id="container">
-              <div id="con_1"> <%= link_to post.title, post, :id => "link_normal" %> </div>
-              <div id="con_2"> <i><small><%= time_ago_in_words (Time.now - post.created_at).seconds.from_now %> ago by <%= post.name %></small></i></div>
+              <div id="con_1" style="overflow-wrap:break-word;"> 
+                <%= link_to post.title, post, :id => "link_normal" %> </div>
+              <div id="con_2"><small><i><%= time_ago_in_words (Time.now - post.created_at).seconds.from_now %> ago by <%= post.name %></i></small></div>
               <div id="con_4">
               
               <small>
@@ -51,18 +53,23 @@
           </div>
         </h4>
         </br>
-
+        <div class="row"></div>
 
         <p><%= markdown(post.content) %></p>
         <p><%= image_tag post.image.medium %></p>
+        <% @poll = post.polls.first || nil %>
+        <% if @poll %>
+          <p><%= render :template => "polls/show", locals: {:poll => @poll, :votable => false, :post => post} %></p>
+        <% end %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="media-left"></div>
+      <div class="media-body">
         <h5>
           <div id="container" onclick="window.event.stopPropagation();">
-          <div id="con_1"> <em><%= post.comments.count %> comentario(s)</em></div>
-          <div id="con_3">
-          </div>
-              
-            <div id="con_4">
-                  
+            <div id="con_1"> <em><%= post.comments.count %> comentario(s)</em></div>
+            <div id="con_4"> 
               <% if user_signed_in? %>
                   Total
                   <span class="post-points" id="points-vote-<%= post.id %>">
@@ -88,7 +95,6 @@
                   <span class="votes-like-count " id="likes-vote-<%= post.id %>">
                     <%= post.get_likes.size%>
                   </span>
-
                 </a>
                 <a id = "countdislike" onclick="dislike(<%=post.id%>)"  class = "asa"> 
                   &#128078;
@@ -104,12 +110,10 @@
               </p>
                 
               <% end %>
-              
-      
-
             </div>
           </div>
         </h5>
       </div>
+    </div>
     </div>
 

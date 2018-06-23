@@ -9,7 +9,7 @@ function subs(user_id, forum_id){
             if(data.result){
             	console.log(data);
                 $("#subs_button_" + forum_id).html("Desuscribirse");
-                $("#subs_button_" + forum_id).attr("onclick", "unsubs(" + data.info.id + ")")
+                $("#subs_button_" + forum_id).attr("onclick", "unsubs(" + data.info.id + ")");
                 $("#subs_count").html(data.info.count)
             }
         }
@@ -28,7 +28,7 @@ function unsubs(subs_id){
             	console.log(data);
                 $("#subs_button_" + data.info.forum_id).html("Suscribirse");
                 $("#subs_button_" + data.info.forum_id).attr("onclick", "subs(" + 
-                	data.result.user_id + ", " + data.result.forum_id + ")")
+                	data.result.user_id + ", " + data.result.forum_id + ")");
                 $("#subs_count").html(data.info.count)
                 // $("#count").removeAttr('onclick');
                 // $("#count").attr('disabled', 'disabled');

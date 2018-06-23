@@ -1,3 +1,18 @@
+Rails/Output:
+  Enabled: false
+
+Lint/UselessAssignment:
+  Enabled: false
+
+Style/GuardClause:
+  Enabled: false
+
+Rails/InverseOf:
+  Enabled: false
+
+Metrics/BlockLength:
+  Max: 100
+
 Style/ClassVars:
   Enabled: false
 
@@ -63,7 +78,7 @@ Metrics/LineLength:
   IgnoredPatterns: ['\A\s*#']
 
 Metrics/LineLength:
-  Max: 140
+  Max: 200
 
 Metrics/CyclomaticComplexity:
   Max: 11

@@ -3,14 +3,15 @@
 class Forum < ApplicationRecord
   has_many :posts, dependent: :destroy
 
-  has_many :subscriptions
+  has_many :subscriptions, dependent: :destroy
   has_many :users, through: :subscriptions
 
-  has_many :moderators
+  has_many :moderators, dependent: :destroy
   has_many :users, through: :moderators
 
   validates :name, presence: true,
                    length: { minimum: 1 }
+  validates :description, presence: true
 
   def self.search(search)
     where('name LIKE ?', "%#{search}%")
@@ -43,4 +44,9 @@ class Forum < ApplicationRecord
       end
     end
   end
+
+  def self.cant_subs
+    [Forum.subscriptions.size]
+  end
+
 end

@@ -2,7 +2,7 @@
 
 class PostsController < ApplicationController
   # http_basic_authenticate_with :name => "dhh", :password => "secret", :except => [:index, :show]
-
+  include ActionView::Helpers::TextHelper
   before_action :set_post, only: %i[show edit update destroy]
   before_action :authenticate_user!, only: %i[create destroy edit]
 
@@ -27,6 +27,11 @@ class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
     @user = User.find_by(username: @post.name)
+    @poll = @post.polls.first || nil
+    if @poll
+      @attempt = Attempt.new
+    end
+    # votable = true
   end
 
   # GET /posts/new
@@ -46,7 +51,15 @@ class PostsController < ApplicationController
   def create
     @forum = Forum.find(params[:forum_id])
     @post = @forum.posts.create(params[:post].permit(:name, :title, :content, :image, :remove_image))
-    msg = current_user.username + ' creó un post en foro suscrito: ' + @forum.name
+    # data = params["post"]["polls"]
+    # data["questions"].delete_if {|key, value| value == {"content"=>""} }
+    # questions_data = data["questions"].permit!
+    # new_data = data.delete_if {|key, value| key == "questions" }
+    # new_data["questions_attributes"] = {"0" => questions_data.to_h}
+    # puts new_data
+    # @poll = Poll.new(new_data)
+    # puts data
+    msg = current_user.username + ' creó un post en foro suscrito: ' + truncate(@forum.name, lenght: 20)
     @forum.notify(current_user, @post, msg)
     # EmailMailer.with(forum: @forum, post: @post).new_post_mail.deliver_now
     redirect_to forum_path(@forum)
@@ -69,9 +82,13 @@ class PostsController < ApplicationController
   # DELETE /posts/1
   # DELETE /posts/1.json
   def destroy
+    @forum = Forum.find(@post.forum_id)
+    Notification.all.each do |noti|
+      noti.destroy if noti.notifiable == @post
+    end
     @post.destroy
     respond_to do |format|
-      format.html { redirect_to forums_url, notice: 'Se borro exitosamente el post' }
+      format.html { redirect_to @forum, notice: 'Se borro exitosamente el post' }
       format.json { head :no_content }
     end
   end
@@ -86,5 +103,7 @@ class PostsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def post_params
     params.require(:post).permit(:content, :name, :title, :forum_id, :image, :remove_image)
+    # params.require(:poll).permit(:title, :post_id, questions_attributes: [:id, :poll_id, :content, :_destroy])
+      # {polls_attributes: [:title, :post_id, questions_attributes: [:id, :poll_id, :content, :_destroy]]})
   end
 end

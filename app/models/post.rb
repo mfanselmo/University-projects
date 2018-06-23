@@ -17,6 +17,8 @@ class Post < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :users, through: :favorites
 
+  has_many :polls, dependent: :destroy
+
   after_create :new_post_send
   def new_post_send
     Thread.new do
@@ -54,5 +56,9 @@ class Post < ApplicationRecord
   def notify(creator, object, message)
     observer = User.find_by(username: name)
     Notification.create(recipient: observer, user: creator, action: message, notifiable: object) if creator != observer
+  end
+
+  def com_size
+    self.comments.size
   end
 end
