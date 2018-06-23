@@ -4,22 +4,24 @@ def time_rand from = Time.local(2018, 5, 1), to = Time.now
 	Time.at(from + rand*(to.to_f - from.to_f))
 end
 
-POST_HARRY = 25
-POST_CHUCK = 25
-POST_GOT = 25
-POST_POSTRES = 25
-POST_PERROS = 25
-MAXIMO_LIKES_POR_POST = 25 # 25
-MAXIMO_DISLIKES_POR_POST = 15 # 15
-MIN_COM_POR_POST = 5 # 5
-MAX_COM_POR_POST = 25 # 25
-MAX_FAVORITOS = 20 # 20
-MAXIMO_LIKES_POR_COMENTARIO = 15
-MAXIMO_DISLIKES_POR_COMENTARIO = 10
+POST_HARRY = 15 # 25
+POST_CHUCK = 15 # 25
+POST_GOT = 15 # 25
+POST_POSTRES = 15 # 25
+POST_PERROS = 15 # 25
+MAXIMO_LIKES_POR_POST = 15 # 25
+MAXIMO_DISLIKES_POR_POST = 6 # 15
+MIN_COM_POR_POST = 1 # 5
+MAX_COM_POR_POST = 5 # 25
+MAX_FAVORITOS = 10 # 20
+MAXIMO_LIKES_POR_COMENTARIO = 5 
+MAXIMO_DISLIKES_POR_COMENTARIO = 4
 
 
 Forum.destroy_all
 User.destroy_all
+Subscription.destroy_all
+Favorite.destroy_all
 
 forum_idea = Forum.new
 forum_idea.name = "Ideas"
