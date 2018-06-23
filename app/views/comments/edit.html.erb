@@ -1,8 +1,6 @@
 
-
-
 <% if user_signed_in? %>
-	<% if current_user.username == @post.name or current_user.admin? or moderadores(@post.forum).include? current_user.id %> 
+	<% if current_user.username == @comment.commenter or current_user.admin? or moderadores(@post.forum).include? current_user.id %> 
 
 		<h1>Editando comentario</h1>
 

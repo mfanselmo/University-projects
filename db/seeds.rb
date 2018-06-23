@@ -4,16 +4,18 @@ def time_rand from = Time.local(2018, 5, 1), to = Time.now
 	Time.at(from + rand*(to.to_f - from.to_f))
 end
 
-POST_HARRY = 5
-POST_CHUCK = 5
-POST_GOT = 5
-POST_POSTRES = 5
-POST_PERROS = 5
-MAXIMO_LIKES_POR_POST = 2 # 25
-MAXIMO_DISLIKES_POR_POST = 1 # 15
-MIN_COM_POR_POST = 1 # 5
-MAX_COM_POR_POST = 4 # 25
-MAX_FAVORITOS = 2 # 20
+POST_HARRY = 25
+POST_CHUCK = 25
+POST_GOT = 25
+POST_POSTRES = 25
+POST_PERROS = 25
+MAXIMO_LIKES_POR_POST = 25 # 25
+MAXIMO_DISLIKES_POR_POST = 15 # 15
+MIN_COM_POR_POST = 5 # 5
+MAX_COM_POR_POST = 25 # 25
+MAX_FAVORITOS = 20 # 20
+MAXIMO_LIKES_POR_COMENTARIO = 15
+MAXIMO_DISLIKES_POR_COMENTARIO = 10
 
 
 Forum.destroy_all
@@ -276,7 +278,7 @@ User.all.each do |user|
 		begin
 			sub = Subscription.new
 			sub.user_id = user.id
-			forum =  Forum.find(rand(1..Forum.count))
+			forum =  Forum.find(i)
 			sub.forum_id = forum.id
 			# sub.created_at = random
 			sub.created_at = time_rand [user.created_at, forum.created_at].max
@@ -338,3 +340,35 @@ Post.all.each do |post|
 	puts "Favoritos post #{post.id} listos"
 
 end
+
+
+# Likes a comentarios
+
+Comment.all.each do |comment|
+	numero_likes = rand(1..MAXIMO_LIKES_POR_COMENTARIO)
+	(1..numero_likes).each do |like|
+		begin
+			comment.upvote_from User.find(rand(1..User.count))
+		rescue
+			puts "Ya le hizo like"
+		end
+	end
+	puts "likes comentarios #{comment.id} listos"
+end
+
+# dislikes a comentarios
+
+Comment.all.each do |comment|
+	numero_dislikes = rand(1..MAXIMO_DISLIKES_POR_COMENTARIO)
+	(1..numero_dislikes).each do |dislike|
+		begin
+			comment.downvote_from User.find(rand(1..User.count))
+		rescue
+			puts "Ya le hizo dislike"
+		end
+	end
+	puts "dislikes commentario #{comment.id} listos"
+
+end
+
+

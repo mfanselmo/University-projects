@@ -32,6 +32,9 @@ class CommentsController < ApplicationController
   def destroy
     @post = Post.find(params[:post_id])
     @comment = @post.comments.find(params[:id])
+    Notification.all.each do |noti|
+      noti.destroy if noti.notifiable == @comment
+    end
     @comment.destroy
     redirect_to post_path(@post)
   end
@@ -55,7 +58,7 @@ class CommentsController < ApplicationController
     result = @comment.upvote_from current_user if user_signed_in?
     if result
       @post = Post.find(@comment.post_id)
-      msg = 'Has recibido un like en comentario del post' + @post.title
+      msg = 'Has recibido un like en comentario del post: ' + @post.title
       @comment.notify(current_user, @comment, msg)
     end
     render json: { result: result, count: { votes:
@@ -69,7 +72,7 @@ class CommentsController < ApplicationController
     result = @comment.downvote_from current_user if user_signed_in?
     if result
       @post = Post.find(@comment.post_id)
-      msg = 'Has recibido un dislike en comentario del post' + truncate(@post.title, lenght: 20)
+      msg = 'Has recibido un dislike en comentario del post: ' + truncate(@post.title, lenght: 20)
       @comment.notify(current_user, @comment, msg)
     end
     render json: { result: result, count: { votes:
