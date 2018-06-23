@@ -9,7 +9,7 @@ class Comment < ApplicationRecord
 
   mount_uploader :image, ImageUploader
 
-  # after_create :new_comment_send
+  after_create :new_comment_send
   def new_comment_send
     Thread.new do
       Rails.application.executor.wrap do

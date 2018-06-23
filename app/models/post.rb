@@ -19,7 +19,7 @@ class Post < ApplicationRecord
 
   has_many :polls, dependent: :destroy
 
-  # after_create :new_post_send
+  after_create :new_post_send
   def new_post_send
     Thread.new do
       Rails.application.executor.wrap do
