@@ -22,12 +22,12 @@
       <% if user_signed_in? %>
 
         <% if subscripciones(current_user).include? @forum.id  %>
-          <td><a class='btn btn-default btn-xs' id= "subs_button_<%=@forum.id%>" 
+          <td><a class='btn btn-primary' id= "subs_button_<%=@forum.id%>" 
             onclick="unsubs(<%= Subscription.find_by(:user_id => current_user.id, 
             :forum_id => @forum.id).id %>)">Desuscribirse</a></td>
         <% else %>
-          <td><a class='btn btn-default btn-xs' id= "subs_button_<%=@forum.id%>" 
-            class="link_normal" onclick="subs(<%=current_user.id%>, <%=@forum.id%>)">Suscribirse</a></td>
+          <td><a class='btn btn-primary' id= "subs_button_<%=@forum.id%>" 
+          onclick="subs(<%=current_user.id%>, <%=@forum.id%>)">Suscribirse</a></td>
         <% end %>
       <% end %>
 
@@ -49,7 +49,7 @@
     <% end %> 
 
     <% if user_signed_in? and current_user.admin? %>
-      <%= link_to 'Editar foro', edit_forum_path(@forum), :id => "link_normal" %> 
+      <%= link_to 'Editar foro', edit_forum_path(@forum), class: 'btn btn-primary', style:"color:white;"%>
     <% end %>
     </div>
   </div>
