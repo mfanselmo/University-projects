@@ -104,7 +104,7 @@
           <% end %>
         <% end %>
 
-      <div class="col-md-offset-2">
+      <div class="col-md-offset-3">
           <div class="digg_pagination">
             <%= will_paginate posts, :container => false %>
           </div>
@@ -162,7 +162,7 @@
       <% posts.each do |post| %>
         <%= render 'index/todos_los_post', post: post,  mi_tipo: "cada_post_1"%>
       <% end %>
-      <div class="col-md-offset-2">
+      <div class="col-md-offset-3">
         <div class="digg_pagination">
           <%= will_paginate posts, :container => false %>
         </div>
