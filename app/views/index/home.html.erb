@@ -104,13 +104,11 @@
           <% end %>
         <% end %>
 
-      <div class="col-md-4"></div>
-      <div class="col-md-6">
-        <div class="digg_pagination">
-          <%= will_paginate posts, :container => false %>
-        </div>
+      <div class="col-md-offset-2">
+          <div class="digg_pagination">
+            <%= will_paginate posts, :container => false %>
+          </div>
       </div> 
-      <div class="col-md-2"></div> 
       </div>
   </div>
        
@@ -164,13 +162,11 @@
       <% posts.each do |post| %>
         <%= render 'index/todos_los_post', post: post,  mi_tipo: "cada_post_1"%>
       <% end %>
-      <div class="col-md-4"></div>
-      <div class="col-md-6">
+      <div class="col-md-offset-2">
         <div class="digg_pagination">
           <%= will_paginate posts, :container => false %>
         </div>
-      </div> 
-      <div class="col-md-2"></div>
+      </div>
       </div>
 
     </div>

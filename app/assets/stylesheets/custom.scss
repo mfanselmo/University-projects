@@ -513,3 +513,10 @@ digg_pagination {
     height: 1%; }
   *:first-child + html .digg_pagination {
     overflow: hidden; }
+
+.center-block {
+    float: none;
+    display: block;
+    margin: 0 auto;
+    /* margin-left: auto; margin-right: auto; */
+}
