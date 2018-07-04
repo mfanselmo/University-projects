@@ -29,7 +29,9 @@
 	    <% end %>
 	  </tbody>
 	</table>
-	<%= will_paginate @users %>
+  <div class="digg_pagination">
+    <%= will_paginate @users, :container => false %>
+  </div> 
 
 	<br>
 
@@ -51,19 +53,6 @@
 	  <tbody>
 	    <% Postulation.all.each do |pos| %>
 	      <tr>
-	      	<!--
-	      	<% user = User.find(pos.user_id) %>
-	      	<%# forum = Forum.find(pos.forum_id) %>
-	      	<%# info = activity(user, forum) %>
-	      	<%# info["posts"].each do |data| %>
-		      	<p>Post: <%#= data["post"].title %></p>
-		      	<%# data["comment"].each do |c| %>
-		      		<p>Comentario: <%#= c.commenter %></p>
-		      	<%# end %>
-	      	<%# end %>
-	      	<%# info["comments"].each do |data| %>
-		      	<p>Comentario out: <%#= data.commenter %></p>
-	      	<%# end %>-->
 	      	<% user = User.find(pos.user_id) %>
 
 	      	<%if pos.forum_id != 0 %> 

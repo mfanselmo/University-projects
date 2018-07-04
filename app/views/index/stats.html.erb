@@ -24,7 +24,7 @@
     <tbody>
       <% @forums.each do |forum| %>
         <tr class='clickable-row' data-href='url://'>
-          <td><%= link_to forum.name, forum, { :class=> "linksForum" }%></td>
+          <td><%= link_to forum.name, forum, { :class=> "link_normal" } %></td>
           <td><%= subscriptores(forum).length %></td>
 
           <% if user_signed_in? %>
@@ -39,8 +39,9 @@
           <% end %>
 
           <% if user_signed_in? and current_user.admin? %>
-            <td><%= link_to 'Editar foro', edit_forum_path(forum) %></td>
-            <td><%= link_to 'Eliminar foro', forum, method: :delete, data: { confirm: '¿Estás seguro?' } %></td>
+            <td><%= link_to 'Editar foro', edit_forum_path(forum), id: "link_normal" %></td>
+            <td><%= link_to 'Eliminar foro', forum, method: :delete, data: { confirm: '¿Estás seguro?' },
+            id: "link_normal" %></td>
           <% end %>          
         </tr>
       <% end %>
