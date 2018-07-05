@@ -38,7 +38,7 @@
       <% end %>
     </div>
     <div class="media-right media-top">
-      <div id="con_4" style="width: 100px">
+      <div id="con_4" style="width: 100px; font-size: 16px;">
         <small>
         <% if user_signed_in? %> 
           <% if current_user.username == @post.name %>
@@ -235,7 +235,7 @@ También se puede
             <div class="row">
               <div id="con_1"></div>
               <div id="con_3"></div>
-              <div id="con_4" style="margin-right: 30px">
+              <div id="con_4" style="margin-right: 30px; font-size: 16px;">
                 <% if user_signed_in? %>
                   Total
                   <span class="c-post-points" id="c-points-vote-<%= comment.id %>">
