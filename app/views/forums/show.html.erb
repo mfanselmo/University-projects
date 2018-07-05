@@ -37,12 +37,14 @@
 
       <%  if moderadores(@forum).include? current_user.id %>
         <p id="postulate_text" style="margin-bottom: 5px"> Eres moderador </p>
-        <a id="action_postulate" onclick="unmoderate(<%=Moderator.find_by(:user_id => current_user.id, :forum_id => @forum.id).id%>, <%=current_user.id%>, <%=@forum.id%>)" class="link_normal">Dejar de ser moderador</a>
+        <a class='btn btn-primary' id="action_postulate" 
+        onclick="unmoderate(<%=Moderator.find_by(:user_id => current_user.id, :forum_id => @forum.id).id%>, <%=current_user.id%>, <%=@forum.id%>)" style="color:white;">Dejar de ser moderador</a>
 
         <% elsif points_user(@forum, current_user) >= 5 and not esta_postulando(current_user, @forum)%>
         <p id="postulate_text" style="margin-bottom: 5px"> Podrias ser moderador de este foro! </p>
         <%#= link_to "Postular", postulations_path(:user_id => current_user.id, :forum_id => @forum.id), :method => :post%>
-        <a id="action_postulate" onclick="postulate(<%=current_user.id%>, <%=@forum.id%>)" class="link_normal">Postular </a>
+        <a class='btn btn-primary' id="action_postulate" style="color:white;"
+        onclick="postulate(<%=current_user.id%>, <%=@forum.id%>)" >Postular </a>
         <% elsif points_user(@forum, current_user) >= 5 and esta_postulando(current_user, @forum)%>
         <p> Ya estas postulando para ser moderador de este foro!  </p>
       <% end %>

@@ -64,9 +64,9 @@
 	        <% else %>
    			  <td>Administrador</td>
    			  <td>Visualizacion de mod</td>
-	          <td><a id="accept_button_<%=pos.user_id%>_<%=pos.forum_id%>" onclick="administrate(<%=pos.user_id%>)">Aceptar</a></td>
+	          <td><a class="link_normal" id="accept_button_<%=pos.user_id%>_<%=pos.forum_id%>" onclick="administrate(<%=pos.user_id%>)">Aceptar</a></td>
 	        <% end %> 
-	        <td><a id="delete_button_<%=pos.user_id%>_<%=pos.forum_id%>" onclick="unpostulate(<%=Postulation.find_by(:user_id => pos.user_id, :forum_id => pos.forum_id).id%>, <%=pos.user_id%>, <%=pos.forum_id%>)">Rechazar</a></td>
+	        <td><a class="link_normal" id="delete_button_<%=pos.user_id%>_<%=pos.forum_id%>" onclick="unpostulate(<%=Postulation.find_by(:user_id => pos.user_id, :forum_id => pos.forum_id).id%>, <%=pos.user_id%>, <%=pos.forum_id%>)">Rechazar</a></td>
 
 	      </tr>
 	    <% end %>
@@ -88,3 +88,8 @@
 
 
 <% end %>
+<br>
+<br>
+<br>
+<br>
+<br>
