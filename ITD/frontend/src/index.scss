@@ -1,0 +1,48 @@
+@import "~antd/dist/antd.css";
+
+@import "./router/index.scss";
+@import "./components/index.scss";
+
+body {
+  background-color: rgb(190, 208, 214);
+}
+
+.header-container {
+  position: sticky;
+  height: 60px;
+  width: 100%;
+  padding-top: 10px;
+  //   background-color: rgba(243, 243, 243, 0.3);
+  //   font-family: sans-serif;
+  //   backdrop-filter: blur(3px);
+  //   -webkit-backdrop-filter: blur(10px);
+}
+
+.router-container {
+  margin: auto;
+  width: 90%;
+  border-radius: 5px;
+  background-color: #fafafa;
+  border: solid 1px lightgray;
+  padding: 20px;
+  height: 1000px;
+  margin-top: 20px;
+  -webkit-box-shadow: 3px 5px 9px -3px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 3px 5px 9px -3px rgba(0, 0, 0, 0.75);
+  box-shadow: 3px 5px 9px -3px rgba(0, 0, 0, 0.75);
+}
+
+@media (min-width: 768px) {
+  .router-container {
+    margin: auto;
+    margin-top: 20px;
+    width: 70%;
+  }
+}
+
+a {
+  color: black;
+}
+a:hover {
+  color: black;
+}
