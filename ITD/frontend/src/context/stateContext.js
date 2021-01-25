@@ -15,7 +15,7 @@ export const StateProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(() => {
     const phoneNumber = localStorage.getItem("phoneNumber");
     const authToken = localStorage.getItem("authToken");
-    const isManager = localStorage.getItem("isManager");
+    const isManager = localStorage.getItem("isManager") === "true";
 
     if (phoneNumber && authToken) return { phoneNumber, authToken, isManager };
     return null;
