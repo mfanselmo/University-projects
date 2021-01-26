@@ -1,9 +1,9 @@
-export const login = () => {
+export const login = (axios) => {
   return Promise.resolve({
     authentication_token: "smnozAAbYnEX2xVRfS5R",
     is_manager: false,
   });
 };
-export const logout = () => {
+export const logout = (axios) => {
   return Promise.resolve({});
 };

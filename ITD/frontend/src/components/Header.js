@@ -7,8 +7,14 @@ import * as ROUTES from "./../constants/routes";
 const ManagerHeader = () => {
   return (
     <div className={"header"}>
-      <Link to={ROUTES.HOME}>CLup</Link>
-      <Link to={ROUTES.LOGOUT}>Logout</Link>
+      <h1>
+        <Link id={"title"} to={ROUTES.HOME}>
+          CLup
+        </Link>
+      </h1>
+      <div className={"links"}>
+        <Link to={ROUTES.LOGOUT}>Logout</Link>
+      </div>
     </div>
   );
 };
@@ -16,8 +22,14 @@ const ManagerHeader = () => {
 const AuthenticedUserHeader = () => {
   return (
     <div className={"header"}>
-      <Link to={ROUTES.HOME}>CLup</Link>
-      <Link to={ROUTES.LOGOUT}>Logout</Link>
+      <h1>
+        <Link id={"title"} to={ROUTES.HOME}>
+          CLup
+        </Link>
+      </h1>
+      <div className={"links"}>
+        <Link to={ROUTES.LOGOUT}>Logout</Link>
+      </div>
     </div>
   );
 };
@@ -25,11 +37,11 @@ const AuthenticedUserHeader = () => {
 const AnonymousUserHeader = () => {
   return (
     <div className={"header"}>
-      <div className={"title"}>
-        <h1>
-          <Link to={ROUTES.HOME}>CLup</Link>
-        </h1>
-      </div>
+      <h1>
+        <Link id={"title"} to={ROUTES.HOME}>
+          CLup
+        </Link>
+      </h1>
       <div className={"links"}>
         <Link to={ROUTES.LOGIN}>Login</Link>
         <Link to={ROUTES.SIGNUP}>Sign up</Link>

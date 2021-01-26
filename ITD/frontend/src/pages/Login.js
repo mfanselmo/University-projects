@@ -27,12 +27,35 @@ const LoginPage = () => {
 
   return (
     <div>
-      <Form onFinish={onFinish}>
-        <Form.Item name="phoneNumber" rules={[{ required: true }]}>
-          <Input />
+      <h2>Login</h2>
+      <Form onFinish={onFinish} autoComplete={"off"}>
+        <Form.Item
+          label={"Phone number"}
+          name="phoneNumber"
+          rules={[
+            {
+              required: true,
+              message:
+                "Your phone number is required for sign in (format 3xx xxxxxxx)",
+              pattern: new RegExp("^[3]{1}[-s./0-9]*$", "i"),
+              transform: (val) => val.replace(/\D/g, ""),
+              validator: (_, value) =>
+                value.length === 10
+                  ? Promise.resolve()
+                  : Promise.reject("Follow format +39 3xx xxxxxxx"),
+            },
+          ]}
+        >
+          <Input addonBefore={"+39"} />
         </Form.Item>
-        <Form.Item name="password" rules={[{ required: true }]}>
-          <Input />
+        <Form.Item
+          label={"Password"}
+          name="password"
+          rules={[
+            { required: true, message: "Password is required for sign in" },
+          ]}
+        >
+          <Input.Password />
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit">
