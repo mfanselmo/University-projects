@@ -25,7 +25,7 @@ SECRET_KEY = '!h2*2(!%i8&d=eb#t!^7rweblk7)%k9_59+_@g3j79gmz7=lb0'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['api-test22.herokuapp.com']
+ALLOWED_HOSTS = ['api-test22.herokuapp.com','localhost']
 
 
 # Application definition
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'api',
     'rest_framework',
+    'django_seed',
 ]
 
 MIDDLEWARE = [

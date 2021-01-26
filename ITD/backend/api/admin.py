@@ -1,5 +1,9 @@
 from django.contrib import admin
-from .models import Hero
+from .models import *
 # Register your models here.
 
-admin.site.register(Hero)
+admin.site.register(Ticket)
+admin.site.register(User)
+admin.site.register(Position)
+admin.site.register(Store)
+
