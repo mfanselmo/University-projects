@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import * as ROUTES from "./../constants/routes";
 import { requestTicket } from "./../api";
 import { useHistory } from "react-router";
+import { message, Form, Input } from "antd";
 
 const LineUpModal = ({
   openModal,
@@ -11,20 +12,35 @@ const LineUpModal = ({
   setSelectedStoreId,
   availableStores,
   axios,
+  currentUser,
 }) => {
   const [loading, setLoading] = useState(false);
+  const [userPhoneNumber, setUserPhoneNumber] = useState(
+    currentUser ? currentUser.phoneNumber : null
+  );
   const history = useHistory();
 
   const handleConfirm = () => {
+    if (!userPhoneNumber) {
+      message.error("You must enter a phone number!");
+      return;
+    }
+
+    const pattern = new RegExp("^[+]{1}[3]{1}[9]{1}[3]{1}[-s./0-9]{9}$", "i");
+    if (!userPhoneNumber.match(pattern)) {
+      message.error(
+        "Make sure your phone number matches the format 3xxxxxxxxx"
+      );
+      return;
+    }
+
     setLoading(true);
-    requestTicket(axios, selectedStoreId).then((res) => {
+    requestTicket(axios, selectedStoreId, userPhoneNumber).then((res) => {
       setSelectedStoreId(null);
       setOpenModal(false);
       setLoading(false);
       history.push(`${ROUTES.LINEUP}/${res.ticket_id}`);
     });
-
-    // api call
   };
 
   const handleCancel = () => {
@@ -37,6 +53,7 @@ const LineUpModal = ({
   );
 
   if (!selectedStoreId) return <div></div>;
+
   return (
     <Modal
       title="Confirm lining up?"
@@ -53,6 +70,17 @@ const LineUpModal = ({
             Approximate waiting time: {selectedStore.estimated_waiting_time}{" "}
             minutes
           </p>
+          {!currentUser && (
+            <>
+              <p>Enter your phone number</p>
+              <Input
+                addonBefore={"+39"}
+                onChange={(e) =>
+                  setUserPhoneNumber(`+39${e.target.value.replace(/\D/g, "")}`)
+                }
+              />
+            </>
+          )}
         </div>
       )}
     </Modal>
