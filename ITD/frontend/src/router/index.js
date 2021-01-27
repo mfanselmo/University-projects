@@ -9,6 +9,8 @@ import Logout from "../pages/Logout";
 import Signup from "../pages/Signup";
 import LineUpPage from "../pages/LineUp/LineUp";
 import LineUpConfirmationPage from "../pages/LineUp/LineUpConfirmation";
+import BookPage from "../pages/Book/Book";
+import BookConfirmationPage from "../pages/Book/BookConfirmation";
 // import { stateContext } from "../context/stateContext";
 
 const Router = () => {
@@ -25,6 +27,12 @@ const Router = () => {
         exact
         path={ROUTES.LINEUP_CONFIRMATION}
         component={LineUpConfirmationPage}
+      />
+      <Route exact path={ROUTES.BOOK} component={BookPage} />
+      <Route
+        exact
+        path={ROUTES.BOOK_CONFIRMATION}
+        component={BookConfirmationPage}
       />
     </Switch>
   );

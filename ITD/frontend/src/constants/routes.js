@@ -5,4 +5,4 @@ export const LOGOUT = "/logout";
 export const LINEUP = "/line-up";
 export const LINEUP_CONFIRMATION = "/line-up/:ticketId";
 export const BOOK = "/book";
-export const BOOK_STORE = "/book/:storeId";
+export const BOOK_CONFIRMATION = "/book/:ticketId";

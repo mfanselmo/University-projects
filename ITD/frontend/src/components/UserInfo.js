@@ -81,7 +81,7 @@ const UserInfo = () => {
             dataSource={currentUserInfo.active_tickets}
             columns={ticketColumns}
             pagination={false}
-            key={(doc) => doc.ticket_id}
+            rowKey={"ticket_id"}
             size={"middle"}
           />
         </div>
@@ -94,7 +94,7 @@ const UserInfo = () => {
             columns={bookingColumns}
             pagination={false}
             size={"middle"}
-            key={(doc) => doc.ticket_id}
+            rowKey={"ticket_id"}
           />
         </div>
       )}
