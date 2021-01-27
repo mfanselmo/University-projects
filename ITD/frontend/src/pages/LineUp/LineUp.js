@@ -41,6 +41,7 @@ const LineUpPage = () => {
           setSelectedStoreId={setSelectedStoreId}
           availableStores={availableStores}
           axios={axios}
+          currentUser={currentUser}
         />
       </div>
     </div>
