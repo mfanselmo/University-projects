@@ -1,4 +1,18 @@
-export const getStoresInfo = () => {};
+export const getStoresInfo = (axios) => {
+  return Promise.resolve({
+    data: [
+      {
+        store_id: 1,
+        lat: 100,
+        lon: 100,
+        address: "Viale Piave, 38/B, 20129",
+        estimaded_waiting_time: 120, // minutes
+        people_in_store: 25,
+        people_in_line: 15,
+      },
+    ],
+  });
+};
 
 export const scanTicket = (axios, ticketId) => {
   return new Promise((resolve) => {

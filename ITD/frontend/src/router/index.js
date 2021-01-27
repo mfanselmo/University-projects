@@ -14,6 +14,7 @@ import BookConfirmationPage from "../pages/Book/BookConfirmation";
 import { stateContext } from "../context/stateContext";
 import ManagerStores from "../pages/Manager/ManagerStores";
 import ManagerScan from "../pages/Manager/ManagerScan";
+import ManagerStore from "../pages/Manager/ManagerStore";
 
 const Router = () => {
   const { currentUser } = useContext(stateContext);
@@ -48,6 +49,7 @@ const Router = () => {
       <Route exact path={ROUTES.SIGNUP} component={Signup} />
       <Route exact path={ROUTES.LOGOUT} component={Logout} />
       <Route exact path={ROUTES.MANAGER_STORES} component={ManagerStores} />
+      <Route exact path={ROUTES.MANAGER_STORE} component={ManagerStore} />
       <Route exact path={ROUTES.MANAGER_SCAN} component={ManagerScan} />
     </Switch>
   );

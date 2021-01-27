@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "antd";
 import * as ROUTES from "./../../constants/routes";
+import StoresTable from "../../components/StoresTable";
+import ManagerStoresTable from "../../components/ManagerStoreTables";
 
 const HomeManager = ({ currentUser }) => {
   return (
@@ -20,6 +22,10 @@ const HomeManager = ({ currentUser }) => {
         <Link to={ROUTES.MANAGER_STORES}>
           <Button>Check your stores</Button>
         </Link>
+        <div className={"manager-extra"}>
+          <h4>Your stores</h4>
+          <ManagerStoresTable />
+        </div>
       </div>
     </div>
   );
