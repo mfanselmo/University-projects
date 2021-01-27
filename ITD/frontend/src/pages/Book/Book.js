@@ -23,7 +23,7 @@ const BookPage = () => {
   return (
     <div>
       <div>
-        <h2>CLup - Line up</h2>
+        <h2>CLup - Book a ticket</h2>
       </div>
       <div>
         <h4>Choose the store you want to go</h4>

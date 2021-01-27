@@ -6,4 +6,3 @@ admin.site.register(Ticket)
 admin.site.register(User)
 admin.site.register(Position)
 admin.site.register(Store)
-
