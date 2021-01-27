@@ -1,0 +1,62 @@
+[{
+    "model": "api.position",
+    "pk":1,
+    "fields": {
+      "address": "via tartini",
+      "latitude": 93.887,
+      "longitude": 87.453
+    }
+  },
+  {
+    "model": "api.store",
+    "fields": {
+    "storeid": 1,
+    "location": 1,
+    "max_customers": 5,
+    "current_customers": 1,
+    "name": "CONAD"
+    }
+  },
+  {
+    "model": "api.user",
+    "fields": {
+      "name": "vinay",
+      "phone": "329589238",
+      "email_address": "vinay@gmail.com",
+      "isManager": true,
+      "managed_store_id": 1
+    }
+  },
+  {
+    "model": "api.user",
+    "fields": {
+      "name": "david",
+      "phone": "3295389238",
+      "email_address": "david@gmail.com",
+      "isManager": true,
+      "managed_store_id": 1
+    }
+  },
+  {
+    "model": "api.user",
+    "fields": {
+      "name": "martin",
+      "phone": "3292384923",
+      "email_address": "martin@gmail.com",
+      "isManager":false
+    }
+  },
+  {
+    "model":"api.ticket",
+    "fields":{
+      "tid": 1,
+    "created_at": "2021-01-27T19:18:00.036624Z",
+    "status": "New",
+    "time_of_request": "2021-01-27T20:21:00Z",
+    "time_of_entry": "2021-01-27T20:22:00Z",
+    "time_of_exit": "2021-01-27T20:23:00Z",
+    "assigned_to_user": 1,
+    "assigned_to_store": 1
+    }
+  }
+]
