@@ -5,7 +5,6 @@ import HomeManager from "./HomeManager";
 
 const Home = () => {
   const { currentUser } = useContext(stateContext);
-  console.table(currentUser);
 
   if (!currentUser || !currentUser.isManager) {
     return <HomeUser currentUser={currentUser} />;

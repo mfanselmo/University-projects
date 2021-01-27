@@ -1,4 +1,4 @@
-export const requestTicket = ({ axios, storeId }) => {
+export const requestTicket = ({ axios, storeId, phoneNumber }) => {
   return Promise.resolve({
     ticket_id:
       "4f75482e100691087c02a69e97bb5be12952cf027ad9895113ed0b56c8957294",
