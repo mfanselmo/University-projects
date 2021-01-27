@@ -6,6 +6,7 @@ const StoresTable = ({
   setSelectedStoreId,
   setOpenModal,
   availableStores,
+  selectText,
 }) => {
   const onSelectStore = (storeId) => {
     setSelectedStoreId(storeId);
@@ -38,7 +39,7 @@ const StoresTable = ({
       render: (text) => `${text} minutes`,
     },
     {
-      title: "Line up",
+      title: selectText,
       render: (_, doc) => (
         <Button onClick={() => onSelectStore(doc.store_id)}>Select</Button>
       ),

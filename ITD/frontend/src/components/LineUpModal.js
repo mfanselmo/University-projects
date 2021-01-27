@@ -29,12 +29,14 @@ const LineUpModal = ({
 
   const handleCancel = () => {
     setOpenModal(false);
+    setSelectedStoreId(null);
   };
 
   const selectedStore = availableStores.find(
     (d) => d.store_id === selectedStoreId
   );
 
+  if (!selectedStoreId) return <div></div>;
   return (
     <Modal
       title="Confirm lining up?"

@@ -1,10 +1,10 @@
 import React, { useContext, useState, useEffect } from "react";
-import LineUpModal from "../../components/LineUpModal";
+import BookModal from "../../components/BookModal";
 import StoresTable from "../../components/StoresTable";
 import { stateContext } from "../../context/stateContext";
 import { getAllStores } from "./../../api";
 
-const LineUpPage = () => {
+const BookPage = () => {
   const state = useContext(stateContext);
   const [openModal, setOpenModal] = useState(false);
   const [selectedStoreId, setSelectedStoreId] = useState(null);
@@ -34,7 +34,7 @@ const LineUpPage = () => {
           availableStores={availableStores}
           selectText={"Book a visit"}
         />
-        <LineUpModal
+        <BookModal
           openModal={openModal}
           setOpenModal={setOpenModal}
           selectedStoreId={selectedStoreId}
@@ -47,4 +47,4 @@ const LineUpPage = () => {
   );
 };
 
-export default LineUpPage;
+export default BookPage;
