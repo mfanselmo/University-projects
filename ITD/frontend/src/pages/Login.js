@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 
 import { login } from "./../api";
 import { stateContext } from "../context/stateContext";
+import Checkbox from "antd/lib/checkbox/Checkbox";
 
 const LoginPage = () => {
   const context = useContext(stateContext);
@@ -16,11 +17,15 @@ const LoginPage = () => {
   }, [history, context.currentUser]);
 
   const onFinish = (values) => {
-    login(context.axios).then((res) => {
+    let { phoneNumber, password, isManager } = values;
+    phoneNumber = "+393" + phoneNumber;
+
+    login(context.axios, phoneNumber, password).then((res) => {
       context.login(
         values.phoneNumber,
         res.authentication_token,
-        res.is_manager
+        isManager
+        // res.is_manager
       );
     });
   };
@@ -56,6 +61,9 @@ const LoginPage = () => {
           ]}
         >
           <Input.Password />
+        </Form.Item>
+        <Form.Item name="isManager" valuePropName="checked">
+          <Checkbox>Manager login (debugging purposes)</Checkbox>
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit">

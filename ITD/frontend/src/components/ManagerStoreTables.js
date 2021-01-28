@@ -13,7 +13,6 @@ const ManagerStoresTable = () => {
     const loadStores = async () => {
       getStoresInfo(axios).then((res) => {
         setStores(res.data);
-        console.log(res.data);
       });
     };
 
@@ -21,11 +20,11 @@ const ManagerStoresTable = () => {
   }, [axios]);
 
   const columns = [
-    {
-      title: "Store number",
-      dataIndex: "store_id",
-      key: "store_id",
-    },
+    // {
+    //   title: "Store number",
+    //   dataIndex: "store_id",
+    //   key: "store_id",
+    // },
     {
       title: "Address",
       dataIndex: "address",
@@ -46,9 +45,14 @@ const ManagerStoresTable = () => {
       key: "people_in_store",
     },
     {
-      title: "View",
+      title: "View detail",
       render: (text, doc) => (
-        <Link to={`${ROUTES.MANAGER_STORES}/${doc.store_id}`}>
+        <Link
+          to={{
+            pathname: `${ROUTES.MANAGER_STORES}/${doc.store_id}`,
+            state: { storeInfo: doc },
+          }}
+        >
           <Button>View</Button>
         </Link>
       ),

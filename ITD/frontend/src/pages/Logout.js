@@ -23,8 +23,8 @@ const Logout = () => {
 
   return (
     <div>
+      <h2>Logout from CLup</h2>
       <Form onFinish={onFinish}>
-        test
         <Form.Item>
           <Button type="primary" htmlType="submit">
             Logout
