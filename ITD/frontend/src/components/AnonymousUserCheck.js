@@ -1,3 +1,4 @@
+
 import { Button, message } from "antd";
 import Modal from "antd/lib/modal/Modal";
 import React, { useState, useRef } from "react";
@@ -28,6 +29,7 @@ const AnonymousUserCheck = () => {
         onCancel={() => {
           scannerRef.current.stopCamera();
           setOpen(!open);
+
           setLegacy(false);
         }}
         footer={
