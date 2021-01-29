@@ -87,7 +87,7 @@ def create_user(request):
 			password = data.get('password')
 			user = DBUser.objects.create_user(username=phone_number,
 	                                      password=password)
-			token = Token.objects.create(user=phone_number)
+			token = Token.objects.create(user=user)
 			return HttpResponse(json.dumps({"username":user.username,"password":user.password,"token":token.key}),content_type="application/json")
 	except Exception as e:
 		return HttpResponse(json.dumps({"message":str(e)}))
