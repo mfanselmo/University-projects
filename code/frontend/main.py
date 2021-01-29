@@ -20,15 +20,15 @@ class MainWindow(QWidget):
         self.setGeometry(200, 100, 1200, 800)
         self.setWindowTitle('Schedule visualizer tool')
 
-        self.button1 = QPushButton('&Button1', self)
-        self.button2 = QPushButton('&Button2', self)
+        self.open_button = QPushButton('&Open new schedule', self)
+        self.print_button = QPushButton('&Print schedule', self)
 
         """
         this hbox has the buttons on the bottom
         """
         hbox = QHBoxLayout()
-        hbox.addWidget(self.button1)
-        hbox.addWidget(self.button2)
+        hbox.addWidget(self.open_button)
+        hbox.addWidget(self.print_button)
         hbox.addStretch(1)
 
         """

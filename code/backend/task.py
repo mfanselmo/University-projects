@@ -1,14 +1,17 @@
 from backend.job import Job
+from palettable.colorbrewer.qualitative import Set3_12
 
 
 class Task:
     """
     doc
     """
+    COLORS = Set3_12
 
     def __init__(self, task_id):
         self.id = task_id
         self.jobs = {}
+        self.color = Task.COLORS.hex_colors[(int(self.id)-1) % 12]
 
     def get_processor_events(self, timestamp, processor):
         """
@@ -19,10 +22,10 @@ class Task:
 
             for start in filter(lambda x: x['processor_id'] == processor, job.starts):
                 if start['timestamp'] == timestamp:
-                    events.append({'job_id': job.id, 'event': 'start'})
+                    events.append({'job_id': job.id, 'event': 'start', 'color': self.color})
             for finish in filter(lambda x: x['processor_id'] == processor, job.finishes):
                 if finish['timestamp'] == timestamp:
-                    events.append({'job_id': job.id, 'event': 'finish'})
+                    events.append({'job_id': job.id, 'event': 'finish', 'color': self.color})
 
            # check if the task is running in this ts
             starts = filter(lambda x: x['processor_id'] == processor, job.starts)
@@ -30,7 +33,7 @@ class Task:
 
             for start, finish in zip(starts, finishes):
                 if start['timestamp'] < timestamp < finish['timestamp']:
-                    events.append({'job_id': job.id, 'event': 'running'})
+                    events.append({'job_id': job.id, 'event': 'running', 'color': self.color})
 
         return events
 
