@@ -8,7 +8,7 @@ class Position(models.Model):
 	latitude = models.FloatField(default=0.0)
 	longitude = models.FloatField(default=0.0)
 	def __str__(self):
-		return str(self.latitude)+"-----"+str(self.longitude)
+		return self.address
 
 
 
@@ -20,7 +20,7 @@ class Store(models.Model):
 	name = models.CharField(max_length=25)
 	
 	def __str__(self):
-		return self.name
+		return self.name + " at " + str(self.location.address)
 
 
 class User(models.Model):
@@ -29,7 +29,7 @@ class User(models.Model):
 	phone_number=models.CharField(max_length=13)
 	email_address = models.CharField(max_length=30,null=True)
 	isManager = models.BooleanField()
-	managed_store_id = models.ForeignKey(Store,to_field='store_id',on_delete=models.SET_NULL,null=True)
+	managed_store_id = models.ManyToManyField(Store)
 
 
 	def __str__(self):

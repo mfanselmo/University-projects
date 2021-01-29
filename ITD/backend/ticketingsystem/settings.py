@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'api',
     'rest_framework',
+    'rest_framework.authtoken',
     'django_seed',
 ]
 
@@ -54,6 +55,13 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'ticketingsystem.urls'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',  # <-- And here
+    ],
+}
+
 
 TEMPLATES = [
     {

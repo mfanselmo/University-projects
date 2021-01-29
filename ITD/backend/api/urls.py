@@ -9,6 +9,7 @@ router.register(r'store',views.StoreViewSet)
 router.register(r'position',views.PositionViewSet)
 urlpatterns = [
 	path('', include(router.urls)),
-	path('api-auth/',include('rest_framework.urls',namespace='rest_framework')),
-	path('manager',views.getManagerStore)
+	# path('api-auth/',include('rest_framework.urls',namespace='rest_framework')),
+	path('create-user',views.create_user),
+	path('get-token',views.get_token)
 ]

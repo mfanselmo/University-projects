@@ -63,7 +63,7 @@
       "phone_number": "329589238",
       "email_address": "vinay@gmail.com",
       "isManager": true,
-      "managed_store_id": 1
+      "managed_store_id": [1]
     }
   },
   {
@@ -74,7 +74,7 @@
       "phone_number": "3295389238",
       "email_address": "david@gmail.com",
       "isManager": true,
-      "managed_store_id": 1
+      "managed_store_id": [1,2]
     }
   },
   {
@@ -95,7 +95,7 @@
       "phone_number": "6542384923",
       "email_address": "marco@gmail.com",
       "isManager":true,
-      "managed_store_id":2
+      "managed_store_id":[2]
     }
   },
   {
