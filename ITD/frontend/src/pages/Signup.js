@@ -19,17 +19,29 @@ const SignupPage = () => {
   const onFinish = (values) => {
     setLoading(true);
 
-    signup(axios, values.phoneNumber, values.password)
+    signup(
+      axios,
+      "+39" + values.phoneNumber,
+      values.password,
+      values.emailAdress,
+      values.username
+    )
       .then((res) => {
         setLoading(false);
-
-        login(values.phoneNumber, res.token, res.isManager);
+        login(
+          "+39" + values.phoneNumber,
+          res.data.authentication_token,
+          res.data.isManager === "true"
+        );
 
         history.push("/login");
       })
       .catch((err) => {
-        if (err.message) message.error(err.message);
-        else message.error("Unexpected error");
+        if (err.response) {
+          if (err.response.data.message)
+            message.error(err.response.data.message);
+          else message.error("Unexpected error");
+        }
         setLoading(false);
       });
   };
@@ -55,6 +67,32 @@ const SignupPage = () => {
           ]}
         >
           <Input addonBefore={"+39"} />
+        </Form.Item>
+        <Form.Item
+          label={"Email address"}
+          name="emailAddress"
+          rules={[
+            {
+              required: true,
+              message: "Add a valid email address",
+              pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g,
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          label={"Username"}
+          name="username"
+          rules={[
+            {
+              required: true,
+              message: "Add a valid username (4 characters or more)",
+              min: 4,
+            },
+          ]}
+        >
+          <Input />
         </Form.Item>
         <Form.Item
           label={"Password"}

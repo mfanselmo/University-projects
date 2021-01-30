@@ -20,12 +20,20 @@ export const getCurrentUser = (axios) => {
     ],
   });
 };
-export const signup = (axios, phoneNumber, password) => {
+export const signup = (
+  axios,
+  phoneNumber,
+  password,
+  emailAddress,
+  username
+) => {
   if (!phoneNumber || !password)
     return Promise.reject({ message: "Error, try again" });
 
-  return axios.post(BACKEND_URL + "/create-user", {
+  return axios.post(BACKEND_URL + "/session", {
     phone_number: phoneNumber,
     password,
+    email_address: emailAddress,
+    username: username,
   });
 };
