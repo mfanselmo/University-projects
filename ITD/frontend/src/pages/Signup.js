@@ -1,26 +1,38 @@
-import React, { useContext, useEffect } from "react";
-import { Form, Input, Button } from "antd";
+import React, { useContext, useEffect, useState } from "react";
+import { Form, Input, Button, message } from "antd";
 import { useHistory } from "react-router-dom";
 
 import { signup } from "./../api";
 import { stateContext } from "../context/stateContext";
 
 const SignupPage = () => {
-  const context = useContext(stateContext);
+  const { axios, currentUser, login } = useContext(stateContext);
   const history = useHistory();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (context.currentUser) {
+    if (currentUser) {
       history.push("/");
     }
-  }, [history, context.currentUser]);
+  }, [history, currentUser]);
 
   const onFinish = (values) => {
-    signup(context.axios).then((res) => {
-      history.push("/login");
-    });
-  };
+    setLoading(true);
 
+    signup(axios, values.phoneNumber, values.password)
+      .then((res) => {
+        setLoading(false);
+
+        login(values.phoneNumber, res.token, res.isManager);
+
+        history.push("/login");
+      })
+      .catch((err) => {
+        if (err.message) message.error(err.message);
+        else message.error("Unexpected error");
+        setLoading(false);
+      });
+  };
   return (
     <div>
       <h2>Sign up</h2>
@@ -77,7 +89,7 @@ const SignupPage = () => {
           <Input.Password />
         </Form.Item>
         <Form.Item>
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit" loading={loading}>
             Submit
           </Button>
         </Form.Item>
