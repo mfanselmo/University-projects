@@ -1,14 +1,14 @@
-import React, { useContext, useEffect } from "react";
-import { Form, Input, Button } from "antd";
+import React, { useContext, useEffect, useState } from "react";
+import { Form, Input, Button, message, Checkbox } from "antd";
 import { useHistory } from "react-router-dom";
 
 import { login } from "./../api";
 import { stateContext } from "../context/stateContext";
-import Checkbox from "antd/lib/checkbox/Checkbox";
 
 const LoginPage = () => {
   const context = useContext(stateContext);
   const history = useHistory();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (context.currentUser) {
@@ -19,15 +19,23 @@ const LoginPage = () => {
   const onFinish = (values) => {
     let { phoneNumber, password, isManager } = values;
     phoneNumber = "+393" + phoneNumber;
+    setLoading(true);
 
-    login(context.axios, phoneNumber, password).then((res) => {
-      context.login(
-        values.phoneNumber,
-        res.authentication_token,
-        isManager
-        // res.is_manager
-      );
-    });
+    login(context.axios, phoneNumber, password)
+      .then((res) => {
+        setLoading(false);
+        context.login(
+          values.phoneNumber,
+          res.token,
+          isManager
+          // res.isManager
+        );
+      })
+      .catch((err) => {
+        if (err.message) message.error(err.message);
+        else message.error("Unexpected error");
+        setLoading(false);
+      });
   };
 
   return (
@@ -66,7 +74,7 @@ const LoginPage = () => {
           <Checkbox>Manager login (debugging purposes)</Checkbox>
         </Form.Item>
         <Form.Item>
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit" loading={loading}>
             Submit
           </Button>
         </Form.Item>

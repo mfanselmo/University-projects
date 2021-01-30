@@ -1,3 +1,7 @@
+const BACKEND_URL = process.env.BACKEND_URL;
+
+// console.log(process.env);
+
 export const requestBooking = (axios, storeId, timeOfVisit, categories) => {
   return Promise.resolve({
     ticket_id:

@@ -1,3 +1,5 @@
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+
 export const getCurrentUser = (axios) => {
   return Promise.resolve({
     is_manager: false,
@@ -18,6 +20,12 @@ export const getCurrentUser = (axios) => {
     ],
   });
 };
-export const signup = (axios) => {
-  return Promise.resolve({});
+export const signup = (axios, phoneNumber, password) => {
+  if (!phoneNumber || !password)
+    return Promise.reject({ message: "Error, try again" });
+
+  return axios.post(BACKEND_URL + "/create-user", {
+    phone_number: phoneNumber,
+    password,
+  });
 };
