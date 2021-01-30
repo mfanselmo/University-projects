@@ -1,3 +1,5 @@
 output-protocol-description.md
 tests/
 code/.vscode/
+code/frontend/__pycache__/
+code/backend/__pycache__/

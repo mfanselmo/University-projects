@@ -123,3 +123,6 @@ class Backend:
             processor.add_task(task)
         else:
             Processor.processor_independant_tasks[task_id] = task
+
+    def size_of_grid(self):
+        return (self.number_timestamps*100+200, self.number_processors*100+200)
