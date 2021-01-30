@@ -35,3 +35,5 @@ class StoreReadSerializer(serializers.HyperlinkedModelSerializer):
 		model = Store
 		fields = ('store_id','location','max_customers','current_customers','name')
 		depth=2
+
+

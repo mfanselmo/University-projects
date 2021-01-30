@@ -1,6 +1,5 @@
 [{
     "model": "api.position",
-    "pk":1,
     "fields": {
       "address": "via tartini",
       "latitude": 93.887,
@@ -9,7 +8,6 @@
   },
   {
     "model": "api.position",
-    "pk":2,
     "fields": {
       "address": "via derganino",
       "latitude": 84.887,
@@ -18,7 +16,6 @@
   },
   {
     "model": "api.position",
-    "pk":3,
     "fields": {
       "address": "via pasino",
       "latitude": 56.887,
@@ -149,5 +146,6 @@
     "assigned_to_user": 3,
     "assigned_to_store": 2
     }
-  }
+  },
+
 ]
