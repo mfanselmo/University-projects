@@ -14,6 +14,7 @@ const HomePage = ({ currentUser }) => {
           The system designed for handling queues efficiently during the
           COVID-19 pandemic
         </p>
+        <b>{currentUser ? currentUser.phoneNumber : ""}</b>
       </div>
       <div className={"links"}>
         <Button>

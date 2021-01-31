@@ -4,7 +4,7 @@ export const login = (axios, phoneNumber, password) => {
   if (!phoneNumber || !password)
     return Promise.reject({ message: "Error, try again" });
 
-  return axios.post(BACKEND_URL + "/get-token", {
+  return axios.post(BACKEND_URL + "/session", {
     phone_number: phoneNumber,
     password,
   });

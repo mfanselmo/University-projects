@@ -25,8 +25,7 @@ export const StateProvider = ({ children }) => {
     if (currentUser) {
       customAxios.interceptors.request.use(
         (config) => {
-          config.headers["X-User-Token"] = currentUser.authToken;
-          config.headers["X-User-phone_number"] = currentUser.phoneNumber;
+          config.headers["Authorization"] = "Token " + currentUser.authToken;
           config.headers["Content-Type"] = "application/json";
 
           return config;
@@ -35,8 +34,6 @@ export const StateProvider = ({ children }) => {
       );
       customAxios.interceptors.request.use(
         (config) => {
-          config.headers["X-User-Token"] = null;
-          config.headers["X-User-phone_number"] = null;
           config.headers["Content-Type"] = "application/json";
 
           return config;

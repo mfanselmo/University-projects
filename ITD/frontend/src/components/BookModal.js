@@ -23,6 +23,7 @@ const BookModal = ({
   setSelectedStoreId,
   availableStores,
   axios,
+  currentUser,
 }) => {
   const [loading, setLoading] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
@@ -39,14 +40,21 @@ const BookModal = ({
     const date = moment(selectedDate + " " + selectedTime, "MMMM Do HH:mm");
 
     setLoading(true);
-    requestBooking(axios, selectedStoreId, date, selectedCategories).then(
-      (res) => {
+    requestBooking(axios, selectedStoreId, date, currentUser.phoneNumber)
+      .then((res) => {
         setSelectedStoreId(null);
         setOpenModal(false);
         setLoading(false);
-        history.push(`${ROUTES.BOOK}/${res.ticket_id}`);
-      }
-    );
+        history.push(`${ROUTES.BOOK}/${res.data.ticket_id}`);
+      })
+      .catch((err) => {
+        if (err.response) {
+          if (err.response.data.message)
+            message.error(err.response.data.message);
+          else message.error("Unexpected error");
+        }
+        setLoading(false);
+      });
 
     // api call
   };
@@ -89,10 +97,10 @@ const BookModal = ({
             showNow={false}
             format="HH:mm"
             hideDisabledOptions={true}
-            disabledHours={() => range(0, 9).concat(range(21, 24))}
-            minuteStep={15}
+            disabledHours={() => range(0, 9).concat(range(18, 24))}
+            minuteStep={10}
           />
-          <div className={"categories"}>
+          {/* <div className={"categories"}>
             <h3>Categories to shop in (optional)</h3>
             <Select
               mode={"tags"}
@@ -103,7 +111,7 @@ const BookModal = ({
                 <Option key={d}>{d}</Option>
               ))}
             </Select>
-          </div>
+          </div> */}
         </div>
       )}
     </Modal>

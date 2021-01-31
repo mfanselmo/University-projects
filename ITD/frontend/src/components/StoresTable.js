@@ -20,15 +20,15 @@ const StoresTable = ({
     // },
     {
       title: "Address",
-      dataIndex: "address",
-      key: "address",
+      dataIndex: "location",
+      key: "location",
       render: (text) => (
         <a
           target="_blank"
           rel="noopener noreferrer"
-          href={`https://www.google.com/maps/search/?api=1&query=${text}`}
+          href={`https://www.google.com/maps/search/?api=1&query=${text.address}`}
         >
-          {text}
+          {text.address}
         </a>
       ),
     },

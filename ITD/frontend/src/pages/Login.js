@@ -17,23 +17,25 @@ const LoginPage = () => {
   }, [history, context.currentUser]);
 
   const onFinish = (values) => {
-    let { phoneNumber, password, isManager } = values;
-    phoneNumber = "+393" + phoneNumber;
+    let { phoneNumber, password } = values;
+    phoneNumber = "+39" + phoneNumber;
     setLoading(true);
 
     login(context.axios, phoneNumber, password)
       .then((res) => {
         setLoading(false);
         context.login(
-          values.phoneNumber,
-          res.token,
-          isManager
-          // res.isManager
+          "+39" + values.phoneNumber,
+          res.data.authentication_token,
+          res.data.isManager === "true"
         );
       })
       .catch((err) => {
-        if (err.message) message.error(err.message);
-        else message.error("Unexpected error");
+        if (err.response) {
+          if (err.response.data.message)
+            message.error(err.response.data.message);
+          else message.error("Unexpected error");
+        }
         setLoading(false);
       });
   };
@@ -70,9 +72,9 @@ const LoginPage = () => {
         >
           <Input.Password />
         </Form.Item>
-        <Form.Item name="isManager" valuePropName="checked">
+        {/* <Form.Item name="isManager" valuePropName="checked">
           <Checkbox>Manager login (debugging purposes)</Checkbox>
-        </Form.Item>
+        </Form.Item> */}
         <Form.Item>
           <Button type="primary" htmlType="submit" loading={loading}>
             Submit
