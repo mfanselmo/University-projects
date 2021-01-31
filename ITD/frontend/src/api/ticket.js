@@ -1,19 +1,23 @@
-export const requestTicket = ({ axios, storeId, phoneNumber }) => {
-  return Promise.resolve({
-    ticket_id:
-      "4f75482e100691087c02a69e97bb5be12952cf027ad9895113ed0b56c8957294",
-    approximate_enter_time: "2021-01-23T17:19:13.582Z", // ISO8601 format (default for django rest and javascript),
+import baseAxios from "axios";
+
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+
+export const requestTicket = (axios, storeId, phoneNumber) => {
+  // const date = new Date();
+  const date = new Date(2020, 0, 30, 9, 21);
+
+  return baseAxios.post(BACKEND_URL + "/ticket", {
+    phone_number: phoneNumber,
+    store_id: storeId,
+    time_of_visit: date.toISOString().replace("T", " "),
   });
 };
 
 export const getTicketStatus = (axios, ticketId) => {
-  //   return Promise.reject({ message: "Bad code" });
-
-  return new Promise((resolve) => {
-    setTimeout(resolve, 1000, {
-      approximate_enter_time: "2021-01-23T17:19:13.582Z",
-      store_id: 1,
-    });
+  return baseAxios.get(BACKEND_URL + "/ticket", {
+    params: {
+      ticket_id: ticketId,
+    },
   });
 };
 

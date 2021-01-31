@@ -1,20 +1,22 @@
-const BACKEND_URL = process.env.BACKEND_URL;
+import baseAxios from "axios";
+
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
 // console.log(process.env);
 
-export const requestBooking = (axios, storeId, timeOfVisit, categories) => {
-  return Promise.resolve({
-    ticket_id:
-      "4f75482e100691087c02a69e97bb5be12952cf027ad9895113ed0b56c8957294",
+export const requestBooking = (axios, storeId, date, phoneNumber) => {
+  return baseAxios.post(BACKEND_URL + "/ticket", {
+    phone_number: phoneNumber,
+    store_id: storeId,
+    time_of_visit: date.toISOString().replace("T", " "),
   });
 };
+
 export const getBookingStatus = (axios, ticketId) => {
-  return new Promise((resolve) => {
-    setTimeout(resolve, 1000, {
-      enter_time: "2021-01-23T17:19:13.582Z",
-      store_id: 1,
-      categories_to_visit: ["fruits", "vegetables"],
-    });
+  return baseAxios.get(BACKEND_URL + "/ticket", {
+    params: {
+      ticket_id: ticketId,
+    },
   });
 };
 

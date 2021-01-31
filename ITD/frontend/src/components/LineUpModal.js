@@ -35,12 +35,23 @@ const LineUpModal = ({
     }
 
     setLoading(true);
-    requestTicket(axios, selectedStoreId, userPhoneNumber).then((res) => {
-      setSelectedStoreId(null);
-      setOpenModal(false);
-      setLoading(false);
-      history.push(`${ROUTES.LINEUP}/${res.ticket_id}`);
-    });
+    requestTicket(axios, selectedStoreId, userPhoneNumber)
+      .then((res) => {
+        console.log(res);
+        setSelectedStoreId(null);
+        setOpenModal(false);
+        setLoading(false);
+        history.push(`${ROUTES.LINEUP}/${res.data.ticket_id}`);
+      })
+      .catch((err) => {
+        if (err.response) {
+          console.log("err", err.response);
+          if (err.response.data.message)
+            message.error(err.response.data.message);
+          else message.error("Unexpected error");
+        }
+        setLoading(false);
+      });
   };
 
   const handleCancel = () => {

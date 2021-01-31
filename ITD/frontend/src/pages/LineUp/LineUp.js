@@ -5,20 +5,20 @@ import { stateContext } from "../../context/stateContext";
 import { getAllStores } from "./../../api";
 
 const LineUpPage = () => {
-  const state = useContext(stateContext);
+  const { currentUser, axios } = useContext(stateContext);
+
   const [openModal, setOpenModal] = useState(false);
   const [selectedStoreId, setSelectedStoreId] = useState(null);
-  const { currentUser, axios } = state;
   const [availableStores, setAvailableStores] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getAllStores(axios);
+      const data = await getAllStores();
       setAvailableStores(data.data);
     };
 
     fetchData();
-  }, [axios]);
+  }, []);
 
   return (
     <div>

@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useHistory, useParams } from "react-router";
 import QRCode from "qrcode.react";
 import { stateContext } from "../../context/stateContext";
 import moment from "moment";
-import { getAllStores, getTicketStatus } from "./../../api";
+import { getTicketStatus } from "./../../api";
 import { Button, message, Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 
@@ -12,33 +12,28 @@ const LineUpConfirmationPage = () => {
   const { ticketId } = useParams();
   const { currentUser, axios } = state;
   const [ticketData, setTicketData] = useState(null);
-  const [store, setStore] = useState(null);
+  const history = useHistory();
 
   useEffect(() => {
     const checkTicket = async () => {
       getTicketStatus(axios, ticketId)
         .then((res) => {
-          console.log(res);
-          setTicketData(res);
+          setTicketData(res.data);
         })
         .catch((err) => {
-          message.error(err.message);
+          if (err.response) {
+            if (err.response.data.message)
+              message.error(err.response.data.message);
+            else message.error("Unexpected error");
+          }
+
           // redirect to home
+          history.push("/");
         });
     };
 
     checkTicket();
-  }, [axios, ticketId]);
-
-  useEffect(() => {
-    const loadStore = async () => {
-      getAllStores(axios).then((res) => {
-        setStore(res.data.find((d) => d.store_id === ticketData.store_id));
-      });
-    };
-
-    if (ticketData) loadStore();
-  }, [axios, ticketData]);
+  }, [axios, ticketId, history]);
 
   const date = ticketData ? new Date(ticketData.approximate_enter_time) : null;
 
@@ -50,7 +45,7 @@ const LineUpConfirmationPage = () => {
         <div>
           <h2>CLup - Line up</h2>
         </div>
-        {ticketData && store && (
+        {ticketData && (
           <div>
             <h4>Confirmation page</h4>
             <QRCode value={ticketId} size={256} />
@@ -58,7 +53,8 @@ const LineUpConfirmationPage = () => {
               Approximate time to enter:{" "}
               {moment(date).format(" MMMM Do - h:mm a")}
             </p>
-            <p>Store: {store.address}</p>
+            <p>Store: {ticketData.store_name}</p>
+            <p>Address: {ticketData.address}</p>
             <Button onClick={() => window.print()}>Print this code</Button>
           </div>
         )}

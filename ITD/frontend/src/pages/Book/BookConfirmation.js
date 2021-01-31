@@ -1,14 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useParams, useHistory } from "react-router";
 import QRCode from "qrcode.react";
 import { stateContext } from "../../context/stateContext";
 import moment from "moment";
-import { getAllStores, getBookingStatus } from "./../../api";
+import { getBookingStatus } from "./../../api";
 import { Button, message, Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 
 const BookConfirmationPage = () => {
   const state = useContext(stateContext);
+  const history = useHistory();
+
   const { ticketId } = useParams();
   const { currentUser, axios } = state;
   const [ticketData, setTicketData] = useState(null);
@@ -18,29 +20,26 @@ const BookConfirmationPage = () => {
     const checkTicket = async () => {
       getBookingStatus(axios, ticketId)
         .then((res) => {
-          console.log(res);
-          setTicketData(res);
+          setTicketData(res.data);
         })
         .catch((err) => {
-          message.error(err.message);
+          if (err.response) {
+            if (err.response.data.message)
+              message.error(err.response.data.message);
+            else message.error("Unexpected error");
+          }
+
           // redirect to home
+          history.push("/");
         });
     };
 
     checkTicket();
-  }, [axios, ticketId]);
+  }, [axios, ticketId, history]);
 
-  useEffect(() => {
-    const loadStore = async () => {
-      getAllStores(axios).then((res) => {
-        setStore(res.data.find((d) => d.store_id === ticketData.store_id));
-      });
-    };
+  console.log(ticketData);
 
-    if (ticketData) loadStore();
-  }, [axios, ticketData]);
-
-  const date = ticketData ? new Date(ticketData.enter_time) : null;
+  const date = ticketData ? new Date(ticketData.approximate_enter_time) : null;
 
   const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
@@ -50,18 +49,19 @@ const BookConfirmationPage = () => {
         <div>
           <h2>CLup - Book a ticket</h2>
         </div>
-        {ticketData && store && (
+        {ticketData && (
           <div>
             <h4>Confirmation page</h4>
             <QRCode value={ticketId} size={256} />
             <p>Time to enter: {moment(date).format(" MMMM Do - h:mm a")}</p>
-            <p>Store: {store.address}</p>
-            <h5>Categories: </h5>
+            <p>Store: {ticketData.store_name}</p>
+            <p>Address: {ticketData.address}</p>
+            {/* <h5>Categories: </h5>
             <ul>
               {store.shopping_categories.map((d) => (
                 <li key={d}>{d}</li>
               ))}
-            </ul>
+            </ul> */}
             <Button onClick={() => window.print()}>Print this code</Button>
           </div>
         )}
