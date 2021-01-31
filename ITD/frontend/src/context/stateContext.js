@@ -25,7 +25,7 @@ export const StateProvider = ({ children }) => {
     if (currentUser) {
       customAxios.interceptors.request.use(
         (config) => {
-          config.headers["Authentication"] = "Token " + currentUser.authToken;
+          config.headers["Authorization"] = "Token " + currentUser.authToken;
           config.headers["Content-Type"] = "application/json";
 
           return config;

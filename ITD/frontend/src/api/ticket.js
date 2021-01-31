@@ -3,8 +3,7 @@ import baseAxios from "axios";
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
 export const requestTicket = (axios, storeId, phoneNumber) => {
-  // const date = new Date();
-  const date = new Date(2020, 0, 30, 9, 21);
+  const date = new Date();
 
   return baseAxios.post(BACKEND_URL + "/ticket", {
     phone_number: phoneNumber,

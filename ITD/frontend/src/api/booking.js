@@ -2,8 +2,6 @@ import baseAxios from "axios";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
-// console.log(process.env);
-
 export const requestBooking = (axios, storeId, date, phoneNumber) => {
   return baseAxios.post(BACKEND_URL + "/ticket", {
     phone_number: phoneNumber,

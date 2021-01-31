@@ -36,8 +36,8 @@ const ticketColumns = [
 const bookingColumns = [
   {
     title: "Enter date",
-    dataIndex: "active_at",
-    key: "active_at",
+    dataIndex: "time_of_visit",
+    key: "time_of_visit",
     render: (text) => {
       const date = new Date(text);
 
@@ -62,13 +62,14 @@ const UserInfo = () => {
 
   useEffect(() => {
     const checkTicket = async () => {
-      getCurrentUser(axios).then((res) => {
-        setCurrentUserInfo(res);
+      getCurrentUser(axios, currentUser).then((res) => {
+        console.log(res);
+        setCurrentUserInfo(res.data);
       });
     };
 
     checkTicket();
-  }, [axios]);
+  }, [axios, currentUser]);
 
   if (!currentUserInfo) return <div></div>;
 
