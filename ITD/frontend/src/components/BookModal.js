@@ -98,7 +98,7 @@ const BookModal = ({
             format="HH:mm"
             hideDisabledOptions={true}
             disabledHours={() => range(0, 9).concat(range(21, 24))}
-            minuteStep={15}
+            minuteStep={10}
           />
           {/* <div className={"categories"}>
             <h3>Categories to shop in (optional)</h3>
