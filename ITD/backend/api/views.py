@@ -171,6 +171,7 @@ class TicketView(APIView):
 
             if len(user) == 0:
                 user = User.objects.create(phone_number=phone_number)
+                user = User.objects.get(phone_number=user)
                 user_id = user.user_id
             else:
                 user_id = user[0]['user_id']
