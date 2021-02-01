@@ -1,9 +1,10 @@
 import Modal from "antd/lib/modal/Modal";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import * as ROUTES from "./../constants/routes";
-import { requestTicket } from "./../api";
+import { getNextSlot, requestTicket } from "./../api";
 import { useHistory } from "react-router";
-import { message, Form, Input } from "antd";
+import { message, Input } from "antd";
+import moment from "moment";
 
 const LineUpModal = ({
   openModal,
@@ -15,6 +16,7 @@ const LineUpModal = ({
   currentUser,
 }) => {
   const [loading, setLoading] = useState(false);
+  const [nextSlotAvailable, setNextSlotAvailable] = useState("");
   const [userPhoneNumber, setUserPhoneNumber] = useState(
     currentUser ? currentUser.phoneNumber : null
   );
@@ -23,6 +25,12 @@ const LineUpModal = ({
   const handleConfirm = () => {
     if (!userPhoneNumber) {
       message.error("You must enter a phone number!");
+      return;
+    }
+
+    if (nextSlotAvailable === "") {
+      setSelectedStoreId(null);
+      setOpenModal(false);
       return;
     }
 
@@ -37,7 +45,6 @@ const LineUpModal = ({
     setLoading(true);
     requestTicket(axios, selectedStoreId, userPhoneNumber)
       .then((res) => {
-        console.log(res);
         setSelectedStoreId(null);
         setOpenModal(false);
         setLoading(false);
@@ -63,12 +70,28 @@ const LineUpModal = ({
     (d) => d.store_id === selectedStoreId
   );
 
+  useEffect(() => {
+    const loadNextAvailableSlot = async (selectedStoreId) => {
+      const date = moment(new Date());
+      // set minutes and seconds to closest tenth and 0
+      date.set({ second: 0, minute: Math.floor(date.minute() / 10) * 10 });
+
+      getNextSlot(selectedStoreId, date)
+        .then((res) => {
+          setNextSlotAvailable(res.data.available_slot);
+        })
+        .catch((err) => console.log);
+    };
+
+    if (selectedStoreId) loadNextAvailableSlot(selectedStoreId);
+  }, [selectedStoreId]);
+
   if (!selectedStoreId) return <div></div>;
 
   return (
     <Modal
       title="Confirm lining up?"
-      okText={"Confirm"}
+      okText={nextSlotAvailable !== "" ? "Confirm" : "Cancel"}
       visible={openModal}
       onOk={handleConfirm}
       confirmLoading={loading}
@@ -77,10 +100,19 @@ const LineUpModal = ({
       {selectedStore && (
         <div>
           <h3>{selectedStore.address}</h3>
-          <p>
-            Approximate waiting time: {selectedStore.estimated_waiting_time}{" "}
-            minutes
-          </p>
+          {nextSlotAvailable !== "" ? (
+            <p>
+              Next enter time available:{" "}
+              {moment(nextSlotAvailable, "YYYY-MM-DD HH:mm:ss").format(
+                " MMMM Do - h:mm a"
+              )}
+            </p>
+          ) : (
+            <p>
+              No more enter times ara available for this store today, try
+              another store or tomorrow
+            </p>
+          )}
           {!currentUser && (
             <>
               <p>Enter your phone number</p>

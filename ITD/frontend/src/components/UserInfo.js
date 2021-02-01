@@ -19,9 +19,10 @@ const ticketColumns = [
   //   },
   {
     title: "Approximate enter time",
-    dataIndex: "approximate_enter_time",
-    key: "approximate_enter_time",
-    render: (text) => `${text} minutes`,
+    dataIndex: "time_of_visit",
+    key: "time_of_visit",
+    render: (text) =>
+      `${moment(text, "YYYY-MM-DD HH:mm:ss").format(" MMMM Do - h:mm a")}`,
   },
   {
     title: "View detail/print",

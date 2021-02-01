@@ -33,12 +33,6 @@ const StoresTable = ({
       ),
     },
     {
-      title: "Estimated wating time",
-      dataIndex: "estimated_waiting_time",
-      key: "estimated_waiting_time",
-      render: (text) => `${text} minutes`,
-    },
-    {
       title: selectText,
       render: (_, doc) => (
         <Button onClick={() => onSelectStore(doc.store_id)}>Select</Button>
