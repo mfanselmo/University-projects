@@ -166,14 +166,10 @@ class TicketView(APIView):
             data = json.loads(request.body)
             phone_number = data.get("phone_number")
             user = list(User.objects.filter(phone_number=phone_number).values())
-
-            # user_id = user[0]['user_id']
-
-
             if len(user) == 0:
                 user = User.objects.create(phone_number=phone_number)
                 user = User.objects.get(phone_number=user)
-                user_id=user.user_id
+                user_id = user.user_id
             else:
                 user_id = user[0]['user_id']
 

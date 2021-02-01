@@ -32,7 +32,7 @@ const LineUpPage = () => {
           setOpenModal={setOpenModal}
           setSelectedStoreId={setSelectedStoreId}
           availableStores={availableStores}
-          selectText={"Book a visit"}
+          selectText={"Line up!"}
         />
         <LineUpModal
           openModal={openModal}
