@@ -13,5 +13,6 @@ urlpatterns = [
 	path('user',views.UserView.as_view(),name='user'),
 	# path(r'stores',views.StoreView.as_view(),name='stores'),
 	path(r'ticket',views.TicketView.as_view(),name='ticket'),
+	path(r'slots',views.SlotsView.as_view(),name='slots'),
 	path('session',views.SessionView.as_view(),name='session')
 ]
