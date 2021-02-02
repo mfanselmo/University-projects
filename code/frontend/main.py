@@ -2,7 +2,7 @@ from PyQt5 import QtCore
 from backend.backend import Backend
 from frontend.helpers import print_widget
 
-from frontend.components.grid import GridComponent
+from frontend.components.main_grid import GridComponent
 
 from os import path
 
@@ -15,7 +15,7 @@ class MainWindow(QWidget):
     def __init__(self):
         super().__init__()
 
-        self.backend = Backend(path.relpath("./schedules/test1.csv"))
+        self.backend = Backend(path.relpath("./schedules/test2.csv"))
         self.grid = None
         self.initialize_gui()
 

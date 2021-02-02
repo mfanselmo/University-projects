@@ -54,10 +54,10 @@ class Slot(QLabel):
     def _set_text(self):
         final_text = ""
 
-        for task, events in self.events.items():
-            for event in events:
-                if event['event'] in ['activation', 'deadline']:
-                    final_text += f"tid: {task} | jid: {event['job_id']} \n|  {event['event']}\n"
+        # for task, events in self.events.items():
+        #     for event in events:
+        #         if event['event'] in ['activation', 'deadline']:
+        #             final_text += f"tid: {task} | jid: {event['job_id']} \n|  {event['event']}\n"
 
         self.setText(final_text)
 
