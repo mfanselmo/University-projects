@@ -46,7 +46,7 @@ class User(models.Model):
 class Ticket(models.Model):
 	ticket_id = models.IntegerField(primary_key=True)
 	created_at = models.DateTimeField(auto_now_add=True)
-	status_choices = (('New','New'),('Booked','Booked'),('Scanned','Scanned'),('Completed','Completed'),('Deleted','Deleted'))
+	status_choices = (('New','New'),('Scanned','Scanned'),('Completed','Completed'))
 	status =  models.CharField(max_length=10,choices=status_choices,default='New')
 	time_of_request = models.DateTimeField()
 	time_of_entry = models.DateTimeField(null=True,blank=True)
@@ -57,7 +57,7 @@ class Ticket(models.Model):
 
 
 	def __str__(self):
-		return str(self.assigned_to_user.name)+""+str(self.time_of_request)
+		return str(self.assigned_to_user.phone_number)+""+str(self.time_of_request)
 
 
 

@@ -92,15 +92,26 @@ class BlocklistPermission(permissions.BasePermission):
     """
 
     def has_permission(self, request, view):
-        if str(view.__class__.__name__).lower().find('store') != -1:
-            if request.method == 'GET':
-                return True
-            else:
-                if request.user.is_authenticated and request.user.is_staff:
+        try:
+            if str(view.__class__.__name__).lower().find('store') != -1:
+                if request.method == 'GET':
                     return True
-        elif str(view.__class__.__name__).lower().find('ticket') != -1:
-            if request.method == 'POST':
-                return True
+                else:
+                    if request.user.is_authenticated and request.user.is_staff:
+                        return True
+            elif str(view.__class__.__name__).lower().find('ticket') != -1:
+                if request.method == 'POST':
+                    return True
+            elif str(view.__class__.__name__).lower().find('scan') != -1:
+                if request.method=='POST':
+                    user_id= request.user
+                    user=User.objects.get(phone_number=user_id)
+                    if user.isManager == True:
+                        return True
+                return False
+        except:
+            return False
+
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -279,45 +290,45 @@ class TicketView(APIView):
 
 
 # def get_people_in_line(store_id):
-# 	tickets =  list(Ticket.objects.filter(assigned_to_store=store_id).filter(time_of_request__date=date.today()).filter(status='New').values())
-# 	return len(tickets)
+#   tickets =  list(Ticket.objects.filter(assigned_to_store=store_id).filter(time_of_request__date=date.today()).filter(status='New').values())
+#   return len(tickets)
 
 
 # def getManagerStore(request):
-# 	manager_id=request.GET.get('id')
-# 	manager_data= User.objects.filter(user_id=manager_id)
-# 	print(manager_data)
-# 	response={}
-# 	if len(manager_data) != 0:
-# 		manager_data = manager_data[0]
+#   manager_id=request.GET.get('id')
+#   manager_data= User.objects.filter(user_id=manager_id)
+#   print(manager_data)
+#   response={}
+#   if len(manager_data) != 0:
+#       manager_data = manager_data[0]
 
-# 		if manager_data.managed_store_id != None:
-# 			store_data= manager_data.managed_store_id
-# 			address = store_data.location
-# 			response['data'] = [{
-# 										'store_id':store_data.store_id,
-# 										'lat':address.latitude,
-# 										'lon': address.longitude,
-# 										'address':address.address,
-# 										'people_in_store':store_data.current_customers,
-# 										'people_in_line': get_people_in_line(store_data.store_id),
+#       if manager_data.managed_store_id != None:
+#           store_data= manager_data.managed_store_id
+#           address = store_data.location
+#           response['data'] = [{
+#                                       'store_id':store_data.store_id,
+#                                       'lat':address.latitude,
+#                                       'lon': address.longitude,
+#                                       'address':address.address,
+#                                       'people_in_store':store_data.current_customers,
+#                                       'people_in_line': get_people_in_line(store_data.store_id),
 
-# 									 }]
-# 	else:
-# 		message= 'Manager not found'
-# 		response['message']= message
-# 	return HttpResponse(json.dumps(response),content_type="application/json")
+#                                    }]
+#   else:
+#       message= 'Manager not found'
+#       response['message']= message
+#   return HttpResponse(json.dumps(response),content_type="application/json")
 
 
 # class StoreView(APIView):
-# 	def get(self,request):
-# 		try:
-# 			stores = Store.objects.all()
-# 			stores =json.loads(serializers.serialize('json',Store.objects.all(),use_natural_foreign_keys=True))
-# 			return HttpResponse(json.dumps({"data":stores}),content_type="application/json",status=200)
-# 		except Exception as e:
-# 			print(e)
-# 			return HttpResponse(json.dumps({"message":"internal server error"}),content_type="application/json",status=500)
+#   def get(self,request):
+#       try:
+#           stores = Store.objects.all()
+#           stores =json.loads(serializers.serialize('json',Store.objects.all(),use_natural_foreign_keys=True))
+#           return HttpResponse(json.dumps({"data":stores}),content_type="application/json",status=200)
+#       except Exception as e:
+#           print(e)
+#           return HttpResponse(json.dumps({"message":"internal server error"}),content_type="application/json",status=500)
 
 
 class UserView(APIView):
@@ -481,5 +492,39 @@ class SlotsView(APIView):
             print(e)
             return HttpResponse(json.dumps({"message": "internal server error"}),
                                 content_type="application/json", status=500)
+
+
+
+
+class ScanTicket(APIView):
+    permission_classes = (BlocklistPermission,)
+    def post(self,request,format=None):
+        try:
+            data= json.loads(request.body)
+            ticket_id = data.get("ticket_id")
+            ticket = Ticket.objects.filter(ticket_id=ticket_id)
+            user_ticket = list(ticket.values())
+            content={}
+            if len(user_ticket) !=0:
+                user_ticket=user_ticket[0]
+                if user_ticket['status'] == 'New':
+                    ticket.update(status='Scanned')
+                    ticket.update(time_of_entry=datetime.now())
+                    content['message']='ticket successfully scanned'
+                    content['ticket_status'] = 'Scanned'
+                    content['ticket_id'] = ticket_id 
+                elif user_ticket['status'] == 'Scanned':
+                    ticket.update(status='Completed')
+                    ticket.update(time_of_exit=datetime.now())
+                    content['message'] = 'ticket successfully scanned'
+                    content['ticket_status'] = 'Completed'
+                    content['ticket_id'] = ticket_id
+                return HttpResponse(json.dumps(content),content_type="application/json",status=200)
+            else:
+                return HttpResponse(json.dumps({"message":"ticket not found"}),content_type="application/json",status=400)
+        except Exception as e:
+            print(e)
+            return HttpResponse(json.dumps({"message":"internal server error"}),content_type="application/json",status=500)
+
 
 
