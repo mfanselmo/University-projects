@@ -1,8 +1,10 @@
 from backend.task import Task
 from backend.processor import Processor
+from backend.singleton import Singleton
 from frontend.constants import PROCESSOR_SLOT_HEIGHT, PROCESSOR_SLOT_WIDTH, GENERAL_SLOT_WIDTH, GENERAL_SLOT_HEIGHT
 
 
+@Singleton
 class Backend:
     """
 

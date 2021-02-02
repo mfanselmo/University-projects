@@ -7,6 +7,8 @@ from PyQt5.QtCore import Qt
 class Legend(QWidget):
     def __init__(self, backend):
         super().__init__()
+        if backend is None:
+            return
         self.backend = backend
         self.layout = QHBoxLayout(self)
 

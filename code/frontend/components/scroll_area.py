@@ -13,15 +13,37 @@ class MainScrollArea(QWidget):
         self.initialize_gui()
 
     def initialize_gui(self):
+
         self.grid = GridComponent(self.backend)
         self.legend = Legend(self.backend)
 
-        self.layout = QVBoxLayout(self)
-        self.scrollArea = QScrollArea(self)
+        self.my_layout = QVBoxLayout()
+        self.scrollArea = QScrollArea()
         self.scrollArea.setWidgetResizable(True)
         self.scrollAreaWidgetContents = ScrollWidgetContents(self.grid, self.legend)
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
-        self.layout.addWidget(self.scrollArea)
+
+        self.my_layout.addWidget(self.scrollArea)
+        self.setLayout(self.my_layout)
+
+    def reset_gui(self, backend):
+        self.backend = backend
+        self.grid = GridComponent(self.backend)
+        self.legend = Legend(self.backend)
+        self.scrollArea = QScrollArea()
+        self.scrollArea.setWidgetResizable(True)
+        self.scrollAreaWidgetContents = ScrollWidgetContents(self.grid, self.legend)
+        self.scrollArea.setWidget(self.scrollAreaWidgetContents)
+        self.my_layout.addWidget(self.scrollArea)
+
+    def clear_layout(self):
+        """
+        removes scroll area, and created widgets within
+        """
+        while self.layout().count():
+            child = self.layout().takeAt(0)
+            if child.widget():
+                child.widget().deleteLater()
 
 
 class ScrollWidgetContents(QWidget):

@@ -4,7 +4,7 @@ from frontend.helpers import print_widget
 
 from frontend.components.scroll_area import MainScrollArea
 
-from os import path
+from os import path,  getcwd
 
 from PyQt5.QtWidgets import (QApplication, QWidget, QPushButton, QLabel,
                              QLineEdit, QHBoxLayout, QVBoxLayout, QFileDialog)
@@ -15,8 +15,9 @@ class MainWindow(QWidget):
     def __init__(self):
         super().__init__()
 
-        self.backend = Backend(path.relpath("./schedules/offline-online.csv"))
+        self.backend = None  # Backend(path.relpath("./schedules/offline-online.csv"))
         self.initialize_gui()
+        self.load_schedule()
 
     def initialize_gui(self):
         self.setGeometry(200, 100, 1200, 800)
@@ -25,6 +26,7 @@ class MainWindow(QWidget):
         self.open_button = QPushButton('&Open new schedule', self)
         self.print_button = QPushButton('&Print schedule', self)
         self.print_button.clicked.connect(self.generate_pdf)
+        self.open_button.clicked.connect(self.load_schedule)
 
         """
         this hbox has the buttons on the bottom
@@ -37,13 +39,26 @@ class MainWindow(QWidget):
         """
         This grid layout has the gantt style chart
         """
-        scroll = MainScrollArea(self.backend)
-        self.scroll = scroll
 
         vbox = QVBoxLayout()
-        vbox.addWidget(scroll)
+        scroll = MainScrollArea(self.backend)
+        self.scroll = scroll
+        # self.scroll = QLabel("Open a schedule")
+        vbox.addWidget(self.scroll)
         vbox.addLayout(hbox)
         self.setLayout(vbox)
+
+    def load_schedule(self):
+
+        fname = QFileDialog.getOpenFileName(self, 'Open schedule',
+                                            path.abspath(getcwd()), "CSV (*.csv)")
+
+        # csv_path = path.relpath("./schedules/offline-online.csv")
+        print(fname)
+        self.backend = Backend(fname[0])
+
+        self.scroll.clear_layout()
+        self.scroll.reset_gui(self.backend)
 
     def generate_pdf(self):
         fn, _ = QFileDialog.getSaveFileName(

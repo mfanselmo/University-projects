@@ -75,8 +75,6 @@ class Processor:
             else:
                 self.task_independant_events[str(timestamp)] = [{'event': 'off'}]
 
-            print(events['-1'])
-
         except (KeyError, StopIteration) as e:
             pass
 

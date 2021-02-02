@@ -9,6 +9,9 @@ from frontend.components.general_slot import GeneralSlot
 class GridComponent(QWidget):
     def __init__(self, backend):
         super().__init__()
+        if backend is None:
+            return
+
         self.backend = backend
         self.number_processors = backend.number_processors
         self.number_timestamp = backend.number_timestamps
