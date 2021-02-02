@@ -1,5 +1,4 @@
-from PyQt5.QtWidgets import (QApplication, QScrollArea, QSizePolicy, QWidget, QPushButton, QLabel,
-                             QGridLayout, QHBoxLayout, QVBoxLayout)
+from PyQt5.QtWidgets import (QWidget, QLabel, QGridLayout)
 
 from PyQt5.QtCore import Qt
 
@@ -10,28 +9,17 @@ from frontend.components.general_slot import GeneralSlot
 class GridComponent(QWidget):
     def __init__(self, backend):
         super().__init__()
-
         self.backend = backend
         self.number_processors = backend.number_processors
         self.number_timestamp = backend.number_timestamps
-
-        self.initialize_gui()
-
-    def initialize_gui(self):
-
-        self.layout = QVBoxLayout(self)
-        self.scrollArea = QScrollArea(self)
-        self.scrollArea.setWidgetResizable(True)
-        self.scrollAreaWidgetContents = QWidget()
-
-        self.grid = QGridLayout(self.scrollAreaWidgetContents)
-        # self.grid.setContentsMargins(100, 100, 100, 100)
+        self.grid = QGridLayout(self)
         self.grid.setHorizontalSpacing(0)
         self.grid.setVerticalSpacing(5)
-        self.grid.setAlignment(Qt.AlignTop)
-        self.scrollArea.setWidget(self.scrollAreaWidgetContents)
 
-        self.layout.addWidget(self.scrollArea)
+        self.grid.setAlignment(Qt.AlignTop)
+        self.initialize_grid()
+
+    def initialize_grid(self):
 
         self.grid.addWidget(QLabel("---"), 0, 0)
 

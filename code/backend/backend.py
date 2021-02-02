@@ -1,5 +1,6 @@
 from backend.task import Task
 from backend.processor import Processor
+from frontend.constants import PROCESSOR_SLOT_HEIGHT, PROCESSOR_SLOT_WIDTH, GENERAL_SLOT_WIDTH, GENERAL_SLOT_HEIGHT
 
 
 class Backend:
@@ -165,4 +166,4 @@ class Backend:
             self.processor_independant_tasks[task_id] = task
 
     def size_of_grid(self):
-        return (self.number_timestamps*100+200, (self.number_processors + 1)*100+200)
+        return (self.number_timestamps*PROCESSOR_SLOT_WIDTH + 200, self.number_processors*PROCESSOR_SLOT_HEIGHT + GENERAL_SLOT_HEIGHT + 250)

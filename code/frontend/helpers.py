@@ -10,7 +10,7 @@ def print_widget(widget, filename):
     printer = QtPrintSupport.QPrinter(QtPrintSupport.QPrinter.HighResolution)
     printer.setOutputFormat(QtPrintSupport.QPrinter.PdfFormat)
     printer.setOutputFileName(filename)
-    # printer.setFullPage(True)
+    printer.setFullPage(True)
 
     size = QtGui.QPageSize(QtCore.QSizeF(width/5, height/5), QtGui.QPageSize.Millimeter)
     printer.setPageSize(size)

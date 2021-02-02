@@ -2,7 +2,7 @@ from PyQt5 import QtCore
 from backend.backend import Backend
 from frontend.helpers import print_widget
 
-from frontend.components.main_grid import GridComponent
+from frontend.components.scroll_area import MainScrollArea
 
 from os import path
 
@@ -16,7 +16,6 @@ class MainWindow(QWidget):
         super().__init__()
 
         self.backend = Backend(path.relpath("./schedules/test2.csv"))
-        self.grid = None
         self.initialize_gui()
 
     def initialize_gui(self):
@@ -38,11 +37,11 @@ class MainWindow(QWidget):
         """
         This grid layout has the gantt style chart
         """
-        grid = GridComponent(self.backend)
-        self.grid = grid
+        scroll = MainScrollArea(self.backend)
+        self.scroll = scroll
 
         vbox = QVBoxLayout()
-        vbox.addWidget(grid)
+        vbox.addWidget(scroll)
         vbox.addLayout(hbox)
         self.setLayout(vbox)
 
@@ -54,4 +53,4 @@ class MainWindow(QWidget):
             if QtCore.QFileInfo(fn).suffix() == "":
                 fn += ".pdf"
 
-            print_widget(self.grid, fn)
+            print_widget(self.scroll, fn)

@@ -1,4 +1,5 @@
 from PyQt5.QtWidgets import (QApplication, QWidget, QLabel)
+from frontend.constants import PROCESSOR_SLOT_HEIGHT, PROCESSOR_SLOT_WIDTH
 
 
 class Slot(QLabel):
@@ -31,7 +32,7 @@ class Slot(QLabel):
 
     def initialize_gui(self):
         # self.setText("TASK")
-        self.setFixedSize(100, 100)
+        self.setFixedSize(PROCESSOR_SLOT_WIDTH, PROCESSOR_SLOT_HEIGHT)
         # self.setMinimumWidth(50)
         # self.setMinimumHeight(50)
         self._set_style()
