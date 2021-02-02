@@ -6,7 +6,7 @@ export const requestBooking = (axios, storeId, date, phoneNumber) => {
   return baseAxios.post(BACKEND_URL + "/ticket", {
     phone_number: phoneNumber,
     store_id: storeId,
-    time_of_visit: date.toISOString().replace("T", " "),
+    time_of_visit: date.format("YYYY-MM-DD HH:mm:ss"),
   });
 };
 

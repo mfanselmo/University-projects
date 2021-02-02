@@ -37,9 +37,9 @@ const BookConfirmationPage = () => {
     checkTicket();
   }, [axios, ticketId, history]);
 
-  console.log(ticketData);
-
-  const date = ticketData ? new Date(ticketData.approximate_enter_time) : null;
+  const date = ticketData
+    ? moment(ticketData.approximate_enter_time, "YYYY-MM-DD HH:mm:ss")
+    : null;
 
   const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
@@ -53,7 +53,7 @@ const BookConfirmationPage = () => {
           <div>
             <h4>Confirmation page</h4>
             <QRCode value={ticketId} size={256} />
-            <p>Time to enter: {moment(date).format(" MMMM Do - h:mm a")}</p>
+            <p>Time to enter: {date.format(" MMMM Do - h:mm a")}</p>
             <p>Store: {ticketData.store_name}</p>
             <p>Address: {ticketData.address}</p>
             {/* <h5>Categories: </h5>

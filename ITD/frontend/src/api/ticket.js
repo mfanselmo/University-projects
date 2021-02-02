@@ -1,14 +1,29 @@
 import baseAxios from "axios";
+import moment from "moment";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
 export const requestTicket = (axios, storeId, phoneNumber) => {
-  const date = new Date();
+  const date = moment(new Date());
+  // set minutes and seconds to closest tenth and 0
+  date.set({ second: 0, minute: Math.floor(date.minute() / 10) * 10 });
 
-  return baseAxios.post(BACKEND_URL + "/ticket", {
-    phone_number: phoneNumber,
-    store_id: storeId,
-    time_of_visit: date.toISOString().replace("T", " "),
+  return getNextSlot(storeId, date).then((res) => {
+    if (res.data.time_of_visit === "")
+      return Promise.reject({
+        response: {
+          data: {
+            message:
+              "No more slots are available today for this store, try again tomorrow",
+          },
+        },
+      });
+
+    return baseAxios.post(BACKEND_URL + "/ticket", {
+      phone_number: phoneNumber,
+      store_id: storeId,
+      time_of_visit: res.data.available_slot,
+    });
   });
 };
 
@@ -17,6 +32,15 @@ export const getTicketStatus = (axios, ticketId) => {
     params: {
       ticket_id: ticketId,
     },
+  });
+};
+
+export const getNextSlot = (storeId, timeOfVisit) => {
+  // This function gets called before creating a ticket
+  // returns the next available slot
+  return baseAxios.post(BACKEND_URL + "/slots", {
+    store_id: storeId,
+    time_of_visit: timeOfVisit.format("YYYY-MM-DD HH:mm:ss"),
   });
 };
 

@@ -35,8 +35,9 @@ const LineUpConfirmationPage = () => {
     checkTicket();
   }, [axios, ticketId, history]);
 
-  const date = ticketData ? new Date(ticketData.approximate_enter_time) : null;
-
+  const date = ticketData
+    ? moment(ticketData.approximate_enter_time, "YYYY-MM-DD HH:mm:ss")
+    : null;
   const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
   return (
@@ -49,10 +50,7 @@ const LineUpConfirmationPage = () => {
           <div>
             <h4>Confirmation page</h4>
             <QRCode value={ticketId} size={256} />
-            <p>
-              Approximate time to enter:{" "}
-              {moment(date).format(" MMMM Do - h:mm a")}
-            </p>
+            <p>Approximate time to enter: {date.format(" MMMM Do - h:mm a")}</p>
             <p>Store: {ticketData.store_name}</p>
             <p>Address: {ticketData.address}</p>
             <Button onClick={() => window.print()}>Print this code</Button>
