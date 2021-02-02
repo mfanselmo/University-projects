@@ -26,6 +26,7 @@ class Slot(QLabel):
         self.reduced_events = []
         # print(processor_id, timestamp, events)
         self._reduce_events()
+        # print(self.processor_id, self.timestamp, self.reduced_events)
         self.initialize_gui()
 
     def initialize_gui(self):
@@ -54,10 +55,10 @@ class Slot(QLabel):
     def _set_text(self):
         final_text = ""
 
-        # for task, events in self.events.items():
-        #     for event in events:
-        #         if event['event'] in ['activation', 'deadline']:
-        #             final_text += f"tid: {task} | jid: {event['job_id']} \n|  {event['event']}\n"
+        for task, events in self.events.items():
+            for event in events:
+                if event['event'] in ['F']:
+                    final_text += f"Freq Change:\n\t {event['data']} MHz\n"
 
         self.setText(final_text)
 
@@ -73,6 +74,10 @@ class Slot(QLabel):
             final_color = "#FFFFFF"
 
         self.style['background-color'] = final_color
+
+        # is there is an offline event, processor is grayed out
+        # TODO: ALSO add path where processor is grayed out
+
         self._set_style()
 
     def _set_starts(self):

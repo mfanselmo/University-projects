@@ -147,8 +147,7 @@ class Backend:
         CPU Online
         CPU Frequency change
         """
-        # TODO
-        pass
+        processor.add_task_independant_event(data['timestamp'], data['type_of_event'], data['extra_data'])
 
     def process_task_event(self, data, processor):
         task_id = data['task_id']
