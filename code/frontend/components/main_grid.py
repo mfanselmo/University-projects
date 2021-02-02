@@ -36,7 +36,7 @@ class GridComponent(QWidget):
 
         # Add Column labels
         timestamps = []
-        for i in range(self.number_timestamp):
+        for i in range(self.number_timestamp + 1):
             label = GridColLabel(i)
             self.grid.addWidget(label, 0, i+1)
             timestamps.append(i)
@@ -72,3 +72,4 @@ class GridColLabel(QLabel):
         super().__init__()
         self.setText(f"{ts}")
         self.setFixedHeight(50)
+        # self.setAlignment(Qt.AlignCenter)

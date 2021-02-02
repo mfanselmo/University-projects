@@ -15,7 +15,7 @@ class MainWindow(QWidget):
     def __init__(self):
         super().__init__()
 
-        self.backend = Backend(path.relpath("./schedules/test2.csv"))
+        self.backend = Backend(path.relpath("./schedules/offline-online.csv"))
         self.initialize_gui()
 
     def initialize_gui(self):

@@ -25,7 +25,6 @@ class Slot(QLabel):
         self.processor_id = processor_id
         self.timestamp = timestamp
         self.reduced_events = []
-        # print(processor_id, timestamp, events)
         self._reduce_events()
         # print(self.processor_id, self.timestamp, self.reduced_events)
         self.initialize_gui()
@@ -60,6 +59,10 @@ class Slot(QLabel):
             for event in events:
                 if event['event'] in ['F']:
                     final_text += f"Freq Change:\n\t {event['data']} MHz\n"
+                if event['event'] == '-':
+                    final_text += f"Processor goes offline\n"
+                if event['event'] == '+':
+                    final_text += f"Processor goes online\n"
 
         self.setText(final_text)
 
@@ -70,14 +73,19 @@ class Slot(QLabel):
         This value should be unique, and is checked before
         """
         try:
-            final_color = next(filter(lambda x: 'color' in x, self.reduced_events))['color']
+            event = next(filter(lambda x: 'color' in x, self.reduced_events))
+            final_color = event['color'] if event['event'] != 'finish' else "#FFFFFF"
         except StopIteration:
             final_color = "#FFFFFF"
 
         self.style['background-color'] = final_color
 
         # is there is an offline event, processor is grayed out
-        # TODO: ALSO add path where processor is grayed out
+        try:
+            event = next(filter(lambda x: x['event'] == 'off' or x['event'] == '-', self.reduced_events))
+            self.style['background-color'] = 'rgba(0,0,0,0.15)'
+        except StopIteration:
+            pass
 
         self._set_style()
 
@@ -104,7 +112,7 @@ class Slot(QLabel):
         except StopIteration:
             return
 
-        self.style['border-right'] = '5px solid red'
+        self.style['border-left'] = '5px solid red'
         self._set_style()
 
     def _set_style(self):
