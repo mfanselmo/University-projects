@@ -5,16 +5,17 @@ from frontend.components.legend import Legend
 
 
 class MainScrollArea(QWidget):
-    def __init__(self, backend):
+    def __init__(self, backend, settings):
         super().__init__()
 
         self.backend = backend
+        self.settings = settings
 
         self.initialize_gui()
 
     def initialize_gui(self):
 
-        self.grid = GridComponent(self.backend)
+        self.grid = GridComponent(self.backend, self.settings)
         self.legend = Legend(self.backend)
 
         self.my_layout = QVBoxLayout()
@@ -22,9 +23,20 @@ class MainScrollArea(QWidget):
         self.scrollArea.setWidgetResizable(True)
         self.scrollAreaWidgetContents = ScrollWidgetContents(self.grid, self.legend)
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
+        self.reset_background_color()
 
         self.my_layout.addWidget(self.scrollArea)
         self.setLayout(self.my_layout)
+
+    def reset_background_color(self):
+        color = self.settings.colors['background_color']
+        self.scrollArea.setStyleSheet(f"background-color:{color};")
+
+    def reset_show_pattern(self):
+        # TODO
+        # color = self.settings.colors['background_color']
+        # self.scrollArea.setStyleSheet(f"background-color:{color};")
+        pass
 
     def reset_gui(self, backend):
         self.backend = backend

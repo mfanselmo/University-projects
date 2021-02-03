@@ -1,0 +1,17 @@
+{
+    "sizes": {
+        "slot_width": 120,
+        "processor_slot_height": 120,
+        "general_slot_height": 120
+    },
+    "colors": {
+        "background_color": "rgba(0,0,0,0)",
+        "offline_color": "gray",
+        "base_lane_color": "#FFFFFF"
+    },
+    "display": {
+        "show_deadlines": true,
+        "show_controls": true,
+        "show_pattern": true
+    }
+}

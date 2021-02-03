@@ -1,5 +1,4 @@
 from PyQt5.QtWidgets import (QApplication, QWidget, QLabel)
-from frontend.constants import PROCESSOR_SLOT_HEIGHT, PROCESSOR_SLOT_WIDTH
 
 
 class Slot(QLabel):
@@ -8,7 +7,7 @@ class Slot(QLabel):
         'border-right': '1px solid black',
     }
 
-    def __init__(self, processor_id, timestamp, events):
+    def __init__(self, processor_id, timestamp, events, settings):
         """
         events: {
             task_id: [
@@ -20,18 +19,20 @@ class Slot(QLabel):
         }
         """
         super().__init__()
+        self.settings = settings
         self.events = events
         self.style = Slot.BASE_STYLE.copy()
         self.processor_id = processor_id
         self.timestamp = timestamp
         self.reduced_events = []
+        self.has_nothing = True
+        self.is_offline = True
         self._reduce_events()
-        # print(self.processor_id, self.timestamp, self.reduced_events)
         self.initialize_gui()
 
     def initialize_gui(self):
         # self.setText("TASK")
-        self.setFixedSize(PROCESSOR_SLOT_WIDTH, PROCESSOR_SLOT_HEIGHT)
+        self.setFixedSize(self.settings.sizes['slot_width'], self.settings.sizes['processor_slot_height'])
         # self.setMinimumWidth(50)
         # self.setMinimumHeight(50)
         self._set_style()
@@ -74,16 +75,17 @@ class Slot(QLabel):
         """
         try:
             event = next(filter(lambda x: 'color' in x, self.reduced_events))
-            final_color = event['color'] if event['event'] != 'finish' else "#FFFFFF"
+            final_color = event['color'] if event['event'] != 'finish' else self.settings.colors['base_lane_color']
         except StopIteration:
-            final_color = "#FFFFFF"
+            final_color = self.settings.colors['base_lane_color']
 
         self.style['background-color'] = final_color
 
         # is there is an offline event, processor is grayed out
         try:
             event = next(filter(lambda x: x['event'] == 'off' or x['event'] == '-', self.reduced_events))
-            self.style['background-color'] = 'rgba(0,0,0,0.15)'
+            self.style['background-color'] = self.settings.colors['offline_color']
+            self.is_offline = True
         except StopIteration:
             pass
 
@@ -124,3 +126,13 @@ class Slot(QLabel):
             styles += f"{rule}: {value};"
 
         self.setStyleSheet(styles)
+
+    def reset_style(self):
+        self.setFixedSize(self.settings.sizes['slot_width'], self.settings.sizes['processor_slot_height'])
+
+        if self.has_nothing:
+            self.style['background-color'] = self.settings.colors['base_lane_color']
+        if self.is_offline:
+            self.style['background-color'] = self.settings.colors['offline_color']
+
+        self._set_style()

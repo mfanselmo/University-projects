@@ -1,16 +1,15 @@
 from PyQt5.QtWidgets import (QApplication, QWidget, QLabel)
-from frontend.constants import GENERAL_SLOT_HEIGHT, GENERAL_SLOT_WIDTH
 
 
 class GeneralSlot(QLabel):
 
     BASE_STYLE = {
         'border-right': '1px solid black',
-        'background-color': 'transparent',
     }
 
-    def __init__(self, timestamp, events):
+    def __init__(self, timestamp, events, settings):
         super().__init__()
+        self.settings = settings
         self.events = events
         self.style = GeneralSlot.BASE_STYLE.copy()
         self.timestamp = timestamp
@@ -19,10 +18,8 @@ class GeneralSlot(QLabel):
         self.initialize_gui()
 
     def initialize_gui(self):
-        # self.setText("TEST")
-        self.setFixedSize(GENERAL_SLOT_WIDTH, GENERAL_SLOT_HEIGHT)
-        # self.setMinimumWidth(50)
-        # self.setMinimumHeight(50)
+        self.setFixedSize(self.settings.sizes['slot_width'], self.settings.sizes['general_slot_height'])
+        self.style['background-color'] = self.settings.colors['base_lane_color']
         self._set_style()
         self._add_events()
 
@@ -53,3 +50,8 @@ class GeneralSlot(QLabel):
                 reduced_events.append(aux)
 
         self.reduced_events = reduced_events
+
+    def reset_style(self):
+        self.setFixedSize(self.settings.sizes['slot_width'], self.settings.sizes['general_slot_height'])
+        self.style['background-color'] = self.settings.colors['base_lane_color']
+        self._set_style()
