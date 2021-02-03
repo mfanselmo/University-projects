@@ -2,22 +2,26 @@ import React, { useContext, useState, useEffect } from "react";
 import { Table, Button } from "antd";
 import { Link } from "react-router-dom";
 import { stateContext } from "../context/stateContext";
-import { getStoresInfo } from "../api";
+import { getAllStores } from "../api";
 import * as ROUTES from "./../constants/routes";
 
 const ManagerStoresTable = () => {
-  const { axios } = useContext(stateContext);
+  const { axios, currentUser, currentUserData } = useContext(stateContext);
   const [stores, setStores] = useState([]);
+  const [filteredStores, setFilteredStores] = useState([]);
 
   useEffect(() => {
     const loadStores = async () => {
-      getStoresInfo(axios).then((res) => {
-        setStores(res.data);
+      getAllStores(axios).then((res) => {
+        setStores(
+          res.data.filter((d) =>
+            currentUserData.managed_store.includes(d.store_id)
+          )
+        );
       });
     };
-
-    loadStores();
-  }, [axios]);
+    if (currentUserData && currentUserData.managed_store[0]) loadStores();
+  }, [axios, currentUserData]);
 
   const columns = [
     // {
@@ -29,20 +33,20 @@ const ManagerStoresTable = () => {
       title: "Address",
       dataIndex: "address",
       key: "address",
-      render: (text) => (
+      render: (text, doc) => (
         <a
           target="_blank"
           rel="noopener noreferrer"
-          href={`https://www.google.com/maps/search/?api=1&query=${text}`}
+          href={`https://www.google.com/maps/search/?api=1&query=${doc.location.address}`}
         >
-          {text}
+          {doc.location.address}
         </a>
       ),
     },
     {
       title: "Customers inside",
-      dataIndex: "people_in_store",
-      key: "people_in_store",
+      dataIndex: "current_customers",
+      key: "current_customers",
     },
     {
       title: "View detail",

@@ -79,9 +79,11 @@
     "fields": {
       "user_id":3,
       "name": "martin",
-      "phone_number": "3292384923",
+      "phone_number": "+393888888888",
       "email_address": "martin@gmail.com",
-      "isManager":false
+      "isManager":true,
+      "managed_store_id": [1,2]
+
     }
   },
     {

@@ -7,7 +7,7 @@ import {
   getTicketStatus,
   getNextSlot,
 } from "./ticket.js";
-import { getStoresInfo, scanTicket } from "./manager.js";
+import { scanTicket } from "./manager.js";
 import { getAllStores } from "./stores.js";
 import { getCurrentUser, signup } from "./user.js";
 
@@ -21,7 +21,6 @@ export {
   cancelTicket,
   getTicketStatus,
   getNextSlot,
-  getStoresInfo,
   scanTicket,
   getAllStores,
   getCurrentUser,

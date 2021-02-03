@@ -1,9 +1,11 @@
 import { createContext } from "react";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { getCurrentUser } from "../api";
 
 export const stateContext = createContext({
   currentUser: null,
+  currentUserData: null,
   login: () => {},
   logout: () => {},
   axios: null,
@@ -20,6 +22,7 @@ export const StateProvider = ({ children }) => {
     if (phoneNumber && authToken) return { phoneNumber, authToken, isManager };
     return null;
   });
+  const [currentUserData, setCurrentUserData] = useState(null);
 
   useEffect(() => {
     if (currentUser) {
@@ -44,6 +47,14 @@ export const StateProvider = ({ children }) => {
     }
   }, [customAxios, currentUser]);
 
+  useEffect(() => {
+    if (currentUser) {
+      getCurrentUser(axios, currentUser).then((res) => {
+        setCurrentUserData(res.data);
+      });
+    }
+  }, [currentUser]);
+
   const login = (phoneNumber, authToken, isManager) => {
     localStorage.setItem("phoneNumber", phoneNumber);
     localStorage.setItem("authToken", authToken);
@@ -65,6 +76,7 @@ export const StateProvider = ({ children }) => {
         logout,
         axios: customAxios,
         currentUser: currentUser,
+        currentUserData: currentUserData,
       }}
     >
       {children}

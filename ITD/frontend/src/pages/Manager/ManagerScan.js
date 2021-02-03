@@ -1,13 +1,16 @@
 import React, { useContext, useState } from "react";
 import QrReader from "react-qr-reader";
 import { message, Spin, Alert } from "antd";
-import { scanTicket } from "./../../api";
+import { getTicketStatus } from "./../../api";
 import { stateContext } from "../../context/stateContext";
 import moment from "moment";
+import ManagerConfirm from "./ManagerConfirm";
 
 const ManagerScan = () => {
   const [loading, setLoading] = useState(false);
   const [lastTicket, setLastTicket] = useState(null);
+  const [openModal, setOpenModal] = useState(false);
+  const [ticketData, setTicketData] = useState(null);
   const [scanState, setScanState] = useState({
     success: false,
     message: "Start scanning",
@@ -18,30 +21,43 @@ const ManagerScan = () => {
   const handleScan = (data) => {
     if (data && !loading && data !== lastTicket) {
       setLoading(true);
-      scanTicket(axios, data)
-        .then(() => {
-          message.success("Ticket scanned succesfully");
-          setLoading(false);
-          setLastTicket(data);
-          const date = new Date();
+      setLastTicket(data);
 
-          setScanState({
-            success: true,
-            message: `Ticket scanned correctly at ${moment(date).format(
-              "HH:mm"
-            )}`,
-          });
+      getTicketStatus(axios, data)
+        .then((res) => {
+          if (res.data.status === "Completed") {
+            message.error("This ticket has already been completed");
+            setLoading(false);
+            return;
+          }
+
+          setScanState({ success: true, message: "Confirm scan" });
+          setTicketData(res.data);
+          setOpenModal(true);
+          setLoading(false);
         })
         .catch((err) => {
-          message.error(err.message);
-          setLastTicket(data);
           setLoading(false);
-          setScanState({ success: false, message: err.message });
+          if (err.response) {
+            if (err.response.data.message)
+              message.error(err.response.data.message);
+            else message.error("Unexpected error");
+          }
         });
     }
   };
   return (
     <div>
+      <ManagerConfirm
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+        ticketData={ticketData}
+        setTicketData={setTicketData}
+        axios={axios}
+        ticketId={lastTicket}
+        setTicketId={setLastTicket}
+        setScanState={setScanState}
+      />
       <Spin spinning={loading}>
         {lastTicket ? (
           <Alert

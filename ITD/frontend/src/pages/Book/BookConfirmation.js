@@ -56,6 +56,7 @@ const BookConfirmationPage = () => {
             <p>Time to enter: {date.format(" MMMM Do - h:mm a")}</p>
             <p>Store: {ticketData.store_name}</p>
             <p>Address: {ticketData.address}</p>
+            <p>Status: {ticketData.status}</p>
             {/* <h5>Categories: </h5>
             <ul>
               {store.shopping_categories.map((d) => (

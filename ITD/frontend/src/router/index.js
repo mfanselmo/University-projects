@@ -51,6 +51,12 @@ const Router = () => {
       <Route exact path={ROUTES.MANAGER_STORES} component={ManagerStores} />
       <Route exact path={ROUTES.MANAGER_STORE} component={ManagerStore} />
       <Route exact path={ROUTES.MANAGER_SCAN} component={ManagerScan} />
+      <Route exact path={ROUTES.LINEUP} component={LineUpPage} />
+      <Route
+        exact
+        path={ROUTES.LINEUP_CONFIRMATION}
+        component={LineUpConfirmationPage}
+      />
     </Switch>
   );
 };
