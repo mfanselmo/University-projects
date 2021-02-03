@@ -343,6 +343,7 @@ class UserView(APIView):
             if self.request.user.is_authenticated:
                 phone_number = self.request.user.username
                 user_data = User.objects.get(phone_number=phone_number)
+
                 tickets = list(Ticket.objects.filter(assigned_to_user=user_data).values(
                     "ticket_id", "time_of_request", "assigned_to_user__phone_number",
                     "assigned_to_store__name", "categories_to_visit", "status",
@@ -350,7 +351,6 @@ class UserView(APIView):
                 active_tickets = []
                 bookings = []
                 today = date.today()
-                print(tickets)
                 for ticket in tickets:
                     print(ticket['time_of_request'].date())
                     if ticket['time_of_request'].date() == today and(
@@ -375,16 +375,22 @@ class UserView(APIView):
                     else:
                         continue
 
+                managed_stores = []
+                for store in user_data.managed_store_id.all():
+                    managed_stores.append(store.store_id)
+
                 content = {
                     "is_manager": user_data.isManager,
                     "active_tickets": active_tickets,
-                    "bookings": bookings
+                    "bookings": bookings,
+                    "managed_store": managed_stores
                 }
                 return HttpResponse(json.dumps(content), content_type="application/json", status=200)
         except Exception as e:
             print(e)
             return HttpResponse(json.dumps({"message": "internal server error"}),
                                 content_type="application/json", status=500)
+    # def put(self, request):
 
 
 class SessionView(APIView):
@@ -395,6 +401,7 @@ class SessionView(APIView):
             phone_number = data.get('phone_number')
             password = data.get('password')
             user = authenticate(username=phone_number, password=password)
+
             if user is None:
                 isManager = False
                 isUserExist = len(User.objects.filter(phone_number=phone_number).values())
@@ -422,6 +429,7 @@ class SessionView(APIView):
                     new_user = User.objects.create(name=name, phone_number=phone_number, email_address=email_address)
             else:
                 isManager = User.objects.get(phone_number=phone_number).isManager
+
             token = list(Token.objects.filter(user=user).values())
             if len(token) != 0:
                 token = token[0]
