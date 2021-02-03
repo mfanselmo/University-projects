@@ -7,7 +7,6 @@ export const requestTicket = (axios, storeId, phoneNumber) => {
   const date = moment(new Date());
   // set minutes and seconds to closest tenth and 0
   date.set({ second: 0, minute: Math.floor(date.minute() / 10) * 10 });
-
   return getNextSlot(storeId, date).then((res) => {
     if (res.data.time_of_visit === "")
       return Promise.reject({

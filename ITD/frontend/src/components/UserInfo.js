@@ -57,20 +57,13 @@ const bookingColumns = [
 ];
 
 const UserInfo = () => {
-  const { axios, currentUser } = useContext(stateContext);
+  const { axios, currentUser, currentUserData } = useContext(stateContext);
 
   const [currentUserInfo, setCurrentUserInfo] = useState(null);
 
   useEffect(() => {
-    const checkTicket = async () => {
-      getCurrentUser(axios, currentUser).then((res) => {
-        // console.log(res);
-        setCurrentUserInfo(res.data);
-      });
-    };
-
-    checkTicket();
-  }, [axios, currentUser]);
+    if (currentUserData) setCurrentUserInfo(currentUserData);
+  }, [currentUserData]);
 
   if (!currentUserInfo) return <div></div>;
 

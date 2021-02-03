@@ -9,7 +9,7 @@ const HomeManager = ({ currentUser }) => {
   return (
     <div>
       <div className={"title"}>
-        <h2>CLup</h2>
+        <h2>CLup - Manager</h2>
         <p>
           The system designed for handling queues efficiently during the
           COVID-19 pandemic
@@ -21,6 +21,9 @@ const HomeManager = ({ currentUser }) => {
         </Link>
         <Link to={ROUTES.MANAGER_STORES}>
           <Button>Check your stores</Button>
+        </Link>
+        <Link to={ROUTES.LINEUP}>
+          <Button>Generate ticket</Button>
         </Link>
         <div className={"manager-extra"}>
           <h4>Your stores</h4>
