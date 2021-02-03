@@ -85,7 +85,13 @@ slots = {
      '50': {'slot_number': 53}},
     '18': {'0': {'slot_number': 54}}}
 
-slots_list = ['09:00', '09:10', '09:20', '09:30', '09:40', '09:50', '10:00', '10:10', '10:20', '10:30', '10:40', '10:50', '11:00', '11:10', '11:20', '11:30', '11:40', '11:50', '12:00', '12:10', '12:20', '12:30', '12:40', '12:50', '13:00', '13:10', '13:20', '13:30', '13:40', '13:50', '14:00', '14:10', '14:20', '14:30', '14:40', '14:50', '15:00', '15:10', '15:20', '15:30', '15:40', '15:50', '16:00', '16:10', '16:20', '16:30', '16:40', '16:50', '17:00', '17:10', '17:20', '17:30', '17:40', '17:50', '18:00']
+slots_list = ['09:00', '09:10', '09:20', '09:30', '09:40', '09:50', '10:00', '10:10', '10:20', '10:30', '10:40',
+              '10:50', '11:00', '11:10', '11:20', '11:30', '11:40', '11:50', '12:00', '12:10', '12:20', '12:30',
+              '12:40', '12:50', '13:00', '13:10', '13:20', '13:30', '13:40', '13:50', '14:00', '14:10', '14:20',
+              '14:30', '14:40', '14:50', '15:00', '15:10', '15:20', '15:30', '15:40', '15:50', '16:00', '16:10',
+              '16:20', '16:30', '16:40', '16:50', '17:00', '17:10', '17:20', '17:30', '17:40', '17:50', '18:00']
+
+
 class BlocklistPermission(permissions.BasePermission):
     """
     Global permission check for blocked IPs.
@@ -99,19 +105,18 @@ class BlocklistPermission(permissions.BasePermission):
                 else:
                     if request.user.is_authenticated and request.user.is_staff:
                         return True
-            elif str(view.__class__.__name__).lower().find('ticket') != -1:
-                if request.method == 'POST':
-                    return True
             elif str(view.__class__.__name__).lower().find('scan') != -1:
-                if request.method=='POST':
-                    user_id= request.user
-                    user=User.objects.get(phone_number=user_id)
+                if request.method == 'POST':
+                    user_id = request.user
+                    user = User.objects.get(phone_number=user_id)
                     if user.isManager == True:
                         return True
                 return False
+            elif str(view.__class__.__name__).lower().find('ticket') != -1:
+                if request.method == 'POST':
+                    return True
         except:
             return False
-
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -153,7 +158,7 @@ class TicketView(APIView):
                 Ticket.objects.filter(ticket_id=ticket_id).values(
                     'categories_to_visit', 'time_of_request', 'assigned_to_store__location__latitude',
                     'assigned_to_store__location__longitude', 'assigned_to_store__name',
-                    'assigned_to_store__location__address'))
+                    'assigned_to_store__location__address', 'status'))
             if len(ticket) != 0:
                 ticket = ticket[0]
                 content = {
@@ -162,7 +167,8 @@ class TicketView(APIView):
                     'lat': ticket['assigned_to_store__location__latitude'],
                     'lon': ticket['assigned_to_store__location__longitude'],
                     'address': ticket['assigned_to_store__location__address'],
-                    'categories_to_visit': ticket['categories_to_visit']
+                    'categories_to_visit': ticket['categories_to_visit'],
+                    'status': ticket['status']
                 }
                 return HttpResponse(json.dumps(content), content_type="application/json", status=200)
             else:
@@ -347,7 +353,8 @@ class UserView(APIView):
                 print(tickets)
                 for ticket in tickets:
                     print(ticket['time_of_request'].date())
-                    if ticket['time_of_request'].date() == today and ticket['status'] == 'New':
+                    if ticket['time_of_request'].date() == today and(
+                            ticket['status'] == 'New' or ticket['status'] == 'Scanned'):
                         content = {
                             'ticket_id': ticket['ticket_id'],
                             "time_of_visit": str(ticket['time_of_request']),
@@ -356,7 +363,7 @@ class UserView(APIView):
                             "max_customers": ticket['assigned_to_store__max_customers'],
                             "status": ticket['status']}
                         active_tickets.append(content)
-                    elif ticket['time_of_request'].date() > today and ticket['status'] == 'New':
+                    elif ticket['time_of_request'].date() > today and (ticket['status'] == 'New' or ticket['status'] == 'Scanned'):
                         content = {
                             'ticket_id': ticket['ticket_id'],
                             "time_of_visit": str(ticket['time_of_request']),
@@ -445,86 +452,88 @@ class SessionView(APIView):
                                 content_type="application/json", status=200)
 
 
-
-
 class SlotsView(APIView):
-    def post(self,request,format=None):
+    def post(self, request, format=None):
         try:
             data = json.loads(request.body)
             time_of_visit = data.get("time_of_visit")
             time_of_visit = time_of_visit[:19]
             time_of_visit = datetime.strptime(time_of_visit, '%Y-%m-%d %H:%M:%S')
-            slot_store=data.get('store_id')
-            max_customers=Store.objects.get(store_id=slot_store).max_customers
-            booking_slots =  BookingSlot.objects.filter(slot_store=slot_store).filter(slot_date=time_of_visit.date()).values('slot_number','customers_in_slot')
-            filled_slots=[]
+            slot_store = data.get('store_id')
+            max_customers = Store.objects.get(store_id=slot_store).max_customers
+            booking_slots = BookingSlot.objects.filter(
+                slot_store=slot_store).filter(
+                slot_date=time_of_visit.date()).values(
+                'slot_number', 'customers_in_slot')
+            filled_slots = []
             for slot in booking_slots:
                 if slot['customers_in_slot'] >= max_customers:
                     filled_slots.append(slot['slot_number'])
 
-            total_slots = list(range(0,55))
+            total_slots = list(range(0, 55))
             required_hours = time_of_visit.time().hour
             if required_hours > 18 or required_hours < 9:
-                return HttpResponse(json.dumps({'message': 'please choose time between 09:00  and 18:00'}),content_type="application/json", status=400)
+                return HttpResponse(
+                    json.dumps({'message': 'please choose time between 09:00  and 18:00'}),
+                    content_type="application/json", status=400)
             required_minutes = time_of_visit.time().minute
             temp = (required_minutes//10)*10
             slot_number = slots[str(required_hours)][str(temp)]['slot_number']
-            total_slots=total_slots[slot_number:]
-            available_slots=list(set(total_slots).difference(filled_slots))
+            total_slots = total_slots[slot_number:]
+            available_slots = list(set(total_slots).difference(filled_slots))
             if len(available_slots) != 0:
 
-                next_available_time=slots_list[available_slots[0]].split(':')
-                next_available_slot_in_same_day=time_of_visit.replace(hour=int(next_available_time[0]),minute=int(next_available_time[1]))
+                next_available_time = slots_list[available_slots[0]].split(':')
+                next_available_slot_in_same_day = time_of_visit.replace(
+                    hour=int(next_available_time[0]), minute=int(next_available_time[1]))
             else:
                 next_available_slot_in_same_day = ''
             booking_slots1 = BookingSlot.objects.filter(slot_number=slot_number).values('slot_store')
-            slot_stores=[]
+            slot_stores = []
             for slot in booking_slots1:
                 slot_stores.append(slot['slot_store'])
-            stores= Store.objects.all().values()
-            available_stores=[]
+            stores = Store.objects.all().values()
+            available_stores = []
             for store in stores:
                 if store['store_id'] not in slot_stores:
                     available_stores.append(store)
-            content = {'available_slot':str(next_available_slot_in_same_day),"alternative_stores":available_stores}
-            return HttpResponse(json.dumps(content),content_type="application/json",status=200)
+            content = {'available_slot': str(next_available_slot_in_same_day), "alternative_stores": available_stores}
+            return HttpResponse(json.dumps(content), content_type="application/json", status=200)
         except Exception as e:
             print(e)
             return HttpResponse(json.dumps({"message": "internal server error"}),
                                 content_type="application/json", status=500)
 
 
-
-
 class ScanTicket(APIView):
     permission_classes = (BlocklistPermission,)
-    def post(self,request,format=None):
+
+    def post(self, request, format=None):
         try:
-            data= json.loads(request.body)
+            data = json.loads(request.body)
             ticket_id = data.get("ticket_id")
             ticket = Ticket.objects.filter(ticket_id=ticket_id)
             user_ticket = list(ticket.values())
-            content={}
-            if len(user_ticket) !=0:
-                user_ticket=user_ticket[0]
+            content = {}
+            if len(user_ticket) != 0:
+                user_ticket = user_ticket[0]
                 if user_ticket['status'] == 'New':
                     ticket.update(status='Scanned')
                     ticket.update(time_of_entry=datetime.now())
-                    content['message']='ticket successfully scanned'
+                    content['message'] = 'ticket successfully scanned'
                     content['ticket_status'] = 'Scanned'
-                    content['ticket_id'] = ticket_id 
+                    content['ticket_id'] = ticket_id
                 elif user_ticket['status'] == 'Scanned':
                     ticket.update(status='Completed')
                     ticket.update(time_of_exit=datetime.now())
                     content['message'] = 'ticket successfully scanned'
                     content['ticket_status'] = 'Completed'
                     content['ticket_id'] = ticket_id
-                return HttpResponse(json.dumps(content),content_type="application/json",status=200)
+                return HttpResponse(json.dumps(content), content_type="application/json", status=200)
             else:
-                return HttpResponse(json.dumps({"message":"ticket not found"}),content_type="application/json",status=400)
+                return HttpResponse(json.dumps({"message": "ticket not found"}),
+                                    content_type="application/json", status=400)
         except Exception as e:
             print(e)
-            return HttpResponse(json.dumps({"message":"internal server error"}),content_type="application/json",status=500)
-
-
-
+            return HttpResponse(json.dumps({"message": "internal server error"}),
+                                content_type="application/json", status=500)
