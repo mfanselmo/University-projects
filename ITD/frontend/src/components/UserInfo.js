@@ -40,9 +40,9 @@ const bookingColumns = [
     dataIndex: "time_of_visit",
     key: "time_of_visit",
     render: (text) => {
-      const date = new Date(text);
-
-      return <p>{moment(date).format(" MMMM Do - h:mm a")}</p>;
+      return (
+        <p>{moment(text, "YYYY-MM-DD HH:mm:ss").format(" MMMM Do - h:mm a")}</p>
+      );
     },
   },
   {
@@ -64,7 +64,7 @@ const UserInfo = () => {
   useEffect(() => {
     const checkTicket = async () => {
       getCurrentUser(axios, currentUser).then((res) => {
-        console.log(res);
+        // console.log(res);
         setCurrentUserInfo(res.data);
       });
     };

@@ -1,3 +1,5 @@
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+
 export const getStoresInfo = (axios) => {
   return new Promise((resolve) => {
     setTimeout(resolve, 1000, {
@@ -17,8 +19,8 @@ export const getStoresInfo = (axios) => {
 };
 
 export const scanTicket = (axios, ticketId) => {
-  return new Promise((resolve) => {
-    setTimeout(resolve, 1000, {});
+  return axios.post(BACKEND_URL + "/scanticket", {
+    ticket_id: ticketId,
   });
 
   //   return new Promise((_, reject) => {

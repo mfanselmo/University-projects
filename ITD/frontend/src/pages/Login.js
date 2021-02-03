@@ -27,7 +27,7 @@ const LoginPage = () => {
         context.login(
           "+39" + values.phoneNumber,
           res.data.authentication_token,
-          res.data.isManager === "true"
+          res.data.isManager
         );
       })
       .catch((err) => {

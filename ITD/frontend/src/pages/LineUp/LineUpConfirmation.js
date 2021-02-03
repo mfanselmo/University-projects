@@ -53,6 +53,7 @@ const LineUpConfirmationPage = () => {
             <p>Approximate time to enter: {date.format(" MMMM Do - h:mm a")}</p>
             <p>Store: {ticketData.store_name}</p>
             <p>Address: {ticketData.address}</p>
+            <p>Status: {ticketData.status}</p>
             <Button onClick={() => window.print()}>Print this code</Button>
           </div>
         )}
