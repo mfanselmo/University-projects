@@ -12,7 +12,6 @@ const LineUpModal = ({
   selectedStoreId,
   setSelectedStoreId,
   availableStores,
-  axios,
   currentUser,
 }) => {
   const [loading, setLoading] = useState(false);
@@ -55,7 +54,7 @@ const LineUpModal = ({
     }
 
     setLoading(true);
-    requestTicket(axios, selectedStoreId, userPhoneNumber)
+    requestTicket(selectedStoreId, userPhoneNumber)
       .then((res) => {
         setSelectedStoreId(null);
         setOpenModal(false);

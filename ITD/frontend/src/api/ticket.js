@@ -3,7 +3,7 @@ import moment from "moment";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
-export const requestTicket = (axios, storeId, phoneNumber) => {
+export const requestTicket = (storeId, phoneNumber) => {
   const date = moment(new Date());
   // set minutes and seconds to closest tenth and 0
   date.set({ second: 0, minute: Math.floor(date.minute() / 10) * 10 });

@@ -6,21 +6,25 @@ import { getAllStores } from "../api";
 import * as ROUTES from "./../constants/routes";
 
 const ManagerStoresTable = () => {
-  const { axios, currentUserData } = useContext(stateContext);
+  const { currentUserData } = useContext(stateContext);
   const [stores, setStores] = useState([]);
 
   useEffect(() => {
     const loadStores = async () => {
-      getAllStores(axios).then((res) => {
-        setStores(
-          res.data.filter((d) =>
-            currentUserData.managed_store.includes(d.store_id)
-          )
-        );
-      });
+      getAllStores()
+        .then((res) => {
+          setStores(
+            res.data.filter((d) =>
+              currentUserData.managed_store.includes(d.store_id)
+            )
+          );
+        })
+        .catch((err) => {
+          setStores([]);
+        });
     };
     if (currentUserData && currentUserData.managed_store[0]) loadStores();
-  }, [axios, currentUserData]);
+  }, [currentUserData]);
 
   const columns = [
     {
@@ -56,7 +60,6 @@ const ManagerStoresTable = () => {
       ),
     },
   ];
-
   return (
     <Table
       dataSource={stores}

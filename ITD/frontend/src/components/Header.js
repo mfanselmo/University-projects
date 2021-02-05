@@ -8,7 +8,7 @@ const ManagerHeader = () => {
   return (
     <div className={"header"}>
       <h1>
-        <Link id={"title"} to={ROUTES.HOME}>
+        <Link id={"title"} data-testid={"clup"} to={ROUTES.HOME}>
           CLup
         </Link>
       </h1>
@@ -23,7 +23,7 @@ const AuthenticedUserHeader = () => {
   return (
     <div className={"header"}>
       <h1>
-        <Link id={"title"} to={ROUTES.HOME}>
+        <Link id={"title"} data-testid={"clup"} to={ROUTES.HOME}>
           CLup
         </Link>
       </h1>
@@ -38,7 +38,7 @@ const AnonymousUserHeader = () => {
   return (
     <div className={"header"}>
       <h1>
-        <Link id={"title"} to={ROUTES.HOME}>
+        <Link id={"title"} data-testid={"clup"} to={ROUTES.HOME}>
           CLup
         </Link>
       </h1>
