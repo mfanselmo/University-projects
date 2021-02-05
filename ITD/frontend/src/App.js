@@ -5,17 +5,23 @@ import Header from "./components/Header";
 
 import { StateProvider } from "./context/stateContext";
 
+export const RouterApp = () => {
+  return (
+    <BrowserRouter>
+      <div className={"header-container"}>
+        <Header />
+      </div>
+      <div className={"router-container"}>
+        <Router />
+      </div>
+    </BrowserRouter>
+  );
+};
+
 function App() {
   return (
     <StateProvider>
-      <BrowserRouter>
-        <div className={"header-container"}>
-          <Header />
-        </div>
-        <div className={"router-container"}>
-          <Router />
-        </div>
-      </BrowserRouter>
+      <RouterApp />
     </StateProvider>
   );
 }
