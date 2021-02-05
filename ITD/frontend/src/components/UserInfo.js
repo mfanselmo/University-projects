@@ -4,7 +4,6 @@ import { stateContext } from "../context/stateContext";
 import moment from "moment";
 import { Link } from "react-router-dom";
 import * as ROUTES from "./../constants/routes";
-import { getCurrentUser } from "./../api";
 
 const ticketColumns = [
   //   {
@@ -57,7 +56,7 @@ const bookingColumns = [
 ];
 
 const UserInfo = () => {
-  const { axios, currentUser, currentUserData } = useContext(stateContext);
+  const { currentUserData } = useContext(stateContext);
 
   const [currentUserInfo, setCurrentUserInfo] = useState(null);
 

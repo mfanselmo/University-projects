@@ -8,6 +8,7 @@ export const requestTicket = (axios, storeId, phoneNumber) => {
   // set minutes and seconds to closest tenth and 0
   date.set({ second: 0, minute: Math.floor(date.minute() / 10) * 10 });
   return getNextSlot(storeId, date).then((res) => {
+    console.log(res);
     if (res.data.time_of_visit === "")
       return Promise.reject({
         response: {
@@ -37,6 +38,10 @@ export const getTicketStatus = (axios, ticketId) => {
 export const getNextSlot = (storeId, timeOfVisit) => {
   // This function gets called before creating a ticket
   // returns the next available slot
+  console.log({
+    store_id: storeId,
+    time_of_visit: timeOfVisit.format("YYYY-MM-DD HH:mm:ss"),
+  });
   return baseAxios.post(BACKEND_URL + "/slots", {
     store_id: storeId,
     time_of_visit: timeOfVisit.format("YYYY-MM-DD HH:mm:ss"),

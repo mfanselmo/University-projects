@@ -51,6 +51,18 @@ export const StateProvider = ({ children }) => {
     if (currentUser) {
       getCurrentUser(axios, currentUser).then((res) => {
         setCurrentUserData(res.data);
+
+        if (res.data && res.data.is_manager && !currentUser.isManager) {
+          setCurrentUser((old) => {
+            localStorage.setItem("isManager", true);
+            return { ...old, isManager: true };
+          });
+        } else if (res.data && !res.data.is_manager && currentUser.isManager) {
+          setCurrentUser((old) => {
+            localStorage.setItem("isManager", false);
+            return { ...old, isManager: false };
+          });
+        }
       });
     }
   }, [currentUser]);

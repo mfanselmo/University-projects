@@ -3,6 +3,8 @@ import React, { useContext, useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { getAllStores, getNextSlot } from "../../api";
 import { stateContext } from "../../context/stateContext";
+import { PieChart } from "react-minimal-pie-chart";
+
 import moment from "moment";
 const ManagerStore = ({ location }) => {
   const { storeId } = useParams();
@@ -75,6 +77,33 @@ const ManagerStore = ({ location }) => {
       )}
       <h4>People in store: {storeInfo.current_customers}</h4>
       <h4>Capacity of store: {storeInfo.max_customers}</h4>
+      <div className={"chart"}>
+        <h2 className={"chart-title"}>Current Store Capacity</h2>
+        <PieChart
+          data={[
+            {
+              value: (
+                (100 * storeInfo.current_customers) /
+                storeInfo.max_customers
+              ).toFixed(1),
+              color: "#2957ac",
+            },
+          ]}
+          background="#bfbfbf"
+          totalValue={100}
+          lineWidth={20}
+          label={({ dataEntry }) => `${dataEntry.value}%`}
+          labelStyle={{
+            fontSize: "20px",
+            fontFamily: "sans-serif",
+            fill: "#2957ac",
+          }}
+          labelPosition={0}
+          style={{ maxWidth: "350px" }}
+          rounded
+          animate
+        />
+      </div>
     </div>
   );
 };

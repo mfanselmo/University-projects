@@ -75,7 +75,7 @@ const SignupPage = () => {
             {
               required: true,
               message: "Add a valid email address",
-              pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g,
+              pattern: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g,
             },
           ]}
         >

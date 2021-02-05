@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import * as ROUTES from "./../constants/routes";
 import { getNextSlot, requestTicket } from "./../api";
 import { useHistory } from "react-router";
-import { message, Input } from "antd";
+import { message, Input, Checkbox } from "antd";
 import moment from "moment";
 
 const LineUpModal = ({
@@ -17,10 +17,22 @@ const LineUpModal = ({
 }) => {
   const [loading, setLoading] = useState(false);
   const [nextSlotAvailable, setNextSlotAvailable] = useState("");
-  const [userPhoneNumber, setUserPhoneNumber] = useState(
-    currentUser ? currentUser.phoneNumber : null
-  );
+  const [userPhoneNumber, setUserPhoneNumber] = useState(() => {
+    if (!currentUser || currentUser.isManager) return null;
+    else return currentUser.phoneNumber;
+  });
+  const [noPhoneNumber, setNoPhoneNumber] = useState(false);
+
   const history = useHistory();
+
+  useEffect(() => {
+    if (noPhoneNumber) {
+      setUserPhoneNumber("+393000000000");
+    } else {
+      if (!currentUser || currentUser.isManager) setUserPhoneNumber(null);
+      else setUserPhoneNumber(currentUser.phoneNumber);
+    }
+  }, [noPhoneNumber, currentUser]);
 
   const handleConfirm = () => {
     if (!userPhoneNumber) {
@@ -74,8 +86,7 @@ const LineUpModal = ({
     const loadNextAvailableSlot = async (selectedStoreId) => {
       const date = moment(new Date());
       // set minutes and seconds to closest tenth and 0
-      date.set({ second: 0, minute: Math.floor(date.minute() / 10) * 10 });
-
+      date.set({ second: 0, minute: Math.floor(date.minute() / 30) * 30 });
       getNextSlot(selectedStoreId, date)
         .then((res) => {
           setNextSlotAvailable(res.data.available_slot);
@@ -109,19 +120,28 @@ const LineUpModal = ({
             </p>
           ) : (
             <p>
-              No more enter times ara available for this store today, try
+              No more enter times are available for this store today, try
               another store or tomorrow
             </p>
           )}
-          {!currentUser && (
+          {(!currentUser || currentUser.isManager) && nextSlotAvailable && (
             <>
-              <p>Enter your phone number</p>
-              <Input
-                addonBefore={"+39"}
-                onChange={(e) =>
-                  setUserPhoneNumber(`+39${e.target.value.replace(/\D/g, "")}`)
-                }
-              />
+              {!noPhoneNumber && (
+                <>
+                  <p>Enter your phone number</p>
+                  <Input
+                    addonBefore={"+39"}
+                    onChange={(e) =>
+                      setUserPhoneNumber(
+                        `+39${e.target.value.replace(/\D/g, "")}`
+                      )
+                    }
+                  />
+                </>
+              )}
+              <Checkbox onChange={() => setNoPhoneNumber(!noPhoneNumber)} init>
+                I dont want to enter a phone number
+              </Checkbox>
             </>
           )}
         </div>

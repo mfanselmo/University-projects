@@ -3,10 +3,10 @@ import React, { useState } from "react";
 import * as ROUTES from "./../constants/routes";
 import { requestBooking } from "./../api";
 import { useHistory } from "react-router";
-import { DatePicker, TimePicker, message, Select } from "antd";
+import { DatePicker, TimePicker, message } from "antd";
 import moment from "moment";
 
-const { Option } = Select;
+// const { Option } = Select;
 
 function range(start, end) {
   const result = [];
@@ -28,7 +28,7 @@ const BookModal = ({
   const [loading, setLoading] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
-  const [selectedCategories, setSelectedCategories] = useState([]);
+  // const [selectedCategories, setSelectedCategories] = useState([]);
   const history = useHistory();
 
   const handleConfirm = () => {
@@ -98,7 +98,7 @@ const BookModal = ({
             format="HH:mm"
             hideDisabledOptions={true}
             disabledHours={() => range(0, 9).concat(range(18, 24))}
-            minuteStep={10}
+            minuteStep={30}
           />
           {/* <div className={"categories"}>
             <h3>Categories to shop in (optional)</h3>

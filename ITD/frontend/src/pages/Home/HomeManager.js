@@ -2,10 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "antd";
 import * as ROUTES from "./../../constants/routes";
-import StoresTable from "../../components/StoresTable";
 import ManagerStoresTable from "../../components/ManagerStoreTables";
 
-const HomeManager = ({ currentUser }) => {
+const HomeManager = () => {
   return (
     <div>
       <div className={"title"}>

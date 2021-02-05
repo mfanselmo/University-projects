@@ -3,7 +3,6 @@ import QrReader from "react-qr-reader";
 import { message, Spin, Alert } from "antd";
 import { getTicketStatus } from "./../../api";
 import { stateContext } from "../../context/stateContext";
-import moment from "moment";
 import ManagerConfirm from "./ManagerConfirm";
 
 const ManagerScan = () => {
@@ -16,7 +15,7 @@ const ManagerScan = () => {
     message: "Start scanning",
   });
 
-  const { axios } = useContext(stateContext);
+  const { axios, currentUserData } = useContext(stateContext);
 
   const handleScan = (data) => {
     if (data && !loading && data !== lastTicket) {
@@ -27,6 +26,17 @@ const ManagerScan = () => {
         .then((res) => {
           if (res.data.status === "Completed") {
             message.error("This ticket has already been completed");
+            setLoading(false);
+            return;
+          }
+
+          if (!currentUserData.managed_store.includes(res.data.store_id)) {
+            message.error("The ticket is not for this store", 7);
+            setLoading(false);
+            return;
+          }
+          if (!res.data.allowed_in) {
+            message.error(res.data.reason, 7);
             setLoading(false);
             return;
           }

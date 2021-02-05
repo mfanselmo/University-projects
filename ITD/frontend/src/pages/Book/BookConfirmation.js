@@ -12,9 +12,8 @@ const BookConfirmationPage = () => {
   const history = useHistory();
 
   const { ticketId } = useParams();
-  const { currentUser, axios } = state;
+  const { axios } = state;
   const [ticketData, setTicketData] = useState(null);
-  const [store, setStore] = useState(null);
 
   useEffect(() => {
     const checkTicket = async () => {

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Form, Input, Button, message, Checkbox } from "antd";
+import { Form, Input, Button, message } from "antd";
 import { useHistory } from "react-router-dom";
 
 import { login } from "./../api";

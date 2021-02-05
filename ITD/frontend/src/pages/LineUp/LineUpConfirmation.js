@@ -10,7 +10,7 @@ import { LoadingOutlined } from "@ant-design/icons";
 const LineUpConfirmationPage = () => {
   const state = useContext(stateContext);
   const { ticketId } = useParams();
-  const { currentUser, axios } = state;
+  const { axios } = state;
   const [ticketData, setTicketData] = useState(null);
   const history = useHistory();
 

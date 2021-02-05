@@ -6,9 +6,8 @@ import { getAllStores } from "../api";
 import * as ROUTES from "./../constants/routes";
 
 const ManagerStoresTable = () => {
-  const { axios, currentUser, currentUserData } = useContext(stateContext);
+  const { axios, currentUserData } = useContext(stateContext);
   const [stores, setStores] = useState([]);
-  const [filteredStores, setFilteredStores] = useState([]);
 
   useEffect(() => {
     const loadStores = async () => {
@@ -24,11 +23,6 @@ const ManagerStoresTable = () => {
   }, [axios, currentUserData]);
 
   const columns = [
-    // {
-    //   title: "Store number",
-    //   dataIndex: "store_id",
-    //   key: "store_id",
-    // },
     {
       title: "Address",
       dataIndex: "address",
