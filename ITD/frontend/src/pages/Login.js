@@ -10,8 +10,6 @@ const LoginPage = () => {
   const history = useHistory();
   const [loading, setLoading] = useState(false);
 
-  console.log(process.env);
-
   useEffect(() => {
     if (context.currentUser) {
       history.push("/");

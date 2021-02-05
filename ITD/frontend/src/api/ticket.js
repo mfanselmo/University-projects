@@ -38,10 +38,10 @@ export const getTicketStatus = (axios, ticketId) => {
 export const getNextSlot = (storeId, timeOfVisit) => {
   // This function gets called before creating a ticket
   // returns the next available slot
-  console.log({
-    store_id: storeId,
-    time_of_visit: timeOfVisit.format("YYYY-MM-DD HH:mm:ss"),
-  });
+  // console.log({
+  //   store_id: storeId,
+  //   time_of_visit: timeOfVisit.format("YYYY-MM-DD HH:mm:ss"),
+  // });
   return baseAxios.post(BACKEND_URL + "/slots", {
     store_id: storeId,
     time_of_visit: timeOfVisit.format("YYYY-MM-DD HH:mm:ss"),
