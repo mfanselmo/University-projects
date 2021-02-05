@@ -28,7 +28,6 @@ const BookPage = () => {
       <div>
         <h4>Choose the store you want to go</h4>
         <StoresTable
-          axios={axios}
           setOpenModal={setOpenModal}
           setSelectedStoreId={setSelectedStoreId}
           availableStores={availableStores}

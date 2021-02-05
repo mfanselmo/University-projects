@@ -2,7 +2,6 @@ import React from "react";
 import { Table, Button } from "antd";
 
 const StoresTable = ({
-  axios,
   setSelectedStoreId,
   setOpenModal,
   availableStores,

@@ -2,16 +2,6 @@ import { render, screen } from "@testing-library/react";
 import App, { RouterApp } from "./App";
 import { stateContext } from "./context/stateContext";
 
-window.matchMedia =
-  window.matchMedia ||
-  function () {
-    return {
-      matches: false,
-      addListener: function () {},
-      removeListener: function () {},
-    };
-  };
-
 const customRender = (ui, { providerProps, ...renderOptions }) => {
   return render(
     <stateContext.Provider {...providerProps}>{ui}</stateContext.Provider>,

@@ -5,7 +5,7 @@ import { stateContext } from "../../context/stateContext";
 import { getAllStores } from "./../../api";
 
 const LineUpPage = () => {
-  const { currentUser, axios } = useContext(stateContext);
+  const { currentUser } = useContext(stateContext);
 
   const [openModal, setOpenModal] = useState(false);
   const [selectedStoreId, setSelectedStoreId] = useState(null);
@@ -28,7 +28,6 @@ const LineUpPage = () => {
       <div>
         <h4>Choose the store you want to go</h4>
         <StoresTable
-          axios={axios}
           setOpenModal={setOpenModal}
           setSelectedStoreId={setSelectedStoreId}
           availableStores={availableStores}
@@ -40,7 +39,6 @@ const LineUpPage = () => {
           selectedStoreId={selectedStoreId}
           setSelectedStoreId={setSelectedStoreId}
           availableStores={availableStores}
-          axios={axios}
           currentUser={currentUser}
         />
       </div>
