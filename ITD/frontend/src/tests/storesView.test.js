@@ -6,7 +6,6 @@ import { setupServer } from "msw/node";
 import LineUpPage from "./../pages/LineUp/LineUp";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-
 const server = setupServer(
   rest.get(BACKEND_URL + "/store/", (req, res, ctx) => {
     return res(

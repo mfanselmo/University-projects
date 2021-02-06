@@ -48,4 +48,10 @@ export const getNextSlot = (storeId, timeOfVisit) => {
   });
 };
 
-export const cancelTicket = () => {};
+export const cancelTicket = (axios, ticketId) => {
+  return axios.delete(BACKEND_URL + "/ticket", {
+    data: {
+      ticket_id: ticketId,
+    },
+  });
+};
