@@ -9,6 +9,7 @@ export const stateContext = createContext({
   login: () => {},
   logout: () => {},
   axios: null,
+  reloadCurrentUserData: () => {},
 });
 
 export const StateProvider = ({ children }) => {
@@ -35,6 +36,7 @@ export const StateProvider = ({ children }) => {
         },
         (error) => Promise.reject(error)
       );
+    } else {
       customAxios.interceptors.request.use(
         (config) => {
           config.headers["Content-Type"] = "application/json";
@@ -43,7 +45,6 @@ export const StateProvider = ({ children }) => {
         },
         (error) => Promise.reject(error)
       );
-    } else {
     }
   }, [customAxios, currentUser]);
 
@@ -81,6 +82,26 @@ export const StateProvider = ({ children }) => {
     setCurrentUser(null);
   };
 
+  const reloadCurrentUserData = () => {
+    if (currentUser) {
+      getCurrentUser(axios, currentUser).then((res) => {
+        setCurrentUserData(res.data);
+
+        if (res.data && res.data.is_manager && !currentUser.isManager) {
+          setCurrentUser((old) => {
+            localStorage.setItem("isManager", true);
+            return { ...old, isManager: true };
+          });
+        } else if (res.data && !res.data.is_manager && currentUser.isManager) {
+          setCurrentUser((old) => {
+            localStorage.setItem("isManager", false);
+            return { ...old, isManager: false };
+          });
+        }
+      });
+    }
+  };
+
   return (
     <stateContext.Provider
       value={{
@@ -89,6 +110,7 @@ export const StateProvider = ({ children }) => {
         axios: customAxios,
         currentUser: currentUser,
         currentUserData: currentUserData,
+        reloadCurrentUserData: reloadCurrentUserData,
       }}
     >
       {children}

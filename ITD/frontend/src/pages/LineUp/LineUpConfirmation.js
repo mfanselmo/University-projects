@@ -3,16 +3,41 @@ import { useHistory, useParams } from "react-router";
 import QRCode from "qrcode.react";
 import { stateContext } from "../../context/stateContext";
 import moment from "moment";
-import { getTicketStatus } from "./../../api";
-import { Button, message, Spin } from "antd";
+import { cancelTicket, getTicketStatus } from "./../../api";
+import { Button, message, Spin, Popconfirm } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 
 const LineUpConfirmationPage = () => {
   const state = useContext(stateContext);
   const { ticketId } = useParams();
-  const { axios } = state;
+  const { axios, reloadCurrentUserData } = state;
   const [ticketData, setTicketData] = useState(null);
+
+  const [deleteConfirmVisible, setDeleteConfirmVisible] = useState(false);
+  const [confirmDeleteLoading, setConfirmDeleteLoading] = useState(false);
+
   const history = useHistory();
+
+  const handleDeleteTicket = () => {
+    if (!axios) {
+      message.error("You must be logged in to perform this action");
+    }
+
+    setConfirmDeleteLoading(true);
+    cancelTicket(axios, ticketId)
+      .then((res) => {
+        setConfirmDeleteLoading(false);
+        setDeleteConfirmVisible(false);
+        message.success("Ticket canceled correclty");
+        reloadCurrentUserData();
+        history.push("/");
+      })
+      .catch((err) => {
+        setConfirmDeleteLoading(false);
+        setDeleteConfirmVisible(false);
+        message.error("Something went bad, try again");
+      });
+  };
 
   useEffect(() => {
     const checkTicket = async () => {
@@ -55,6 +80,26 @@ const LineUpConfirmationPage = () => {
             <p>Address: {ticketData.address}</p>
             <p>Status: {ticketData.status}</p>
             <Button onClick={() => window.print()}>Print this code</Button>
+            {ticketData.status === "New" && (
+              <Popconfirm
+                title="Are you sure?"
+                okText={"Cancel"}
+                visible={deleteConfirmVisible}
+                onConfirm={handleDeleteTicket}
+                okButtonProps={{
+                  loading: confirmDeleteLoading,
+                  type: "danger",
+                }}
+                onCancel={() => setDeleteConfirmVisible(false)}
+              >
+                <Button
+                  type="danger"
+                  onClick={() => setDeleteConfirmVisible(true)}
+                >
+                  Cancel ticket
+                </Button>
+              </Popconfirm>
+            )}
           </div>
         )}
       </Spin>
