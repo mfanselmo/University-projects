@@ -85,7 +85,7 @@ const BookModal = ({
     >
       {selectedStore && (
         <div>
-          <h3>{selectedStore.address}</h3>
+          <h3>{selectedStore.location.address}</h3>
 
           <DatePicker
             onChange={(_, date) => setSelectedDate(date)}

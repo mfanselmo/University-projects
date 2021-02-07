@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useHistory, useParams } from "react-router";
+import { useHistory, useParams, useLocation } from "react-router";
 import QRCode from "qrcode.react";
 import { stateContext } from "../../context/stateContext";
 import moment from "moment";

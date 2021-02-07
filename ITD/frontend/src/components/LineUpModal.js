@@ -109,7 +109,7 @@ const LineUpModal = ({
     >
       {selectedStore && (
         <div>
-          <h3>{selectedStore.address}</h3>
+          <h3>Address: {selectedStore.location.address}</h3>
           {nextSlotAvailable !== "" ? (
             <p>
               Next enter time available:{" "}
@@ -129,6 +129,7 @@ const LineUpModal = ({
                 <>
                   <p>Enter your phone number</p>
                   <Input
+                    aria-label="phone-input"
                     addonBefore={"+39"}
                     onChange={(e) =>
                       setUserPhoneNumber(
@@ -138,7 +139,11 @@ const LineUpModal = ({
                   />
                 </>
               )}
-              <Checkbox onChange={() => setNoPhoneNumber(!noPhoneNumber)} init>
+              <Checkbox
+                onChange={() => setNoPhoneNumber(!noPhoneNumber)}
+                init
+                aria-label={"phone-checkbox"}
+              >
                 I dont want to enter a phone number
               </Checkbox>
             </>
