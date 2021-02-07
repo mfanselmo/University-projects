@@ -1,6 +1,7 @@
 # CLup - Source Code repository
 ## Requirements for backend
 [Python]: v3.6 used.
+
 [SQLite 3 Database]: v3.34.1 used.
 ### Python requirements 
 This requirement list can be automatically installed with pip using the command: 
