@@ -13,3 +13,7 @@ window.matchMedia =
       removeListener: function () {},
     };
   };
+
+HTMLCanvasElement.prototype.getContext = () => {
+  // return whatever getContext has to return
+};
