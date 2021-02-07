@@ -1,6 +1,6 @@
 # CLup - Source Code repository
 ## Requirements for backend
-[Python]: v3.6 (used to develop).
+[Python]: v3.6.
 
 [SQLite 3 Database]: v3.34.1.
 ### Python requirements 
