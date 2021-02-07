@@ -35,7 +35,8 @@ const ManagerScan = () => {
             setLoading(false);
             return;
           }
-          if (!res.data.allowed_in) {
+          // in other case the ticket is scanning for exit, or it is allowed
+          if (res.data.status === "New" && !res.data.allowed_in) {
             message.error(res.data.reason, 7);
             setLoading(false);
             return;
