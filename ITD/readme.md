@@ -1,6 +1,7 @@
 # CLup - Source Code repository
 ## Requirements for backend
 [Python]: v3.6 (used to develop).
+
 [SQLite 3 Database]: v3.34.1.
 ### Python requirements 
 This requirement list can be automatically installed with pip using the command: 
@@ -23,6 +24,7 @@ This requirement list can be automatically installed with pip using the command:
 
 ## Requirements for frontend
 [Node.js]: v12.16.1 (used to develop) or higher.
+
 NPM (node package manager): v6.13.4 (used to develop) or higher
 ### Frontend tools: 
 - Create React App: A toolkit that gives the foundations to the web application, with everything 
