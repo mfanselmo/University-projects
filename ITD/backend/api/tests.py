@@ -28,7 +28,7 @@ class StoresTestCase(TestCase):
                   phone_number = "+393333333333",
                   email_address = "martin@gmail.com",
                   isManager = true,
-                  managed_store_id": [2]
+                  managed_store_id = 2
             )
                   
                   
