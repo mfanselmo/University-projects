@@ -1,8 +1,7 @@
 # CLup - Source Code repository
 ## Requirements for backend
-[Python]: v3.6.
-
-[SQLite 3 Database]: v3.34.1.
+[Python]: v3.6 used.
+[SQLite 3 Database]: v3.34.1 used.
 ### Python requirements 
 This requirement list can be automatically installed with pip using the command: 
 `pip install -r requirements.txt` inside backend folder
@@ -36,6 +35,6 @@ NPM (node package manager): v6.13.4 (used to develop) or higher
 - Netlify: A serverless platform for deploying the web application.
 
 
-   [Python]: <https://www.python.org/downloads/release/python-3611/>
-   [SQLite 3 Database]: <https://scribestools.readthedocs.io/en/latest/sqlite/>
-   [node.js]: <https://nodejs.org/en/download/>
+[Python]: <https://www.python.org/downloads/release/python-3611/>
+[SQLite 3 Database]: <https://scribestools.readthedocs.io/en/latest/sqlite/>
+[node.js]: <https://nodejs.org/en/download/>
