@@ -1,4 +1,11 @@
 # CLup - Source Code repository
+##For running the frontend and backend
+After installing all the dependencies use the commands
+
+`manage.py runserver` for backend and
+
+`npm start serve` for frontend
+
 ## Requirements for backend
 [Python]: v3.6 used.
 
@@ -26,6 +33,8 @@ This requirement list can be automatically installed with pip using the command:
 [Node.js]: v12.16.1 (used to develop) or higher.
 
 NPM (node package manager): v6.13.4 (used to develop) or higher
+
+for installing the needed packages, use: `npm install`
 ### Frontend tools: 
 - Create React App: A toolkit that gives the foundations to the web application, with everything 
 - needed for basic development. When running this tool, a Single Page Application (SPA) is created.
