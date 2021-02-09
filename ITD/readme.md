@@ -4,7 +4,7 @@ After installing all the dependencies use the commands
 
 `manage.py runserver` for backend and
 
-`npm start serve` for frontend
+`npm start` for frontend
 
 ## Requirements for backend
 [Python]: v3.6 used.
