@@ -1,12 +1,12 @@
 from backend.job import Job
-from palettable.colorbrewer.qualitative import Set3_12
+from palettable.colorbrewer.qualitative import Set1_9
 
 
 class Task:
     """
     doc
     """
-    COLORS = Set3_12
+    COLORS = Set1_9
 
     def __init__(self, task_id):
         self.id = task_id
@@ -45,9 +45,9 @@ class Task:
         events = []
         for job in self.jobs.values():
             if job.activation_ts == timestamp:
-                events.append({'job_id': job.id, 'event': 'activation'})
+                events.append({'job_id': job.id, 'event': 'activation', 'color': self.color})
             if job.deadline_ts == timestamp:
-                events.append({'job_id': job.id, 'event': 'deadline'})
+                events.append({'job_id': job.id, 'event': 'deadline', 'color': self.color})
         return events
 
     def add_job_info(self, data):

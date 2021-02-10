@@ -1,8 +1,9 @@
 {
     "sizes": {
-        "slot_width": 120,
-        "processor_slot_height": 120,
-        "general_slot_height": 120
+        "deadline_width": 20,
+        "slot_width": 180,
+        "processor_slot_height": 180,
+        "general_slot_height": 180
     },
     "colors": {
         "background_color": "rgba(0,0,0,0)",

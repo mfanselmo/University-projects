@@ -78,9 +78,8 @@ class Processor:
         except (KeyError, StopIteration) as e:
             pass
 
-        # Also add processor independant events (activation, deadline)
+        # Add activations and deadlines to the processor, so it can be visualized
         # for task in Processor.processor_independant_tasks.values():
-
         #     if task.id in events:
         #         new_tasks = task[timestamp]
         #         events[task.id].extend(new_tasks)

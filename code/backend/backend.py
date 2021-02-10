@@ -7,11 +7,12 @@ class Backend:
 
     """
 
-    def __init__(self, file_path):
+    def __init__(self, file_path, settings):
 
         self.tasks = {}
         self.processors = {}
         self.processor_independant_tasks = {}
+        self.settings = settings
 
         self.file_path = file_path
 
@@ -165,4 +166,8 @@ class Backend:
             self.processor_independant_tasks[task_id] = task
 
     def size_of_grid(self):
-        return (self.number_timestamps*PROCESSOR_SLOT_WIDTH + 200, self.number_processors*PROCESSOR_SLOT_HEIGHT + GENERAL_SLOT_HEIGHT + 250)
+
+        width = (self.number_timestamps + 1)*self.settings.sizes['slot_width'] + 200
+        height = self.number_processors*self.settings.sizes['processor_slot_height'] + 250
+
+        return (width, height)

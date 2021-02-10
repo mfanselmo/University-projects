@@ -18,7 +18,16 @@ class GeneralSlot(QLabel):
         self.initialize_gui()
 
     def initialize_gui(self):
-        self.setFixedSize(self.settings.sizes['slot_width'], self.settings.sizes['general_slot_height'])
+
+        if self.settings.display['show_deadlines']:
+            self.setFixedSize(
+                self.settings.sizes['slot_width'] + self.settings.sizes['before_slot_width'],
+                self.settings.sizes['general_slot_height'])
+        else:
+            self.setFixedSize(
+                self.settings.sizes['slot_width'],
+                self.settings.sizes['general_slot_height'])
+
         self.style['background-color'] = self.settings.colors['base_lane_color']
         self._set_style()
         self._add_events()
@@ -52,6 +61,13 @@ class GeneralSlot(QLabel):
         self.reduced_events = reduced_events
 
     def reset_style(self):
-        self.setFixedSize(self.settings.sizes['slot_width'], self.settings.sizes['general_slot_height'])
+        if self.settings.display['show_deadlines']:
+            self.setFixedSize(
+                self.settings.sizes['slot_width'] + self.settings.sizes['before_slot_width'],
+                self.settings.sizes['general_slot_height'])
+        else:
+            self.setFixedSize(
+                self.settings.sizes['slot_width'],
+                self.settings.sizes['general_slot_height'])
         self.style['background-color'] = self.settings.colors['base_lane_color']
         self._set_style()

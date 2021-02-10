@@ -19,7 +19,8 @@ class GridComponent(QWidget):
         self.grid.setHorizontalSpacing(0)
         self.grid.setVerticalSpacing(5)
 
-        self.grid.setAlignment(Qt.AlignTop)
+        self.grid.setAlignment(Qt.AlignLeft | Qt.AlignTop)
+        # self.grid.setAlignment(Qt.AlignTop)
         self.slots = []
         self.general_slots = []
         self.initialize_grid()
@@ -36,8 +37,8 @@ class GridComponent(QWidget):
             processors.append(processor.id)
 
         # Add cpu independant row label
-        label = GridRowLabel('GENERAL')
-        self.grid.addWidget(label, len(processors) + 1, 0)
+        # label = GridRowLabel('GENERAL')
+        # self.grid.addWidget(label, len(processors) + 1, 0)
 
         # Add Column labels
         timestamps = []
@@ -49,33 +50,32 @@ class GridComponent(QWidget):
         positions = [(i, j) for i in range(self.number_processors) for j in range(self.number_timestamp)]
         for i, processor_id in enumerate(processors):
             for j, ts in enumerate(timestamps):
-                slot = Slot(processor_id, ts, self.backend[processor_id][ts], self.settings)
+                slot = Slot(
+                    processor_id, ts, self.backend[processor_id][ts],
+                    self.backend.get_processor_independant_tasks(ts),
+                    self.settings)
                 self.slots.append(slot)
 
                 self.grid.addWidget(slot, i+1, j+1)
 
         # Add processor independant tasks row
-        for i, ts in enumerate(timestamps):
-            events = {}
-            # pass
-            # try:
+        # for i, ts in enumerate(timestamps):
+        #     events = {}
+        #     # pass
+        #     # try:
 
-            #     events  = self.backend['0'][ts]
-            # except KeyError
-            general_slot = GeneralSlot(ts, self.backend.get_processor_independant_tasks(ts), self.settings)
-            self.general_slots.append(general_slot)
+        #     #     events  = self.backend['0'][ts]
+        #     # except KeyError
+        #     general_slot = GeneralSlot(ts, self.backend.get_processor_independant_tasks(ts), self.settings)
+        #     self.general_slots.append(general_slot)
 
-            self.grid.addWidget(general_slot, len(processors)+1, i+1)
+        #     self.grid.addWidget(general_slot, len(processors)+1, i+1)
 
     def reset_slots_settings(self):
         for slot in self.slots:
             slot.reset_style()
         for general_slot in self.general_slots:
             general_slot.reset_style()
-
-    def reset_show_deadlines(self):
-        # TODO
-        pass
 
 
 class GridRowLabel(QLabel):

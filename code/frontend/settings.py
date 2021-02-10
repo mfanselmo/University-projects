@@ -1,5 +1,5 @@
 import json
-from PyQt5.QtWidgets import (QApplication, QWidget, QPushButton, QLabel,
+from PyQt5.QtWidgets import (QApplication, QCheckBox, QWidget, QPushButton, QLabel,
                              QLineEdit, QHBoxLayout, QVBoxLayout, QFileDialog)
 
 
@@ -36,12 +36,17 @@ class Settings(QWidget):
 
     def change_sizes(self, sizes):
         """
-        sizes = (slot_width, processor_slot_height, general_slot_height)
+        sizes = (slot_width, processor_slot_height, general_slot_height, deadline_width)
         """
         self.sizes['slot_width'] = sizes[0]
         self.sizes['processor_slot_height'] = sizes[1]
         self.sizes['general_slot_height'] = sizes[2]
+        self.sizes['deadline_width'] = sizes[3]
 
+        self.reset_settings()
+
+    def change_show_deadlines(self, event):
+        self.display['show_deadlines'] = event
         self.reset_settings()
 
     def show_controls(self):
@@ -61,9 +66,21 @@ class SettingControls(QWidget):
     def initialize_layout(self):
         self.main_layout = QVBoxLayout()
         self.background_button = QPushButton("Change background")
+
+        self.show_deadlines_checkbox = QCheckBox("Show deadlines")
+
         self.main_layout.addWidget(self.background_button)
+        self.main_layout.addWidget(self.show_deadlines_checkbox)
         self.setLayout(self.main_layout)
+
         if not self.parent.display['show_controls']:
             self.hide()
 
         self.background_button.clicked.connect(self.parent.change_background_color)
+        self.show_deadlines_checkbox.clicked.connect(self.parent.change_show_deadlines)
+
+        self.set_initial_values()
+
+    def set_initial_values(self):
+
+        self.show_deadlines_checkbox.setChecked(self.parent.display['show_deadlines'])

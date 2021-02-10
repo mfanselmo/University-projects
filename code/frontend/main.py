@@ -18,8 +18,8 @@ class MainWindow(QWidget):
         super().__init__()
 
         # self.backend = None  # Backend(path.relpath("./schedules/offline-online.csv"))
-        self.backend = Backend(path.relpath("./schedules/offline-online.csv"))
         self.settings = Settings(path.relpath("./frontend/settings.json"), self.reset_settings)
+        self.backend = Backend(path.relpath("./schedules/simple.csv"), self.settings)
         self.initialize_gui()
         # self.load_schedule()
 
@@ -28,7 +28,7 @@ class MainWindow(QWidget):
         self.setWindowTitle('Schedule visualizer tool')
 
         self.open_button = QPushButton('&Open new schedule', self)
-        self.print_button = QPushButton('&Print schedule', self)
+        self.print_button = QPushButton('&Export schedule', self)
         self.print_button.clicked.connect(self.generate_pdf)
         self.open_button.clicked.connect(self.load_schedule)
 
@@ -69,16 +69,15 @@ class MainWindow(QWidget):
             - show_pattern
         """
         self.scroll.reset_background_color()
-        self.scroll.reset_show_pattern()
+        # self.scroll.reset_show_pattern()
         self.scroll.grid.reset_slots_settings()
-        self.scroll.grid.reset_show_deadlines()
 
     def load_schedule(self):
         fname = QFileDialog.getOpenFileName(self, 'Open schedule',
                                             path.abspath(getcwd()), "CSV (*.csv)")
         # csv_path = path.relpath("./schedules/offline-online.csv")
         print(fname)
-        self.backend = Backend(fname[0])
+        self.backend = Backend(fname[0], self.settings)
 
         self.scroll.clear_layout()
         self.scroll.reset_gui(self.backend)

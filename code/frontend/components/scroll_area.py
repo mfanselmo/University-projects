@@ -40,7 +40,7 @@ class MainScrollArea(QWidget):
 
     def reset_gui(self, backend):
         self.backend = backend
-        self.grid = GridComponent(self.backend)
+        self.grid = GridComponent(self.backend, self.settings)
         self.legend = Legend(self.backend)
         self.scrollArea = QScrollArea()
         self.scrollArea.setWidgetResizable(True)
