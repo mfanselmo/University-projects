@@ -6,6 +6,21 @@ After installing all the dependencies use the commands
 
 `npm start` for frontend
 
+
+## Using CLup
+
+There are 3 ways to interact with CLup
+- Anonymous user:
+  - Has access to the lining up feature, and also can scan QR codes for checking the status of a ticket
+- Registered user (customer):
+  - In addition to the anonymous user functionalities, customers can book tickets and check out their active tickets right away.
+- Store manager:
+  - Features:
+    - Can check out his stores
+    - Can generate tickets for users that require it
+    - Can scan tickets, allowing or prohibiting access to the store
+  - How to access:
+    - Create a new user and set the isManager flag in the database. Also add a managed store in the database.
 ## Requirements for backend
 [Python]: v3.6 used.
 
