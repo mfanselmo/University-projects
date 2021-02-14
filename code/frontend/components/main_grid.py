@@ -3,10 +3,11 @@ from PyQt5.QtWidgets import (QWidget, QLabel, QGridLayout)
 from PyQt5.QtCore import Qt
 
 from frontend.components.slot import Slot
-from frontend.components.general_slot import GeneralSlot
+# from frontend.components.general_slot import GeneralSlot
 
 
 class GridComponent(QWidget):
+
     def __init__(self, backend, settings):
         super().__init__()
         if backend is None:
@@ -47,7 +48,7 @@ class GridComponent(QWidget):
             self.grid.addWidget(label, 0, i+1)
             timestamps.append(i)
 
-        positions = [(i, j) for i in range(self.number_processors) for j in range(self.number_timestamp)]
+        # positions = [(i, j) for i in range(self.number_processors) for j in range(self.number_timestamp)]
         for i, processor_id in enumerate(processors):
             for j, ts in enumerate(timestamps):
                 slot = Slot(

@@ -4,6 +4,8 @@ from backend.processor import Processor
 
 class Backend:
     """
+    Contains all logic information
+    Reads the file given, and creates the objects for the processors, tasks and jobs
 
     """
 
@@ -18,8 +20,23 @@ class Backend:
 
         self._number_processors = None
         self._number_timestamps = None
+        self._number_activations_deadlines = None
 
         self.read_file()
+
+    @property
+    def number_activations_deadlines(self):
+        if self._number_activations_deadlines:
+            return self._number_activations_deadlines
+
+        self._number_activations_deadlines = 0
+        for ts in range(self.number_timestamps + 1):
+            events = self.get_processor_independant_tasks(ts)
+
+            for task_events in events.values():
+                self._number_activations_deadlines += len(task_events)
+
+        return self._number_activations_deadlines
 
     @property
     def number_processors(self):
@@ -166,8 +183,11 @@ class Backend:
             self.processor_independant_tasks[task_id] = task
 
     def size_of_grid(self):
+        width = (self.number_timestamps + 1)*self.settings.sizes['slot_width'] + 120
 
-        width = (self.number_timestamps + 1)*self.settings.sizes['slot_width'] + 200
+        if self.settings.display['show_deadlines']:
+            width += self.number_activations_deadlines*self.settings.sizes['deadline_width'] + 20
+
         height = self.number_processors*self.settings.sizes['processor_slot_height'] + 250
 
         return (width, height)

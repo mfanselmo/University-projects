@@ -4,7 +4,8 @@ from palettable.colorbrewer.qualitative import Set1_9
 
 class Task:
     """
-    doc
+    The class for a task
+    Contains all the information about it, its jobs an a unique color
     """
     COLORS = Set1_9
 

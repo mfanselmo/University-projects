@@ -2,6 +2,11 @@ from os import execlp, times
 
 
 class Processor:
+    """
+    This class contains all the info about the processors
+    In the tasks attribute, we can access each task object
+    One task may be present in many processors.
+    """
 
     def __init__(self, processor_id):
         self.id = processor_id

@@ -5,6 +5,11 @@ from frontend.components.legend import Legend
 
 
 class MainScrollArea(QWidget):
+    """
+    This widget corresponds to the scroll area present in the GUI
+    It has the grid and the legend
+    """
+
     def __init__(self, backend, settings):
         super().__init__()
 

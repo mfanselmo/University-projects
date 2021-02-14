@@ -1,6 +1,6 @@
 class Job:
     """
-
+    The information about a Job, lives inside a Task object
     """
 
     def __init__(self, job_id: str):

@@ -1,8 +1,10 @@
-from PyQt5.QtWidgets import (QApplication, QHBoxLayout, QWidget, QLabel)
-from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import (QHBoxLayout, QWidget, QLabel)
 
 
 class Slot(QWidget):
+    """
+    A slot corresponds to one grid space, considering one timestamp and one processor
+    """
 
     BASE_STYLE = {
         'border-right': '1px solid black',
@@ -48,6 +50,7 @@ class Slot(QWidget):
 
         self._set_text()
         self._set_color()
+        self._set_style()
 
         # self._set_finishes()
 
@@ -82,24 +85,23 @@ class Slot(QWidget):
         Only start, finish and running have this property
         This value should be unique, and is checked before
         """
-        try:
-            event = next(filter(lambda x: 'color' in x, self.reduced_events))
-            final_color = event['color'] if event['event'] != 'finish' else self.settings.colors['base_lane_color']
-            self.has_nothing = False
-        except StopIteration:
-            final_color = self.settings.colors['base_lane_color']
 
-        self.style['background-color'] = final_color
+        for event in self.reduced_events:
+            if event['event'] in ['off', '-']:
+                # this event should be by itself
+                self.is_offline = True
+                self.style['background-color'] = self.settings.colors['offline_color']
+                break
+            if event['event'] == '+':
+                self.is_offline = False
 
-        # is there is an offline event, processor is grayed out
-        try:
-            event = next(filter(lambda x: x['event'] == 'off' or x['event'] == '-', self.reduced_events))
-            self.style['background-color'] = self.settings.colors['offline_color']
-            self.is_offline = True
-        except StopIteration:
-            pass
+            if event['event'] in ['start', 'finish', 'running']:
+                self.has_nothing = False
+                self.style['background-color'] = event['color']
+                break
 
-        self._set_style()
+        if not 'background-color' in self.style:
+            self.style['background-color'] = self.settings.colors['base_lane_color']
 
     def _set_starts(self):
         """
@@ -141,6 +143,9 @@ class Slot(QWidget):
         self.before_slot.set_style()
 
     def reset_style(self):
+        """
+        Method that resets the style based on the actual settings
+        """
 
         if self.settings.display['show_deadlines']:
             self.before_slot.show()
@@ -154,7 +159,6 @@ class Slot(QWidget):
             self.before_slot.hide()
             self.before_slot.set_size(False)
 
-            # TODO fix -10
             self.slot.setFixedSize(
                 self.settings.sizes['slot_width'],
                 self.settings.sizes['processor_slot_height'])
@@ -170,6 +174,11 @@ class Slot(QWidget):
 
 
 class BeforeSlot(QWidget):
+    """
+    This widget is present in every slot
+    Contains the "arrows" showing if there is an activation and deadline
+    For all processors are the same
+    """
     BEFORE_SLOT_STYLE = {
         'background-color': 'red'
     }
@@ -229,7 +238,6 @@ class BeforeSlot(QWidget):
     def set_size(self, show):
 
         if show:
-            total = len(self.labels)
             label_width = self.settings.sizes['deadline_width']
 
             for label in self.labels:
