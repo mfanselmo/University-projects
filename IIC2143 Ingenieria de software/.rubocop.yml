@@ -1,0 +1,90 @@
+Rails/Output:
+  Enabled: false
+
+Lint/UselessAssignment:
+  Enabled: false
+
+Style/GuardClause:
+  Enabled: false
+
+Rails/InverseOf:
+  Enabled: false
+
+Metrics/BlockLength:
+  Max: 100
+
+Style/ClassVars:
+  Enabled: false
+
+Layout/AccessModifierIndentation:
+  Enabled: true
+
+Lint/BooleanSymbol:
+  Enabled: false
+
+Rails/OutputSafety:
+  Enabled: false
+
+Naming/VariableName:
+  Enabled: false
+
+Naming/AccessorMethodName:
+  Enabled: false
+
+Documentation:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Rails/LexicallyScopedActionFilter:
+  Enabled: false
+
+Rails/HasManyOrHasOneDependent:
+  Enabled: false
+
+Naming/UncommunicativeMethodParamName:
+  Enabled: false
+
+AllCops:
+  TargetRubyVersion: 2.5
+  DisplayStyleGuide: true
+  Include:
+    - '**/*.jbuilder'
+    - '**/*.rake'
+    - '**/Gemfile'
+    - '**/Rakefile'
+  Exclude:
+    - 'db/migrate/**/*'
+    - 'db/schema.rb'
+    - 'db/seeds.rb'
+    - 'config/**/*'
+    - 'vendor/**/*'
+    - 'bin/**/*'
+
+Rails:
+  Enabled: true
+
+Metrics/ClassLength:
+  Max: 200
+
+Metrics/AbcSize:
+  Max: 60
+
+Metrics/MethodLength:
+  Max: 30
+
+Metrics/LineLength:
+  IgnoredPatterns: ['\A\s*#']
+
+Metrics/LineLength:
+  Max: 200
+
+Metrics/CyclomaticComplexity:
+  Max: 11
+
+Metrics/ModuleLength:
+  Max: 150
+
+Metrics/PerceivedComplexity:
+  Max: 12

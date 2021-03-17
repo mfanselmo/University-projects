@@ -1,0 +1,45 @@
+// Place all the styles related to the Users controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.user-card {
+	background-color: #fff;
+	width: 300px;
+}
+
+.card-header {
+    background-color: transparent;
+    border-bottom: 0;
+    padding: 25px;
+}
+
+.card-header h5 {
+    margin-bottom: 0;
+    color: #222;
+    font-size: 14px;
+    font-weight: 600;
+    display: inline-block;
+    margin-right: 10px;
+    line-height: 1.4;
+}
+
+.user-card .card-block {
+    text-align: center;
+}
+
+.user-card .card-block .usre-image {
+    position: relative;
+    margin: 0 auto;
+    display: inline-block;
+    padding: 5px;
+    width: 220px;
+    height: 220px;
+}
+
+.f-w-600 {
+    font-weight: 600;
+    font-size: 18px;
+}
+h6 {
+    font-size: 14px;
+}

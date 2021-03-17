@@ -1,0 +1,30 @@
+<% @comments.each do |comment| %>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12"></div>
+    </div>
+    <div class="row">
+      <div class="col-sm-1">
+        <div class="thumbnail">
+          <%= image_tag(User.find_for_authentication(:username => comment.commenter).avatar.url , :alt => "user view") %>
+        </div>
+      </div>
+      <div class="col-sm-10">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <strong><%= comment.commenter %></strong>
+            <span class="text-muted">
+              Hace <%= time_ago_in_words (Time.now - comment.created_at).seconds.from_now %> 
+            <span style="float: right; ">
+            </span>
+            </span>
+          </div>
+          <div class="panel-body">
+              <p><%= markdown(comment.body) %></p>
+              <p><%= image_tag comment.image %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

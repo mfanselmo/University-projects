@@ -1,0 +1,119 @@
+<!-- PONERLE EL for each do |post| antes -->
+
+
+    <div onclick="funcion_click('<%= post_path(post) %>');" class="media" id = "cada_post_1">
+      <div class="row">
+
+      <div class="media-left media-top">
+        <!-- <img src="img_avatar1.png" class="media-object" style="width:60px"> -->
+        <% user = User.find_for_authentication(:username => post.name) %>
+        <% if user.nil? %>
+          <%= image_tag("default-user-image.png", :alt => "user view", :size => "60x60") %>
+        <% else %>
+          <%= image_tag(user.avatar.url , :alt => "user view", :size => "60x60") %>
+        <% end %>
+      </div>
+      <div class="media-body" style="text-align: '.' start;">
+        <h4 class="media-heading" >
+            <div id="container">
+              <div id="con_1" style="overflow-wrap:break-word;"> 
+                <%= link_to post.title, post, :id => "link_normal" %> </div>
+              <div id="con_2"><small><i><%= time_ago_in_words (Time.now - post.created_at).seconds.from_now %> ago by <%= post.name %></i></small></div>
+              <div id="con_4">
+              
+              <small>
+              <%= link_to 'Ver', post, :id => "link_normal" %>
+              <% if user_signed_in? %> 
+                <% if current_user.username == post.name %>
+
+                      | <%= link_to 'Editar', edit_post_path(post), 
+                            :onclick => 'window.event.stopPropagation();',
+                            :id => "link_normal"%>
+                      |
+                        <%= link_to 'Eliminar', [post.forum, post],
+                         :confirm => '¿Estas seguro que deseas borrarlo?',
+                         :method => :delete,
+                         :id => "link_normal"
+                          %>
+
+                 <% elsif  current_user.admin? or moderadores(post.forum).include? current_user.id %>
+                      | <%= link_to 'Editar', edit_post_path(post),
+                                :onclick => 'window.event.stopPropagation();',
+                                :id => "link_normal" %>
+                      |
+                        <%= link_to 'Eliminar', [post.forum, post],
+                         :confirm => '¿Estas seguro que deseas borrarlo?',
+                         :method => :delete,
+                          :id => "link_normal" %>
+                  <% end %>
+                <% end %>
+                </small>
+
+              </div>
+          </div>
+        </h4>
+        </br>
+        <div class="row"></div>
+
+        <p><%= markdown(post.content) %></p>
+        <p><%= image_tag post.image.medium %></p>
+        <% @poll = post.polls.first || nil %>
+        <% if @poll %>
+          <p><%= render :template => "polls/show", locals: {:poll => @poll, :votable => false, :post => post} %></p>
+        <% end %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="media-left"></div>
+      <div class="media-body">
+        <h5>
+          <div id="container" onclick="window.event.stopPropagation();">
+            <div id="con_1"> <em><%= post.comments.count %> comentario(s)</em></div>
+            <div id="con_4" style="font-size: 16px"> 
+              <% if user_signed_in? %>
+                  Total
+                  <span class="post-points" id="points-vote-<%= post.id %>">
+                  <%= post.points %>
+                  </span> 
+                <% favorite = Favorite.find_by(:user_id => current_user.id, :post_id => post.id) %>
+                <% if favorite %>
+                  <a id = "dar_favorito" onclick="unfav(<%=favorite.id %>, <%=current_user.id%>, <%=post.id%>)">
+                    <span class="corazon_apretado" onclick="cambiar_clase_corazon(this)">
+                    &#9829;
+                    </span>
+                  </a> 
+                <% else %>
+                  <a id = "dar_favorito" onclick="fav(<%=current_user.id%>, <%=post.id%>)">
+                    <span class="corazon_no_apretado" onclick="cambiar_clase_corazon(this)">
+                    &#9829;
+                    </span>
+                  </a> 
+                <% end %> 
+                
+                <a id = "countlike" onclick="like(<%=post.id%>)" class = "asa"> 
+                  &#128077;
+                  <span class="votes-like-count " id="likes-vote-<%= post.id %>">
+                    <%= post.get_likes.size%>
+                  </span>
+                </a>
+                <a id = "countdislike" onclick="dislike(<%=post.id%>)"  class = "asa"> 
+                  &#128078;
+                  <span class="votes-dislike-count" id="dislikes-vote-<%= post.id %>">
+                    <%= post.get_dislikes.size%>
+                  </span>
+                </a>
+              <% else %>
+              <p onclick="window.event.stopPropagation();">Total
+              <%=  post.points %>
+              &#128077;<%= post.get_likes.size%>
+              &#128078;<%= post.get_dislikes.size%>
+              </p>
+                
+              <% end %>
+            </div>
+          </div>
+        </h5>
+      </div>
+    </div>
+    </div>
+

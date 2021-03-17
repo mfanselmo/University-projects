@@ -1,0 +1,64 @@
+
+<div class="container">
+  <p id="titlesForum">FOROS</p>
+
+
+
+
+  <table width="80%" class= "table table-hover">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Número de posts</th>
+        <th>Número de suscriptores</th>
+        <% if user_signed_in? %>
+          <th>Subscribirse</th>
+        <% end %>
+        <% if user_signed_in? and current_user.admin %>
+          
+          <th>Editar</th>
+          <th>Eliminar</th>
+
+        <% end %>
+
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @forums.each do |forum| %>
+        <tr class='clickable-row' data-href='url://'>
+          <td><%= link_to forum.name, forum, { :class=> "linksForum" }%></td>
+          <td class="linksForum"><%= forum.posts.count %></td>
+          <td><%= subscriptores(forum).length %></td>
+
+          <% if user_signed_in? %>
+
+            <% if subscripciones(current_user).include? forum.id  %>
+              <td><a class='btn btn-primary' style="color:white;" id= "subs_button_<%=forum.id%>" 
+                onclick="unsubs(<%= Subscription.find_by(:user_id => current_user.id, :forum_id => forum.id).id %>)">Desuscribirse</a></td>
+            <% else %>
+              <td><a class='btn btn-primary' style="color:white;" id= "subs_button_<%=forum.id%>" 
+                onclick="subs(<%=current_user.id%>, <%=forum.id%>)">Suscribirse</a></td>
+            <% end %>
+          <% end %>
+
+          <% if user_signed_in? and current_user.admin? %>
+            <td><%= link_to 'Editar foro', edit_forum_path(forum), :id => "link_normal" %></td>
+            <td><%= link_to 'Eliminar foro', forum, method: :delete, data: { confirm: '¿Estás seguro?' }, 
+            :id => "link_normal" %></td>
+          <% end %>          
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <div class="col-md-4 col-md-offset-4"><%= will_paginate @forums %></div>
+
+
+  <br>
+
+  <% if user_signed_in? and current_user.admin? %>  
+    <%= link_to 'Nuevo Foro', new_forum_path, :id => 'titulo_sub' %>
+  <% end %> 
+
+
+</div>

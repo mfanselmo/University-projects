@@ -1,0 +1,12 @@
+<% if user_signed_in? and current_user.admin? %> 
+	<h1>Editing Forum</h1>
+
+	<%= render 'form', forum: @forum %>
+
+	<%= link_to 'Show', @forum %> |
+	<%= link_to 'Back', forums_path %>
+<% else %>
+	<script type="text/javascript"> 
+	 	window.location.href="/"
+	</script>
+<% end %> 

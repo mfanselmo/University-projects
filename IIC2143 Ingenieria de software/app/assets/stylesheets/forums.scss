@@ -1,0 +1,22 @@
+// Place all the styles related to the Forums controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.pagination {
+  .previous_page { background: white; color: dodgerblue }
+  .previous_page.disabled { background: white; color: #777 }
+  .current { background: white; color: black; font-size: 16px}
+  .next_page { background: white; color: dodgerblue }
+  .next_page.disabled { background: white; color: #777 }
+}
+
+#show_md_post {
+	margin-top: 0px;
+	min-height: 4em; 
+	border: solid; 
+	border-width: 1px;
+	border-radius: 5px;
+	margin-bottom: 1em;
+	border-color: #DCDCDC;
+	padding: 1em;
+}

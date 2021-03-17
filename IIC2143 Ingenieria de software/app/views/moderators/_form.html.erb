@@ -1,0 +1,27 @@
+<%= form_with(model: moderator, local: true) do |form| %>
+  <% if moderator.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(moderator.errors.count, "error") %> prohibited this moderator from being saved:</h2>
+
+      <ul>
+      <% moderator.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.number_field :user_id, id: :moderator_user_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :forum_id %>
+    <%= form.number_field :forum_id, id: :moderator_forum_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,23 @@
+<div class="media">
+<%= form_for([@post, get_comment()]) do |f| %>
+  <div class="field">
+    <%= f.text_field :commenter, value: current_user.username, style: "#{'display:none';}" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.text_area :body, class: 'form-control', placeholder:'Contenido' %>
+  </div>
+  <div class="field">
+    <%= f.file_field :image %>
+  </div>
+  
+  <label class="btn btn-primary">
+    Submit
+    <span style="display:none;">
+      <%= f.submit  %>
+    </span>
+  </label>
+<% end %>
+</div>
+
+

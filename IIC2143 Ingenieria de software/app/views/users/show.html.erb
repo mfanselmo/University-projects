@@ -1,0 +1,89 @@
+<% if user_signed_in? %>
+
+	<h1> Perfil de usuario </h1>
+
+	<div class="col-md-3">
+		<div class="user-card">
+			<div class="card-header"><h5>Perfil</h5></div>
+			<div class="card-block">
+				<div class="usre-image">
+					<div class="thumbnail"><%= image_tag(@user.avatar.url , :alt => "user view") %></div>
+				</div>
+				<h6 class="f-w-600 m-t-25 m-b-10"><%=@user.username%></h6>
+				<hr>
+				<div class="bg-c-blue counter-block m-t-10 p-20">
+					<div class="row">
+						<div class="col-sm-1"></div>
+						<div class="col-sm-4">
+							<p><%=@user.points%>
+								<span class="glyphicon glyphicon-star" style="color: yellow;"></span></p>
+						</div>
+						<div class="col-sm-3">
+							<p><%= @user.votes.up.size %>
+								<span class="glyphicon glyphicon-thumbs-up" style="color: green;"></span></p>
+						</div>
+						<div class="col-sm-3">
+							<p><%= @user.votes.down.size %>
+								<span class="glyphicon glyphicon-thumbs-down" style="color: red;"></span></p>
+						</div>
+					</div>
+				</div>
+				<% if current_user.id == @user.id %>
+				<hr>
+					<div class="bg-c-blue counter-block m-t-10 p-20" style="text-align: center;">
+						<% if not @user.admin? and moderaciones(@user).length > 2%>
+							<% if not esta_postulando(@user.id, 0)%>
+						      <a id = "administrate" onclick="postulate_admin(<%=@user.id%>)" 
+						     class='btn btn-primary' style="color:white;">Postular a administrador</a>
+						    <% else %>
+						      <p id = "administrate">Ya estas postulando para ser administrador!</p>
+						    <% end %>
+				    	<% end %>
+				    	<% if @user.admin? %>
+				    		<h6 class="f-w-600 m-t-25 m-b-10">Administrador</h6>
+				    	<% end %>
+	    			</div>
+    			<% end %>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-md-9">
+		<table class=" table table-striped" data-sort-name="name" data-sort-order="desc">
+
+		  <tbody>
+		    <tr>
+		      <td>Usuario</td>
+		      <td><%= @user.username %></td>
+		    </tr>
+		    <tr>
+		      <td>Correo electrónico</td>
+		      <td><%= @user.email %></td>
+		    </tr>
+		    <tr>
+		      <td>Puntos</td>
+		      <td><%= calculate_points(vote_info(@user)) %></td>
+		    </tr>
+		    <tr>
+		      <td>Votos realizados</td>
+		      <td><%= @user.votes.up.size + @user.votes.down.size %></td>
+		    </tr>
+			<tr>
+		      <td>Likes realizados</td>
+		      <td><%= @user.votes.up.size %></td>
+		    </tr>
+		    <tr>
+		      <td>Dislikes realizados</td>
+		      <td><%= @user.votes.down.size %></td>
+		    </tr>
+		  </tbody>
+		</table>
+	</div>
+
+
+<% else %>
+	<script type="text/javascript">
+    window.location.href="/"  // put your correct path in a string here
+  	</script>
+<% end %>
+

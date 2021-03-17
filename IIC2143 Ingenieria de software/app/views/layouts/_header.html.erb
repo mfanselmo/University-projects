@@ -1,0 +1,121 @@
+<div class="container-fluid" >
+    <nav class="navbar navbar-default"style="background-color: #565D78;">
+      <div class="container" >
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header" >
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href= "/" style="font-size: 25px; color: #DCDCDC;"><span class="b">DCC</span>Blogger</a>
+        </div>
+    
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="navbar-collapse-1">
+
+              <!-- USUARIO NORMAL -->
+              <% if user_signed_in? %>
+              <%#= render 'layouts/notify', notifications: current_user.all_notifications %>
+              <ul class="nav navbar-nav navbar-right">
+                <li><a style="color: #DCDCDC;">Ingresado como <%= current_user.username %></a></li>
+                <%= render 'layouts/notify', notifications: current_user.all_notifications %>
+                <li>
+                  <div class="dropdown">
+                   <button class="btn btn-primary   dropdown-toggle"  type="button" data-toggle="dropdown">Perfil</button>
+                    <ul class="dropdown-menu">
+                      <li><%= link_to "Perfil", user_path(current_user), :id => "link_boton" %></li>
+                      <li><%= link_to "Favoritos", favoritos_path, :id => "link_boton" %></li>
+
+                      <li><%= link_to 'Editar perfil', edit_user_registration_path, :class => 'navbar-link', :id => "link_boton"  %></li>
+                      <li><%= link_to "Salir", destroy_user_session_path, method: :delete, :class => 'navbar-link', :id => "link_boton" %></li>
+
+                      <!-- ADMIN -->
+                      <% if current_user.admin? %>
+                        <li><%= link_to "Admin", admin_path , :class => 'navbar-link', :id => "link_boton"   %></li>
+                      <% end %>
+
+                    </ul>
+                  </div>
+                </li>
+              </ul>
+
+              <!-- GUEST -->
+              <% elsif not user_signed_in? %>
+              <ul class="nav navbar-nav navbar-right">
+                <li><a style="color: #DCDCDC;">Modo visita </a></li>
+                <li><%= link_to "Registrarse", new_user_registration_path, :class => 'navbar-link',:style => "color: #DCDCDC;", method: :get  %></li> 
+                <li>
+                  <a class="btn btn-default btn-outline btn-circle collapsed"  data-toggle="collapse" href="#nav-collapse2" aria-expanded="false" aria-controls="nav-collapse2" style = "color: #DCDCDC;">Ingresar</a>
+
+                </li>
+              </ul>
+              <div class="collapse nav navbar-nav nav-collapse slide-down" id="nav-collapse2">
+
+
+                <%= form_for(:user, :html => {class: 'navbar-form navbar-right form-inline', role: "form" }, :url => session_path(:user)) do |f| %>
+                  <%= f.text_field :email, class: 'form-control', placeholder: 'Email'%>
+                  <%= f.password_field :password, class: 'form-control', placeholder: 'Contraseña' %>
+                  <%= f.submit 'Sign in', class: "btn btn-success"%>
+                <% end %>
+                <div><a role="button" href="<%=user_facebook_omniauth_authorize_path%>" 
+                  class="nav navbar-nav navbar-right">
+                <i class="fa fa-facebook-square" style="font-size:36px"></i>
+                </a>
+                </div>
+
+              </div>
+
+              <% else %>
+                <ul class="nav navbar-nav navbar-right">
+                <li>
+                  <%= link_to "Registrarse", new_user_registration_path, :class => 'navbar-link', method: :get  %>
+                </li>
+                <li>
+                  <%= link_to "Ingresar", new_user_session_path, :class => 'navbar-link'  %>
+                </li>
+                </ul> 
+              <% end %>
+
+              <ul class="nav navbar-nav navbar-right" style="padding-top: 10px;">
+           <!--    <li>
+              <%= form_tag(searches_path, :method => "get", id: "search-form") do %>
+                <div id="custom-search-input-2">
+                    <%=select_tag :option, options_for_select([["Usuario", "user"], ["Publicación", "post"], 
+                    ["Foro", "forum"], ["Comentario", "comment"]])%>
+                    <%= text_field_tag :search, params[:search], placeholder: "Escribe aquí "%>
+                    <span>
+                        <button type="button">
+                            <%= submit_tag "Buscar", :name => nil, :class=>"btn", style: "#{'display:none';}"%>
+                        </button>  
+                    </span>
+                </div>
+              <% end %>
+              </li> -->
+              </ul>
+
+
+          
+      </div><!-- /.container -->
+    </nav><!-- /.navbar -->
+</div><!-- /.container-fluid -->
+
+
+
+<% if notice %>
+  <div class="alert alert-success" role="alert">
+    <%= notice %>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+<% end %>
+<% if alert %>
+  <div class="alert alert-danger" role="alert">
+    <%= alert %>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+<% end %>

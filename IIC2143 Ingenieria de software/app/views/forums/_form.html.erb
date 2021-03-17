@@ -1,0 +1,28 @@
+
+<%= form_with(model: forum, local: true) do |form| %>
+  <% if forum.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(forum.errors.count, "error") %> prohibited this forum from being saved:</h2>
+
+      <ul>
+      <% forum.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+ 	<div class="form-group">
+		<%= form.text_field :name, id: :forum_name, placeholder: 'Nombre del foro', class: 'form-control' %>
+  	</div>
+ 	<div class="form-group">
+        <%= form.text_area :description, class: 'form-control', placeholder:'Descripcion' %>
+      </div>
+
+  <label class="btn btn-primary">
+	Submit
+	<span style="display:none;">
+	  <%= form.submit  %>
+	</span>
+	</label	>
+<% end %>

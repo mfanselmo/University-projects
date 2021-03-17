@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>DCCBlogger-Grupo 02</title>
+    <%= render 'layouts/rails_default' %>
+    <%= render 'layouts/shim' %>
+
+  </head>
+
+<%#  unless current_user %> 
+  <%#= link_to "Sign in with Facebook", user_facebook_omniauth_authorize_path %>
+<%#  else %>
+  <%#= current_user[:name] %>
+  <%#= link_to "Logout", destroy_user_session_path, method: :delete %>
+<%# end %>
+
+  <body>
+
+  <body style="background-color: #E6E9ED;">
+    
+    <%= render 'layouts/header' %>
+    <div class="container-fluid">
+      <%= yield %>
+
+    </div>
+  </body>
+</html>

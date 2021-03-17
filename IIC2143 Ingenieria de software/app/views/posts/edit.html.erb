@@ -1,0 +1,20 @@
+
+<% if user_signed_in? %>
+	<% if current_user.username == @post.name or current_user.admin? or moderadores(@post.forum).include? current_user.id %> 
+
+		<h1>Editing Post</h1>
+		<%= render 'form', post: @post %>
+
+		<%= link_to 'Show', @post %> |
+		<%= link_to 'Back', forums_path %>
+		
+	<% else %>
+	<script type="text/javascript"> 
+	 	window.location.href="/"
+	</script>
+	<% end %>
+<% else %>
+	<script type="text/javascript"> 
+	 	window.location.href="/"
+	</script>
+<% end %>
