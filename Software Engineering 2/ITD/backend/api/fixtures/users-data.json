@@ -1,0 +1,89 @@
+[{
+    "model": "api.position",
+    "fields": {
+      "address": "via tartini",
+      "latitude": 93.887,
+      "longitude": 87.453
+    }
+  },
+  {
+    "model": "api.position",
+    "fields": {
+      "address": "via derganino",
+      "latitude": 84.887,
+      "longitude":65.453
+    }
+  },
+  {
+    "model": "api.position",
+    "fields": {
+      "address": "via pasino",
+      "latitude": 56.887,
+      "longitude":45.453
+    }
+  },
+  {
+    "model": "api.store",
+    "fields": {
+    "store_id": 1,
+    "location": 1,
+    "max_customers": 50,
+    "current_customers": 0,
+    "name": "CONAD"
+    }
+  },
+  {
+    "model": "api.store",
+    "fields": {
+    "store_id": 2,
+    "location": 2,
+    "max_customers": 70,
+    "current_customers": 0,
+    "name": "CONAD"
+    }
+  },
+  {
+    "model": "api.store",
+    "fields": {
+    "store_id": 3,
+    "location": 3,
+    "max_customers": 60,
+    "current_customers": 0,
+    "name": "CONAD"
+    }
+  },
+  {
+    "model": "api.user",
+    "fields": {
+      "user_id":1,
+      "name": "vinay",
+      "phone_number": "+393111111111",
+      "email_address": "vinay@gmail.com",
+      "isManager": true,
+      "managed_store_id": [1]
+    }
+  },
+  {
+    "model": "api.user",
+    "fields": {
+      "user_id":2,
+      "name": "david",
+      "phone_number": "+393222222222",
+      "email_address": "david@gmail.com",
+      "isManager": true,
+      "managed_store_id": [1,2]
+    }
+  },
+  {
+    "model": "api.user",
+    "fields": {
+      "user_id":3,
+      "name": "martin",
+      "phone_number": "+393333333333",
+      "email_address": "martin@gmail.com",
+      "isManager":true,
+      "managed_store_id": [2]
+
+    }
+  }
+]

@@ -1,0 +1,42 @@
+@import "~antd/dist/antd.css";
+@import "./router/index.scss";
+@import "./components/index.scss";
+@import "./pages/Home/index.scss";
+@import "./pages/Manager/index.scss";
+
+body {
+  background-color: #f7f8fc;
+}
+
+.header-container {
+  background-color: white;
+
+  //   position: sticky;
+  //   height: 60px;
+  width: 100%;
+  padding-top: 10px;
+  //   margin-bottom: 20px;
+  //   background-color: rgba(243, 243, 243, 0.3);
+  //   font-family: sans-serif;
+  //   backdrop-filter: blur(3px);
+  //   -webkit-backdrop-filter: blur(10px);
+}
+
+.router-container {
+  margin: auto;
+  width: 90%;
+  border-radius: 1px;
+  background-color: white;
+  //   border: solid 1px lightgray;
+  padding: 20px;
+  min-height: 400px;
+  margin-top: 20px;
+}
+
+@media (min-width: 768px) {
+  .router-container {
+    margin: auto;
+    margin-top: 20px;
+    width: 70%;
+  }
+}
