@@ -1,0 +1,18 @@
+{
+    "colors": {
+        "background_color": "rgba(0,0,0,0)",
+        "offline_color": "gray",
+        "base_lane_color": "#FFFFFF"
+    },
+    "sizes": {
+        "deadline_width": 20,
+        "slot_width": 180,
+        "processor_slot_height": 180,
+        "general_slot_height": 180
+    },
+    "display": {
+        "show_deadlines": true,
+        "show_controls": true,
+        "show_pattern": true
+    }
+}

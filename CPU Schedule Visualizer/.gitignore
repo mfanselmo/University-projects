@@ -1,0 +1,6 @@
+output-protocol-description.md
+tests/
+code/.vscode/
+!**/__pycache__/
+!**/pycache/*
+*.pyc
